@@ -4,6 +4,7 @@ import Image from "next/image";
 const links = [
   { href: "/moris", label: "MORIS" },
   { href: "/resonance", label: "Corpus" },
+  { href: "/resonance/series", label: "The Books" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -53,7 +54,38 @@ export default function ResonanceLanding() {
         </p>
       </section>
 
-      <section className="border-t border-line pt-10">
+      <Link href="/resonance/series" className="group block border-t border-line pt-8">
+        <div className="flex items-baseline justify-between gap-4">
+          <h2 className="font-serif text-2xl text-ink">The fifteen books</h2>
+          <span className="shrink-0 text-sm font-medium text-accent transition-colors group-hover:text-ink">
+            Open the series <span aria-hidden>&rarr;</span>
+          </span>
+        </div>
+        <div className="mt-5 flex gap-2.5 sm:gap-3">
+          {[
+            ["resonance", "Resonance"],
+            ["transformation", "Transformation"],
+            ["time", "Time"],
+            ["sacred", "The Sacred"],
+            ["grammar", "The Grammar of God"],
+          ].map(([slug, name]) => (
+            <div
+              key={slug}
+              className="relative aspect-[2/3] flex-1 overflow-hidden rounded-md border border-line shadow-sm transition-transform group-hover:-translate-y-0.5"
+            >
+              <Image
+                src={`/trilogies/${slug}.jpg`}
+                alt={`${name} trilogy cover`}
+                fill
+                sizes="(max-width: 640px) 20vw, 130px"
+                className="object-cover"
+              />
+            </div>
+          ))}
+        </div>
+      </Link>
+
+      <section className="mt-12 border-t border-line pt-10">
         <h2 className="font-serif text-2xl text-ink">The shape of it</h2>
         <p className="mt-3 leading-relaxed text-muted">
           One work, fifteen books, five trilogies. Each trilogy takes a single
