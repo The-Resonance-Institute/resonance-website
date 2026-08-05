@@ -52,9 +52,9 @@ const trilogies: Trilogy[] = [
     line: "Leading inside something we cannot stop: attention, patience, memory, and bequest across three timescales.",
     art: "/trilogies/time.jpg",
     books: [
-      { n: 7, title: "The Sands of Life", scale: "The self" },
-      { n: 8, title: "The Two Clocks of Leadership", scale: "The community" },
-      { n: 9, title: "The Eras of Civilization", scale: "The world" },
+      { n: 7, title: "The Sands of Life", scale: "The self", cover: "/covers/book7.jpg" },
+      { n: 8, title: "The Two Clocks of Leadership", scale: "The community", cover: "/covers/book8.jpg" },
+      { n: 9, title: "The Eras of Civilization", scale: "The world", cover: "/covers/book9.jpg" },
     ],
   },
   {
@@ -63,9 +63,9 @@ const trilogies: Trilogy[] = [
     line: "What is owed to the depth of things. Reverence as a leadership capacity.",
     art: "/trilogies/sacred.jpg",
     books: [
-      { n: 10, title: "The Art of Nearness", scale: "The self" },
-      { n: 11, title: "The Light We Tend Together", scale: "The community" },
-      { n: 12, title: "The Mercy of Illumination", scale: "The world" },
+      { n: 10, title: "The Art of Nearness", scale: "The self", cover: "/covers/book10.jpg" },
+      { n: 11, title: "The Light We Tend Together", scale: "The community", cover: "/covers/book11.jpg" },
+      { n: 12, title: "The Mercy of Illumination", scale: "The world", cover: "/covers/book12.jpg" },
     ],
   },
   {
@@ -74,9 +74,9 @@ const trilogies: Trilogy[] = [
     line: "The capstone. The whole work re-read as language, the parts of speech by which a life is composed.",
     art: "/trilogies/grammar.jpg",
     books: [
-      { n: 13, title: "Article and Noun" },
-      { n: 14, title: "Verb and Adjective" },
-      { n: 15, title: "Conjunction and Punctuation" },
+      { n: 13, title: "Article and Noun", cover: "/covers/book13.jpg" },
+      { n: 14, title: "Verb and Adjective", cover: "/covers/book14.jpg" },
+      { n: 15, title: "Conjunction and Punctuation", cover: "/covers/book15.jpg" },
     ],
   },
 ];
