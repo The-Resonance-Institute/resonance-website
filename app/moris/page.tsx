@@ -33,7 +33,7 @@ export default function MorisLanding() {
         <p className="text-xs font-medium uppercase tracking-[0.18em] text-accent">
           Artificial conscience · deterministic pre-execution control plane
         </p>
-        <h1 className="mt-4 font-serif text-5xl text-ink sm:text-6xl">MORIS</h1>
+        <h1 className="mt-6 font-serif text-5xl text-ink sm:text-6xl">MORIS</h1>
         <p className="mt-6 max-w-2xl text-xl leading-relaxed text-ink">
           An artificial conscience for machines that act. A fixed, authored way of
           perceiving the character of an action, held mechanically, that renders a
