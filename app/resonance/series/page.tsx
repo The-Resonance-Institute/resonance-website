@@ -197,7 +197,7 @@ export default function Series() {
         </h2>
         <p className="mt-3 max-w-2xl leading-relaxed text-muted">
           <span className="italic text-ink">Echoes of the Unseen</span>, the
-          opening volume of the Resonance trilogy, is arriving first. The rest of
+          opening volume of the Resonance trilogy, is arriving soon. The rest of
           the series follows.
         </p>
         <Link
