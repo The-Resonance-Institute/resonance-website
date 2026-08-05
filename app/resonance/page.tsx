@@ -121,7 +121,7 @@ export default function ResonanceLanding() {
 
       <section className="mt-12 border-t border-line pt-10">
         <p className="leading-relaxed text-muted">
-          The work was written over years, and written for people: for anyone who
+          The work was written over years, for anyone who
           knows that leadership and relationship are more than a seven-step program
           or a handful of hacks, that they are the long work of connecting at every
           level and tending the relationships around you. It is also the substrate
