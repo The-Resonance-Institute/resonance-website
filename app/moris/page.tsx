@@ -72,7 +72,25 @@ export default function MorisLanding() {
         </p>
       </section>
 
-      <section className="mt-14 grid gap-5 sm:grid-cols-3">
+      <section className="mt-14 grid gap-5 sm:grid-cols-2">
+        <Link
+          href="/moris/problem"
+          className="group rounded-2xl border border-line bg-white p-7 transition-colors hover:border-accent"
+        >
+          <p className="text-xs font-medium uppercase tracking-[0.18em] text-accent">
+            The problem
+          </p>
+          <h3 className="mt-2 font-serif text-xl text-ink">
+            Permitted, and still wrong
+          </h3>
+          <p className="mt-2 text-sm leading-relaxed text-muted">
+            Documented harm without malice, and the industry converging on the gap:
+            incidents, analysts, the labs, and the regulation.
+          </p>
+          <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-accent transition-colors group-hover:text-ink">
+            Read <span aria-hidden>&rarr;</span>
+          </span>
+        </Link>
         <Link
           href="/moris/conscience"
           className="group rounded-2xl border border-line bg-white p-7 transition-colors hover:border-accent"
