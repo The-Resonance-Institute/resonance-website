@@ -72,7 +72,7 @@ export default function MorisLanding() {
         </p>
       </section>
 
-      <section className="mt-14 grid gap-5 sm:grid-cols-2">
+      <section className="mt-14 grid gap-5 sm:grid-cols-3">
         <Link
           href="/moris/conscience"
           className="group rounded-2xl border border-line bg-white p-7 transition-colors hover:border-accent"
@@ -86,6 +86,24 @@ export default function MorisLanding() {
           <p className="mt-2 text-sm leading-relaxed text-muted">
             The failure it is for, the three-property test, and why it is a
             posture, not a doctrine.
+          </p>
+          <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-accent transition-colors group-hover:text-ink">
+            Read <span aria-hidden>&rarr;</span>
+          </span>
+        </Link>
+        <Link
+          href="/moris/consequences"
+          className="group rounded-2xl border border-line bg-white p-7 transition-colors hover:border-accent"
+        >
+          <p className="text-xs font-medium uppercase tracking-[0.18em] text-accent">
+            What falls out
+          </p>
+          <h3 className="mt-2 font-serif text-xl text-ink">
+            The shadows a conscience casts
+          </h3>
+          <p className="mt-2 text-sm leading-relaxed text-muted">
+            Governance, safety, auditability, jailbreak resistance, reliability:
+            properties a conscience has, not products it adds.
           </p>
           <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-accent transition-colors group-hover:text-ink">
             Read <span aria-hidden>&rarr;</span>
