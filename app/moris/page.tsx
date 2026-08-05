@@ -46,7 +46,8 @@ export default function MorisLanding() {
           <Link href="/resonance" className="text-accent underline decoration-line hover:decoration-accent">
             Resonance corpus
           </Link>
-          , the philosophy that proved to be the substrate a machine needs.
+          , the philosophy that proved to be a substrate well suited to building
+          one.
         </p>
       </section>
 
@@ -64,10 +65,10 @@ export default function MorisLanding() {
         <p className="mt-3 max-w-2xl text-ink">
           The claim is not that MORIS blocks more than a good policy. It is that it
           reads what a rulebook cannot, and makes the decision provable. The
-          structural core is model-free and incorruptible today; reading the full
-          content and intent of an action still rides a bounded perceiver, and
-          hardening that is the work ahead. Everyone else&rsquo;s soft spot is the
-          judge. Ours is the eyes.
+          judgment is a pure function: no model sits where the verdict is decided,
+          so no crafted prompt can argue it out of its answer, and the same action
+          always yields the same verdict. Everyone else&rsquo;s soft spot is the
+          judge. Ours never is.
         </p>
       </section>
 

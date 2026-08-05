@@ -26,7 +26,7 @@ export function SiteFooter() {
             contact@resonanceinstitutellc.com
           </a>
           <span className="text-faint">
-            © {new Date().getFullYear()} The Resonance Institute, LLC · Los Angeles
+            © {new Date().getFullYear()} The Resonance Institute, LLC · Huntington Beach
           </span>
         </div>
       </div>
