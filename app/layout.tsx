@@ -24,6 +24,31 @@ export const metadata: Metadata = {
   },
   description:
     "An independent studio for rigorous philosophical thought where enduring questions meet modern technology, home to two bodies of work: the Resonance corpus, a living philosophy in fifteen books, and MORIS, an artificial conscience for machines that act.",
+  applicationName: "The Resonance Institute",
+  keywords: [
+    "The Resonance Institute",
+    "Resonance corpus",
+    "MORIS",
+    "artificial conscience",
+    "C. T. Herndon",
+    "philosophy",
+    "AI safety",
+  ],
+  openGraph: {
+    type: "website",
+    url: "https://www.resonanceinstitutellc.com",
+    siteName: "The Resonance Institute",
+    title: "The Resonance Institute",
+    description:
+      "An independent studio for rigorous philosophical thought. Two bodies of work: the Resonance corpus, a living philosophy in fifteen books, and MORIS, an artificial conscience for machines that act.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "The Resonance Institute",
+    description:
+      "An independent studio for rigorous philosophical thought. The Resonance corpus and MORIS, an artificial conscience for machines that act.",
+  },
+  robots: { index: true, follow: true },
 };
 
 export default function RootLayout({
@@ -34,6 +59,24 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${newsreader.variable}`}>
       <body className="flex min-h-screen flex-col">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "The Resonance Institute",
+              url: "https://www.resonanceinstitutellc.com",
+              description:
+                "An independent studio for rigorous philosophical thought, home to the Resonance corpus and MORIS, an artificial conscience for machines that act.",
+              founder: { "@type": "Person", name: "Christopher T. Herndon" },
+              location: {
+                "@type": "Place",
+                name: "Huntington Beach, California",
+              },
+            }),
+          }}
+        />
         <SiteNav />
         <main className="flex-1">{children}</main>
         <SiteFooter />
