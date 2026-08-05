@@ -29,7 +29,7 @@ const properties = [
 export default function MorisLanding() {
   return (
     <div className="mx-auto max-w-5xl px-6">
-      <section className="pt-20 pb-12 sm:pt-24">
+      <section className="pt-10 pb-12 sm:pt-14">
         <p className="text-xs font-medium uppercase tracking-[0.18em] text-accent">
           Artificial conscience · deterministic pre-execution control plane
         </p>
