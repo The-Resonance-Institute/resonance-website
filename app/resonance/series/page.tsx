@@ -142,19 +142,21 @@ export default function Series() {
       <div className="space-y-16 pb-8">
         {trilogies.map((t) => (
           <section key={t.numeral} className="border-t border-line pt-10">
-            <div className="flex flex-col gap-7 sm:flex-row sm:items-start sm:gap-9">
-              <div className="w-40 shrink-0 sm:w-44">
-                <div className="relative aspect-[2/3] overflow-hidden rounded-lg border border-line shadow-sm">
+            <div className="flex flex-col gap-7 sm:flex-row sm:items-start sm:gap-10">
+              {/* The trilogy volume: the hero of the row, bigger and to the left */}
+              <div className="w-44 shrink-0 sm:w-60">
+                <div className="relative aspect-[2/3] overflow-hidden rounded-xl border border-line shadow-md">
                   <Image
                     src={t.art}
                     alt={`Cover of the ${t.name} trilogy`}
                     fill
-                    sizes="176px"
+                    sizes="(max-width: 640px) 176px, 240px"
                     className="object-cover"
                   />
                 </div>
               </div>
 
+              {/* The three volumes: smaller, to the right */}
               <div className="flex-1">
                 <div className="flex items-baseline gap-4">
                   <span className="font-serif text-3xl leading-none text-accent">
@@ -164,20 +166,20 @@ export default function Series() {
                 </div>
                 <p className="mt-3 max-w-2xl leading-relaxed text-muted">{t.line}</p>
 
-                <div className="mt-7 grid grid-cols-3 gap-4 sm:gap-5">
+                <div className="mt-6 grid max-w-sm grid-cols-3 gap-3 sm:gap-4">
                   {t.books.map((b) => (
                     <div key={b.n}>
                       <Cover book={b} />
-                      <div className="mt-2.5">
+                      <div className="mt-2">
                         {b.scale && (
-                          <p className="text-[0.6rem] uppercase tracking-[0.16em] text-muted">
+                          <p className="text-[0.55rem] uppercase tracking-[0.14em] text-muted">
                             {b.scale}
                           </p>
                         )}
-                        <h3 className="mt-1 font-serif text-sm leading-snug text-ink">
+                        <h3 className="mt-0.5 font-serif text-xs leading-snug text-ink">
                           {b.title}
                         </h3>
-                        <p className="mt-0.5 text-xs text-muted">Book {b.n}</p>
+                        <p className="mt-0.5 text-[0.65rem] text-muted">Book {b.n}</p>
                       </div>
                     </div>
                   ))}
