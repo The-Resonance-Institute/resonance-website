@@ -72,6 +72,45 @@ export default function MorisLanding() {
         </p>
       </section>
 
+      <section className="mt-14 grid gap-5 sm:grid-cols-2">
+        <Link
+          href="/moris/conscience"
+          className="group rounded-2xl border border-line bg-white p-7 transition-colors hover:border-accent"
+        >
+          <p className="text-xs font-medium uppercase tracking-[0.18em] text-accent">
+            The category
+          </p>
+          <h3 className="mt-2 font-serif text-xl text-ink">
+            What an artificial conscience is
+          </h3>
+          <p className="mt-2 text-sm leading-relaxed text-muted">
+            The failure it is for, the three-property test, and why it is a
+            posture, not a doctrine.
+          </p>
+          <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-accent transition-colors group-hover:text-ink">
+            Read <span aria-hidden>&rarr;</span>
+          </span>
+        </Link>
+        <Link
+          href="/moris/platform"
+          className="group rounded-2xl border border-line bg-white p-7 transition-colors hover:border-accent"
+        >
+          <p className="text-xs font-medium uppercase tracking-[0.18em] text-accent">
+            The platform thesis
+          </p>
+          <h3 className="mt-2 font-serif text-xl text-ink">
+            One conscience, many autonomies
+          </h3>
+          <p className="mt-2 text-sm leading-relaxed text-muted">
+            Why a domain-independent judgment is infrastructure, not a feature, and
+            the one company that is the whole proof.
+          </p>
+          <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-accent transition-colors group-hover:text-ink">
+            Read <span aria-hidden>&rarr;</span>
+          </span>
+        </Link>
+      </section>
+
       <section className="mt-14 border-t border-line pt-10">
         <h2 className="font-serif text-2xl text-ink">Under NDA</h2>
         <p className="mt-3 max-w-2xl text-muted">
