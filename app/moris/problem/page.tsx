@@ -263,7 +263,7 @@ export default function Problem() {
       </section>
 
       <section className="mt-12 rounded-2xl border border-line bg-accent-soft p-8 sm:p-10">
-        <h2 className="font-serif text-2xl text-ink">The seat the pattern points to</h2>
+        <h2 className="font-serif text-2xl text-ink">What MORIS is built for</h2>
         <p className="mt-3 max-w-2xl leading-relaxed text-ink">
           Line the evidence up and it points one direction. The controls that exist
           check whether an action was permitted, watch the model&rsquo;s words, or
@@ -276,8 +276,12 @@ export default function Problem() {
           >
             artificial conscience
           </Link>{" "}
-          is. MORIS does not claim it would have caught any specific incident above.
-          It is built to occupy the seat the whole pattern points to.
+          is, and it is what MORIS renders. The failures above share one shape: an
+          action permitted, taken, and wrong, the shape a permission engine and a
+          threat detector are blind to by construction. Judging that shape before it
+          executes, by a fixed reference, on a record anyone can reproduce, is
+          squarely what MORIS is built to do. Not a corner case for it. Central to
+          why it exists.
         </p>
       </section>
 
