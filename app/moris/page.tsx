@@ -128,6 +128,24 @@ export default function MorisLanding() {
           </span>
         </Link>
         <Link
+          href="/moris/evidence"
+          className="group rounded-2xl border border-line bg-white p-7 transition-colors hover:border-accent"
+        >
+          <p className="text-xs font-medium uppercase tracking-[0.18em] text-accent">
+            The evidence
+          </p>
+          <h3 className="mt-2 font-serif text-xl text-ink">
+            A verdict you can recompute
+          </h3>
+          <p className="mt-2 text-sm leading-relaxed text-muted">
+            Re-derivable, not just logged: why anyone who distrusts you can
+            reproduce the verdict, and why immutable is not enough.
+          </p>
+          <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-accent transition-colors group-hover:text-ink">
+            Read <span aria-hidden>&rarr;</span>
+          </span>
+        </Link>
+        <Link
           href="/moris/platform"
           className="group rounded-2xl border border-line bg-white p-7 transition-colors hover:border-accent"
         >
