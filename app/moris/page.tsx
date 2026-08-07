@@ -31,7 +31,7 @@ export default function MorisLanding() {
     <div className="mx-auto max-w-5xl px-6">
       <section className="pt-10 pb-12 sm:pt-14">
         <p className="text-xs font-medium uppercase tracking-[0.18em] text-accent">
-          Artificial conscience · deterministic pre-execution control plane
+          Deterministic pre-execution control plane
         </p>
         <h1 className="mt-6 font-serif text-5xl text-ink sm:text-6xl">MORIS</h1>
         <p className="mt-6 max-w-2xl text-xl leading-relaxed text-ink">
