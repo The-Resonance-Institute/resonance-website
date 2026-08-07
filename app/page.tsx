@@ -57,11 +57,12 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Connective truth + Institute framing */}
+      {/* Closing thesis + Institute framing */}
       <section className="mt-12 border-t border-line pt-8">
         <p className="max-w-3xl font-serif text-lg font-light italic leading-snug text-ink sm:text-xl">
-          MORIS is built on the Resonance corpus. The philosophy came first, on its
-          own terms, and turned out to be a substrate well suited to building it.
+          You do not make a faster machine safe with a better brake. You steer
+          it. MORIS governs how each action proceeds, where a rulebook can only
+          stop it.
         </p>
         <Link
           href="/about"
