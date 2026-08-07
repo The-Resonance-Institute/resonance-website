@@ -9,7 +9,7 @@ export default function Home() {
           The Resonance Institute is an independent studio for rigorous
           philosophical thought, where enduring questions meet modern technology.
           From one authored foundation come two bodies of work, the Resonance
-          corpus and MORIS, and the teaching and counsel that grow from the same
+          series and MORIS, and the teaching and counsel that grow from the same
           source.
         </p>
       </section>
@@ -35,13 +35,13 @@ export default function Home() {
           </Link>
         </div>
 
-        {/* Corpus — prominent secondary */}
+        {/* The Series - prominent secondary */}
         <div className="flex flex-col rounded-2xl border border-line bg-white p-8 sm:p-9">
           <p className="text-xs font-medium uppercase tracking-[0.18em] text-muted">
             The substrate
           </p>
           <h2 className="mt-3 font-serif text-4xl text-ink sm:text-5xl">
-            The Corpus
+            The Series
           </h2>
           <p className="mt-4 flex-1 text-lg leading-relaxed text-ink">
             A living philosophy in fifteen books across five trilogies, each
@@ -52,7 +52,7 @@ export default function Home() {
             href="/resonance"
             className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-accent transition-colors hover:text-ink"
           >
-            Enter the Corpus <span aria-hidden>&rarr;</span>
+            Enter the Series <span aria-hidden>&rarr;</span>
           </Link>
         </div>
       </section>

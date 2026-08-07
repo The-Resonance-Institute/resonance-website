@@ -43,7 +43,7 @@ export default function MorisLanding() {
           an authored moral basis and read as a gradient, so it generalizes to the
           action no rule enumerated. It is built on the{" "}
           <Link href="/resonance" className="text-accent underline decoration-line hover:decoration-accent">
-            Resonance corpus
+            Resonance series
           </Link>
           , the philosophy that proved to be a substrate well suited to building
           it.

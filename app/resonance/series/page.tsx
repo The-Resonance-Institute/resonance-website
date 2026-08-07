@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "The Fifteen Books",
   description:
-    "The Resonance corpus in full: fifteen books across five trilogies, each theme carried from the self to the community to the world.",
+    "The Resonance series in full: fifteen books across five trilogies, each theme carried from the self to the community to the world.",
 };
 
 type Book = {
@@ -114,7 +114,7 @@ export default function Series() {
             href="/resonance"
             className="text-sm text-muted transition-colors hover:text-accent"
           >
-            <span aria-hidden>&larr;</span> The Resonance corpus
+            <span aria-hidden>&larr;</span> The Series
           </Link>
           <h1 className="mt-5 font-serif text-4xl leading-tight text-ink sm:text-5xl">
             The fifteen books.

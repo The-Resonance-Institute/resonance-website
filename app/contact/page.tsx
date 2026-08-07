@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Two paths: a MORIS technical or acquisition inquiry, and a corpus or publishing inquiry. Reach The Resonance Institute directly.",
+    "Two paths: a MORIS technical or acquisition inquiry, and a series or publishing inquiry. Reach The Resonance Institute directly.",
 };
 
 const email = "contact@resonanceinstitutellc.com";
@@ -16,10 +16,10 @@ const paths = [
     subject: "MORIS — technical / acquisition inquiry",
   },
   {
-    tag: "Corpus · reading & publishing",
+    tag: "The Series · reading & publishing",
     body: "For readers, students, and publishing. The Resonance series, the first volume, and where to be told when it lands.",
-    action: "Ask about the Corpus",
-    subject: "Resonance corpus — reading / publishing inquiry",
+    action: "Ask about the Series",
+    subject: "Resonance series: reading / publishing inquiry",
   },
 ];
 

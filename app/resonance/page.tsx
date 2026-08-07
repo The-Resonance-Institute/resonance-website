@@ -3,9 +3,9 @@ import Image from "next/image";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "The Resonance Corpus",
+  title: "The Series",
   description:
-    "The Resonance corpus is a living philosophy in fifteen books across five trilogies, each theme carried from the self to the community to the world. It is also the substrate beneath MORIS.",
+    "The Resonance series is a living philosophy in fifteen books across five trilogies, each theme carried from the self to the community to the world. It is also the substrate beneath MORIS.",
 };
 
 const trilogies = [
@@ -41,7 +41,7 @@ export default function ResonanceLanding() {
     <div className="mx-auto max-w-3xl px-6">
       <section className="pt-20 pb-10 sm:pt-28">
         <p className="text-xs font-medium uppercase tracking-[0.18em] text-muted">
-          The Resonance corpus
+          The Series
         </p>
         <h1 className="mt-4 font-serif text-4xl leading-tight text-ink sm:text-5xl">
           A living philosophy, learned by tuning.

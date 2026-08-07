@@ -9,7 +9,7 @@ export function SiteFooter() {
             MORIS
           </Link>
           <Link href="/resonance" className="transition-colors hover:text-accent">
-            Corpus
+            The Series
           </Link>
           <Link href="/about" className="transition-colors hover:text-accent">
             About

@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "The Resonance Institute holds both the Resonance corpus copyright and the MORIS intellectual property. One author produced both: a philosopher and operator whose fifteen-book work compiled into a working system for governing the actions of machines.",
+    "The Resonance Institute holds both the Resonance series copyright and the MORIS intellectual property. One author produced both: a philosopher and operator whose fifteen-book work compiled into a working system for governing the actions of machines.",
 };
 
 export default function About() {
@@ -45,7 +45,7 @@ export default function About() {
         <p className="text-muted">
           The Institute is the entity that holds both: the copyright to the{" "}
           <Link href="/resonance" className="text-accent underline decoration-line hover:decoration-accent">
-            Resonance corpus
+            Resonance series
           </Link>{" "}
           and the intellectual property behind MORIS. The philosophy is the parent;
           the system is what it proved capable of. It is a solo undertaking, based
@@ -64,7 +64,7 @@ export default function About() {
           href="/resonance"
           className="inline-flex items-center gap-1.5 rounded-full border border-line px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:border-accent hover:text-accent"
         >
-          The Corpus <span aria-hidden>&rarr;</span>
+          The Series <span aria-hidden>&rarr;</span>
         </Link>
       </section>
     </div>
