@@ -67,8 +67,7 @@ export default function MorisLanding() {
           judgment is a pure function: no model sits where the verdict is decided,
           so no crafted prompt can argue it out of its answer, and the same action
           always yields the same verdict. A jailbreak works by moving the judge.
-          MORIS has no model in the judge to move; the only soft spot left is the
-          eyes, the cheapest place to have one.
+          MORIS has no model in the judge to move.
         </p>
       </section>
 
