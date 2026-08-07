@@ -66,8 +66,9 @@ export default function MorisLanding() {
           reads what a rulebook cannot, and makes the decision provable. The
           judgment is a pure function: no model sits where the verdict is decided,
           so no crafted prompt can argue it out of its answer, and the same action
-          always yields the same verdict. Everyone else&rsquo;s soft spot is the
-          judge. Ours never is.
+          always yields the same verdict. A jailbreak works by moving the judge.
+          MORIS has no model in the judge to move; the only soft spot left is the
+          eyes, the cheapest place to have one.
         </p>
       </section>
 
@@ -116,7 +117,7 @@ export default function MorisLanding() {
             What falls out
           </p>
           <h3 className="mt-2 font-serif text-xl text-ink">
-            The shadows a conscience casts
+            The shadows MORIS casts
           </h3>
           <p className="mt-2 text-sm leading-relaxed text-muted">
             Governance, safety, auditability, jailbreak resistance, reliability:
@@ -168,7 +169,7 @@ export default function MorisLanding() {
         <h2 className="font-serif text-2xl text-ink">Under NDA</h2>
         <p className="mt-3 max-w-2xl text-muted">
           Everything public here is the pre-NDA layer: the frame, the category, the
-          evidence. The mechanism, how the corpus becomes a basis a machine can
+          evidence. The mechanism, how the fifteen books become a basis a machine can
           project onto and how the gate turns a projection into a verdict, is the
           subject of a filed US utility patent and is disclosed in full under NDA.
         </p>
