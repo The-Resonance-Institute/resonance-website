@@ -35,7 +35,7 @@ export default function MorisLanding() {
         </p>
         <h1 className="mt-6 font-serif text-5xl text-ink sm:text-6xl">MORIS</h1>
         <p className="mt-6 max-w-2xl text-xl leading-relaxed text-ink">
-          An artificial conscience for machines that act. A fixed, authored way of
+          An artificial conscience for machines that act: a fixed, authored way of
           perceiving the character of an action, held mechanically, that renders a
           verdict before the action executes.
         </p>
