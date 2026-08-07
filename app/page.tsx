@@ -61,8 +61,7 @@ export default function Home() {
       <section className="mt-12 border-t border-line pt-8">
         <p className="max-w-3xl font-serif text-lg font-light italic leading-snug text-ink sm:text-xl">
           MORIS is built on the Resonance corpus. The philosophy came first, on its
-          own terms, and turned out to be a substrate well suited to building an
-          artificial conscience.
+          own terms, and turned out to be a substrate well suited to building it.
         </p>
         <Link
           href="/about"

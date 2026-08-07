@@ -46,7 +46,7 @@ export default function MorisLanding() {
             Resonance corpus
           </Link>
           , the philosophy that proved to be a substrate well suited to building
-          one.
+          it.
         </p>
       </section>
 
