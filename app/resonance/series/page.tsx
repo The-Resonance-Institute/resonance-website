@@ -1,6 +1,11 @@
 import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
+import { books as canonBooks, trilogies as canonTrilogies } from "@/lib/canon";
+
+const bookSlug = (n: number) => canonBooks.find((b) => b.n === n)?.slug;
+const trilogySlug = (name: string) =>
+  canonTrilogies.find((t) => t.name === name)?.slug;
 
 export const metadata: Metadata = {
   title: "The Fifteen Books",
@@ -145,15 +150,23 @@ export default function Series() {
             <div className="flex flex-col gap-7 sm:flex-row sm:items-start sm:gap-10">
               {/* The trilogy volume: the hero of the row, bigger and to the left */}
               <div className="w-44 shrink-0 sm:w-60">
-                <div className="relative aspect-[2/3] overflow-hidden rounded-xl border border-line shadow-md">
-                  <Image
-                    src={t.art}
-                    alt={`Cover of the ${t.name} trilogy`}
-                    fill
-                    sizes="(max-width: 640px) 176px, 240px"
-                    className="object-cover"
-                  />
-                </div>
+                <Link
+                  href={`/resonance/trilogy/${trilogySlug(t.name) ?? ""}`}
+                  className="group block"
+                >
+                  <div className="relative aspect-[2/3] overflow-hidden rounded-xl border border-line shadow-md transition-transform group-hover:-translate-y-0.5 group-hover:shadow-lg">
+                    <Image
+                      src={t.art}
+                      alt={`Cover of the ${t.name} trilogy`}
+                      fill
+                      sizes="(max-width: 640px) 176px, 240px"
+                      className="object-cover"
+                    />
+                  </div>
+                  <span className="mt-3 inline-flex items-center gap-1.5 text-xs font-medium text-accent transition-colors group-hover:text-ink">
+                    Explore the trilogy <span aria-hidden>&rarr;</span>
+                  </span>
+                </Link>
               </div>
 
               {/* The three volumes: smaller, to the right */}
@@ -168,20 +181,26 @@ export default function Series() {
 
                 <div className="mt-6 grid max-w-sm grid-cols-3 gap-3 sm:gap-4">
                   {t.books.map((b) => (
-                    <div key={b.n}>
-                      <Cover book={b} />
+                    <Link
+                      key={b.n}
+                      href={`/resonance/book/${bookSlug(b.n) ?? ""}`}
+                      className="group block"
+                    >
+                      <div className="transition-transform group-hover:-translate-y-0.5">
+                        <Cover book={b} />
+                      </div>
                       <div className="mt-2">
                         {b.scale && (
                           <p className="text-[0.55rem] uppercase tracking-[0.14em] text-muted">
                             {b.scale}
                           </p>
                         )}
-                        <h3 className="mt-0.5 font-serif text-xs leading-snug text-ink">
+                        <h3 className="mt-0.5 font-serif text-xs leading-snug text-ink transition-colors group-hover:text-accent">
                           {b.title}
                         </h3>
                         <p className="mt-0.5 text-[0.65rem] text-muted">Book {b.n}</p>
                       </div>
-                    </div>
+                    </Link>
                   ))}
                 </div>
               </div>
