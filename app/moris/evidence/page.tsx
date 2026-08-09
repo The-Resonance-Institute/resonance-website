@@ -24,7 +24,7 @@ export default function Evidence() {
           A verdict you can recompute.
         </h1>
         <p className="mt-6 font-serif text-xl font-light leading-relaxed text-ink">
-          The value of a conscience is not only that it judges. It is that its
+          The value of MORIS is not only that it judges. It is that its
           judgment holds up to someone who does not trust it. Because the judgment
           is a pure function of a structured input against a sealed reference, the
           same action produces the same verdict, sealed to the same record, every
@@ -93,8 +93,8 @@ export default function Evidence() {
           was made. A probabilistic system cannot produce that by construction: its
           output is a sample, not a derivation. A deterministic verdict, sealed to a
           record anyone can re-derive, is what the demand has been describing all
-          along. The audit trail everyone is struggling to build is the exhaust of a
-          conscience, not a product to be assembled.
+          along. The audit trail everyone is struggling to build is the exhaust of
+          MORIS, not a product to be assembled.
         </p>
       </section>
 
