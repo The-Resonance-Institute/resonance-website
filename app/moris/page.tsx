@@ -162,6 +162,25 @@ export default function MorisLanding() {
             Read <span aria-hidden>&rarr;</span>
           </span>
         </Link>
+        <Link
+          href="/moris/proof"
+          className="group rounded-2xl border border-line bg-white p-7 transition-colors hover:border-accent"
+        >
+          <p className="text-xs font-medium uppercase tracking-[0.18em] text-accent">
+            The proof
+          </p>
+          <h3 className="mt-2 font-serif text-xl text-ink">
+            What a model-free judge produces
+          </h3>
+          <p className="mt-2 text-sm leading-relaxed text-muted">
+            57,344 actions judged exhaustively, 12,236 concern levels, 1,386 named
+            packages, no model, reproducible to the bit, and the larger action governed
+            below the smaller.
+          </p>
+          <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-accent transition-colors group-hover:text-ink">
+            Read <span aria-hidden>&rarr;</span>
+          </span>
+        </Link>
       </section>
 
       <section className="mt-14 border-t border-line pt-10">

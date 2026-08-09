@@ -119,8 +119,7 @@ export default function Platform() {
           and exact, which is what makes it strong: a content-and-intent-aware
           judgment, rendered by a deterministic non-model function, drawn from an
           authored posture rather than a hand-written rule list, and re-derivable by
-          a party who does not trust you. No other system on the market occupies
-          that description.
+          a party who does not trust you.
         </p>
       </section>
 
