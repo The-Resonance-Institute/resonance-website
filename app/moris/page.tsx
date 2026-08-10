@@ -181,25 +181,6 @@ export default function MorisLanding() {
             Read <span aria-hidden>&rarr;</span>
           </span>
         </Link>
-        <Link
-          href="/moris/demo"
-          className="group rounded-2xl border border-line bg-white p-7 transition-colors hover:border-accent"
-        >
-          <p className="text-xs font-medium uppercase tracking-[0.18em] text-accent">
-            Try to break it
-          </p>
-          <h3 className="mt-2 font-serif text-xl text-ink">
-            Change the story. The verdict holds.
-          </h3>
-          <p className="mt-2 text-sm leading-relaxed text-muted">
-            Flip the justification on a real action and watch the verdict, mass, and concern
-            count refuse to move. Then walk the action to reckless and watch it climb, then
-            stop. Reproducible offline.
-          </p>
-          <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-accent transition-colors group-hover:text-ink">
-            Open <span aria-hidden>&rarr;</span>
-          </span>
-        </Link>
       </section>
 
       <section className="mt-14 border-t border-line pt-10">
