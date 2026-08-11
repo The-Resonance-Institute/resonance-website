@@ -17,6 +17,9 @@ export function SiteFooter() {
           <Link href="/contact" className="transition-colors hover:text-accent">
             Contact
           </Link>
+          <Link href="/privacy" className="transition-colors hover:text-accent">
+            Privacy
+          </Link>
         </div>
         <div className="flex flex-col gap-1 sm:items-end">
           <a
