@@ -268,8 +268,8 @@ export default function Problem() {
           Line the evidence up and it points one direction. The controls that exist
           check whether an action was permitted, watch the model&rsquo;s words, or
           record what happened after. None of them renders a fixed, pre-action
-          judgment on the action itself that a party who does not trust the operator
-          can reproduce. That judgment is what an{" "}
+          judgment on the action itself that is re-derivable, under NDA or by a named
+          third party. That judgment is what an{" "}
           <Link
             href="/moris/conscience"
             className="text-accent underline decoration-line underline-offset-2 hover:decoration-accent"
@@ -279,8 +279,8 @@ export default function Problem() {
           is, and it is what MORIS renders. The failures above share one shape: an
           action permitted, taken, and wrong, the shape a permission engine and a
           threat detector are blind to by construction. Judging that shape before it
-          executes, by a fixed reference, on a record anyone can reproduce, is
-          squarely what MORIS is built to do. Not a corner case for it. Central to
+          executes, by a fixed reference, on a record re-derivable under NDA or by a
+          named third party, is squarely what MORIS is built to do. Not a corner case for it. Central to
           why it exists.
         </p>
       </section>

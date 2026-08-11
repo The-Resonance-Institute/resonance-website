@@ -28,8 +28,10 @@ export default function Evidence() {
           judgment holds up to someone who does not trust it. Because the judgment
           is a pure function of a structured input against a sealed reference, the
           same action produces the same verdict, sealed to the same record, every
-          time. That record is not an assertion about what MORIS decided. It is
-          something anyone can recompute and check.
+          time. The sealed record is not an assertion about what MORIS decided; it
+          re-derives to a byte-identical result. A licensed deployer runs that
+          re-derivation over their own decision ledger without restriction, because
+          they hold the asset.
         </p>
       </section>
 
@@ -57,8 +59,8 @@ export default function Evidence() {
               A re-derivable verdict says
             </h3>
             <p className="mt-2 text-sm leading-relaxed text-muted">
-              This is the correct output of the law on these inputs, and you can
-              recompute it yourself. It proves correctness.
+              This is the correct output of the law on these inputs, and it
+              re-derives to a byte-identical result. It proves correctness.
             </p>
           </div>
         </div>
@@ -68,12 +70,14 @@ export default function Evidence() {
         <h2 className="font-serif text-2xl text-ink">Independent re-derivation</h2>
         <p className="mt-3 leading-relaxed text-muted">
           The record is sealed to the authored words the verdict was drawn from, and
-          to the identity of the actor and the approver behind the action. A party
-          who does not trust the operator can take that record, re-run the judgment,
-          and get the byte-identical verdict and the identical root. Not similar.
-          Identical. That is what turns a verdict into evidence: it survives an
-          adversary who assumes you are lying, because they can reproduce it without
-          you.
+          to the identity of the actor and the approver behind the action. A licensed
+          deployer, holding the asset, re-runs the judgment over their own ledger and
+          gets the byte-identical verdict and the identical root, without restriction.
+          A party outside the deployment, an auditor engaged by a counterparty, a
+          regulator, a plaintiff, re-derives under NDA or through a named third party
+          whose attestation is published. That is what turns a verdict into evidence:
+          it survives an adversary who assumes you are lying, because the re-derivation
+          does not depend on trusting you.
         </p>
       </section>
 
@@ -105,10 +109,10 @@ export default function Evidence() {
           fixed and re-derivable too; it just checks whether an action was allowed,
           not whether it was right. What MORIS makes re-derivable is the verdict on
           what the action means, drawn from an authored posture rather than a
-          hand-written rule. That is the narrow, exact thing: a content-and-intent-
-          aware judgment that a party who does not trust you can reproduce. The
-          mechanism that computes it is disclosed in full under NDA. That it
-          reproduces is the part you can hold in your hand.
+          hand-written rule. That is the narrow, exact thing: a content-and-intent-aware
+          judgment that re-derives, under NDA or through a named third party. The mechanism
+          that computes it is disclosed in full under NDA; that it re-derives is the part
+          that survives a distrusting reader.
         </p>
       </section>
 

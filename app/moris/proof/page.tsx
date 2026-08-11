@@ -35,9 +35,9 @@ export default function Proof() {
           What a model-free judge produces.
         </h1>
         <p className="mt-6 font-serif text-xl font-light leading-relaxed text-ink">
-          Every figure below comes from a judgment with no model in it. It is
-          deterministic, it returns a byte-identical result every time, and you can
-          reproduce all of it yourself.
+          Every figure comes from a judgment with no model in it: deterministic,
+          byte-identical every time, and re-derivable, under NDA or by a named third
+          party.
         </p>
       </section>
 
@@ -49,10 +49,14 @@ export default function Proof() {
           <Stat n="0" label="models in the judgment" accent />
         </div>
         <p className="mt-3 text-sm text-muted">
-          Every structural shape an action can take, judged in about eighty seconds with
-          no model, no network, and no key. Re-run the whole space and every number
-          returns to the bit. Concern mass ranges from 0.00 to 7.33, mean 2.39, across
-          12,236 distinct levels; a guardrail resolves two.
+          A complete enumeration of one structural slice, judged with no model, no network,
+          and no key. Re-run the whole enumeration and every number returns to the bit.
+          Concern mass ranges from 0.00 to 7.33, mean 2.39, across 12,236 distinct levels;
+          a guardrail resolves two.
+        </p>
+        <p className="mt-2 text-xs leading-relaxed text-muted">
+          Actor fixed to an autonomous agent; timing and content left blank; the other
+          seven structural fields range over their full closed value sets.
         </p>
       </section>
 
@@ -89,7 +93,7 @@ export default function Proof() {
         </div>
         <p className="mt-6 leading-relaxed text-muted">
           The judgment is deterministic and uses no model, so this is the same result every
-          time, and you can reproduce it. Across all 57,344 actions the correlation between a
+          time, and it re-derives to a byte-identical result. Across all 57,344 actions the correlation between a
           plain severity ranking and MORIS&rsquo;s concern mass is 0.69: it tracks stakes, and
           is deliberately not the monotone function of them a severity score assumes. What it
           reads instead is not on this page.
@@ -178,12 +182,14 @@ export default function Proof() {
       </section>
 
       <section className="mt-12 border-t border-line pt-10">
-        <h2 className="font-serif text-2xl text-ink">Reproduce it yourself</h2>
+        <h2 className="font-serif text-2xl text-ink">
+          Re-derivable, under NDA or by a named third party
+        </h2>
         <p className="mt-3 leading-relaxed text-muted">
-          The judgment is a pure function of a structured input against a sealed reference, so
-          a party who does not trust the operator can re-run it and get the byte-identical
-          verdict and the identical root. Every figure on this page is something you compute
-          for yourself, not something you take on our word.{" "}
+          The judgment is a pure function of a structured input against a sealed reference. A
+          party outside the deployment re-derives it under NDA, or through a named third party
+          whose attestation is published. Every figure is a derivation, not something you take
+          on our word.{" "}
           <Link
             href="/moris/evidence"
             className="text-accent underline decoration-line underline-offset-2 hover:decoration-accent"
@@ -195,12 +201,10 @@ export default function Proof() {
 
       <section className="mt-12 rounded-2xl border border-line bg-accent-soft p-8 sm:p-10">
         <h2 className="font-serif text-2xl text-ink">
-          The numbers are yours to reproduce. The mechanism is under NDA.
+          The mechanism is under NDA
         </h2>
         <p className="mt-3 max-w-2xl leading-relaxed text-ink">
-          Every figure on this page you can recompute for yourself. How it is produced, the
-          authored basis the verdicts are drawn from, and the worked judgments behind them are
-          disclosed in full under NDA.
+          The mechanism, the constitution, and the full worked judgments are disclosed under NDA.
         </p>
       </section>
 
