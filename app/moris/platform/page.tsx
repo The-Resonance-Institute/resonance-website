@@ -39,9 +39,10 @@ export default function Platform() {
           dosage, a drone release, an instruction to a person: underneath, the
           question is identical. Given what this action is, whom it touches, at what
           scope, under what authority, and how reversibly, should it proceed, and
-          can the judgment be reproduced by a party who does not trust the vendor,
-          under NDA or through a named third party. The mechanism that answers never
-          mentions a domain.
+          can the judgment be reproduced by a party who does not trust the vendor.
+          The measured results are deposited publicly and re-derive from that deposit;
+          the mechanism re-derives under NDA or through a named third party. The
+          mechanism that answers never mentions a domain.
         </p>
       </section>
 
@@ -123,8 +124,8 @@ export default function Platform() {
           and no amount of capability converges on it. The differentiator is narrow
           and exact, which is what makes it strong: a content-and-intent-aware
           judgment, rendered by a deterministic non-model function, drawn from an
-          authored posture rather than a hand-written rule list, and re-derivable,
-          under NDA or by a named third party.
+          authored posture rather than a hand-written rule list, and re-derivable:
+          the results publicly, the mechanism under NDA or through a named third party.
         </p>
       </section>
 

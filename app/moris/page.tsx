@@ -22,7 +22,7 @@ const properties = [
   },
   {
     h: "Re-derivable",
-    p: "Every verdict is sealed to a tamper-evident record that a party who does not trust the operator can reproduce, byte for byte. Not an assertion. Evidence.",
+    p: "Every verdict is sealed to a tamper-evident record. The measured results re-derive publicly, from deposited data, by anyone. The mechanism re-derives under NDA or through a named third party. Not an assertion. Evidence.",
   },
 ];
 
@@ -145,8 +145,8 @@ export default function MorisLanding() {
             A verdict you can recompute
           </h3>
           <p className="mt-2 text-sm leading-relaxed text-muted">
-            Re-derivable, not just logged: why anyone who distrusts you can
-            reproduce the verdict, and why immutable is not enough.
+            Re-derivable, not just logged: what anyone can check without asking
+            us, what needs an agreement, and why immutable is not enough.
           </p>
           <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-accent transition-colors group-hover:text-ink">
             Read <span aria-hidden>&rarr;</span>

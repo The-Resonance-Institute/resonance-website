@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "The Proof",
   description:
-    "Exact numbers from a deterministic judgment with no model in it: 57,344 actions judged exhaustively, 12,236 distinct concern levels, 1,386 distinct named packages of reasons, reproducible to the bit. It ranks actions the opposite of the way every severity score does. How it does that is disclosed under NDA.",
+    "Exact numbers from a deterministic judgment with no model in it: 57,344 actions judged exhaustively, 12,236 distinct concern levels, 1,386 distinct named packages of reasons, reproducible to the bit. It ranks actions the opposite of the way every severity score does. The numbers are checkable; the mechanism behind them is disclosed under NDA.",
 };
 
 function Stat({ n, label, accent }: { n: string; label: string; accent?: boolean }) {
@@ -36,8 +36,9 @@ export default function Proof() {
         </h1>
         <p className="mt-6 font-serif text-xl font-light leading-relaxed text-ink">
           Every figure comes from a judgment with no model in it: deterministic,
-          byte-identical every time, and re-derivable, under NDA or by a named third
-          party.
+          byte-identical every time, and re-derivable. The figures re-derive from
+          deposited data by anyone who wants to check them. The mechanism that
+          produced them re-derives under NDA or through a named third party.
         </p>
       </section>
 
@@ -183,7 +184,7 @@ export default function Proof() {
 
       <section className="mt-12 border-t border-line pt-10">
         <h2 className="font-serif text-2xl text-ink">
-          Re-derivable, under NDA or by a named third party
+          Re-derivable, under NDA or through a named third party
         </h2>
         <p className="mt-3 leading-relaxed text-muted">
           The judgment is a pure function of a structured input against a sealed reference. A
