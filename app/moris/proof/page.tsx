@@ -118,6 +118,28 @@ export default function Proof() {
           traffic is mostly benign reads. No guardrail or classifier produces this shape,
           because neither governs; they allow or they block.
         </p>
+        <p className="mt-10 leading-relaxed text-muted">
+          The same shape appears on a corpus we did not build. MoralChoice is a public
+          set of moral dilemmas on which trained human annotators disagreed with each
+          other, written by other people, for another purpose, before this system
+          existed. Of 680 scenarios, 645 were judged.
+        </p>
+        <div className="mt-6 grid grid-cols-3 gap-px overflow-hidden rounded-2xl border border-line bg-line">
+          <Stat n="597" label="govern (92.6%)" />
+          <Stat n="138" label="distinct concern packages" />
+          <Stat n="0" label="models in the judgment" accent />
+        </div>
+        <p className="mt-3 text-sm text-muted">
+          Two independent surfaces, one synthetic and exhaustive, one natural and
+          written by strangers, landing in the same place. Every figure on this line
+          re-derives from deposited data by anyone who wants to check it:{" "}
+          <a
+            href="https://doi.org/10.5281/zenodo.21936445"
+            className="text-accent underline decoration-line underline-offset-2 hover:decoration-accent"
+          >
+            doi.org/10.5281/zenodo.21936445
+          </a>
+        </p>
       </section>
 
       <section className="mt-12 border-t border-line pt-10">
@@ -184,7 +206,7 @@ export default function Proof() {
 
       <section className="mt-12 border-t border-line pt-10">
         <h2 className="font-serif text-2xl text-ink">
-          Re-derivable, under NDA or through a named third party
+          Re-derivable: the figures publicly, the mechanism under NDA
         </h2>
         <p className="mt-3 leading-relaxed text-muted">
           The judgment is a pure function of a structured input against a sealed reference. A
