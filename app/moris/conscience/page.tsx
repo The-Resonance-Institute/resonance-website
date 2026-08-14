@@ -18,7 +18,7 @@ const test = [
   },
   {
     h: "Incorruptible",
-    p: "The faculty that judges cannot be the faculty that wants to act, or it will talk itself into the act.",
+    p: "The faculty that judges cannot be the faculty that wants to act, or it will talk itself into the act. It also cannot be the faculty that reads, or the reading becomes the way in.",
   },
 ];
 
@@ -103,7 +103,11 @@ export default function Conscience() {
           judges before the act, but it is the same movable, probabilistic
           substance as the thing it judges, so it drifts and can be argued out of
           its verdict. Fixed, pre-action, and incorruptible, all three at once, is
-          the empty seat.
+          the empty seat. Separating the judge from the reader is what makes the
+          third possible, and it is also where the honest work is: a registered
+          tool call reaches the judge with no reader in between, while prose has to
+          be read first, and how it was read is a question we answer with
+          measurement rather than assurance.
         </p>
       </section>
 

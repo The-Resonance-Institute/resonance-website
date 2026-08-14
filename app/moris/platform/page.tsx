@@ -62,8 +62,12 @@ export default function Platform() {
         <p className="mt-3 leading-relaxed text-muted">
           Domains differ in one variable that sets their order: how structured the
           action already is when it reaches the judgment. Where actions arrive
-          structured, as a software tool call does, the perception is small or
-          absent and MORIS is model-free today. That is why agentic security is
+          structured, as a software tool call does, the perception is authored
+          rather than inferred. A tool is registered once, by a person, and from
+          then on the runtime derives the action’s shape from that registration
+          with no model in the path. The reading still happens. It happens in the
+          open, versioned and inspectable, and it never runs at judgment time.
+          That is why agentic security is
           first: the beachhead, not the territory. Where the situation is raw and
           physical, a road, an operating room, a factory floor, the perception is
           large and domain-specific, the integration is longer, and the value is

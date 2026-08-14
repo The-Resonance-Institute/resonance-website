@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 const properties = [
   {
     h: "Deterministic, and it reads meaning",
-    p: "No model sits where the verdict is decided, so no crafted prompt can argue it out of its answer. The same action yields the same verdict, and that verdict is about what the action means, not merely whether it was permitted.",
+    p: "No model sits where the verdict is decided, so no crafted prompt can argue it out of its answer. The same action, read the same way, yields the same verdict, and that verdict is about what the action means, not merely whether it was permitted.",
   },
   {
     h: "Model-agnostic",
@@ -65,9 +65,17 @@ export default function MorisLanding() {
           The claim is not that MORIS blocks more than a good policy. It is that it
           reads what a rulebook cannot, and makes the decision provable. The
           judgment is a pure function: no model sits where the verdict is decided,
-          so no crafted prompt can argue it out of its answer, and the same action
-          always yields the same verdict. A jailbreak works by moving the judge.
-          MORIS has no model in the judge to move.
+          so no crafted prompt can argue it out of its answer, and the same action,
+          read the same way, always yields the same verdict. A jailbreak works by
+          moving the judge. MORIS has no model in the judge to move.
+        </p>
+        <p className="mt-4 max-w-2xl text-ink">
+          Two paths, and they are not the same. When the action arrives as a
+          registered tool call, there is no model anywhere between the action and
+          the verdict. When it arrives as prose, a bounded reader first renders it
+          into the structure the judge consumes, and that reading is the residual:
+          the judge cannot be moved, but what reaches it depends on how the prose
+          was read. We measure that separately and report it.
         </p>
       </section>
 
