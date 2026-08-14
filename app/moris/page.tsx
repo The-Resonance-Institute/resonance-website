@@ -191,6 +191,24 @@ export default function MorisLanding() {
         </Link>
       </section>
 
+      <section className="mt-14 rounded-2xl border border-accent/20 bg-accent-soft p-8 sm:p-10">
+        <p className="text-xs font-medium uppercase tracking-[0.18em] text-accent">
+          The paper
+        </p>
+        <h2 className="mt-2 font-serif text-2xl text-ink">An Artificial Conscience</h2>
+        <p className="mt-3 max-w-2xl leading-relaxed text-ink">
+          The public layer at its most complete: a deterministic conscience measured against a
+          public corpus of moral dilemmas people disagreed on, deposited under a DOI so anyone can
+          check the figures without asking us.
+        </p>
+        <Link
+          href="/moris/paper"
+          className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-accent transition-colors hover:text-ink"
+        >
+          Read the paper <span aria-hidden>&rarr;</span>
+        </Link>
+      </section>
+
       <section className="mt-14 border-t border-line pt-10">
         <h2 className="font-serif text-2xl text-ink">Under NDA</h2>
         <p className="mt-3 max-w-2xl text-muted">
