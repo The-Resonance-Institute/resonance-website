@@ -134,10 +134,10 @@ export default function Proof() {
           written by strangers, landing in the same place. Every figure on this line
           re-derives from deposited data by anyone who wants to check it:{" "}
           <a
-            href="https://doi.org/10.5281/zenodo.21936445"
+            href="https://doi.org/10.5281/zenodo.21936444"
             className="text-accent underline decoration-line underline-offset-2 hover:decoration-accent"
           >
-            doi.org/10.5281/zenodo.21936445
+            doi.org/10.5281/zenodo.21936444
           </a>
         </p>
       </section>

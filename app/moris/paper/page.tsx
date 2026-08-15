@@ -19,7 +19,7 @@ function Stat({ n, label, accent }: { n: string; label: string; accent?: boolean
 }
 
 const CITATION =
-  "Herndon, C. T. (2026). An Artificial Conscience: Deterministic moral judgment as a gradient, measured against a public corpus (Version 1.0). Zenodo. https://doi.org/10.5281/zenodo.21936445";
+  "Herndon, C. T. (2026). An Artificial Conscience: Deterministic moral judgment as a gradient, measured against a public corpus. Zenodo. https://doi.org/10.5281/zenodo.21936444";
 
 export default function Paper() {
   return (
@@ -65,9 +65,7 @@ export default function Paper() {
           exhaustive over 57,344 structural actions, land in the same place. The judgment itself is
           deterministic given a reading; the 83.3% is how stable that reading is in deployment,
           where a single embedded perceiver reads each action and, one time in six, the same model
-          renders the same text into a different structure. The paper reports a lower cross-vendor
-          figure as well, from models of different lineage, because comparing lineages is how it
-          locates where the variance lives, not what a shipped system does.
+          renders the same text into a different structure.
         </p>
       </section>
 
@@ -79,12 +77,12 @@ export default function Paper() {
           deposited materials together.
         </p>
         <a
-          href="https://doi.org/10.5281/zenodo.21936445"
+          href="https://doi.org/10.5281/zenodo.21936444"
           className="mt-6 inline-flex items-center gap-1.5 rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-ink"
         >
           Read the paper on Zenodo <span aria-hidden>&rarr;</span>
         </a>
-        <p className="mt-3 text-sm text-muted">doi.org/10.5281/zenodo.21936445</p>
+        <p className="mt-3 text-sm text-muted">doi.org/10.5281/zenodo.21936444</p>
       </section>
 
       <section className="mt-12 border-t border-line pt-10">
