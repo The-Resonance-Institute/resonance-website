@@ -59,7 +59,7 @@ const trilogies: Trilogy[] = [
     art: "/trilogies/time.jpg",
     books: [
       { n: 7, title: "The Sands of Life", scale: "The self", cover: "/covers/book7.jpg" },
-      { n: 8, title: "The Two Clocks of Leadership", scale: "The community", cover: "/covers/book8.jpg" },
+      { n: 8, title: "The Two Clocks", scale: "The community", cover: "/covers/book8.jpg" },
       { n: 9, title: "The Eras of Civilization", scale: "The world", cover: "/covers/book9.jpg" },
     ],
   },

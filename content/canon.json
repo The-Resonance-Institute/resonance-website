@@ -96,7 +96,7 @@
       "heading": "TRILOGY III · THE TIME TRILOGY",
       "summary": [
         "The Time Trilogy turns the Canon toward the condition no act of leadership can escape: everything happens inside time.",
-        "Its three books examine time at three scales. Book VII, The Sands of Life, asks how a single life inhabits finite hours. Book VIII, The Two Clocks of Leadership, asks how institutions organize time without allowing schedules to become forms of violence. Book IX, The Eras of Civilization, asks how peoples and cultures live inside rhythms that exceed individual lives and even institutional memory.",
+        "Its three books examine time at three scales. Book VII, The Sands of Life, asks how a single life inhabits finite hours. Book VIII, The Two Clocks, asks how institutions organize time without allowing schedules to become forms of violence. Book IX, The Eras of Civilization, asks how peoples and cultures live inside rhythms that exceed individual lives and even institutional memory.",
         "Across all three books, seven custodies recur: Breath, Attention, Pattern, Margin, Memory, Threshold, and Bequest. Breath is the first measure of presence. Attention determines what receives the scarce currency of an hour. Pattern turns repeated days into architecture. Margin protects the unused capacity from which judgment and renewal arise. Memory connects one moment to another without requiring the past to govern the future. Threshold marks the crossings after which time cannot simply be returned to its prior state. Bequest asks what passes forward when the current keeper is gone.",
         "At institutional scale, the trilogy introduces its central duet: Chronos and Kairos. Chronos measures, sequences, schedules, and coordinates. Kairos recognizes the opening in which the measured hour must yield to proportion, judgment, mercy, or opportunity. Neither clock is sufficient alone.",
         "At civilizational scale, the same question becomes historical: can calendars, laws, markets, infrastructures, rituals, and inherited systems keep time in ways human bodies and future generations can live within?",
@@ -126,7 +126,7 @@
       },
       "bookSlugs": [
         "the-sands-of-life",
-        "the-two-clocks-of-leadership",
+        "the-two-clocks",
         "the-eras-of-civilization"
       ]
     },
@@ -450,15 +450,15 @@
     },
     {
       "n": 8,
-      "slug": "the-two-clocks-of-leadership",
-      "title": "The Two Clocks of Leadership",
+      "slug": "the-two-clocks",
+      "title": "The Two Clocks",
       "subtitle": "Time and the Institution · Clocks",
       "scale": "The community",
       "trilogySlug": "time",
       "trilogyName": "Time",
       "cover": "/covers/book8.jpg",
       "description": [
-        "The Two Clocks of Leadership asks a deceptively practical question: what does an institution teach its people about time through the way it arranges their days?",
+        "The Two Clocks asks a deceptively practical question: what does an institution teach its people about time through the way it arranges their days?",
         "The seven custodies of the Time Trilogy return: Breath, Attention, Pattern, Margin, Memory, Threshold, and Bequest, but now they become organizational design. Shift changes, calendars, deadlines, meeting rhythms, pauses, records, handovers, rights of refusal, and succession all become moral architecture because they determine how human bodies experience collective obligation.",
         "The book’s central distinction is between two clocks. Chronos is measured time: sequence, duration, schedule, quarter, deadline, interval, and coordination. Kairos is opportune or meaningful time: the opening in which proportion has arrived and action is appropriate, or the moment in which a humane institution must be willing to say not yet. Chronos builds the corridor. Kairos governs the hinge.",
         "The book is not an argument for looseness. It repeatedly values precision, reliability, overlap, disciplined cadence, and legible records. Its argument is that precision becomes trustworthy only when it remains answerable to the people carrying it. A deadline cut true can hold weight; a deadline imposed for theater becomes a doorframe that takes skin.",
@@ -472,7 +472,7 @@
           "“The bell coins a round note in the ribs and night answers with a cool hand along the wrist, as if a river had climbed the stair and settled at bench height to listen. Cloth softens the pane until edges return from glare and the city outside finds its proper size inside the eye. The ledger lies open on wood, yesterday’s ink the color of tea, today’s first square pale as winter kept for seed no one living will harvest. A pencil rests across the spine like a narrow bridge that remembers every cautious crossing and never asks to be named. The chair by the window keeps its deliberate emptiness, a half pace back where periphery corrects ambition. Near the wrist a taped compass rose accepts a hairline stroke that turns drift into fidelity. The card that reads begins leans patient as paper. At eye height the posted right to say not yet holds its sentence like a small gate in good repair. Two clocks breathe together. Chronos lays its corridor of doors, watch change overlapped by one breath, quarters ventilating a year so lungs can live. Kairos waits at each hinge with a key that opens only when proportion arrives. Cloth whispers over glass, pencil touches paper once, the latch settles honest, breath leaves in a long steady line.”",
           "“We have walked these rooms with our shoes quiet and our hands learning what bone already knows. Breath kept where steadiness lives. Attention made wide enough for the small truth to raise its hand. Pattern taught to behave like a river that refuses to drown its banks. Margin defended as fallow field so tomorrow can afford bread. Memory kept as a ledger where reasons stand beside results so trust can pass between strangers without ceremony. Thresholds made into hinges that bless crossings. Bequest arranged as rooms and not plaques, instruments set so absence behaves like shelter. We took time back from spectacle and cut it to human height. We tuned the day with cloth and water and paper and metal and wood, the bone tools of a civilization that prefers decency to drama. We let both clocks speak and reconciled them by craft, not speech, until time behaved as a public good.”"
         ],
-        "source": "The Two Clocks of Leadership, Book VIII"
+        "source": "The Two Clocks, Book VIII"
       },
       "pullQuote": "“The deepest leadership is how a place behaves when we are not there.”",
       "relationship": [
