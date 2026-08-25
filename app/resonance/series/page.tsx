@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
 import { books as canonBooks, trilogies as canonTrilogies } from "@/lib/canon";
+import { PublicationStatus } from "@/components/publication-status";
 
 const bookSlug = (n: number) => canonBooks.find((b) => b.n === n)?.slug;
 const trilogySlug = (name: string) =>
@@ -10,14 +11,14 @@ const trilogySlug = (name: string) =>
 export const metadata: Metadata = {
   title: "The Fifteen Books",
   description:
-    "The Resonance series in full: fifteen books across five trilogies, each theme carried from the self to the community to the world.",
+    "The Resonance series in full: fifteen books across five trilogies, each theme carried from the self to the community to the world. All fifteen are written, over 1.2 million words; none is published yet.",
 };
 
 type Book = {
   n: number;
   title: string;
   scale?: string;
-  cover?: string;
+  cover: string;
 };
 
 type Trilogy = {
@@ -87,25 +88,15 @@ const trilogies: Trilogy[] = [
 ];
 
 function Cover({ book }: { book: Book }) {
-  if (book.cover) {
-    return (
-      <div className="relative aspect-[2/3] overflow-hidden rounded-lg border border-line bg-white shadow-sm">
-        <Image
-          src={book.cover}
-          alt={`Cover of ${book.title}`}
-          fill
-          sizes="(max-width: 640px) 30vw, 160px"
-          className="object-cover"
-        />
-      </div>
-    );
-  }
   return (
-    <div className="flex aspect-[2/3] flex-col items-center justify-center rounded-lg border border-line bg-accent-soft/40 px-3 text-center">
-      <span className="font-serif text-sm leading-snug text-ink">{book.title}</span>
-      <span className="mt-2 text-[0.6rem] uppercase tracking-[0.16em] text-muted">
-        Forthcoming
-      </span>
+    <div className="relative aspect-[2/3] overflow-hidden rounded-lg border border-line bg-white shadow-sm">
+      <Image
+        src={book.cover}
+        alt={`Cover of ${book.title}`}
+        fill
+        sizes="(max-width: 640px) 30vw, 160px"
+        className="object-cover"
+      />
     </div>
   );
 }
@@ -143,6 +134,10 @@ export default function Series() {
           </div>
         </div>
       </section>
+
+      <div className="pb-4">
+        <PublicationStatus />
+      </div>
 
       <div className="space-y-16 pb-8">
         {trilogies.map((t) => (
@@ -211,15 +206,15 @@ export default function Series() {
 
       <section className="mt-6 rounded-2xl border border-line bg-white p-8 sm:p-10">
         <p className="text-xs font-medium uppercase tracking-[0.18em] text-accent">
-          Arriving
+          First to land
         </p>
         <h2 className="mt-3 font-serif text-2xl text-ink">
-          Book One is first to land
+          Book One comes first
         </h2>
         <p className="mt-3 max-w-2xl leading-relaxed text-muted">
           <span className="italic text-ink">Echoes of the Unseen</span>, the
-          opening volume of the Resonance trilogy, is arriving soon. The rest of
-          the series follows.
+          opening volume of the Resonance trilogy, will be published in 2026. A
+          date has not been set. The rest of the series follows it.
         </p>
         <Link
           href="/contact"

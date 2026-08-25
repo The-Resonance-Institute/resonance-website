@@ -3,6 +3,7 @@ import Image from "next/image";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { books, getBook, trilogyOfBook, booksInTrilogy } from "@/lib/canon";
+import { PublicationNote } from "@/components/publication-status";
 
 export function generateStaticParams() {
   return books.map((b) => ({ slug: b.slug }));
@@ -90,8 +91,12 @@ export default async function BookPage({
         </div>
       </section>
 
+      <section className="border-t border-line pt-6">
+        <PublicationNote />
+      </section>
+
       {/* Book description (editorial) */}
-      <section className="border-t border-line pt-10">
+      <section className="mt-10 border-t border-line pt-10">
         <div className="space-y-4 leading-relaxed text-muted">
           {book.description.map((p, i) => (
             <p key={i}>{p}</p>

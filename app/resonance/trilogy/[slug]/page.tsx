@@ -3,6 +3,7 @@ import Image from "next/image";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { trilogies, getTrilogy, booksInTrilogy } from "@/lib/canon";
+import { PublicationNote } from "@/components/publication-status";
 
 export function generateStaticParams() {
   return trilogies.map((t) => ({ slug: t.slug }));
@@ -73,8 +74,12 @@ export default async function TrilogyPage({
         </div>
       </section>
 
+      <section className="border-t border-line pt-6">
+        <PublicationNote />
+      </section>
+
       {/* Summary (editorial) */}
-      <section className="border-t border-line pt-10">
+      <section className="mt-10 border-t border-line pt-10">
         <div className="space-y-4 leading-relaxed text-muted">
           {trilogy.summary.map((p, i) => (
             <p key={i}>{p}</p>

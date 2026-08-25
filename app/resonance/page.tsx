@@ -1,11 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
+import { PublicationStatus } from "@/components/publication-status";
 
 export const metadata: Metadata = {
   title: "The Series",
   description:
-    "The Resonance series is a living philosophy in fifteen books across five trilogies, each theme carried from the self to the community to the world. It is also the substrate beneath MORIS.",
+    "The Resonance series is a living philosophy in fifteen books across five trilogies, each theme carried from the self to the community to the world. All fifteen are written; none is published yet. It is also the substrate beneath MORIS.",
 };
 
 const trilogies = [
@@ -53,6 +54,10 @@ export default function ResonanceLanding() {
           community, and time itself.
         </p>
       </section>
+
+      <div className="pb-10">
+        <PublicationStatus />
+      </div>
 
       <Link href="/resonance/series" className="group block border-t border-line pt-8">
         <div className="flex items-baseline justify-between gap-4">
@@ -137,7 +142,7 @@ export default function ResonanceLanding() {
 
       <section className="mt-12 rounded-2xl border border-line bg-white p-8 sm:p-10">
         <p className="text-xs font-medium uppercase tracking-[0.18em] text-accent">
-          Arriving
+          First to land
         </p>
         <h2 className="mt-3 font-serif text-2xl text-ink">The first volume</h2>
         <p className="mt-3 leading-relaxed text-muted">
@@ -145,14 +150,14 @@ export default function ResonanceLanding() {
             Book One &middot; Tuning &middot; Echoes of the Unseen
           </span>{" "}
           (Resonance and the Self). Presence as the ground of leadership: the
-          tuning of the inner instrument. The first volume of the series is
-          arriving.
+          tuning of the inner instrument. It is the volume the series opens with,
+          and the one being published first.
         </p>
         <Link
-          href="/contact"
+          href="/resonance/book/echoes-of-the-unseen"
           className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-accent transition-colors hover:text-ink"
         >
-          Know when it lands <span aria-hidden>&rarr;</span>
+          Read about Book One <span aria-hidden>&rarr;</span>
         </Link>
       </section>
 
