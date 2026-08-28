@@ -163,8 +163,8 @@ export default function ResonanceLanding() {
 
       <section className="mt-14 border-t border-line pt-10">
         <blockquote className="font-serif text-2xl font-light italic leading-snug text-ink">
-          &ldquo;To lead is to promise that what you touch will not collapse when
-          you are gone.&rdquo;
+          &ldquo;To lead is to promise what you touch will not collapse when you
+          are gone.&rdquo;
         </blockquote>
         <p className="mt-3 text-sm text-muted">&mdash; C.T. Herndon</p>
       </section>
