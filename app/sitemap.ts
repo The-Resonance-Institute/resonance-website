@@ -16,6 +16,7 @@ const staticRoutes: { path: string; priority: number }[] = [
   { path: "/moris/platform", priority: 0.8 },
   { path: "/moris/proof", priority: 0.8 },
   { path: "/moris/paper", priority: 0.8 },
+  { path: "/moris/shift", priority: 0.8 },
   { path: "/resonance", priority: 0.9 },
   { path: "/resonance/series", priority: 0.8 },
   { path: "/about", priority: 0.6 },

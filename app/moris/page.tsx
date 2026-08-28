@@ -210,6 +210,28 @@ export default function MorisLanding() {
       </section>
 
       <section className="mt-14 border-t border-line pt-10">
+        <p className="text-xs font-medium uppercase tracking-[0.18em] text-accent">
+          The demonstration
+        </p>
+        <h2 className="mt-2 font-serif text-2xl text-ink">The Governed Shift</h2>
+        <p className="mt-3 max-w-2xl leading-relaxed text-ink">
+          An autonomous support agent works a shift of nine tool calls, and every call runs twice:
+          once with nothing standing between the agent and the effect, once through MORIS. The
+          record shows what the gate saw, every concern that fired by name, and the exact bundle
+          returned to the model. Nine calls produced nine different concern levels, which is what
+          govern-is-not-a-switch looks like when you can see it.
+        </p>
+        {/* A plain anchor, not next/link: the page is a generated static document served from
+            public/, so client-side routing has nothing to render and must not be attempted. */}
+        <a
+          href="/moris/shift"
+          className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-accent transition-colors hover:text-ink"
+        >
+          Read the record <span aria-hidden>&rarr;</span>
+        </a>
+      </section>
+
+      <section className="mt-14 border-t border-line pt-10">
         <h2 className="font-serif text-2xl text-ink">Under NDA</h2>
         <p className="mt-3 max-w-2xl text-muted">
           Everything public here is the pre-NDA layer: the frame, the category, the
