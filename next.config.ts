@@ -12,6 +12,17 @@ const nextConfig: NextConfig = {
         source: "/moris/shift",
         destination: "/moris/shift.html",
       },
+      // The chat and builder surfaces, same arrangement. Both ship unlinked, absent from the
+      // sitemap, and carrying noindex in the document, so they can be read on the real domain
+      // before anyone can find them.
+      {
+        source: "/moris/chat",
+        destination: "/moris/chat.html",
+      },
+      {
+        source: "/moris/judge",
+        destination: "/moris/judge.html",
+      },
     ];
   },
 

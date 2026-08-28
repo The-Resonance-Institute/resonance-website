@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Describe an action along nine dimensions and MORIS judges it, live.">
+<title>Judge an Action</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root {
+  --paper:#F5F5F2; --raise:#FFFFFF; --edge:#DCDED8; --edge-2:#C6CAC2;
+  --ink:#14181A; --ink-2:#4A524F; --ink-3:#767E7A;
+  --accent:#2E7D6B; --accent-soft:#E4EFEB;
+  --accept:#6B7F76; --govern:#9A6410; --refuse:#93261F;
+  --mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --sans:'IBM Plex Sans',system-ui,-apple-system,Segoe UI,sans-serif;
+  --disp:'Instrument Serif',Georgia,serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper:#0F1315; --raise:#171C1E; --edge:#262D2F; --edge-2:#37403F;
+    --ink:#EAEDEA; --ink-2:#A8B2AE; --ink-3:#79837F;
+    --accent:#5FB8A1; --accent-soft:#16302A;
+    --accept:#8DA298; --govern:#D19A3C; --refuse:#E0685C;
+  }
+}
+:root[data-theme="dark"] {
+  --paper:#0F1315; --raise:#171C1E; --edge:#262D2F; --edge-2:#37403F;
+  --ink:#EAEDEA; --ink-2:#A8B2AE; --ink-3:#79837F;
+  --accent:#5FB8A1; --accent-soft:#16302A;
+  --accept:#8DA298; --govern:#D19A3C; --refuse:#E0685C;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;
+  line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:940px;margin:0 auto;padding:clamp(28px,5vw,64px) clamp(18px,4vw,40px) 96px}
+.mast{border-bottom:2px solid var(--ink);padding-bottom:22px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--accent);margin:0 0 10px}
+h1{font-family:var(--disp);font-weight:400;font-size:clamp(38px,7vw,64px);line-height:1.02;
+  margin:0 0 14px;text-wrap:balance}
+.dek{font-size:clamp(16px,2vw,19px);color:var(--ink-2);max-width:62ch;margin:0}
+.claim{margin:24px 0 0;padding:16px 18px;background:var(--accent-soft);
+  border-left:3px solid var(--accent);border-radius:0 4px 4px 0;font-size:15px}
+.claim p{margin:0 0 8px} .claim p:last-child{margin:0}
+
+.grid{display:grid;grid-template-columns:1fr 340px;gap:28px;margin-top:32px;align-items:start}
+.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1px;
+  background:var(--edge);border:1px solid var(--edge)}
+.fld{background:var(--raise);padding:11px 13px;display:flex;flex-direction:column;gap:3px}
+.fld__k{font-family:var(--mono);font-size:11px;color:var(--ink-3)}
+.fld__g{font-size:12px;color:var(--ink-2)}
+select{margin-top:5px;font-family:var(--sans);font-size:14px;padding:7px 8px;
+  background:var(--paper);color:var(--ink);border:1px solid var(--edge-2);border-radius:3px;width:100%}
+select:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+
+.panel{position:sticky;top:24px;background:var(--raise);border:1px solid var(--edge);
+  border-radius:3px;padding:18px}
+.verdict{font-family:var(--mono);font-size:13px;letter-spacing:.1em;padding:5px 12px;
+  border:1px solid currentColor;border-radius:2px;display:inline-block;font-weight:500}
+.v-accept{color:var(--accept)} .v-govern{color:var(--govern)} .v-refuse{color:var(--refuse)}
+.v-idle{color:var(--ink-3)}
+.mass{font-family:var(--mono);font-size:38px;font-variant-numeric:tabular-nums;margin:14px 0 2px;
+  line-height:1}
+.mass__l{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3)}
+.meter{height:8px;background:var(--edge);border-radius:4px;margin:14px 0;overflow:hidden}
+.meter>i{display:block;height:100%;width:0;background:var(--accent);transition:width .25s ease}
+.rows{display:flex;flex-direction:column;gap:1px;background:var(--edge);border:1px solid var(--edge);
+  margin-top:14px}
+.row{background:var(--raise);padding:7px 10px;display:flex;justify-content:space-between;gap:10px;
+  font-size:13px}
+.row b{font-family:var(--mono);font-weight:500;font-variant-numeric:tabular-nums}
+.sent{font-family:var(--mono);font-size:11px;background:var(--paper);border:1px solid var(--edge);
+  padding:10px;margin-top:14px;white-space:pre-wrap;overflow-wrap:anywhere;max-height:220px;
+  overflow:auto;color:var(--ink-2)}
+.err{color:var(--refuse);font-size:13px;margin-top:10px}
+.btns{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
+button{font-family:var(--sans);font-size:14px;font-weight:500;padding:9px 16px;border-radius:3px;
+  border:1px solid var(--accent);background:var(--accent);color:var(--raise);cursor:pointer}
+button.ghost{background:transparent;color:var(--accent)}
+button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+footer{margin-top:48px;padding-top:20px;border-top:1px solid var(--edge);color:var(--ink-3);
+  font-size:13px;max-width:70ch}
+@media (max-width:820px){.grid{grid-template-columns:1fr} .panel{position:static}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <header class="mast">
+    <p class="eyebrow">MORIS &middot; judge an action</p>
+    <h1>Judge an Action</h1>
+    <p class="dek">Describe an action along nine dimensions and MORIS judges it. The verdict, the
+      concern mass and the counts come back from the live runtime, not from this page.</p>
+    <div class="claim">
+      <p><strong>You are supplying the description, not a model.</strong> This page does not read
+      prose. Whether a language model can reliably turn a sentence into these nine fields is an open
+      question we are still measuring, and nothing here depends on the answer.</p>
+      <p>What the judgment does not depend on is a model either: given these nine values, the verdict
+      is a pure function. Set the same nine twice and you get the same answer, always.</p>
+    </div>
+  </header>
+
+  <div class="grid">
+    <div>
+      <div class="fields"><label class="fld"><span class="fld__k">actor_class</span><span class="fld__g">who is acting</span><select id="actor_class" data-field="actor_class"><option value="BLANK" selected>&mdash; not stated &mdash;</option><option value="AGENT">an autonomous agent</option><option value="EXTERNAL">something outside the system</option><option value="HUMAN">a person</option><option value="SCHEDULED">a scheduled job</option><option value="SERVICE">a service</option></select></label><label class="fld"><span class="fld__k">action_class</span><span class="fld__g">what is being done</span><select id="action_class" data-field="action_class"><option value="BLANK" selected>&mdash; not stated &mdash;</option><option value="CREATE">making something new</option><option value="DELETE">destroying something</option><option value="ESCALATE">raising privilege or urgency</option><option value="EXECUTE">running something</option><option value="INFLUENCE">persuading or steering</option><option value="MODIFY">changing something</option><option value="QUERY">reading or looking something up</option><option value="TRANSFER">moving value or ownership</option></select></label><label class="fld"><span class="fld__k">target_class</span><span class="fld__g">what it touches</span><select id="target_class" data-field="target_class"><option value="BLANK" selected>&mdash; not stated &mdash;</option><option value="ABSTRACT">something abstract</option><option value="DATA">records or data</option><option value="GROUP">a group of people</option><option value="PRINCIPAL">a person&#x27;s account</option><option value="RESOURCE">money or resources</option><option value="SELF">the actor itself</option><option value="SYSTEM">a system or service</option></select></label><label class="fld"><span class="fld__k">scope</span><span class="fld__g">how far it reaches</span><select id="scope" data-field="scope"><option value="BLANK" selected>&mdash; not stated &mdash;</option><option value="BOUNDED">a defined set</option><option value="SINGLE">one thing</option><option value="UNBOUNDED">everything, unbounded</option></select></label><label class="fld"><span class="fld__k">magnitude</span><span class="fld__g">how much is at stake</span><select id="magnitude" data-field="magnitude"><option value="BLANK" selected>&mdash; not stated &mdash;</option><option value="CRITICAL">critical</option><option value="MATERIAL">material</option><option value="TRIVIAL">trivial</option></select></label><label class="fld"><span class="fld__k">authorization</span><span class="fld__g">standing to do it</span><select id="authorization" data-field="authorization"><option value="BLANK" selected>&mdash; not stated &mdash;</option><option value="AT_LIMIT">at the edge of the grant</option><option value="EXCEEDS_GRANT">beyond the grant</option><option value="WITHIN_GRANT">within what was granted</option></select></label><label class="fld"><span class="fld__k">timing</span><span class="fld__g">how urgent</span><select id="timing" data-field="timing"><option value="BLANK" selected>&mdash; not stated &mdash;</option><option value="EXPEDITED">expedited</option><option value="IMMEDIATE">immediate</option><option value="ROUTINE">routine</option></select></label><label class="fld"><span class="fld__k">consent</span><span class="fld__g">whether those affected agreed</span><select id="consent" data-field="consent"><option value="BLANK" selected>&mdash; not stated &mdash;</option><option value="EXPLICIT">explicitly agreed</option><option value="IMPLIED">implied</option><option value="NONE">not given</option></select></label><label class="fld"><span class="fld__k">reversibility</span><span class="fld__g">whether it can be undone</span><select id="reversibility" data-field="reversibility"><option value="BLANK" selected>&mdash; not stated &mdash;</option><option value="COSTLY">undoable at a cost</option><option value="IRREVERSIBLE">irreversible</option><option value="REVERSIBLE">reversible</option></select></label></div>
+      <div class="btns">
+        <button id="go">Judge it</button>
+        <button class="ghost" id="reset">Clear all</button>
+        <button class="ghost" id="grave">Try something grave</button>
+      </div>
+      <p style="font-size:13px;color:var(--ink-3);margin-top:14px;max-width:62ch">
+        Leaving a field at <em>not stated</em> is a real answer, not a blank you forgot to fill.
+        MORIS treats it as could-not-see rather than nothing-to-see &mdash; which is why an action
+        described by nothing at all is still governed rather than waved through.
+      </p>
+    </div>
+
+    <aside class="panel">
+      <span class="verdict v-idle" id="verdict">NOT YET JUDGED</span>
+      <div class="mass" id="mass">&mdash;</div>
+      <div class="mass__l">concern mass</div>
+      <div class="meter"><i id="meter"></i></div>
+      <div class="rows">
+        <div class="row"><span>concerns raised</span><b id="cn">&mdash;</b></div>
+        <div class="row"><span>considerations weighed</span><b id="ct">&mdash;</b></div>
+        <div class="row"><span>fields not stated</span><b id="bl">&mdash;</b></div>
+      </div>
+      <div class="sent" id="sent">the CAV you send appears here</div>
+      <div class="err" id="err"></div>
+    </aside>
+  </div>
+
+  <footer>
+    <p>The concerns that fired, their names and strengths, and the wording MORIS returns to a model
+    are disclosed under NDA. What this page shows is the judgment and its weight.</p>
+  </footer>
+</div>
+
+<script>
+const FIELDS = ["actor_class", "action_class", "target_class", "scope", "magnitude", "authorization", "timing", "consent", "reversibility"];
+const API = "https://resonance-api-hazel.vercel.app/api/judge";
+const $ = id => document.getElementById(id);
+
+function readCav() {
+  const cav = {};
+  for (const f of FIELDS) cav[f] = $(f).value;
+  return cav;
+}
+
+function show(cav) { $("sent").textContent = JSON.stringify(cav, null, 1); }
+
+async function judge() {
+  const cav = readCav();
+  show(cav);
+  $("err").textContent = "";
+  $("verdict").textContent = "judging";
+  $("verdict").className = "verdict v-idle";
+  try {
+    const r = await fetch(API, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ cav })
+    });
+    const d = await r.json();
+    if (!r.ok) throw new Error(d.error || ("HTTP " + r.status));
+    $("verdict").textContent = d.verdict;
+    $("verdict").className = "verdict v-" + d.verdict.toLowerCase();
+    $("mass").textContent = d.concern_mass.toFixed(4);
+    $("meter").style.width = Math.min(100, (d.concern_mass / 6) * 100) + "%";
+    $("cn").textContent = d.concern_count;
+    $("ct").textContent = d.considerations_total;
+    $("bl").textContent = d.blank_count + " of 9";
+  } catch (e) {
+    $("verdict").textContent = "NOT JUDGED";
+    $("verdict").className = "verdict v-idle";
+    $("err").textContent = e.message === "Failed to fetch"
+      ? "Could not reach the judging service."
+      : e.message;
+  }
+}
+
+$("go").addEventListener("click", judge);
+$("reset").addEventListener("click", () => {
+  for (const f of FIELDS) $(f).value = "BLANK";
+  show(readCav());
+});
+$("grave").addEventListener("click", () => {
+  const g = { actor_class: "AGENT", action_class: "DELETE", target_class: "DATA",
+             scope: "UNBOUNDED", magnitude: "CRITICAL", authorization: "EXCEEDS_GRANT",
+             timing: "BLANK", consent: "BLANK", reversibility: "IRREVERSIBLE" };
+  for (const f of FIELDS) $(f).value = g[f];
+  judge();
+});
+for (const f of FIELDS) $(f).addEventListener("change", () => show(readCav()));
+show(readCav());
+</script>
+
+</body>
+</html>

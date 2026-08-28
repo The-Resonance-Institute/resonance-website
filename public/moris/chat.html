@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Type what you might ask an AI to do, and watch MORIS read the action out of your words and judge it.">
+<title>Say Something to MORIS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root {
+  --paper:#F5F5F2; --raise:#FFFFFF; --edge:#DCDED8; --edge-2:#C6CAC2;
+  --ink:#14181A; --ink-2:#4A524F; --ink-3:#767E7A;
+  --accent:#2E7D6B; --accent-soft:#E4EFEB;
+  --accept:#6B7F76; --govern:#9A6410; --refuse:#93261F;
+  --mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --sans:'IBM Plex Sans',system-ui,-apple-system,Segoe UI,sans-serif;
+  --disp:'Instrument Serif',Georgia,serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper:#0F1315; --raise:#171C1E; --edge:#262D2F; --edge-2:#37403F;
+    --ink:#EAEDEA; --ink-2:#A8B2AE; --ink-3:#79837F;
+    --accent:#5FB8A1; --accent-soft:#16302A;
+    --accept:#8DA298; --govern:#D19A3C; --refuse:#E0685C;
+  }
+}
+:root[data-theme="dark"] {
+  --paper:#0F1315; --raise:#171C1E; --edge:#262D2F; --edge-2:#37403F;
+  --ink:#EAEDEA; --ink-2:#A8B2AE; --ink-3:#79837F;
+  --accent:#5FB8A1; --accent-soft:#16302A;
+  --accept:#8DA298; --govern:#D19A3C; --refuse:#E0685C;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;
+  line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:900px;margin:0 auto;padding:clamp(28px,5vw,64px) clamp(18px,4vw,40px) 96px}
+.mast{border-bottom:2px solid var(--ink);padding-bottom:22px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--accent);margin:0 0 10px}
+h1{font-family:var(--disp);font-weight:400;font-size:clamp(38px,7vw,64px);line-height:1.02;
+  margin:0 0 14px;text-wrap:balance}
+.dek{font-size:clamp(16px,2vw,19px);color:var(--ink-2);max-width:60ch;margin:0}
+
+.box{margin-top:30px}
+textarea{width:100%;min-height:96px;font-family:var(--sans);font-size:16px;padding:14px;
+  background:var(--raise);color:var(--ink);border:1px solid var(--edge-2);border-radius:4px;
+  resize:vertical;line-height:1.5}
+textarea:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.bar{display:flex;gap:10px;align-items:center;margin-top:12px;flex-wrap:wrap}
+button{font-family:var(--sans);font-size:14px;font-weight:500;padding:9px 18px;border-radius:3px;
+  border:1px solid var(--accent);background:var(--accent);color:var(--raise);cursor:pointer}
+button:disabled{opacity:.5;cursor:default}
+button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.count{font-family:var(--mono);font-size:12px;color:var(--ink-3);margin-left:auto}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+.chip{background:transparent;color:var(--ink-2);border:1px solid var(--edge-2);font-size:13px;
+  padding:6px 12px;border-radius:100px;font-weight:400}
+.chip:hover{border-color:var(--accent);color:var(--accent)}
+.chips__l{font-size:12px;color:var(--ink-3);width:100%;margin:0 0 2px}
+
+.out{margin-top:34px;border:1px solid var(--edge);border-radius:3px;background:var(--raise);
+  overflow:hidden}
+.out[hidden]{display:none}
+.head{display:flex;align-items:center;gap:16px;padding:16px 18px;border-bottom:1px solid var(--edge);
+  flex-wrap:wrap}
+.verdict{font-family:var(--mono);font-size:13px;letter-spacing:.1em;padding:5px 12px;
+  border:1px solid currentColor;border-radius:2px;font-weight:500}
+.v-accept{color:var(--accept)} .v-govern{color:var(--govern)} .v-refuse{color:var(--refuse)}
+.mass{font-family:var(--mono);font-size:26px;font-variant-numeric:tabular-nums;line-height:1}
+.mass small{display:block;font-family:var(--sans);font-size:10px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink-3);margin-top:3px}
+.counts{font-size:13px;color:var(--ink-2);margin-left:auto;text-align:right}
+.counts b{font-family:var(--mono);font-weight:500}
+
+.readlbl{padding:14px 18px 0;font-size:13px;color:var(--ink-2)}
+.readlbl b{color:var(--ink)}
+.cav{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1px;
+  background:var(--edge);border-top:1px solid var(--edge);margin-top:14px}
+.cv{background:var(--raise);padding:9px 12px;display:flex;flex-direction:column;gap:1px}
+.cv__k{font-family:var(--mono);font-size:10px;color:var(--ink-3)}
+.cv__g{font-size:11px;color:var(--ink-3)}
+.cv__v{font-family:var(--mono);font-size:13px;font-weight:500;margin-top:3px}
+.cv--blank .cv__v{color:var(--ink-3);font-weight:400;font-style:italic}
+.foot{padding:12px 18px;border-top:1px solid var(--edge);font-size:12px;color:var(--ink-3)}
+.err{margin-top:20px;padding:14px 16px;border:1px solid var(--refuse);border-radius:3px;
+  color:var(--refuse);font-size:14px}
+.err[hidden]{display:none}
+
+.note{margin-top:34px;padding:16px 18px;background:var(--accent-soft);
+  border-left:3px solid var(--accent);border-radius:0 4px 4px 0;font-size:14px}
+.note p{margin:0 0 8px} .note p:last-child{margin:0}
+footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--edge);color:var(--ink-3);
+  font-size:13px;max-width:70ch}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <header class="mast">
+    <p class="eyebrow">MORIS &middot; say something</p>
+    <h1>Say Something to MORIS</h1>
+    <p class="dek">Type what you might ask an AI assistant to do. MORIS reads the shape of the action
+      out of your words and judges it, and shows you both halves of that.</p>
+  </header>
+
+  <div class="box">
+    <textarea id="text" maxlength="2000" placeholder="e.g. cancel that subscription and refund the customer"></textarea>
+    <div class="bar">
+      <button id="send">Send it</button>
+      <span class="count"><span id="n">0</span> / 2000</span>
+    </div>
+    <div class="chips">
+      <p class="chips__l">Or try one of these &mdash; they walk the range:</p>
+      <button class="chip" data-text="can you help me write a birthday message for my sister">Nothing to govern</button><button class="chip" data-text="look up the order status for ticket 4471">A routine lookup</button><button class="chip" data-text="cancel that subscription and refund the customer">A real action</button><button class="chip" data-text="issue an $85,000 refund to this unverified vendor">Beyond authority</button><button class="chip" data-text="delete all customer records from last year">A hard stop</button>
+    </div>
+  </div>
+
+  <div class="err" id="err" hidden></div>
+
+  <section class="out" id="out" hidden>
+    <div class="head">
+      <span class="verdict" id="verdict">&mdash;</span>
+      <div class="mass"><span id="mass">&mdash;</span><small>concern mass</small></div>
+      <div class="counts">
+        <b id="cn">&mdash;</b> concerns of <b id="ct">&mdash;</b> considerations weighed
+      </div>
+    </div>
+    <p class="readlbl">What the reader saw in your words &mdash; <b id="bl">&mdash;</b> of the nine
+      fields were not stated, and stayed that way.</p>
+    <div class="cav"><div class="cv" data-field="actor_class"><span class="cv__k">actor_class</span><span class="cv__g">who is acting</span><span class="cv__v" id="v-actor_class">&mdash;</span></div><div class="cv" data-field="action_class"><span class="cv__k">action_class</span><span class="cv__g">what is being done</span><span class="cv__v" id="v-action_class">&mdash;</span></div><div class="cv" data-field="target_class"><span class="cv__k">target_class</span><span class="cv__g">what it touches</span><span class="cv__v" id="v-target_class">&mdash;</span></div><div class="cv" data-field="scope"><span class="cv__k">scope</span><span class="cv__g">how far it reaches</span><span class="cv__v" id="v-scope">&mdash;</span></div><div class="cv" data-field="magnitude"><span class="cv__k">magnitude</span><span class="cv__g">what is at stake</span><span class="cv__v" id="v-magnitude">&mdash;</span></div><div class="cv" data-field="authorization"><span class="cv__k">authorization</span><span class="cv__g">standing to do it</span><span class="cv__v" id="v-authorization">&mdash;</span></div><div class="cv" data-field="timing"><span class="cv__k">timing</span><span class="cv__g">how urgent</span><span class="cv__v" id="v-timing">&mdash;</span></div><div class="cv" data-field="consent"><span class="cv__k">consent</span><span class="cv__g">whether those affected agreed</span><span class="cv__v" id="v-consent">&mdash;</span></div><div class="cv" data-field="reversibility"><span class="cv__k">reversibility</span><span class="cv__g">whether it can be undone</span><span class="cv__v" id="v-reversibility">&mdash;</span></div></div>
+    <div class="foot" id="foot"></div>
+  </section>
+
+  <div class="note">
+    <p><strong>Two different things are happening, and only one of them is a model.</strong> A small
+    language model reads your sentence into those nine fields. Everything after that &mdash; the
+    verdict, the weight, which concerns fired &mdash; is a pure function of the nine. Send the same
+    reading twice and you get the same judgment, always.</p>
+    <p>How reliably a model turns a sentence into those nine fields is a question we are still
+    measuring and have not answered. That is why the reading is shown to you rather than hidden: you
+    can see what it saw, and disagree with it.</p>
+  </div>
+
+  <footer>
+    <p>The concerns that fired, their names and weights, and the wording MORIS returns to a model are
+    disclosed under NDA. What you see here is the reading, the judgment, and its weight. Your words
+    are not stored.</p>
+  </footer>
+</div>
+
+<script>
+const FIELDS = ["actor_class", "action_class", "target_class", "scope", "magnitude", "authorization", "timing", "consent", "reversibility"];
+const API = "https://resonance-api-hazel.vercel.app/api/read";
+const $ = id => document.getElementById(id);
+
+function setErr(m) { const e = $("err"); e.textContent = m; e.hidden = !m; }
+
+function render(d) {
+  $("verdict").textContent = d.verdict;
+  $("verdict").className = "verdict v-" + d.verdict.toLowerCase();
+  $("mass").textContent = d.concern_mass.toFixed(4);
+  $("cn").textContent = d.concern_count;
+  $("ct").textContent = d.considerations_total;
+  $("bl").textContent = d.blank_count;
+  for (const f of FIELDS) {
+    const v = d.cav[f];
+    const cell = document.querySelector('.cv[data-field="' + f + '"]');
+    $("v-" + f).textContent = v === "BLANK" ? "not stated" : v;
+    cell.classList.toggle("cv--blank", v === "BLANK");
+  }
+  $("foot").textContent = "Read by " + d.read_by + " in " + d.read_seconds
+    + "s, then judged with no model in the path.";
+  $("out").hidden = false;
+}
+
+async function send() {
+  const text = $("text").value.trim();
+  if (!text) return;
+  setErr("");
+  $("send").disabled = true;
+  $("send").textContent = "reading";
+  try {
+    const r = await fetch(API, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text })
+    });
+    const d = await r.json();
+    if (!r.ok) throw new Error(d.error || ("HTTP " + r.status));
+    render(d);
+  } catch (e) {
+    setErr(e.message === "Failed to fetch"
+      ? "Could not reach MORIS. It may be resting; try again in a moment."
+      : e.message);
+  } finally {
+    $("send").disabled = false;
+    $("send").textContent = "Send it";
+  }
+}
+
+$("send").addEventListener("click", send);
+$("text").addEventListener("input", () => { $("n").textContent = $("text").value.length; });
+$("text").addEventListener("keydown", e => {
+  if ((e.metaKey || e.ctrlKey) && e.key === "Enter") send();
+});
+for (const c of document.querySelectorAll(".chip")) {
+  c.addEventListener("click", () => {
+    $("text").value = c.dataset.text;
+    $("n").textContent = c.dataset.text.length;
+    send();
+  });
+}
+</script>
+
+</body>
+</html>
