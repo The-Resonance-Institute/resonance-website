@@ -85,6 +85,23 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .cv__v{font-family:var(--mono);font-size:13px;font-weight:500;margin-top:3px}
 .cv--blank .cv__v{color:var(--ink-3);font-weight:400;font-style:italic}
 .foot{padding:12px 18px;border-top:1px solid var(--edge);font-size:12px;color:var(--ink-3)}
+.dd{border-top:1px solid var(--edge)}
+.dd summary{cursor:pointer;padding:11px 18px;font-size:13px;font-weight:500;display:flex;
+  flex-wrap:wrap;gap:8px;align-items:baseline;list-style:none}
+.dd summary::-webkit-details-marker{display:none}
+.dd summary::before{content:"+";font-family:var(--mono);color:var(--accent);width:12px}
+.dd[open] summary::before{content:"2"}
+.dd summary:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.hint{font-weight:400;color:var(--ink-3);font-size:12px}
+.pkg{font-family:var(--mono);font-size:11.5px;line-height:1.5;background:var(--paper);
+  border:1px solid var(--edge);margin:0 18px;padding:12px;max-height:420px;overflow:auto;
+  white-space:pre-wrap;overflow-wrap:anywhere}
+.digest{margin:10px 18px 16px;font-size:12px;color:var(--ink-3);line-height:1.5}
+.digest code{font-family:var(--mono);font-size:11px;color:var(--ink-2)}
+.ans{border-top:1px solid var(--edge);padding:16px 18px}
+.ans h4{font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);
+  margin:0 0 8px;font-weight:600}
+.ans p{margin:0;line-height:1.6}
 .err{margin-top:20px;padding:14px 16px;border:1px solid var(--refuse);border-radius:3px;
   color:var(--refuse);font-size:14px}
 .err[hidden]{display:none}
@@ -129,17 +146,36 @@ footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--edge);color:v
         <b id="cn">&mdash;</b> concerns of <b id="ct">&mdash;</b> considerations weighed
       </div>
     </div>
-    <p class="readlbl">What the reader saw in your words &mdash; <b id="bl">&mdash;</b> of the nine
-      fields were not stated, and stayed that way.</p>
+    <p class="readlbl">Step 1 &mdash; what a model read in your words. <b id="bl">&mdash;</b> of the
+      nine fields were not stated, and stayed that way.</p>
     <div class="cav"><div class="cv" data-field="actor_class"><span class="cv__k">actor_class</span><span class="cv__g">who is acting</span><span class="cv__v" id="v-actor_class">&mdash;</span></div><div class="cv" data-field="action_class"><span class="cv__k">action_class</span><span class="cv__g">what is being done</span><span class="cv__v" id="v-action_class">&mdash;</span></div><div class="cv" data-field="target_class"><span class="cv__k">target_class</span><span class="cv__g">what it touches</span><span class="cv__v" id="v-target_class">&mdash;</span></div><div class="cv" data-field="scope"><span class="cv__k">scope</span><span class="cv__g">how far it reaches</span><span class="cv__v" id="v-scope">&mdash;</span></div><div class="cv" data-field="magnitude"><span class="cv__k">magnitude</span><span class="cv__g">what is at stake</span><span class="cv__v" id="v-magnitude">&mdash;</span></div><div class="cv" data-field="authorization"><span class="cv__k">authorization</span><span class="cv__g">standing to do it</span><span class="cv__v" id="v-authorization">&mdash;</span></div><div class="cv" data-field="timing"><span class="cv__k">timing</span><span class="cv__g">how urgent</span><span class="cv__v" id="v-timing">&mdash;</span></div><div class="cv" data-field="consent"><span class="cv__k">consent</span><span class="cv__g">whether those affected agreed</span><span class="cv__v" id="v-consent">&mdash;</span></div><div class="cv" data-field="reversibility"><span class="cv__k">reversibility</span><span class="cv__g">whether it can be undone</span><span class="cv__v" id="v-reversibility">&mdash;</span></div></div>
-    <div class="foot" id="foot"></div>
+
+    <details class="dd" id="pkg-wrap">
+      <summary>Step 2 &mdash; the govern package sent to the answering model
+        <span class="hint" id="pkghint"></span></summary>
+      <pre class="pkg" id="package"></pre>
+      <p class="digest">
+        delivered <code id="sha1">&mdash;</code> &nbsp;&middot;&nbsp;
+        bound <code id="sha2">&mdash;</code> &nbsp;<span id="shamatch"></span><br>
+        The same digest twice means the text above is the text that was sent, not a description of it.
+      </p>
+    </details>
+
+    <div class="ans">
+      <h4>Step 3 &mdash; the answer, given under that package</h4>
+      <p id="answer">&mdash;</p>
+      <p class="foot" id="foot"></p>
+    </div>
   </section>
 
   <div class="note">
-    <p><strong>Two different things are happening, and only one of them is a model.</strong> A small
-    language model reads your sentence into those nine fields. Everything after that &mdash; the
-    verdict, the weight, which concerns fired &mdash; is a pure function of the nine. Send the same
-    reading twice and you get the same judgment, always.</p>
+    <p><strong>Three things happen, and only the first and last are a model.</strong> A small model
+    reads your sentence into nine fields. A deterministic gate judges those nine and composes the
+    package &mdash; no model anywhere in that step. Then a second model answers you with that package
+    as its instructions. Send the same reading twice and you get the same judgment, always.</p>
+    <p>The two digests are the part worth checking. One is taken over the package shown above, the
+    other over what was actually delivered to the answering model. They match, so the text you are
+    reading is the text that was sent &mdash; not a description of it written afterwards.</p>
     <p>How reliably a model turns a sentence into those nine fields is a question we are still
     measuring and have not answered. That is why the reading is shown to you rather than hidden: you
     can see what it saw, and disagree with it.</p>
@@ -172,8 +208,17 @@ function render(d) {
     $("v-" + f).textContent = v === "BLANK" ? "not stated" : v;
     cell.classList.toggle("cv--blank", v === "BLANK");
   }
+  $("package").textContent = d.package;
+  $("pkghint").textContent = d.package_chars + " characters"
+    + (d.canon_withheld_chars ? " · " + d.canon_withheld_chars + " of Canon prose cited, not reprinted" : "");
+  $("sha1").textContent = (d.package_sha256 || "").slice(0, 16);
+  $("sha2").textContent = (d.bound_sha256 || "").slice(0, 16);
+  const same = d.package_sha256 && d.package_sha256 === d.bound_sha256;
+  $("shamatch").textContent = same ? "match" : "DO NOT MATCH";
+  $("shamatch").style.color = same ? "var(--accent)" : "var(--refuse)";
+  $("answer").textContent = d.answer || "(no answer returned)";
   $("foot").textContent = "Read by " + d.read_by + " in " + d.read_seconds
-    + "s, then judged with no model in the path.";
+    + "s. Judged with no model in the path. Answered by " + d.answered_by + " under the package above.";
   $("out").hidden = false;
 }
 
