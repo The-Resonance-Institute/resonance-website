@@ -114,7 +114,8 @@ footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--edge);color:v
     <p class="eyebrow">MORIS &middot; say something</p>
     <h1>Say Something to MORIS</h1>
     <p class="dek">Type what you might ask an AI assistant to do. MORIS reads the shape of the action
-      out of your words and judges it, and shows you both halves of that.</p>
+      out of your words and judges it. You see the judgment, its weight, and the answer given
+      under it.</p>
   </header>
 
   <div class="box">
@@ -213,8 +214,10 @@ function render(d) {
   $("cavgrid").hidden = cavGated;
   $("readnda").hidden = !cavGated;
   if (cavGated) {
-    $("readnda").textContent = "The nine fields the reader filled are disclosed under NDA. "
-      + d.blank_count + " of them were not stated in your words and stayed that way.";
+    $("readnda").textContent = "The values the reader put in the nine fields are disclosed under "
+      + "NDA. " + d.blank_count + " of the nine were not stated in your words at all, and were left "
+      + "empty rather than guessed — that count is not withheld, because an honest absence is "
+      + "a result.";
   } else {
     for (const f of FIELDS) {
       const v = d.cav[f];
