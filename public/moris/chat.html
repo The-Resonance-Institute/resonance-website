@@ -155,9 +155,13 @@ footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--edge);color:v
         <span class="hint" id="pkghint"></span></summary>
       <pre class="pkg" id="package"></pre>
       <p class="digest">
-        delivered <code id="sha1">&mdash;</code> &nbsp;&middot;&nbsp;
-        bound <code id="sha2">&mdash;</code> &nbsp;<span id="shamatch"></span><br>
-        The same digest twice means the text above is the text that was sent, not a description of it.
+        <span id="shamatch"></span> &mdash; the packet appears verbatim inside the prompt that was
+        delivered, so the text above is what the answering model received, not a description of it
+        written afterwards.<br>
+        full prompt <code id="sha1">&mdash;</code> &nbsp;&middot;&nbsp;
+        packet within it <code id="sha2">&mdash;</code><br>
+        These two are digests of different things and are not expected to be equal: the first covers
+        the whole delivered prompt, the second the conscience packet carried inside it.
       </p>
     </details>
 
@@ -173,9 +177,9 @@ footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--edge);color:v
     reads your sentence into nine fields. A deterministic gate judges those nine and composes the
     package &mdash; no model anywhere in that step. Then a second model answers you with that package
     as its instructions. Send the same reading twice and you get the same judgment, always.</p>
-    <p>The two digests are the part worth checking. One is taken over the package shown above, the
-    other over what was actually delivered to the answering model. They match, so the text you are
-    reading is the text that was sent &mdash; not a description of it written afterwards.</p>
+    <p>The containment line is the part worth checking. The conscience packet is carried verbatim
+    inside the prompt the answering model received, and the digests are recorded over both, so what
+    you are reading is what was sent rather than an account of it written afterwards.</p>
     <p>How reliably a model turns a sentence into those nine fields is a question we are still
     measuring and have not answered. That is why the reading is shown to you rather than hidden: you
     can see what it saw, and disagree with it.</p>
@@ -213,9 +217,11 @@ function render(d) {
     + (d.canon_withheld_chars ? " · " + d.canon_withheld_chars + " of Canon prose cited, not reprinted" : "");
   $("sha1").textContent = (d.package_sha256 || "").slice(0, 16);
   $("sha2").textContent = (d.bound_sha256 || "").slice(0, 16);
-  const same = d.package_sha256 && d.package_sha256 === d.bound_sha256;
-  $("shamatch").textContent = same ? "match" : "DO NOT MATCH";
-  $("shamatch").style.color = same ? "var(--accent)" : "var(--refuse)";
+  // bound_present is the containment claim. An earlier version compared the two digests and called a
+  // mismatch a failure -- they cover different strings and are equal only when no preamble is used,
+  // so the page raised a red alarm about a system that was working.
+  $("shamatch").textContent = d.bound_present ? "CONTAINED VERBATIM" : "NOT CONTAINED";
+  $("shamatch").style.color = d.bound_present ? "var(--accent)" : "var(--refuse)";
   $("answer").textContent = d.answer || "(no answer returned)";
   $("foot").textContent = "Read by " + d.read_by + " in " + d.read_seconds
     + "s. Judged with no model in the path. Answered by " + d.answered_by + " under the package above.";
