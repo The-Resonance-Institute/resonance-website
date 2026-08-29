@@ -1,10 +1,3 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex, nofollow">
-<meta name="description" content="Type what you might ask an AI to do, and watch MORIS read the action out of your words and judge it.">
 <title>Say Something to MORIS</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -93,6 +86,8 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .dd[open] summary::before{content:"2"}
 .dd summary:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
 .hint{font-weight:400;color:var(--ink-3);font-size:12px}
+.nda{margin:12px 18px 16px;padding:12px 14px;background:var(--paper);
+  border:1px dashed var(--edge-2);border-radius:3px;font-size:13px;color:var(--ink-2)}
 .pkg{font-family:var(--mono);font-size:11.5px;line-height:1.5;background:var(--paper);
   border:1px solid var(--edge);margin:0 18px;padding:12px;max-height:420px;overflow:auto;
   white-space:pre-wrap;overflow-wrap:anywhere}
@@ -114,8 +109,6 @@ footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--edge);color:v
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 
-</head>
-<body>
 <div class="wrap">
   <header class="mast">
     <p class="eyebrow">MORIS &middot; say something</p>
@@ -146,14 +139,18 @@ footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--edge);color:v
         <b id="cn">&mdash;</b> concerns of <b id="ct">&mdash;</b> considerations weighed
       </div>
     </div>
-    <p class="readlbl">Step 1 &mdash; what a model read in your words. <b id="bl">&mdash;</b> of the
-      nine fields were not stated, and stayed that way.</p>
-    <div class="cav"><div class="cv" data-field="actor_class"><span class="cv__k">actor_class</span><span class="cv__g">who is acting</span><span class="cv__v" id="v-actor_class">&mdash;</span></div><div class="cv" data-field="action_class"><span class="cv__k">action_class</span><span class="cv__g">what is being done</span><span class="cv__v" id="v-action_class">&mdash;</span></div><div class="cv" data-field="target_class"><span class="cv__k">target_class</span><span class="cv__g">what it touches</span><span class="cv__v" id="v-target_class">&mdash;</span></div><div class="cv" data-field="scope"><span class="cv__k">scope</span><span class="cv__g">how far it reaches</span><span class="cv__v" id="v-scope">&mdash;</span></div><div class="cv" data-field="magnitude"><span class="cv__k">magnitude</span><span class="cv__g">what is at stake</span><span class="cv__v" id="v-magnitude">&mdash;</span></div><div class="cv" data-field="authorization"><span class="cv__k">authorization</span><span class="cv__g">standing to do it</span><span class="cv__v" id="v-authorization">&mdash;</span></div><div class="cv" data-field="timing"><span class="cv__k">timing</span><span class="cv__g">how urgent</span><span class="cv__v" id="v-timing">&mdash;</span></div><div class="cv" data-field="consent"><span class="cv__k">consent</span><span class="cv__g">whether those affected agreed</span><span class="cv__v" id="v-consent">&mdash;</span></div><div class="cv" data-field="reversibility"><span class="cv__k">reversibility</span><span class="cv__g">whether it can be undone</span><span class="cv__v" id="v-reversibility">&mdash;</span></div></div>
+    <details class="dd" id="read-wrap">
+      <summary>Step 1 &mdash; what a model read in your words
+        <span class="hint" id="readhint"></span></summary>
+      <div class="cav" id="cavgrid"><div class="cv" data-field="actor_class"><span class="cv__k">actor_class</span><span class="cv__g">who is acting</span><span class="cv__v" id="v-actor_class">&mdash;</span></div><div class="cv" data-field="action_class"><span class="cv__k">action_class</span><span class="cv__g">what is being done</span><span class="cv__v" id="v-action_class">&mdash;</span></div><div class="cv" data-field="target_class"><span class="cv__k">target_class</span><span class="cv__g">what it touches</span><span class="cv__v" id="v-target_class">&mdash;</span></div><div class="cv" data-field="scope"><span class="cv__k">scope</span><span class="cv__g">how far it reaches</span><span class="cv__v" id="v-scope">&mdash;</span></div><div class="cv" data-field="magnitude"><span class="cv__k">magnitude</span><span class="cv__g">what is at stake</span><span class="cv__v" id="v-magnitude">&mdash;</span></div><div class="cv" data-field="authorization"><span class="cv__k">authorization</span><span class="cv__g">standing to do it</span><span class="cv__v" id="v-authorization">&mdash;</span></div><div class="cv" data-field="timing"><span class="cv__k">timing</span><span class="cv__g">how urgent</span><span class="cv__v" id="v-timing">&mdash;</span></div><div class="cv" data-field="consent"><span class="cv__k">consent</span><span class="cv__g">whether those affected agreed</span><span class="cv__v" id="v-consent">&mdash;</span></div><div class="cv" data-field="reversibility"><span class="cv__k">reversibility</span><span class="cv__g">whether it can be undone</span><span class="cv__v" id="v-reversibility">&mdash;</span></div></div>
+      <p class="nda" id="readnda" hidden></p>
+    </details>
 
     <details class="dd" id="pkg-wrap">
       <summary>Step 2 &mdash; the govern package sent to the answering model
         <span class="hint" id="pkghint"></span></summary>
       <pre class="pkg" id="package"></pre>
+      <p class="nda" id="pkgnda" hidden></p>
       <p class="digest">
         <span id="shamatch"></span> &mdash; the packet appears verbatim inside the prompt that was
         delivered, so the text above is what the answering model received, not a description of it
@@ -177,18 +174,18 @@ footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--edge);color:v
     reads your sentence into nine fields. A deterministic gate judges those nine and composes the
     package &mdash; no model anywhere in that step. Then a second model answers you with that package
     as its instructions. Send the same reading twice and you get the same judgment, always.</p>
-    <p>The containment line is the part worth checking. The conscience packet is carried verbatim
-    inside the prompt the answering model received, and the digests are recorded over both, so what
-    you are reading is what was sent rather than an account of it written afterwards.</p>
+    <p>The packet is carried verbatim inside the prompt the answering model received, and digests are
+    recorded over both, so what the record holds is what was sent rather than an account of it written
+    afterwards. That containment check, and the packet it is taken over, are disclosed under NDA.</p>
     <p>How reliably a model turns a sentence into those nine fields is a question we are still
-    measuring and have not answered. That is why the reading is shown to you rather than hidden: you
-    can see what it saw, and disagree with it.</p>
+    measuring and have not answered. The fields it filled are disclosed under NDA for now; the count
+    it could not fill is not, and it is on this page, because an honest absence is a result too.</p>
   </div>
 
   <footer>
-    <p>The concerns that fired, their names and weights, and the wording MORIS returns to a model are
-    disclosed under NDA. What you see here is the reading, the judgment, and its weight. Your words
-    are not stored.</p>
+    <p>The reading, the wording MORIS returns to a model, the concerns that fired and their names are
+    disclosed under NDA. What you see here is the judgment, its weight, how many of the nine fields
+    your words did not state, and the answer given under it. Your words are not stored.</p>
   </footer>
 </div>
 
@@ -205,16 +202,40 @@ function render(d) {
   $("mass").textContent = d.concern_mass.toFixed(4);
   $("cn").textContent = d.concern_count;
   $("ct").textContent = d.considerations_total;
-  $("bl").textContent = d.blank_count;
-  for (const f of FIELDS) {
-    const v = d.cav[f];
-    const cell = document.querySelector('.cv[data-field="' + f + '"]');
-    $("v-" + f).textContent = v === "BLANK" ? "not stated" : v;
-    cell.classList.toggle("cv--blank", v === "BLANK");
+  // The gate is decided by the SERVER: when it is on, these fields are absent from the response
+  // rather than hidden in the page. Both branches live here so lifting the gate is one constant on
+  // the service and no change at all here.
+  const gated = Array.isArray(d.gated) ? d.gated : [];
+  const cavGated = gated.includes("cav");
+
+  $("readhint").textContent = d.blank_count + " of nine not stated"
+    + (cavGated ? " · available under NDA" : "");
+  $("cavgrid").hidden = cavGated;
+  $("readnda").hidden = !cavGated;
+  if (cavGated) {
+    $("readnda").textContent = "The nine fields the reader filled are disclosed under NDA. "
+      + d.blank_count + " of them were not stated in your words and stayed that way.";
+  } else {
+    for (const f of FIELDS) {
+      const v = d.cav[f];
+      const cell = document.querySelector('.cv[data-field="' + f + '"]');
+      $("v-" + f).textContent = v === "BLANK" ? "not stated" : v;
+      cell.classList.toggle("cv--blank", v === "BLANK");
+    }
   }
-  $("package").textContent = d.package;
-  $("pkghint").textContent = d.package_chars + " characters"
-    + (d.canon_withheld_chars ? " · " + d.canon_withheld_chars + " of Canon prose cited, not reprinted" : "");
+  const pkgGated = gated.includes("package");
+  $("package").hidden = pkgGated;
+  $("pkgnda").hidden = !pkgGated;
+  document.querySelector(".digest").hidden = pkgGated;
+  if (pkgGated) {
+    $("pkghint").textContent = "available under NDA";
+    $("pkgnda").textContent = "The govern package delivered to the answering model, and the digests "
+      + "recording it, are disclosed under NDA. The verdict and its weight, above, are not.";
+  } else {
+    $("package").textContent = d.package;
+    $("pkghint").textContent = d.package_chars + " characters"
+      + (d.canon_withheld_chars ? " · " + d.canon_withheld_chars + " of Canon prose cited, not reprinted" : "");
+  }
   $("sha1").textContent = (d.package_sha256 || "").slice(0, 16);
   $("sha2").textContent = (d.bound_sha256 || "").slice(0, 16);
   // bound_present is the containment claim. An earlier version compared the two digests and called a
@@ -266,6 +287,3 @@ for (const c of document.querySelectorAll(".chip")) {
   });
 }
 </script>
-
-</body>
-</html>
