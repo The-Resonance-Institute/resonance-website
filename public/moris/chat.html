@@ -115,6 +115,24 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .note p{margin:0 0 8px} .note p:last-child{margin:0}
 footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--edge);color:var(--ink-3);
   font-size:13px;max-width:70ch}
+.standing{margin:10px 0 0;font-size:12px;line-height:1.5;color:var(--ink-3);max-width:62ch}
+.standing--crisis{margin-top:6px}
+.gate{position:fixed;inset:0;background:rgba(20,20,18,.55);display:flex;align-items:center;
+  justify-content:center;padding:20px;z-index:50}
+.gate__panel{background:var(--bg);border:1px solid var(--edge);border-radius:5px;max-width:52ch;
+  padding:26px 28px;max-height:88vh;overflow:auto}
+.gate__panel h2{margin:0 0 14px;font-size:20px}
+.gate__panel p{margin:0 0 12px;font-size:14px;line-height:1.62}
+.gate__acts{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:20px}
+.gate__terms{font-size:13px;color:var(--ink-3)}
+.gate__acts button{font:inherit;font-size:14px;padding:9px 20px;border:0;border-radius:3px;
+  background:var(--accent);color:#fff;cursor:pointer}
+.crisis{margin:22px 0;padding:22px 24px;border:1px solid var(--edge);border-left:3px solid #9a2f2f;
+  border-radius:0 4px 4px 0;background:var(--paper);max-width:70ch}
+.crisis h2{margin:0 0 10px;font-size:19px}
+.crisis p{margin:0 0 10px;font-size:14px;line-height:1.62}
+.crisis button{font:inherit;font-size:13px;margin-top:8px;padding:7px 16px;border:1px solid var(--edge);
+  border-radius:3px;background:transparent;color:var(--ink-2);cursor:pointer}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 
@@ -128,12 +146,51 @@ footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--edge);color:v
       artificial conscience makes of it.</p>
   </header>
 
+  <!-- Shown once per browser and remembered locally. It is a document about what this is, not a
+       consent form: the visitor has to be told that the words they read are a language model's,
+       written under bounds MORIS produced, before they read any of them. -->
+  <div class="gate" id="gate" hidden>
+    <div class="gate__panel" role="dialog" aria-modal="true" aria-labelledby="gate-h">
+      <h2 id="gate-h">Before you begin</h2>
+      <p>This is a demonstration of an artificial conscience. MORIS produces a judgment and the
+        bounds a language model is asked to answer within. The words you then read are written by
+        that model, not by MORIS and not by The Resonance Institute.</p>
+      <p>Nothing here is medical, psychological, legal, or financial advice, and it is not a
+        substitute for a professional or for a person who knows you.</p>
+      <p>Bring something real if you like. Do not bring anything you would not want a language
+        model to read.</p>
+      <p>If you are in crisis, please reach a person. In the United States, call or text 988.
+        Elsewhere, contact your local emergency number.</p>
+      <div class="gate__acts">
+        <button id="gate-ok">I understand</button>
+        <a class="gate__terms" href="/moris/terms">Read the terms</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- SHORT-CIRCUITS AHEAD OF EVERYTHING. Nothing is sent, nothing is judged, no model is called.
+       A person in this state is owed a number, not a demonstration -- and because the request never
+       leaves the browser, their words do not reach a model at all. -->
+  <div class="crisis" id="crisis" hidden>
+    <h2>Please reach a person.</h2>
+    <p>What you have written sounds like more than this page should answer. It has not been sent
+      anywhere and nothing has been judged.</p>
+    <p><b>In the United States, call or text 988</b> for the Suicide &amp; Crisis Lifeline, or text
+      HOME to 741741. Elsewhere, contact your local emergency number or crisis line.</p>
+    <p>If you are in immediate danger, please call your emergency number now.</p>
+    <button id="crisis-back">Go back</button>
+  </div>
+
   <div class="box">
     <textarea id="text" maxlength="2000" placeholder="e.g. I found out my friend&#39;s partner is cheating and I don&#39;t know whether to tell her"></textarea>
     <div class="bar">
       <button id="send">Send it</button>
       <span class="count"><span id="n">0</span> / 2000</span>
     </div>
+    <p class="standing">The answer is written by a language model. MORIS produces the judgment and
+      the bounds, not the words. Not advice of any kind.</p>
+    <p class="standing standing--crisis">If you are in crisis, please reach a person. In the US call
+      or text <b>988</b>, or contact your local emergency number. This page is not monitored.</p>
     <div class="chips">
       <p class="chips__l">Or try one of these:</p>
       <button class="chip" data-text="I keep agreeing to things I do not want to do and then resenting the people who asked. I want to stop without becoming someone who lets people down.">Saying no</button><button class="chip" data-text="I found out my closest friend&#x27;s husband is having an affair. Telling her detonates her family. Not telling her means I am lying to her every time we speak.">A friend&#x27;s marriage</button><button class="chip" data-text="My team is being cut next month and I have been told to keep it quiet. One of them is about to sign a mortgage.">What I know about the layoffs</button><button class="chip" data-text="My father made me promise I would never put him in a home. His memory is going and he is not safe living alone now. I made that promise meaning it.">A promise to my father</button><button class="chip" data-text="A colleague made an error I could report. Nothing bad came of it. Reporting it would probably end his career.">A mistake nobody caught</button><button class="chip" data-text="My mother is in constant pain and has asked me to help her die. She has asked more than once and she is completely lucid.">The thing I cannot undo</button>
@@ -151,19 +208,19 @@ footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--edge);color:v
       </div>
     </div>
     <details class="dd" id="read-wrap">
-      <summary>Step 1 &mdash; what a model read in your words
+      <summary>Step 1: what a model read in your words
         <span class="hint" id="readhint"></span></summary>
       <div class="cav" id="cavgrid"><div class="cv" data-field="actor_class"><span class="cv__k">actor_class</span><span class="cv__g">who is acting</span><span class="cv__v" id="v-actor_class">&mdash;</span></div><div class="cv" data-field="action_class"><span class="cv__k">action_class</span><span class="cv__g">what is being done</span><span class="cv__v" id="v-action_class">&mdash;</span></div><div class="cv" data-field="target_class"><span class="cv__k">target_class</span><span class="cv__g">what it touches</span><span class="cv__v" id="v-target_class">&mdash;</span></div><div class="cv" data-field="scope"><span class="cv__k">scope</span><span class="cv__g">how far it reaches</span><span class="cv__v" id="v-scope">&mdash;</span></div><div class="cv" data-field="magnitude"><span class="cv__k">magnitude</span><span class="cv__g">what is at stake</span><span class="cv__v" id="v-magnitude">&mdash;</span></div><div class="cv" data-field="authorization"><span class="cv__k">authorization</span><span class="cv__g">standing to do it</span><span class="cv__v" id="v-authorization">&mdash;</span></div><div class="cv" data-field="timing"><span class="cv__k">timing</span><span class="cv__g">how urgent</span><span class="cv__v" id="v-timing">&mdash;</span></div><div class="cv" data-field="consent"><span class="cv__k">consent</span><span class="cv__g">whether those affected agreed</span><span class="cv__v" id="v-consent">&mdash;</span></div><div class="cv" data-field="reversibility"><span class="cv__k">reversibility</span><span class="cv__g">whether it can be undone</span><span class="cv__v" id="v-reversibility">&mdash;</span></div></div>
       <p class="nda" id="readnda" hidden></p>
     </details>
 
     <details class="dd" id="pkg-wrap">
-      <summary>Step 2 &mdash; the govern package sent to the answering model
+      <summary>Step 2: the govern package sent to the answering model
         <span class="hint" id="pkghint"></span></summary>
       <pre class="pkg" id="package"></pre>
       <p class="nda" id="pkgnda" hidden></p>
       <p class="digest">
-        <span id="shamatch"></span> &mdash; the packet appears verbatim inside the prompt that was
+        <span id="shamatch"></span>. The packet appears verbatim inside the prompt that was
         delivered, so the text above is what the answering model received, not a description of it
         written afterwards.<br>
         full prompt <code id="sha1">&mdash;</code> &nbsp;&middot;&nbsp;
@@ -174,7 +231,7 @@ footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--edge);color:v
     </details>
 
     <div class="ans">
-      <h4>Step 3 &mdash; the answer, given under that package</h4>
+      <h4>Step 3: the answer, given under that package</h4>
       <p id="answer">&mdash;</p>
       <p class="foot" id="foot"></p>
     </div>
@@ -183,7 +240,7 @@ footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--edge);color:v
   <div class="note">
     <p><strong>Three things happen, and only the first and last are a model.</strong> A small model
     reads your sentence into nine fields. A deterministic gate judges those nine and composes the
-    package &mdash; no model anywhere in that step. Then a second model answers you with that package
+    package with no model anywhere in that step. Then a second model answers you with that package
     as its instructions. Send the same reading twice and you get the same judgment, always.</p>
     <p>The packet is carried verbatim inside the prompt the answering model received, and digests are
     recorded over both, so what the record holds is what was sent rather than an account of it written
@@ -198,7 +255,7 @@ footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--edge);color:v
     disclosed under NDA. What you see here is the judgment, its weight, how many of the nine fields
     your words did not state, and the answer given under it. Your words are not stored by us: nothing is written to
     a database or a file, and the only place they go is the two models that read and answer, over
-    the Anthropic API.</p>
+    the Anthropic API. <a href="/moris/terms">Terms of use</a>.</p>
   </footer>
 </div>
 
@@ -220,7 +277,7 @@ function visitorMessage(m) {
          + "the situation in your own words.";
   if (/^HTTP 5(04|02|03)$/.test(m) || /gateway|timed? ?out/i.test(m))
     return "MORIS took too long to answer and the request was cut off. Nothing was judged. "
-         + "Try it again — it usually goes through.";
+         + "Try it again. It usually goes through.";
   if (/could not be reached/i.test(m))
     return "The reader could not be reached just now. Nothing was judged. Try again in a moment.";
   if (/exceeds/i.test(m))
@@ -249,7 +306,7 @@ function render(d) {
   if (cavGated) {
     $("readnda").textContent = "The values the reader put in the nine fields are disclosed under "
       + "NDA. " + d.blank_count + " of the nine were not stated in your words at all, and were left "
-      + "empty rather than guessed — that count is not withheld, because an honest absence is "
+      + "empty rather than guessed. That count is not withheld, because an honest absence is "
       + "a result.";
   } else {
     for (const f of FIELDS) {
@@ -285,9 +342,47 @@ function render(d) {
   $("out").hidden = false;
 }
 
+// FIRST-PERSON AND ABOUT THE SELF, deliberately. "asked me to help her die" is one of the presets
+// on this page and must not trip it, so nothing keys on "die" alone -- every pattern is anchored to
+// the person writing. It will still miss oblique phrasing, which is why the standing crisis line is
+// in the opening panel too rather than resting on this alone.
+const CRISIS = [
+  /\bi (want|wanted) to die\b/,
+  /\bi (don'?t|do not|no longer) want to (be alive|live|exist)\b/,
+  /\b(kill|killing|hurt|hurting|harm|harming) myself\b/,
+  /\bend(ing)? my (own )?life\b/,
+  /\btak(e|ing) my own life\b/,
+  /\bi'?m suicidal\b/,
+  /\bi am suicidal\b/,
+  /\bsuicidal thoughts\b/,
+  /\bbetter off dead\b/,
+  /\bbetter off without me\b/,
+  /\bno reason to (live|go on)\b/,
+  /\bself[ -]harm(ing)?\b/,
+  /\bi (have|'?ve) (a plan|thought about how|worked out how)\b/,
+  /\bworked out how i would\b/,
+  /\bhow i would do it\b/,
+];
+
+function inCrisis(t) {
+  const low = t.toLowerCase();
+  return CRISIS.some(function (re) { return re.test(low); });
+}
+
+function showCrisis() {
+  $("crisis").hidden = false;
+  $("out").hidden = true;
+  setErr("");
+  $("crisis").scrollIntoView({ block: "center" });
+}
+
 async function send() {
   const text = $("text").value.trim();
   if (!text) return;
+  // AHEAD OF EVERYTHING. No request, no reading, no judgment, no model. Their words stay in the
+  // browser, and a person in this state is owed a number rather than a demonstration.
+  if (inCrisis(text)) { showCrisis(); return; }
+  $("crisis").hidden = true;
   setErr("");
   $("send").disabled = true;
   $("send").textContent = "reading";
@@ -311,6 +406,28 @@ async function send() {
     $("send").textContent = "Send it";
   }
 }
+
+$("crisis-back").addEventListener("click", function () {
+  $("crisis").hidden = true;
+  $("text").focus();
+});
+
+// Shown once per browser. Storage can throw outright in a private window or with site data blocked,
+// and a gate that fails open would let someone read a model's words believing they are ours -- so
+// anything other than a recorded acknowledgement shows the panel.
+var GATE_KEY = "moris.chat.ack.v1";
+function acked() {
+  try { return localStorage.getItem(GATE_KEY) === "1"; } catch (_) { return false; }
+}
+if (!acked()) {
+  $("gate").hidden = false;
+  $("gate-ok").focus();
+}
+$("gate-ok").addEventListener("click", function () {
+  try { localStorage.setItem(GATE_KEY, "1"); } catch (_) {}
+  $("gate").hidden = true;
+  $("text").focus();
+});
 
 $("send").addEventListener("click", send);
 $("text").addEventListener("input", () => { $("n").textContent = $("text").value.length; });
