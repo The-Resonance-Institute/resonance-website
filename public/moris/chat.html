@@ -186,7 +186,9 @@ footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--edge);color:v
   <footer>
     <p>The reading, the wording MORIS returns to a model, the concerns that fired and their names are
     disclosed under NDA. What you see here is the judgment, its weight, how many of the nine fields
-    your words did not state, and the answer given under it. Your words are not stored.</p>
+    your words did not state, and the answer given under it. Your words are not stored by us: nothing is written to
+    a database or a file, and the only place they go is the two models that read and answer, over
+    the Anthropic API.</p>
   </footer>
 </div>
 
@@ -196,6 +198,24 @@ const API = "https://resonance-api-hazel.vercel.app/api/read";
 const $ = id => document.getElementById(id);
 
 function setErr(m) { const e = $("err"); e.textContent = m; e.hidden = !m; }
+
+// The service speaks to an operator; this speaks to the person. Same failure, two audiences, and
+// softening the API's wording to serve the second would have cost the first its diagnosis.
+function visitorMessage(m) {
+  if (m === "Failed to fetch")
+    return "Could not reach MORIS. It may be resting; try again in a moment.";
+  if (/unparseable|illegal CAV|no text to read/i.test(m))
+    return "MORIS could not read a shape it recognises out of that. It happens when a message reads "
+         + "as an instruction to the reader rather than as something you are weighing. Try saying "
+         + "the situation in your own words.";
+  if (/could not be reached/i.test(m))
+    return "The reader could not be reached just now. Nothing was judged. Try again in a moment.";
+  if (/exceeds/i.test(m))
+    return "That is longer than this demo accepts. Try the shorter version of it.";
+  if (/too many|rate/i.test(m))
+    return "That is more requests than this demo allows in a minute. Give it a moment.";
+  return m;
+}
 
 function render(d) {
   $("verdict").textContent = d.verdict;
@@ -268,9 +288,7 @@ async function send() {
     if (!r.ok) throw new Error(d.error || ("HTTP " + r.status));
     render(d);
   } catch (e) {
-    setErr(e.message === "Failed to fetch"
-      ? "Could not reach MORIS. It may be resting; try again in a moment."
-      : e.message);
+    setErr(visitorMessage(e.message));
   } finally {
     $("send").disabled = false;
     $("send").textContent = "Send it";
