@@ -211,24 +211,34 @@ export default function MorisLanding() {
 
       <section className="mt-14 border-t border-line pt-10">
         <p className="text-xs font-medium uppercase tracking-[0.18em] text-accent">
-          The demonstration
+          The demonstrations
         </p>
-        <h2 className="mt-2 font-serif text-2xl text-ink">The Governed Shift</h2>
+        <h2 className="mt-2 font-serif text-2xl text-ink">See it run</h2>
         <p className="mt-3 max-w-2xl leading-relaxed text-ink">
-          An autonomous support agent works a shift of nine tool calls, and every call runs twice:
-          once with nothing standing between the agent and the effect, once through MORIS. The
-          record shows what the gate saw, every concern that fired by name, and the exact bundle
-          returned to the model. Nine calls produced nine different concern levels, which is what
-          govern-is-not-a-switch looks like when you can see it.
+          Two surfaces, both live on this domain, both calling the real gate. In
+          one, a person brings something they are wrestling with and a conscience
+          answers bound by what it weighed. In the other, an autonomous agent
+          works a shift of nine tool calls and every call runs twice, once
+          unguarded and once through MORIS. Nine calls produced nine different
+          concern levels, which is what govern-is-not-a-switch looks like when you
+          can see it.
         </p>
-        {/* A plain anchor, not next/link: the page is a generated static document served from
+        {/* Plain anchors, not next/link: both pages are generated static documents served from
             public/, so client-side routing has nothing to render and must not be attempted. */}
-        <a
-          href="/moris/shift"
-          className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-accent transition-colors hover:text-ink"
-        >
-          Read the record <span aria-hidden>&rarr;</span>
-        </a>
+        <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
+          <a
+            href="/moris/chat"
+            className="inline-flex items-center gap-1.5 text-sm font-medium text-accent transition-colors hover:text-ink"
+          >
+            Say something to MORIS <span aria-hidden>&rarr;</span>
+          </a>
+          <a
+            href="/moris/shift"
+            className="inline-flex items-center gap-1.5 text-sm font-medium text-accent transition-colors hover:text-ink"
+          >
+            Read the governed shift <span aria-hidden>&rarr;</span>
+          </a>
+        </div>
       </section>
 
       <section className="mt-14 border-t border-line pt-10">

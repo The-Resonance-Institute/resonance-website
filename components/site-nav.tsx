@@ -3,6 +3,10 @@ import Image from "next/image";
 
 const links = [
   { href: "/moris", label: "MORIS" },
+  // Both demos were reachable only by hunting: the agentic record sat eighth on a sub-page and the
+  // chat surface was linked from nowhere at all. A nav entry is the fix, and it points at a hub
+  // rather than at one of them, because a single link cannot serve two demonstrations.
+  { href: "/moris/demos", label: "Demos" },
   { href: "/resonance", label: "The Series" },
   { href: "/resonance/series", label: "The Books" },
   { href: "/about", label: "About" },
