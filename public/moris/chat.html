@@ -192,7 +192,7 @@ footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--edge);color:v
       your local emergency number.</span></p>
     <div class="chips">
       <p class="chips__l">Or try one of these:</p>
-      <button class="chip" data-text="I keep agreeing to things I do not want to do and then resenting the people who asked. I want to stop without becoming someone who lets people down.">Saying no</button><button class="chip" data-text="I found out my closest friend&#x27;s husband is having an affair. Telling her detonates her family. Not telling her means I am lying to her every time we speak.">A friend&#x27;s marriage</button><button class="chip" data-text="My team is being cut next month and I have been told to keep it quiet. One of them is about to sign a mortgage.">What I know about the layoffs</button><button class="chip" data-text="My father made me promise I would never put him in a home. His memory is going and he is not safe living alone now. I made that promise meaning it.">A promise to my father</button><button class="chip" data-text="A colleague made an error I could report. Nothing bad came of it. Reporting it would probably end his career.">A mistake nobody caught</button><button class="chip" data-text="My mother is in constant pain and has asked me to help her die. She has asked more than once and she is completely lucid.">The thing I cannot undo</button>
+      <button class="chip" data-label="Saying no" data-text="I keep agreeing to things I do not want to do and then resenting the people who asked. I want to stop without becoming someone who lets people down.">Saying no</button><button class="chip" data-label="A friend&#x27;s marriage" data-text="I found out my closest friend&#x27;s husband is having an affair. Telling her detonates her family. Not telling her means I am lying to her every time we speak.">A friend&#x27;s marriage</button><button class="chip" data-label="What I know about the layoffs" data-text="My team is being cut next month and I have been told to keep it quiet. One of them is about to sign a mortgage.">What I know about the layoffs</button><button class="chip" data-label="A promise to my father" data-text="My father made me promise I would never put him in a home. His memory is going and he is not safe living alone now. I made that promise meaning it.">A promise to my father</button><button class="chip" data-label="A mistake nobody caught" data-text="A colleague made an error I could report. Nothing bad came of it. Reporting it would probably end his career.">A mistake nobody caught</button><button class="chip" data-label="The thing I cannot undo" data-text="My mother is in constant pain and has asked me to help her die. She has asked more than once and she is completely lucid.">The thing I cannot undo</button>
     </div>
   </div>
 
@@ -237,16 +237,11 @@ footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--edge);color:v
   </section>
 
   <div class="note">
-    <p><strong>Three things happen, and only the first and last are a model.</strong> A small model
-    reads your sentence into nine fields. A deterministic gate judges those nine and composes the
-    package with no model anywhere in that step. Then a second model answers you with that package
-    as its instructions. Send the same reading twice and you get the same judgment, always.</p>
-    <p>The packet is carried verbatim inside the prompt the answering model received, and digests are
-    recorded over both, so what the record holds is what was sent rather than an account of it written
-    afterwards. That containment check, and the packet it is taken over, are disclosed under NDA.</p>
-    <p>How reliably a model turns a sentence into those nine fields is a question we are still
-    measuring and have not answered. The fields it filled are disclosed under NDA for now; the count
-    it could not fill is not, and it is on this page, because an honest absence is a result too.</p>
+    <p><strong>The judgment is mechanical, not generated.</strong> The same reading always
+    produces the same verdict and the same weight. Nothing is sampled, and nothing drifts.</p>
+    <p>The model that answers you is still itself: its own voice, its own judgment, its own safety
+    filters. What has changed is that its answer is bound to align with the governing package issued
+    by the MORIS artificial conscience.</p>
   </div>
 
   <footer>
@@ -262,6 +257,17 @@ footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--edge);color:v
 const FIELDS = ["actor_class", "action_class", "target_class", "scope", "magnitude", "authorization", "timing", "consent", "reversibility"];
 const API = "https://resonance-api-hazel.vercel.app/api/read";
 const $ = id => document.getElementById(id);
+
+function sessionId() {
+  try {
+    let v = sessionStorage.getItem("moris.sid");
+    if (!v) {
+      v = (crypto.randomUUID ? crypto.randomUUID() : String(Math.random()).slice(2));
+      sessionStorage.setItem("moris.sid", v);
+    }
+    return v;
+  } catch (_) { return null; }
+}
 
 function setErr(m) { const e = $("err"); e.textContent = m; e.hidden = !m; }
 
@@ -375,7 +381,7 @@ function showCrisis() {
   $("crisis").scrollIntoView({ block: "center" });
 }
 
-async function send() {
+async function send(seed) {
   const text = $("text").value.trim();
   if (!text) return;
   // AHEAD OF EVERYTHING. No request, no reading, no judgment, no model. Their words stay in the
@@ -389,13 +395,18 @@ async function send() {
     const r = await fetch(API, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ text })
+      body: JSON.stringify({ text, session_id: sessionId(), seed: seed || null })
     });
     // The status is read before the body, because a failure upstream of the service does not
     // return the service's JSON. Parse errors are treated as a failed request, never shown raw.
     let d = null;
     try { d = await r.json(); } catch (_) { d = null; }
-    if (!r.ok) throw new Error((d && d.error) || ("HTTP " + r.status));
+    if (!r.ok) {
+      // The service's own sentence, shown as written, when it is telling the visitor something
+      // true about the demo rather than reporting a fault.
+      if (d && (d.degraded || d.session_capped)) { setErr(d.error); return; }
+      throw new Error((d && d.error) || ("HTTP " + r.status));
+    }
     if (!d) throw new Error("HTTP " + r.status);
     render(d);
   } catch (e) {
@@ -437,7 +448,7 @@ for (const c of document.querySelectorAll(".chip")) {
   c.addEventListener("click", () => {
     $("text").value = c.dataset.text;
     $("n").textContent = c.dataset.text.length;
-    send();
+    send(c.dataset.label || null);
   });
 }
 </script>
