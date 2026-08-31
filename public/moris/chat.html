@@ -353,21 +353,21 @@ function render(d) {
 // the person writing. It will still miss oblique phrasing, which is why the standing crisis line is
 // in the opening panel too rather than resting on this alone.
 const CRISIS = [
-  /\bi (want|wanted) to die\b/,
-  /\bi (don'?t|do not|no longer) want to (be alive|live|exist)\b/,
+  /\bi (just )?(want|wanted) to die\b/,
+  /\bi (don'?t|do not|no longer) want to (be alive|live|exist|be here)\b/,
   /\b(kill|killing|hurt|hurting|harm|harming) myself\b/,
   /\bend(ing)? my (own )?life\b/,
   /\btak(e|ing) my own life\b/,
   /\bi'?m suicidal\b/,
   /\bi am suicidal\b/,
-  /\bsuicidal thoughts\b/,
+  /\bsuicidal (thoughts|ideation)\b/,
   /\bbetter off dead\b/,
   /\bbetter off without me\b/,
-  /\bno reason to (live|go on)\b/,
-  /\bself[ -]harm(ing)?\b/,
+  /\bno reason to (live|go on|keep going)\b/,
+  /\bself[ -]harm(ing|ed)?\b/,
   /\bi (have|'?ve) (a plan|thought about how|worked out how)\b/,
-  /\bworked out how i would\b/,
   /\bhow i would do it\b/,
+  /\bworked out how i would\b/,
 ];
 
 function inCrisis(t) {
