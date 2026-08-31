@@ -405,7 +405,8 @@ async function send(seed) {
     if (!r.ok) {
       // The service's own sentence, shown as written, when it is telling the visitor something
       // true about the demo rather than reporting a fault.
-      if (d && (d.degraded || d.session_capped)) { setErr(d.error); return; }
+      // The category of the response decides the path, not the status code.
+      if (d && (d.degraded || d.session_capped || d.screened)) { setErr(d.error); return; }
       throw new Error((d && d.error) || ("HTTP " + r.status));
     }
     if (!d) throw new Error("HTTP " + r.status);
