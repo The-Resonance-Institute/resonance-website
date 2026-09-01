@@ -23,6 +23,14 @@ const nextConfig: NextConfig = {
         source: "/moris/judge",
         destination: "/moris/judge.html",
       },
+      // The side-by-side page, same arrangement again. ADDING THE FILE IS NOT ADDING THE PAGE: it
+      // shipped once without this entry, /moris/pair.html answered 200 and /moris/pair answered
+      // 404, and the deploy reported success throughout. A generated page is not reachable until it
+      // is rewritten here.
+      {
+        source: "/moris/pair",
+        destination: "/moris/pair.html",
+      },
     ];
   },
 
