@@ -210,7 +210,7 @@ footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--edge);color:v
       <span class="verdict" id="verdict">&mdash;</span>
       <div class="mass"><span id="mass">&mdash;</span><small>concern mass</small></div>
       <div class="counts">
-        <b id="cn">&mdash;</b> concerns of <b id="ct">&mdash;</b> considerations weighed
+        <b id="cn">&mdash;</b> of <b id="ct">&mdash;</b> considerations weighed
       </div>
     </div>
     <details class="dd" id="read-wrap">
@@ -312,7 +312,7 @@ function render(d) {
   const gated = Array.isArray(d.gated) ? d.gated : [];
   const cavGated = gated.includes("cav");
 
-  $("readhint").textContent = d.blank_count + " of nine not stated"
+  $("readhint").textContent = d.blank_count + " of the 9 fields not stated"
     + (cavGated ? " · available under NDA" : "");
   $("cavgrid").hidden = cavGated;
   $("readnda").hidden = !cavGated;
