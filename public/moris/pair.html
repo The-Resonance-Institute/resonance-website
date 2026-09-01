@@ -104,9 +104,7 @@ footer{margin-top:46px;border-top:1px solid var(--edge);padding-top:16px;font-si
 
   <h1>Two answers, one conscience</h1>
   <p class="dek">Bring something you are actually weighing. The same model answers it twice: once
-    with nothing in front of it, once under MORIS. Everything else is held identical.</p>
-  <p class="dek">It takes a moment, and it is three things rather than one: reading what you wrote,
-    judging it, then answering twice. The judgment appears before either answer does.</p>
+    with nothing in front of it, once under MORIS. Nothing else changes.</p>
 
   <p class="seatline" id="seatline">Left is the raw feed. Right is the same model under MORIS. Same message, same moment. Both columns answered by Kimi K2.</p>
   <p class="seatline mismatch" id="seatmismatch" hidden>The seat changed: this exchange was answered by a different model than the one named above. The model that answered is shown on each column.</p>
@@ -209,7 +207,7 @@ function renderGate(ev) {
   $("g-considerations").textContent = ev.considerations_total;
   $("g-blank").textContent = ev.blank_count;
   $("gatebar").style.display = "flex";
-  $("stages").textContent = "judged. answering twice\u2026";
+  $("stages").textContent = "answering\u2026";
 }
 
 // The block arrives rendered. The page inserts it and adds nothing: the attribution inside it has
