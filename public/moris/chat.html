@@ -126,6 +126,11 @@ footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--edge);color:v
 .gate__terms{font-size:13px;color:var(--ink-3)}
 .gate__acts button{font:inherit;font-size:14px;padding:9px 20px;border:0;border-radius:3px;
   background:var(--accent);color:#fff;cursor:pointer}
+.gate{overflow-y:auto;-webkit-overflow-scrolling:touch}
+.gate__panel{display:flex;flex-direction:column;min-height:0;
+  max-height:calc(100vh - 40px);max-height:calc(100dvh - 40px)}
+.gate__body{overflow-y:auto;-webkit-overflow-scrolling:touch;min-height:0}
+.gate__acts{flex-shrink:0}
 .crisis{margin:22px 0;padding:22px 24px;border:1px solid var(--edge);border-left:3px solid #9a2f2f;
   border-radius:0 4px 4px 0;background:var(--paper);max-width:70ch}
 .crisis h2{margin:0 0 10px;font-size:19px}
@@ -151,6 +156,7 @@ footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--edge);color:v
   <div class="gate" id="gate" hidden>
     <div class="gate__panel" role="dialog" aria-modal="true" aria-labelledby="gate-h">
       <h2 id="gate-h">Before you begin</h2>
+      <div class="gate__body">
       <p>This is a demonstration, provided as is and for illustration only. Its output is generated
         automatically and may be inaccurate.</p>
       <p>Nothing here is medical, psychological, legal, or financial advice, and it is not a
@@ -160,6 +166,7 @@ footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--edge);color:v
       <p>Do not enter anything you would not want a third party service to receive.</p>
       <p>This page is not monitored. If you are in crisis, please reach a person. In the United
         States, call or text 988. Elsewhere, contact your local emergency number.</p>
+      </div>
       <div class="gate__acts">
         <button id="gate-ok">I understand</button>
         <a class="gate__terms" href="/moris/terms">Read the terms</a>
