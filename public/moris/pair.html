@@ -26,6 +26,12 @@
   --accent:#5FB8A1; --govern:#D19A3C; --refuse:#E0685C;
 }
 *{box-sizing:border-box}
+/* THE ATTRIBUTE HAS TO WIN. Everything this page conceals -- the first-visit modal, the crisis
+   panel, the seat-mismatch notice, the error line -- ships with `hidden` and is revealed by script.
+   A component-supplied panel with its own display rule beats a bare `hidden`, so without this the
+   modal stood open permanently and its dismiss button set a property that changed nothing. That is
+   not hypothetical: it shipped that way, and the handler was firing the whole time. */
+[hidden]{display:none !important}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;
   line-height:1.55;-webkit-font-smoothing:antialiased}
 .wrap{max-width:1180px;margin:0 auto;padding:34px 22px 80px}
