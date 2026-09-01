@@ -266,7 +266,12 @@ async function send(text) {
         if (!line) continue;
         let ev = null;
         try { ev = JSON.parse(line); } catch (_) { continue; }
-        if (ev.stage === "gate") renderGate(ev);
+        // THE THIRD STATE, AND IT IS A FACT RATHER THAN A GUESS. The service emits this the moment
+        // the reading returns, which is the only place the reading/judging boundary can be seen.
+        // The gate is milliseconds, so this will barely show; that is a true thing about a
+        // deterministic gate and it is NOT padded to make it visible.
+        if (ev.stage === "read") $("stages").textContent = "judging\u2026";
+        else if (ev.stage === "gate") renderGate(ev);
         else if (ev.stage === "column") renderColumn(ev);
         else if (ev.stage === "done") renderSeat(ev.seat);
         else if (ev.stage === "error") setErr(ev.error || "the exchange could not be completed");
@@ -276,7 +281,10 @@ async function send(text) {
     setErr("Could not reach MORIS. It may be resting; try again in a moment.");
   } finally {
     $("send").disabled = false;
-    $("stages").textContent = $("stages").textContent === "reading\u2026" ? "" : $("stages").textContent;
+    // Clear whichever in-flight state we are still sitting in. This was "reading" only; a stream
+    // that dies between the read event and the gate would otherwise leave "judging" up forever.
+    const inflight = ["reading\u2026", "judging\u2026"];
+    if (inflight.indexOf($("stages").textContent) >= 0) $("stages").textContent = "";
   }
 }
 
