@@ -132,8 +132,8 @@ footer{margin-top:46px;border-top:1px solid var(--edge);padding-top:16px;font-si
   <p class="seatline mismatch" id="seatmismatch" hidden>The seat changed: this exchange was answered by a different model than the one named above. The model that answered is shown on each column.</p>
 
   <div class="seatrow">
-    <p class="seatrow__copy">Try it against different models.</p>
-    <div class="seatrow__buttons" role="group" aria-label="Answering model"><button class="seatbtn is-on" data-seat="anthropic" data-default aria-pressed="true">Haiku 4.5</button><button class="seatbtn" data-seat="gpt4o" aria-pressed="false">GPT-4o</button><button class="seatbtn" data-seat="grok" aria-pressed="false">Grok 4.3</button><button class="seatbtn" data-seat="gemini31" aria-pressed="false">Gemini 3.1 Flash Lite</button></div>
+    <p class="seatrow__copy">Try it against different models. Kimi K2 is the open-weights seat.</p>
+    <div class="seatrow__buttons" role="group" aria-label="Answering model"><button class="seatbtn is-on" data-seat="anthropic" data-default aria-pressed="true">Haiku 4.5</button><button class="seatbtn" data-seat="openrouter" aria-pressed="false">Kimi K2</button><button class="seatbtn" data-seat="gpt4o" aria-pressed="false">GPT-4o</button><button class="seatbtn" data-seat="grok" aria-pressed="false">Grok 4.3</button><button class="seatbtn" data-seat="gemini31" aria-pressed="false">Gemini 3.1 Flash Lite</button></div>
   </div>
 
   <div class="crisis" id="crisis" hidden>
@@ -249,7 +249,7 @@ function renderColumn(ev) {
 // own demonstration.
 const SEAT_LINE_A = "Left is the raw feed. Right is the same model under MORIS. Same message, same moment. Both columns answered by ";
 const SEAT_LINE_B = ".";
-const SEAT_MODELS = {"anthropic": "claude-haiku-4-5-20251001", "gpt4o": "openai/gpt-4o", "grok": "x-ai/grok-4.3", "gemini31": "google/gemini-3.1-flash-lite"};
+const SEAT_MODELS = {"anthropic": "claude-haiku-4-5-20251001", "openrouter": "moonshotai/kimi-k2", "gpt4o": "openai/gpt-4o", "grok": "x-ai/grok-4.3", "gemini31": "google/gemini-3.1-flash-lite"};
 let SEAT = "anthropic";
 let SEAT_NAME = "Haiku 4.5";
 
