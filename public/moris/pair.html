@@ -35,6 +35,11 @@
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;
   line-height:1.55;-webkit-font-smoothing:antialiased}
 .wrap{max-width:1180px;margin:0 auto;padding:34px 22px 80px}
+.mast{border-bottom:2px solid var(--ink);padding-bottom:22px;margin-bottom:22px}
+.eyebrow a{color:inherit;text-decoration:none;border-bottom:1px solid transparent}
+.eyebrow a:hover{color:var(--accent);border-bottom-color:currentColor}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--accent);margin:0 0 10px}
 h1{font-family:var(--disp);font-size:38px;font-weight:400;margin:0 0 6px}
 .dek{color:var(--ink-2);margin:0 0 22px;max-width:70ch}
 .seatline{font-family:var(--mono);font-size:12.5px;color:var(--ink-2);border:1px solid var(--edge);
@@ -116,9 +121,12 @@ footer{margin-top:46px;border-top:1px solid var(--edge);padding-top:16px;font-si
     </div>
   </div>
 
-  <h1>Two answers, one conscience</h1>
-  <p class="dek">Bring something you are actually weighing. The same model answers it twice: once
-    with nothing in front of it, once under MORIS. Nothing else changes.</p>
+  <header class="mast">
+    <p class="eyebrow"><a href="/">The Resonance Institute</a> &middot; <a href="/moris">MORIS</a> &middot; <a href="/moris/demos">demos</a> &middot; two answers</p>
+    <h1>Two answers, one conscience</h1>
+    <p class="dek">Bring something you are actually weighing. The same model answers it twice: once
+      with nothing in front of it, once under MORIS. Nothing else changes.</p>
+  </header>
 
   <p class="seatline" id="seatline">Left is the raw feed. Right is the same model under MORIS. Same message, same moment. Both columns answered by Kimi K2.</p>
   <p class="seatline mismatch" id="seatmismatch" hidden>The seat changed: this exchange was answered by a different model than the one named above. The model that answered is shown on each column.</p>
