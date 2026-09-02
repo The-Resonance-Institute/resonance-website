@@ -227,6 +227,12 @@ export default function MorisLanding() {
             public/, so client-side routing has nothing to render and must not be attempted. */}
         <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
           <a
+            href="/moris/pair"
+            className="inline-flex items-center gap-1.5 text-sm font-medium text-accent transition-colors hover:text-ink"
+          >
+            See the same model answer twice <span aria-hidden>&rarr;</span>
+          </a>
+          <a
             href="/moris/chat"
             className="inline-flex items-center gap-1.5 text-sm font-medium text-accent transition-colors hover:text-ink"
           >

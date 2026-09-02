@@ -3,13 +3,24 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Demos",
   description:
-    "Two live demonstrations of MORIS: a conscience weighing something you bring it, and the same gate judging an autonomous agent's actions before they execute.",
+    "Three live demonstrations of MORIS: the same model answered with and without a conscience, a conscience weighing something you bring it, and the same gate judging an autonomous agent's actions before they execute.",
 };
 
 // Plain anchors throughout, not next/link. Both demos are generated static documents served from
 // public/ with their own isolated stylesheets, so client-side routing has nothing to render and
 // must not be attempted.
 const demos = [
+  {
+    // FIRST, and ruled so. This is the page that answers a sceptic: five models, one conscience,
+    // and the visitor picks which model carries it. Someone who arrives doubting the demonstration
+    // is rigged should meet the page that lets them test that before the ones that ask for trust.
+    href: "/moris/pair",
+    kicker: "The conscience, compared",
+    title: "Two Answers, One Conscience",
+    body:
+      "One message, answered twice by the same model: once with nothing in front of it, once under the govern package. The reading and the judgment happen once and are frozen, so the two columns differ by the conscience and by nothing else. Five models to choose from, four vendors, and the page names which one answered.",
+    cta: "See it answer twice",
+  },
   {
     href: "/moris/chat",
     kicker: "The conscience, talking",

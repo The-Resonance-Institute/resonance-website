@@ -18,6 +18,10 @@ const staticRoutes: { path: string; priority: number }[] = [
   { path: "/moris/paper", priority: 0.8 },
   { path: "/moris/demos", priority: 0.8 },
   { path: "/moris/terms", priority: 0.3 },
+  // The side-by-side goes in with the row. Its noindex came off once every condition was met:
+  // the seat line is true across five seats, the modal is dismissable on a phone, and the
+  // attribution survives a crop.
+  { path: "/moris/pair", priority: 0.8 },
   { path: "/moris/shift", priority: 0.8 },
   // The chat surface goes in with the launch. /moris/judge stays out: it is the CAV builder,
   // an instrument rather than a demonstration, and it keeps its noindex.
