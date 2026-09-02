@@ -22,20 +22,20 @@ const demos = [
     cta: "See it answer twice",
   },
   {
-    href: "/moris/chat",
-    kicker: "The conscience, talking",
-    title: "Say Something to MORIS",
-    body:
-      "Bring something you are actually wrestling with. A model reads the shape of what you are weighing into nine fields, a deterministic gate judges those nine, and a second model answers you bound by that judgment. You see the verdict, its weight, how many of the nine your words did not state, and the answer given under it.",
-    cta: "Say something",
-  },
-  {
     href: "/moris/shift",
     kicker: "The conscience, governing",
     title: "The Governed Shift",
     body:
       "An autonomous support agent works a shift of nine tool calls, and every call runs twice: once with nothing between the agent and the effect, once through MORIS. Nine calls produced nine different concern levels, which is what govern-is-not-a-switch looks like when you can see it.",
     cta: "Read the record",
+  },
+  {
+    href: "/moris/chat",
+    kicker: "The conscience, talking",
+    title: "Say Something to MORIS",
+    body:
+      "Bring something you are actually wrestling with. A model reads the shape of what you are weighing into nine fields, a deterministic gate judges those nine, and a second model answers you bound by that judgment. You see the verdict, its weight, how many of the nine your words did not state, and the answer given under it.",
+    cta: "Say something",
   },
 ];
 

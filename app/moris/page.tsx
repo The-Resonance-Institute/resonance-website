@@ -233,16 +233,16 @@ export default function MorisLanding() {
             See the same model answer twice <span aria-hidden>&rarr;</span>
           </a>
           <a
-            href="/moris/chat"
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-accent transition-colors hover:text-ink"
-          >
-            Say something to MORIS <span aria-hidden>&rarr;</span>
-          </a>
-          <a
             href="/moris/shift"
             className="inline-flex items-center gap-1.5 text-sm font-medium text-accent transition-colors hover:text-ink"
           >
             Read the governed shift <span aria-hidden>&rarr;</span>
+          </a>
+          <a
+            href="/moris/chat"
+            className="inline-flex items-center gap-1.5 text-sm font-medium text-accent transition-colors hover:text-ink"
+          >
+            Say something to MORIS <span aria-hidden>&rarr;</span>
           </a>
         </div>
       </section>
