@@ -6,7 +6,7 @@ export const metadata: Metadata = {
     "Three live demonstrations of MORIS: the same model answered with and without a conscience, a conscience weighing something you bring it, and the same gate judging an autonomous agent's actions before they execute.",
 };
 
-// Plain anchors throughout, not next/link. Both demos are generated static documents served from
+// Plain anchors throughout, not next/link. All three demos are generated static documents served from
 // public/ with their own isolated stylesheets, so client-side routing has nothing to render and
 // must not be attempted.
 const demos = [
@@ -18,7 +18,7 @@ const demos = [
     kicker: "The conscience, compared",
     title: "Two Answers, One Conscience",
     body:
-      "One message, answered twice by the same model: once with nothing in front of it, once under the govern package. The reading and the judgment happen once and are frozen, so the two columns differ by the conscience and by nothing else. Five models to choose from, four vendors, and the page names which one answered.",
+      "One message, answered twice by the same model: once with nothing in front of it, once under MORIS. The reading and the judgment happen once and are frozen, so the two columns differ by the conscience and by nothing else. Choose the model to test. MORIS is model-agnostic; both columns are answered by the model you pick.",
     cta: "See it answer twice",
   },
   {
@@ -48,12 +48,13 @@ export default function Demos() {
         </p>
         <h1 className="mt-6 font-serif text-5xl text-ink sm:text-6xl">Demos</h1>
         <p className="mt-6 max-w-2xl text-xl leading-relaxed text-ink">
-          Two surfaces, one conscience. In both, no model sits where the verdict
-          is decided.
+          Three demonstrations, one conscience. In each, no model sits where the
+          verdict is decided.
         </p>
         <p className="mt-4 max-w-2xl leading-relaxed text-muted">
-          They are not recordings. Each one calls the live gate when you use it,
-          and the same reading always produces the same judgment.
+          These are not recordings. Each one calls the live gate when you use it.
+          The gate is mechanical and deterministic. The model keeps its own voice,
+          and answers within the bounds MORIS sets.
         </p>
       </section>
 
@@ -76,7 +77,7 @@ export default function Demos() {
       <section className="mt-14 border-t border-line pt-10">
         <h2 className="font-serif text-2xl text-ink">What is withheld</h2>
         <p className="mt-3 max-w-2xl text-muted">
-          Both demonstrations show the verdict, its weight and the concern
+          All three demonstrations show the verdict, its weight and the concern
           count. The values the gate read, the primitives that fire by name, and
           the wording MORIS returns to a model are disclosed under NDA. What is
           public is enough to check that the gradient is real and that the same

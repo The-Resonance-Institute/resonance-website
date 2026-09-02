@@ -225,7 +225,7 @@ footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--edge);color:v
     </details>
 
     <details class="dd" id="pkg-wrap">
-      <summary>Step 2: the govern package sent to the answering model
+      <summary>Step 2: what MORIS sent to the answering model
         <span class="hint" id="pkghint"></span></summary>
       <pre class="pkg" id="package"></pre>
       <p class="nda" id="pkgnda" hidden></p>
@@ -339,7 +339,7 @@ function render(d) {
   document.querySelector(".digest").hidden = pkgGated;
   if (pkgGated) {
     $("pkghint").textContent = "available under NDA";
-    $("pkgnda").textContent = "The govern package delivered to the answering model, and the digests "
+    $("pkgnda").textContent = "What MORIS delivered to the answering model, and the digests "
       + "recording it, are disclosed under NDA. The verdict and its weight, above, are not.";
   } else {
     $("package").textContent = d.package;
