@@ -41,6 +41,14 @@ h1{font-family:var(--disp);font-size:38px;font-weight:400;margin:0 0 6px}
 .seatline{font-family:var(--mono);font-size:12.5px;color:var(--ink-2);border:1px solid var(--edge);
   border-left:3px solid var(--accent);padding:10px 14px;margin:0 0 18px;background:var(--raise)}
 .seatline b{color:var(--ink)}
+.seatrow{margin:14px 0 0}
+.seatrow__copy{font-family:var(--mono);font-size:12.5px;color:var(--ink-3);margin:0 0 7px}
+.seatrow__buttons{display:flex;flex-wrap:wrap;gap:7px}
+.seatbtn{font:inherit;font-family:var(--mono);font-size:12.5px;padding:6px 11px;cursor:pointer;
+  border:1px solid var(--edge);background:var(--paper);color:var(--ink-2);border-radius:3px}
+.seatbtn:hover{border-color:var(--ink-3);color:var(--ink)}
+.seatbtn.is-on{border-color:var(--ink);color:var(--ink);font-weight:600}
+.seatbtn[disabled]{opacity:.5;cursor:default}
 .mismatch{border-left-color:var(--refuse);color:var(--ink);margin-top:8px}
 textarea{width:100%;min-height:104px;padding:13px 14px;font:inherit;background:var(--raise);
   color:var(--ink);border:1px solid var(--edge);resize:vertical}
@@ -115,6 +123,11 @@ footer{margin-top:46px;border-top:1px solid var(--edge);padding-top:16px;font-si
 
   <p class="seatline" id="seatline">Left is the raw feed. Right is the same model under MORIS. Same message, same moment. Both columns answered by Kimi K2.</p>
   <p class="seatline mismatch" id="seatmismatch" hidden>The seat changed: this exchange was answered by a different model than the one named above. The model that answered is shown on each column.</p>
+
+  <div class="seatrow">
+    <p class="seatrow__copy">Try it against different models.</p>
+    <div class="seatrow__buttons" role="group" aria-label="Answering model"><button class="seatbtn" data-seat="anthropic" aria-pressed="false">Haiku 4.5</button><button class="seatbtn is-on" data-seat="openrouter" data-default aria-pressed="true">Kimi K2</button><button class="seatbtn" data-seat="gpt4o" aria-pressed="false">GPT-4o</button><button class="seatbtn" data-seat="grok" aria-pressed="false">Grok 4.3</button><button class="seatbtn" data-seat="gemini31" aria-pressed="false">Gemini 3.1 Flash Lite</button></div>
+  </div>
 
   <div class="crisis" id="crisis" hidden>
     <h2>Please reach a person</h2>
@@ -227,8 +240,36 @@ function renderColumn(ev) {
 // The seat that ACTUALLY answered. If it is not the one named above, say so: a page that printed
 // the expected seat while a different model answered would be asserting something false about its
 // own demonstration.
+const SEAT_LINE_A = "Left is the raw feed. Right is the same model under MORIS. Same message, same moment. Both columns answered by ";
+const SEAT_LINE_B = ".";
+const SEAT_MODELS = {"anthropic": "claude-haiku-4-5-20251001", "openrouter": "moonshotai/kimi-k2", "gpt4o": "openai/gpt-4o", "grok": "x-ai/grok-4.3", "gemini31": "google/gemini-3.1-flash-lite"};
+let SEAT = "openrouter";
+let SEAT_NAME = "Kimi K2";
+
+function chooseSeat(btn) {
+  SEAT = btn.dataset.seat;
+  SEAT_NAME = btn.textContent;
+  document.querySelectorAll(".seatbtn").forEach(function (b) {
+    const on = b === btn;
+    b.classList.toggle("is-on", on);
+    b.setAttribute("aria-pressed", on ? "true" : "false");
+  });
+  // The line follows the CHOICE here and the ANSWER in renderSeat below, both through the same two
+  // halves of seat_line(), so there is one sentence with one moving part.
+  $("seatline").textContent = SEAT_LINE_A + SEAT_NAME + SEAT_LINE_B;
+  $("seatmismatch").hidden = true;
+}
+
+document.querySelectorAll(".seatbtn").forEach(function (b) {
+  b.addEventListener("click", function () { chooseSeat(b); });
+});
+
 function renderSeat(seat) {
-  if (seat && seat.model && seat.model !== SEAT_MODEL_ID) { $("seatmismatch").hidden = false; }
+  // WHAT ANSWERED, NOT WHAT WAS ASKED FOR. A pulled key falls back to Anthropic and only the
+  // response knows, so this compares the response against the seat we asked for rather than against
+  // a single id the page used to pin.
+  const asked = SEAT_MODELS[SEAT];
+  if (seat && seat.model && seat.model !== asked) { $("seatmismatch").hidden = false; }
   $("stages").textContent = "";
 }
 
@@ -243,7 +284,7 @@ async function send(text) {
     const r = await fetch(API, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ text: text, session_id: sessionId() })
+      body: JSON.stringify({ text: text, session_id: sessionId(), seat: SEAT })
     });
     if (!r.ok) {
       let d = null;
