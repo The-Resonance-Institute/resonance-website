@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Bring something you are wrestling with and see how an LLM with an artificial conscience answers.">
-<meta name="moris-build" content="c058bab01308 2026-09-02T21:56:25Z">
+<meta name="moris-build" content="d4e1330a817f 2026-09-02T23:40:17Z">
 <title>Say Something to MORIS</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -259,8 +259,8 @@ footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--edge);color:v
 
   <footer>
     <p>The reading, the wording MORIS returns to a model, the concerns that fired and their names are
-    disclosed under NDA. What you see here is the judgment, its weight, how many of the nine fields
-    your words did not state, and the answer given under it. Your words are not stored by us: nothing is written to
+    disclosed under NDA. What you see here is the judgment, its weight, how many of the nine structural
+    fields your words did not state, and the answer given under it. Your words are not stored by us: nothing is written to
     a database or a file, and the only place they go is the two models that read and answer, over
     the Anthropic API. <a href="/moris/terms">Terms of use</a>.</p>
   </footer>
@@ -317,15 +317,16 @@ function render(d) {
   const gated = Array.isArray(d.gated) ? d.gated : [];
   const cavGated = gated.includes("cav");
 
-  $("readhint").textContent = d.blank_count + " of the 9 fields not stated"
+  $("readhint").textContent = d.blank_count + " of the 9 structural fields not stated"
     + (cavGated ? " · available under NDA" : "");
   $("cavgrid").hidden = cavGated;
   $("readnda").hidden = !cavGated;
   if (cavGated) {
-    $("readnda").textContent = "The values the reader put in the nine fields are disclosed under "
-      + "NDA. " + d.blank_count + " of the nine were not stated in your words at all, and were left "
-      + "empty rather than guessed. That count is not withheld, because an honest absence is "
-      + "a result.";
+    $("readnda").textContent = "The values the reader put in the nine structural fields are disclosed "
+      + "under NDA. " + d.blank_count + " of the nine were not stated in your words at all, and were "
+      + "left empty rather than guessed. That count is not withheld, because an honest absence is "
+      + "a result. The CAV carries two further content fields; this surface does not read them and "
+      + "they stay empty.";
   } else {
     for (const f of FIELDS) {
       const v = d.cav[f];
