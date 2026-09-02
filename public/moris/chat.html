@@ -190,10 +190,10 @@ footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--edge);color:v
   </div>
 
   <div class="box">
-    <textarea id="text" maxlength="2000" placeholder="e.g. I found out my friend&#39;s partner is cheating and I don&#39;t know whether to tell her"></textarea>
+    <textarea id="text" maxlength="8000" placeholder="e.g. I found out my friend&#39;s partner is cheating and I don&#39;t know whether to tell her"></textarea>
     <div class="bar">
       <button id="send">Send it</button>
-      <span class="count"><span id="n">0</span> / 2000</span>
+      <span class="count"><span id="n">0</span> / 8000</span>
     </div>
     <p class="standing">Output is generated automatically and may be inaccurate. Not advice of any
       kind, and no liability is accepted for it. <span class="standing--crisis">This page is not
@@ -453,7 +453,14 @@ $("gate-ok").addEventListener("click", function () {
 });
 
 $("send").addEventListener("click", send);
-$("text").addEventListener("input", () => { $("n").textContent = $("text").value.length; });
+// The client-side cap is the same constant the attribute and the counter use, and the send state
+// follows it, so the page stays honest even if the maxlength attribute is ever removed.
+const INPUT_MAX = 8000;
+$("text").addEventListener("input", () => {
+  const n = $("text").value.length;
+  $("n").textContent = n;
+  $("send").disabled = n > INPUT_MAX;
+});
 $("text").addEventListener("keydown", e => {
   if ((e.metaKey || e.ctrlKey) && e.key === "Enter") send();
 });
