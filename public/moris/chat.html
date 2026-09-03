@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Bring something you are wrestling with and see how an LLM with an artificial conscience answers.">
-<meta name="moris-build" content="8f9f0046e682 2026-09-03T19:38:53Z">
+<meta name="moris-build" content="5de896c033c4 2026-09-03T20:18:46Z">
 <title>Say Something to MORIS</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -207,6 +207,8 @@ footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--edge);color:v
       kind, and no liability is accepted for it. <span class="standing--crisis">This page is not
       monitored. If you are in crisis, please reach a person: in the US call or text <b>988</b>, or
       your local emergency number.</span></p>
+    <p class="standing">Anonymous use is limited to 10 exchanges a day in this
+      browser. Accounts and higher limits are coming.</p>
     <p class="crosslink">Sceptical? <a href="/moris/pair">See the same model answer twice</a>,
       once raw and once under MORIS, side by side.</p>
     <div class="chips">
@@ -333,6 +335,20 @@ function startOver() {
       appendEntry(t[i].text, { verdict: t[i + 1].verdict || "", concern_mass: t[i + 1].mass || 0, answer: t[i + 1].text });
   }
 })();
+
+// A browser id for the anonymous daily cap. Kept in this browser's own storage, sent with every
+// request, never tied to a name; the service counts it per day and nothing more. If storage cannot
+// be kept, a fresh id goes with each request and the session and rate gates still apply.
+function browserId() {
+  try {
+    let v = localStorage.getItem("moris.chat.bid");
+    if (!v) {
+      v = (crypto.randomUUID ? crypto.randomUUID() : String(Math.random()).slice(2));
+      localStorage.setItem("moris.chat.bid", v);
+    }
+    return v;
+  } catch (_) { return (crypto.randomUUID ? crypto.randomUUID() : String(Math.random()).slice(2)); }
+}
 
 function sessionId() {
   try {
@@ -477,7 +493,8 @@ async function send(seed) {
     const r = await fetch(API, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ text, session_id: sessionId(), seed: seed || null, thread: windowed(loadThread()) })
+      body: JSON.stringify({ text, session_id: sessionId(), browser_id: browserId(), seed: seed || null,
+                             thread: windowed(loadThread()) })
     });
     // The status is read before the body, because a failure upstream of the service does not
     // return the service's JSON. Parse errors are treated as a failed request, never shown raw.
@@ -487,7 +504,7 @@ async function send(seed) {
       // The service's own sentence, shown as written, when it is telling the visitor something
       // true about the demo rather than reporting a fault.
       // The category of the response decides the path, not the status code.
-      if (d && (d.degraded || d.session_capped || d.screened)) { setErr(d.error); return; }
+      if (d && (d.degraded || d.session_capped || d.screened || d.daily_capped || d.paused)) { setErr(d.error); return; }
       throw new Error((d && d.error) || ("HTTP " + r.status));
     }
     if (!d) throw new Error("HTTP " + r.status);
