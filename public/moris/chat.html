@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Bring something you are wrestling with and see how an LLM with an artificial conscience answers.">
-<meta name="moris-build" content="5de896c033c4 2026-09-03T20:18:46Z">
+<meta name="moris-build" content="a3d75a2a47ea 2026-09-03T22:41:14Z">
 <title>Say Something to MORIS</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -81,7 +81,10 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .turn{padding:12px 0;border-bottom:1px solid var(--edge)}
 .turn__q{margin:0 0 6px;color:var(--ink-2);font-style:italic}
 .turn__v{margin:0 0 6px;font-family:var(--mono);font-size:12px;letter-spacing:.04em;color:var(--ink-3)}
-.turn__a{margin:0;white-space:pre-wrap}
+.turn__a{margin:0}
+.turn__a p{margin:0 0 10px}
+.turn__a ul,.turn__a ol{margin:0 0 10px 22px;padding:0}
+.turn__a li{margin:0 0 4px}
 .startover{background:none;border:1px solid var(--edge);color:var(--ink-2);font-size:13px;padding:6px 10px;margin-left:8px;cursor:pointer}
 
 .readlbl{padding:14px 18px 0;font-size:13px;color:var(--ink-2)}
@@ -256,8 +259,7 @@ footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--edge);color:v
     </details>
 
     <div class="ans">
-      <h4>Step 3: the answer, given under that package</h4>
-      <p id="answer">&mdash;</p>
+      <h4>Step 3: the answer above, given under that package</h4>
       <p class="foot" id="foot"></p>
     </div>
   </section>
@@ -303,13 +305,49 @@ function saveThread(t) { try { localStorage.setItem(THREAD_KEY, JSON.stringify(t
 function windowed(t) {
   return t.slice(-THREAD_WINDOW).map(x => ({ role: x.role, text: x.text }));
 }
+// THE ANSWER'S MARKDOWN, RENDERED. Bold, italics, bullet and numbered lists, paragraphs; nothing else,
+// and no literal asterisk survives. Everything is HTML-escaped first, so a tag inside an answer is
+// shown as text and never run. Small on purpose: a full markdown library is a script from a CDN
+// that this page does not load.
+function renderMarkdown(src) {
+  const esc = s => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+  const inline = s => s
+    .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+    .replace(/(^|[^\w*])\*(?!\s)([^*]+?)\*(?!\w)/g, "$1<em>$2</em>")
+    .replace(/(^|[^\w])_(?!\s)([^_]+?)_(?!\w)/g, "$1<em>$2</em>")
+    .replace(/\*/g, "");
+  // A block is what sits between blank lines. Inside it, consecutive list items become one list and
+  // the other lines one paragraph, so "Three things matter:" followed by its items renders as a
+  // lead line and a list, which is how the answering models write.
+  const kind = l => (/^\s*[-*•]\s+/.test(l) ? "ul" : (/^\s*\d+[.)]\s+/.test(l) ? "ol" : "p"));
+  const strip = l => l.replace(/^\s*[-*•]\s+/, "").replace(/^\s*\d+[.)]\s+/, "");
+  const out = [];
+  for (const block of esc(src.replace(/\r/g, "")).split(/\n{2,}/)) {
+    const lines = block.split("\n").filter(l => l.trim() !== "");
+    let run = [], runKind = null;
+    const flush = () => {
+      if (!run.length) return;
+      if (runKind === "p") out.push("<p>" + inline(run.join("<br>")) + "</p>");
+      else out.push("<" + runKind + ">" + run.map(l => "<li>" + inline(strip(l)) + "</li>").join("") + "</" + runKind + ">");
+      run = [];
+    };
+    for (const l of lines) {
+      const k = kind(l);
+      if (k !== runKind) { flush(); runKind = k; }
+      run.push(l);
+    }
+    flush();
+  }
+  return out.join("");
+}
+
 function appendEntry(q, d) {
   const e = document.createElement("div");
   e.className = "turn";
   const pq = document.createElement("p"); pq.className = "turn__q"; pq.textContent = q;
   const pv = document.createElement("p"); pv.className = "turn__v";
   pv.textContent = d.verdict + " · concern mass " + Number(d.concern_mass).toFixed(3);
-  const pa = document.createElement("p"); pa.className = "turn__a"; pa.textContent = d.answer || "(no answer returned)";
+  const pa = document.createElement("div"); pa.className = "turn__a"; pa.innerHTML = renderMarkdown(d.answer || "(no answer returned)");
   e.appendChild(pq); e.appendChild(pv); e.appendChild(pa);
   $("thread").appendChild(e);
   $("startover").hidden = false;
@@ -439,7 +477,7 @@ function render(d) {
   // so the page raised a red alarm about a system that was working.
   $("shamatch").textContent = d.bound_present ? "CONTAINED VERBATIM" : "NOT CONTAINED";
   $("shamatch").style.color = d.bound_present ? "var(--accent)" : "var(--refuse)";
-  $("answer").textContent = d.answer || "(no answer returned)";
+  // The answer renders ONCE, in the thread above; Step 3 is the line that says so.
   $("foot").textContent = "Read by " + d.read_by + " in " + d.read_seconds
     + "s. Judged with no model in the path. Answered by " + d.answered_by + " under the package above.";
   $("out").hidden = false;
