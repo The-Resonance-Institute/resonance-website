@@ -57,15 +57,17 @@ export default function Paper() {
           <Stat n="680" label="public moral dilemmas" />
           <Stat n="92.6%" label="governed, natural corpus" />
           <Stat n="95.9%" label="governed, full enumeration" />
-          <Stat n="83.3%" label="same model, same text, same reading" />
+          <Stat n="83.3%" label="same model, same text, same reading, on these 680 dilemmas" />
           <Stat n="0" label="models in the judgment" accent />
         </div>
         <p className="mt-3 text-sm text-muted">
           Two independent surfaces, one natural and written by strangers, one synthetic and
           exhaustive over 57,344 structural actions, land in the same place. The judgment itself is
-          deterministic given a reading; the 83.3% is how stable that reading is in deployment,
-          where a single embedded perceiver reads each action and, one time in six, the same model
-          renders the same text into a different structure.
+          deterministic given a reading; the 83.3% is how stable that reading was on this corpus,
+          the 680 MoralChoice scenarios read one at a time, where a single embedded perceiver reads
+          each action and, one time in six, the same model renders the same text into a different
+          structure. Stability is a property of the text as much as of the reader: on other corpora
+          it is measured separately and reported with the text it was measured on.
         </p>
       </section>
 
