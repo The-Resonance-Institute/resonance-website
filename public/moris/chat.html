@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Bring something you are wrestling with and see how an LLM with an artificial conscience answers.">
-<meta name="moris-build" content="e3ba71bb2f1d 2026-09-03T16:35:51Z">
+<meta name="moris-build" content="be9fd47ac1c9 2026-09-03T19:29:22Z">
 <title>Say Something to MORIS</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -355,6 +355,11 @@ function setErr(m) { const e = $("err"); e.textContent = m; e.hidden = !m; }
 function visitorMessage(m) {
   if (m === "Failed to fetch")
     return "Could not reach MORIS. It may be resting; try again in a moment.";
+  // The reader returned all nine fields BLANK: a failed instrument by the paper's rule, refused at
+  // the service rather than judged at mass zero. The person is told what happened and what to write.
+  if (/saw nothing/i.test(m))
+    return "MORIS could not see a situation to weigh in that. Nothing was judged. Say what is happening "
+         + "and what you are deciding, in your own words, and it will read it.";
   if (/unparseable|illegal CAV|no text to read/i.test(m))
     return "MORIS could not read a shape it recognises out of that. It happens when a message reads "
          + "as an instruction to the reader rather than as something you are weighing. Try saying "
