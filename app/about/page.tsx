@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "The Resonance Institute is the studio of C. T. Herndon, based in Huntington Beach, California. It holds the copyright to the Resonance Series and the intellectual property behind MORIS, an artificial conscience: a mechanical, deterministic control plane for moral thought.",
+    "The Resonance Institute is the studio of C. T. Herndon, based in Huntington Beach, California. It publishes the Resonance Series, develops MORIS, an artificial conscience: a mechanical, deterministic control plane for moral thought, and licenses both. Not a lab, no venture funding. Its subject is resonance.",
 };
 
 export default function About() {
@@ -36,7 +36,26 @@ export default function About() {
           for moral thought.
         </p>
         <p>
-          The philosophy is the parent. The system is what it proved capable of.
+          The philosophy is the parent. MORIS is the philosophy made operable.
+        </p>
+        <p>
+          The Institute publishes the Series, develops MORIS, and licenses both. A
+          patent covering the MORIS architecture is pending. It is not a lab and
+          takes no venture funding. It is a private institute, and its subject is
+          resonance: what it takes to see a person, a community, or an institution
+          whole rather than as a collection of parts, and to live accordingly. That
+          question is the thesis. MORIS is the same posture built for a world where
+          autonomous agents act in every part of our lives. Anyone working on
+          either is welcome here.
+        </p>
+        <p className="text-muted">
+          Inquiries:{" "}
+          <a
+            href="mailto:contact@resonanceinstitutellc.com"
+            className="text-accent underline decoration-line hover:decoration-accent"
+          >
+            contact@resonanceinstitutellc.com
+          </a>
         </p>
       </section>
 
