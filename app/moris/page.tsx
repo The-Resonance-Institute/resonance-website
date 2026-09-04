@@ -22,7 +22,7 @@ const properties = [
   },
   {
     h: "Re-derivable",
-    p: "Every verdict is sealed to a tamper-evident record. The measured results re-derive publicly, from deposited data, by anyone. The mechanism re-derives under NDA or through a named third party. Not an assertion. Evidence.",
+    p: "Every verdict is sealed to a tamper-evident record. The measured results re-derive publicly, from deposited data, by anyone. The mechanism re-derives under NDA or through a named third party: open to inspection by anyone with standing to verify it. Not an assertion. Evidence.",
   },
 ];
 

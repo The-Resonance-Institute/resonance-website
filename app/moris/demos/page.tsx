@@ -34,7 +34,7 @@ const demos = [
     kicker: "The conscience, talking",
     title: "Say Something to MORIS",
     body:
-      "Bring something you are actually wrestling with. A model reads the shape of what you are weighing into nine fields, a deterministic gate judges those nine, and a second model answers you bound by that judgment. You see the verdict, its weight, how many of the nine your words did not state, and the answer given under it.",
+      "Bring something you are actually wrestling with. A model reads the shape of what you are weighing into nine fields, a gate with no model in it weighs those nine against moral primitives drawn from the Series and returns a verdict and a weight, and the model that answers you is bound by that verdict and never sees the reading. You see the verdict, its weight, how many of the nine your words did not state, and the answer given under it.",
     cta: "Say something",
   },
 ];
