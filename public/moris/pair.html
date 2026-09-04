@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="One message, answered twice by the same model: once raw, once under an artificial conscience.">
-<meta name="moris-build" content="d4e1330a817f 2026-09-02T23:40:18Z">
+<meta name="moris-build" content="520bdab0e313 2026-09-04T15:09:57Z">
 <title>Two Answers, One Conscience</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
@@ -157,6 +157,8 @@ footer{margin-top:46px;border-top:1px solid var(--edge);padding-top:16px;font-si
       kind, and no liability is accepted for it. <span class="standing--crisis">This page is not
       monitored. If you are in crisis, please reach a person: in the US call or text <b>988</b>, or
       your local emergency number.</span></p>
+    <p class="standing">Anonymous use is limited to 20 exchanges a day in this
+      browser. Accounts and higher limits are coming.</p>
 
   <div class="chips">
     <p class="chips__l">Or try one of these:</p>
@@ -196,6 +198,20 @@ const API = "https://resonance-api-hazel.vercel.app/api/pair";
 const SEAT_MODEL_ID = "claude-haiku-4-5-20251001";
 function $(id) { return document.getElementById(id); }
 function setErr(m) { const e = $("err"); e.textContent = m; e.hidden = !m; }
+
+// A browser id for the anonymous daily cap. Kept in this browser's own storage, sent with every
+// request, never tied to a name; the service counts it per day and nothing more. If storage cannot
+// be kept, a fresh id goes with each request and the session and rate gates still apply.
+function browserId() {
+  try {
+    let v = localStorage.getItem("moris.chat.bid");
+    if (!v) {
+      v = (crypto.randomUUID ? crypto.randomUUID() : String(Math.random()).slice(2));
+      localStorage.setItem("moris.chat.bid", v);
+    }
+    return v;
+  } catch (_) { return (crypto.randomUUID ? crypto.randomUUID() : String(Math.random()).slice(2)); }
+}
 
 // The client-side fast path, generated from the one authored definition the service also compiles.
 // It stops a request before the visitor's words leave this machine, which no server can offer.
@@ -294,7 +310,7 @@ async function send(text) {
     const r = await fetch(API, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ text: text, session_id: sessionId(), seat: SEAT })
+      body: JSON.stringify({ text: text, session_id: sessionId(), browser_id: browserId(), seat: SEAT })
     });
     if (!r.ok) {
       let d = null;
