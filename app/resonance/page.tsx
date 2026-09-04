@@ -28,7 +28,7 @@ const trilogies = [
   {
     n: "IV",
     name: "The Sacred",
-    line: "What is owed to the depth of things. Reverence as a leadership capacity.",
+    line: "What is owed to the depth of things. Reverence as a capacity.",
   },
   {
     n: "V",

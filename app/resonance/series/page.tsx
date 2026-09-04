@@ -66,7 +66,7 @@ const trilogies: Trilogy[] = [
   {
     numeral: "IV",
     name: "The Sacred",
-    line: "What is owed to the depth of things. Reverence as a leadership capacity.",
+    line: "What is owed to the depth of things. Reverence as a capacity.",
     art: "/trilogies/sacred.jpg",
     books: [
       { n: 10, title: "The Art of Nearness", scale: "The self", cover: "/covers/book10.jpg" },
