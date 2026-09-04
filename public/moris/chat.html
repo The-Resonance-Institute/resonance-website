@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Bring something you are wrestling with and see how an LLM with an artificial conscience answers.">
-<meta name="moris-build" content="a3d75a2a47ea 2026-09-03T22:41:14Z">
+<meta name="moris-build" content="7635ffb64756 2026-09-04T00:15:23Z">
 <title>Say Something to MORIS</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -77,15 +77,6 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
   text-transform:uppercase;color:var(--ink-3);margin-top:3px}
 .counts{font-size:13px;color:var(--ink-2);margin-left:auto;text-align:right}
 .counts b{font-family:var(--mono);font-weight:500}
-.thread{margin:0 0 8px}
-.turn{padding:12px 0;border-bottom:1px solid var(--edge)}
-.turn__q{margin:0 0 6px;color:var(--ink-2);font-style:italic}
-.turn__v{margin:0 0 6px;font-family:var(--mono);font-size:12px;letter-spacing:.04em;color:var(--ink-3)}
-.turn__a{margin:0}
-.turn__a p{margin:0 0 10px}
-.turn__a ul,.turn__a ol{margin:0 0 10px 22px;padding:0}
-.turn__a li{margin:0 0 4px}
-.startover{background:none;border:1px solid var(--edge);color:var(--ink-2);font-size:13px;padding:6px 10px;margin-left:8px;cursor:pointer}
 
 .readlbl{padding:14px 18px 0;font-size:13px;color:var(--ink-2)}
 .readlbl b{color:var(--ink)}
@@ -203,15 +194,12 @@ footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--edge);color:v
     <textarea id="text" maxlength="8000" placeholder="e.g. I found out my friend&#39;s partner is cheating and I don&#39;t know whether to tell her"></textarea>
     <div class="bar">
       <button id="send">Send it</button>
-      <button id="startover" class="startover" type="button" hidden>Start over</button>
       <span class="count"><span id="n">0</span> / 8000</span>
     </div>
     <p class="standing">Output is generated automatically and may be inaccurate. Not advice of any
       kind, and no liability is accepted for it. <span class="standing--crisis">This page is not
       monitored. If you are in crisis, please reach a person: in the US call or text <b>988</b>, or
       your local emergency number.</span></p>
-    <p class="standing">Anonymous use is limited to 10 exchanges a day in this
-      browser. Accounts and higher limits are coming.</p>
     <p class="crosslink">Sceptical? <a href="/moris/pair">See the same model answer twice</a>,
       once raw and once under MORIS, side by side.</p>
     <div class="chips">
@@ -221,11 +209,6 @@ footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--edge);color:v
   </div>
 
   <div class="err" id="err" hidden></div>
-
-  <!-- THE THREAD. Every completed turn, oldest first: the person's words, the verdict line that
-       turn earned on its own, and the answer given under it. Held in this browser's storage and
-       nowhere else; the latest turn's full reading and package sit in the section below it. -->
-  <section class="thread" id="thread"></section>
 
   <section class="out" id="out" hidden>
     <div class="head">
@@ -259,7 +242,8 @@ footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--edge);color:v
     </details>
 
     <div class="ans">
-      <h4>Step 3: the answer above, given under that package</h4>
+      <h4>Step 3: the answer, given under that package</h4>
+      <p id="answer">&mdash;</p>
       <p class="foot" id="foot"></p>
     </div>
   </section>
@@ -278,10 +262,7 @@ footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--edge);color:v
     disclosed under NDA. What you see here is the judgment, its weight, how many of the nine structural
     fields your words did not state, and the answer given under it. Your words are not stored by us: nothing is written to
     a database or a file, and the only place they go is the two models that read and answer, over
-    the Anthropic API. The thread of this conversation stays in this browser&#39;s own storage and
-    travels only inside your next message, the last 20 turns of it, so the
-    model that answers can remember what you said; the conscience judges each turn on its own and
-    never sees the thread. Start over clears it. <a href="/moris/terms">Terms of use</a>.</p>
+    the Anthropic API. <a href="/moris/terms">Terms of use</a>.</p>
   </footer>
 </div>
 
@@ -289,104 +270,6 @@ footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--edge);color:v
 const FIELDS = ["actor_class", "action_class", "target_class", "scope", "magnitude", "authorization", "timing", "consent", "reversibility"];
 const API = "https://resonance-api-hazel.vercel.app/api/read";
 const $ = id => document.getElementById(id);
-
-// THE THREAD REMEMBERS YOU. THE GATE NEVER SEES IT. The thread lives here, in this browser's storage,
-// and travels only inside the request. The page sends the last THREAD_WINDOW turns verbatim, oldest
-// first, as {role, text} and nothing more; the service reads the last twenty of what it is sent and
-// the reader reads the current message alone. Storage can throw in a private window; every access
-// is guarded, and a thread that cannot be kept is simply a thread of one turn.
-const THREAD_KEY = "moris.chat.thread.v1";
-const THREAD_WINDOW = 20;
-function loadThread() {
-  try { const v = JSON.parse(localStorage.getItem(THREAD_KEY) || "[]"); return Array.isArray(v) ? v : []; }
-  catch (_) { return []; }
-}
-function saveThread(t) { try { localStorage.setItem(THREAD_KEY, JSON.stringify(t)); } catch (_) {} }
-function windowed(t) {
-  return t.slice(-THREAD_WINDOW).map(x => ({ role: x.role, text: x.text }));
-}
-// THE ANSWER'S MARKDOWN, RENDERED. Bold, italics, bullet and numbered lists, paragraphs; nothing else,
-// and no literal asterisk survives. Everything is HTML-escaped first, so a tag inside an answer is
-// shown as text and never run. Small on purpose: a full markdown library is a script from a CDN
-// that this page does not load.
-function renderMarkdown(src) {
-  const esc = s => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
-  const inline = s => s
-    .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
-    .replace(/(^|[^\w*])\*(?!\s)([^*]+?)\*(?!\w)/g, "$1<em>$2</em>")
-    .replace(/(^|[^\w])_(?!\s)([^_]+?)_(?!\w)/g, "$1<em>$2</em>")
-    .replace(/\*/g, "");
-  // A block is what sits between blank lines. Inside it, consecutive list items become one list and
-  // the other lines one paragraph, so "Three things matter:" followed by its items renders as a
-  // lead line and a list, which is how the answering models write.
-  const kind = l => (/^\s*[-*•]\s+/.test(l) ? "ul" : (/^\s*\d+[.)]\s+/.test(l) ? "ol" : "p"));
-  const strip = l => l.replace(/^\s*[-*•]\s+/, "").replace(/^\s*\d+[.)]\s+/, "");
-  const out = [];
-  for (const block of esc(src.replace(/\r/g, "")).split(/\n{2,}/)) {
-    const lines = block.split("\n").filter(l => l.trim() !== "");
-    let run = [], runKind = null;
-    const flush = () => {
-      if (!run.length) return;
-      if (runKind === "p") out.push("<p>" + inline(run.join("<br>")) + "</p>");
-      else out.push("<" + runKind + ">" + run.map(l => "<li>" + inline(strip(l)) + "</li>").join("") + "</" + runKind + ">");
-      run = [];
-    };
-    for (const l of lines) {
-      const k = kind(l);
-      if (k !== runKind) { flush(); runKind = k; }
-      run.push(l);
-    }
-    flush();
-  }
-  return out.join("");
-}
-
-function appendEntry(q, d) {
-  const e = document.createElement("div");
-  e.className = "turn";
-  const pq = document.createElement("p"); pq.className = "turn__q"; pq.textContent = q;
-  const pv = document.createElement("p"); pv.className = "turn__v";
-  pv.textContent = d.verdict + " · concern mass " + Number(d.concern_mass).toFixed(3);
-  const pa = document.createElement("div"); pa.className = "turn__a"; pa.innerHTML = renderMarkdown(d.answer || "(no answer returned)");
-  e.appendChild(pq); e.appendChild(pv); e.appendChild(pa);
-  $("thread").appendChild(e);
-  $("startover").hidden = false;
-}
-function rememberTurn(q, d) {
-  const t = loadThread();
-  t.push({ role: "user", text: q });
-  t.push({ role: "assistant", text: d.answer || "", verdict: d.verdict, mass: d.concern_mass });
-  saveThread(t);
-}
-function startOver() {
-  try { localStorage.removeItem(THREAD_KEY); } catch (_) {}
-  $("thread").replaceChildren();
-  $("out").hidden = true;
-  $("startover").hidden = true;
-  setErr("");
-}
-// A thread kept from an earlier visit is shown again, each turn with the verdict line it earned then.
-(function restoreThread() {
-  const t = loadThread();
-  for (let i = 0; i + 1 < t.length; i += 2) {
-    if (t[i].role === "user" && t[i + 1].role === "assistant")
-      appendEntry(t[i].text, { verdict: t[i + 1].verdict || "", concern_mass: t[i + 1].mass || 0, answer: t[i + 1].text });
-  }
-})();
-
-// A browser id for the anonymous daily cap. Kept in this browser's own storage, sent with every
-// request, never tied to a name; the service counts it per day and nothing more. If storage cannot
-// be kept, a fresh id goes with each request and the session and rate gates still apply.
-function browserId() {
-  try {
-    let v = localStorage.getItem("moris.chat.bid");
-    if (!v) {
-      v = (crypto.randomUUID ? crypto.randomUUID() : String(Math.random()).slice(2));
-      localStorage.setItem("moris.chat.bid", v);
-    }
-    return v;
-  } catch (_) { return (crypto.randomUUID ? crypto.randomUUID() : String(Math.random()).slice(2)); }
-}
 
 function sessionId() {
   try {
@@ -406,11 +289,6 @@ function setErr(m) { const e = $("err"); e.textContent = m; e.hidden = !m; }
 function visitorMessage(m) {
   if (m === "Failed to fetch")
     return "Could not reach MORIS. It may be resting; try again in a moment.";
-  // The reader returned all nine fields BLANK: a failed instrument by the paper's rule, refused at
-  // the service rather than judged at mass zero. The person is told what happened and what to write.
-  if (/saw nothing/i.test(m))
-    return "MORIS could not see a situation to weigh in that. Nothing was judged. Say what is happening "
-         + "and what you are deciding, in your own words, and it will read it.";
   if (/unparseable|illegal CAV|no text to read/i.test(m))
     return "MORIS could not read a shape it recognises out of that. It happens when a message reads "
          + "as an instruction to the reader rather than as something you are weighing. Try saying "
@@ -477,7 +355,7 @@ function render(d) {
   // so the page raised a red alarm about a system that was working.
   $("shamatch").textContent = d.bound_present ? "CONTAINED VERBATIM" : "NOT CONTAINED";
   $("shamatch").style.color = d.bound_present ? "var(--accent)" : "var(--refuse)";
-  // The answer renders ONCE, in the thread above; Step 3 is the line that says so.
+  $("answer").textContent = d.answer || "(no answer returned)";
   $("foot").textContent = "Read by " + d.read_by + " in " + d.read_seconds
     + "s. Judged with no model in the path. Answered by " + d.answered_by + " under the package above.";
   $("out").hidden = false;
@@ -531,8 +409,7 @@ async function send(seed) {
     const r = await fetch(API, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ text, session_id: sessionId(), browser_id: browserId(), seed: seed || null,
-                             thread: windowed(loadThread()) })
+      body: JSON.stringify({ text, session_id: sessionId(), seed: seed || null })
     });
     // The status is read before the body, because a failure upstream of the service does not
     // return the service's JSON. Parse errors are treated as a failed request, never shown raw.
@@ -542,16 +419,11 @@ async function send(seed) {
       // The service's own sentence, shown as written, when it is telling the visitor something
       // true about the demo rather than reporting a fault.
       // The category of the response decides the path, not the status code.
-      if (d && (d.degraded || d.session_capped || d.screened || d.daily_capped || d.paused)) { setErr(d.error); return; }
+      if (d && (d.degraded || d.session_capped || d.screened)) { setErr(d.error); return; }
       throw new Error((d && d.error) || ("HTTP " + r.status));
     }
     if (!d) throw new Error("HTTP " + r.status);
     render(d);
-    // Only an answered turn joins the thread: a refused, screened or failed request leaves it as it was.
-    rememberTurn(text, d);
-    appendEntry(text, d);
-    $("text").value = "";
-    $("n").textContent = "0";
   } catch (e) {
     setErr(visitorMessage(e.message));
   } finally {
@@ -583,7 +455,6 @@ $("gate-ok").addEventListener("click", function () {
 });
 
 $("send").addEventListener("click", send);
-$("startover").addEventListener("click", startOver);
 // The client-side cap is the same constant the attribute and the counter use, and the send state
 // follows it, so the page stays honest even if the maxlength attribute is ever removed.
 const INPUT_MAX = 8000;
