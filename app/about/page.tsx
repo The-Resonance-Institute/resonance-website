@@ -4,52 +4,39 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "The Resonance Institute holds both the Resonance series copyright and the MORIS intellectual property. One author produced both: a philosopher and operator whose fifteen-book work compiled into MORIS, an artificial conscience: a mechanical, deterministic control plane for moral thought.",
+    "The Resonance Institute is the studio of C. T. Herndon, based in Huntington Beach, California. It holds the copyright to the Resonance Series and the intellectual property behind MORIS, an artificial conscience: a mechanical, deterministic control plane for moral thought.",
 };
 
 export default function About() {
   return (
     <div className="mx-auto max-w-3xl px-6">
       <section className="pt-20 pb-10 sm:pt-28">
-        <p className="text-xs font-medium uppercase tracking-[0.18em] text-accent">
+        <h1 className="font-serif text-4xl leading-tight text-ink sm:text-5xl">
           The author and the Institute
-        </p>
-        <h1 className="mt-4 font-serif text-4xl leading-tight text-ink sm:text-5xl">
-          One author, one substrate, two bodies of work.
         </h1>
       </section>
 
       <section className="space-y-5 border-t border-line pt-10 text-lg leading-relaxed text-ink">
         <p>
-          The Resonance Institute is the studio of Christopher T. Herndon, a
-          philosopher and operator. Its foundation is a fifteen-book body of work,
-          authored over years, a living philosophy of how a person, a community,
-          and an institution stay coherent under pressure.
+          The Resonance Institute is the studio of C. T. Herndon, based in
+          Huntington Beach, California. It holds the copyright to the{" "}
+          <Link href="/resonance" className="text-accent underline decoration-line hover:decoration-accent">
+            Resonance Series
+          </Link>{" "}
+          and the intellectual property behind MORIS.
         </p>
         <p>
-          That work was written on its own terms, as philosophy, not as
-          documentation of a system. Its argument runs across five trilogies,
-          each carrying a theme from the self to the community to the world. In
-          the course of the writing, the
-          philosophy turned out to compile: it became the fixed authored basis a
-          machine can project an action onto, and from that came{" "}
+          The Series came first: fifteen books on how a person, a community, and
+          an institution stay coherent under pressure, written as philosophy and
+          not as documentation of a system. From it came{" "}
           <Link href="/moris" className="text-accent underline decoration-line hover:decoration-accent">
             MORIS
           </Link>
-          , an artificial conscience for machines. The term is literal but
-          bounded: an analog of conscience the way AI is an analog of
-          intelligence, not machine sentience and not consciousness. It is a
-          fixed moral reference a system checks an action against before it acts,
-          and cannot argue its way past.
+          , an artificial conscience: a mechanical, deterministic control plane
+          for moral thought.
         </p>
-        <p className="text-muted">
-          The Institute is the entity that holds both: the copyright to the{" "}
-          <Link href="/resonance" className="text-accent underline decoration-line hover:decoration-accent">
-            Resonance series
-          </Link>{" "}
-          and the intellectual property behind MORIS. The philosophy is the parent;
-          the system is what it proved capable of. It is a solo undertaking, based
-          in Huntington Beach, California.
+        <p>
+          The philosophy is the parent. The system is what it proved capable of.
         </p>
       </section>
 
