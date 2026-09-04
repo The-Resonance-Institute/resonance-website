@@ -52,11 +52,10 @@ export default function Compliance() {
         </h1>
         <p className="mt-6 font-serif text-xl font-light leading-relaxed text-ink">
           Every AI rule now in force asks the same thing: when an automated system
-          does something to a person, someone must
-          be able to say afterward what it did and why. Because generative systems
-          do not return the same output twice, no log answers that. MORIS does,
-          because the judgment is mechanical: an auditor can re-run the gate on the
-          recorded reading and confirm the verdict recomputes, on any model, a year
+          acts, someone must be able to say afterward what it did and why. Because
+          generative systems do not return the same output twice, no log answers that.
+          MORIS does, because the judgment is mechanical: an auditor can re-run the gate
+          on the recorded reading and confirm the verdict recomputes, on any model, a year
           later.
         </p>
         <p className="mt-5 leading-relaxed text-muted">
