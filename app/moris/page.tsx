@@ -39,14 +39,16 @@ export default function MorisLanding() {
           It is an analog of human conscience, as artificial intelligence is an analog of human cognition: the function, built in a machine, without the claim that anything is aware.
         </p>
         <p className="mt-4 max-w-2xl text-muted">
-          It judges against a posture, not a doctrine: an action is projected onto
-          an authored moral basis and read as a gradient, so it generalizes to the
-          action no rule enumerated. It is built on the{" "}
+          It is derived from the{" "}
           <Link href="/resonance" className="text-accent underline decoration-line hover:decoration-accent">
-            Resonance series
+            Resonance Series
           </Link>
-          , the philosophy that proved to be a substrate well suited to building
-          it.
+          , fifteen books and 1.24 million words that gather centuries of
+          philosophical thought, Aristotle, Kant and Hartmut Rosa among them, and
+          braid it with modern science, psychology, myth and history. Neither MORIS
+          nor the Series is a list of rules. They are a body of thought that yields
+          a posture, a way of standing toward the world, and MORIS makes that
+          posture machine-readable.
         </p>
       </section>
 
