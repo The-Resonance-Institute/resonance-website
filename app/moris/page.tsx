@@ -4,13 +4,13 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "MORIS",
   description:
-    "MORIS is an artificial conscience for machines that act: a deterministic pre-execution control plane that judges what an action means, before it executes, from a fixed authored posture.",
+    "MORIS is an artificial conscience: a mechanical, deterministic control plane for moral thought, derived from the Resonance Series, that yields a posture and makes it machine-readable. For machines that act, it judges what an action means before it executes.",
 };
 
 const properties = [
   {
     h: "Deterministic, and it reads meaning",
-    p: "No model sits where the verdict is decided, so no crafted prompt can argue it out of its answer. The same action, read the same way, yields the same verdict, and that verdict is about what the action means, not merely whether it was permitted.",
+    p: "No model sits where the verdict is decided, so no crafted prompt can argue it out of its answer. The same action, read the same way, yields the same verdict, and that verdict is about what the action means, not merely whether it was permitted. The same reading always produces the same verdict and the same weight, on any model, today and a year from now.",
   },
   {
     h: "Model-agnostic",
@@ -18,7 +18,7 @@ const properties = [
   },
   {
     h: "Govern, not block",
-    p: "Govern is the default. It names the specific concern an action raises and bounds how it proceeds, so two governed actions are handled differently. An allow/block control has one lever; a posture reads how much and what kind.",
+    p: "Govern is the default. It names the specific concern an action raises and bounds how it proceeds, so two governed actions are handled differently. The weight is a gradient, not a switch. It measures the pull inside an act where one claim stands against another.",
   },
   {
     h: "Re-derivable",
@@ -31,12 +31,12 @@ export default function MorisLanding() {
     <div className="mx-auto max-w-5xl px-6">
       <section className="pt-10 pb-12 sm:pt-14">
         <p className="text-xs font-medium uppercase tracking-[0.18em] text-accent">
-          Deterministic pre-execution control plane
+          A conscience for the machine, built outside the machine
         </p>
         <h1 className="mt-6 font-serif text-5xl text-ink sm:text-6xl">MORIS</h1>
         <p className="mt-6 max-w-2xl text-xl leading-relaxed text-ink">
-          A fixed, authored way of perceiving the character of an action, held
-          mechanically, that renders a verdict before the action executes.
+          MORIS (Moral Operating Runtime Integrity System) is an artificial conscience: a mechanical, deterministic control plane for moral thought.
+          It is an analog of human conscience, as artificial intelligence is an analog of human cognition: the function, built in a machine, without the claim that anything is aware.
         </p>
         <p className="mt-4 max-w-2xl text-muted">
           It judges against a posture, not a doctrine: an action is projected onto

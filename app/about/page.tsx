@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "The Resonance Institute holds both the Resonance series copyright and the MORIS intellectual property. One author produced both: a philosopher and operator whose fifteen-book work compiled into a working system for governing the actions of machines.",
+    "The Resonance Institute holds both the Resonance series copyright and the MORIS intellectual property. One author produced both: a philosopher and operator whose fifteen-book work compiled into MORIS, an artificial conscience: a mechanical, deterministic control plane for moral thought.",
 };
 
 export default function About() {

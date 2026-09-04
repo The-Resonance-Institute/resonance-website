@@ -23,9 +23,10 @@ export default function Home() {
           </p>
           <h2 className="mt-3 font-serif text-4xl text-ink sm:text-5xl">MORIS</h2>
           <p className="mt-4 flex-1 text-lg leading-relaxed text-ink">
-            A deterministic pre-execution control plane for machines that act: it
-            judges what an action means before it executes, and produces a verdict
-            anyone can reproduce.
+            An artificial conscience: a mechanical, deterministic control plane for
+            moral thought. For machines that act, it judges what an action means
+            before it executes, the same way every time, and leaves a trace anyone
+            can replay.
           </p>
           <Link
             href="/moris"

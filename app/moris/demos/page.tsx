@@ -53,8 +53,9 @@ export default function Demos() {
         </p>
         <p className="mt-4 max-w-2xl leading-relaxed text-muted">
           These are not recordings. Each one calls the live gate when you use it.
-          The gate is mechanical and deterministic. The model keeps its own voice,
-          and answers within the bounds MORIS sets.
+          The gate is mechanical and deterministic. MORIS does not brake the model.
+          It leaves the model&rsquo;s intelligence, voice and character intact and
+          steers from outside them.
         </p>
       </section>
 
