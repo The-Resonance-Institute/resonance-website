@@ -8,6 +8,17 @@ export function SiteFooter() {
           <Link href="/moris" className="transition-colors hover:text-accent">
             MORIS
           </Link>
+          {/* Demos and Compliance were in the top nav and not here, and the footer is the only
+              navigation that appears on every page including the essays. The box is what converts,
+              and a reader who has just been convinced by an essay had nowhere to go from the bottom
+              of it. Compliance is the page a regulator or a buyer looks for, and those readers
+              scroll. The Books stays out: it is a child of The Series and the footer needs one. */}
+          <Link href="/moris/demos" className="transition-colors hover:text-accent">
+            Demos
+          </Link>
+          <Link href="/compliance" className="transition-colors hover:text-accent">
+            Compliance
+          </Link>
           <Link href="/resonance" className="transition-colors hover:text-accent">
             The Series
           </Link>
