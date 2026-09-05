@@ -64,6 +64,38 @@ export default function Home() {
         </div>
       </section>
 
+      {/* THE THIRD DOOR. The front page had the system and the substrate and nothing for a person,
+          while every conversion so far came from someone typing a real thing into a box the front
+          door never mentioned. Full width and below the two cards, so the existing grid is
+          untouched, and carrying both surfaces: the chat page is the box, the pair page is the
+          proof for anyone who arrives sceptical. */}
+      <section className="mt-6 rounded-2xl border border-accent/20 bg-accent-soft p-8 sm:p-9">
+        <p className="text-xs font-medium uppercase tracking-[0.18em] text-accent">
+          Ask MORIS
+        </p>
+        <h2 className="mt-3 font-serif text-3xl text-ink sm:text-4xl">
+          A place to think
+        </h2>
+        <p className="mt-4 max-w-2xl text-lg leading-relaxed text-ink">
+          Bring something you are actually weighing and see what a conscience makes
+          of it.
+        </p>
+        <div className="mt-6 flex flex-wrap gap-3">
+          <Link
+            href="/moris/chat"
+            className="inline-flex items-center gap-1.5 rounded-full border border-accent/40 bg-white px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:border-accent hover:text-accent"
+          >
+            Say something <span aria-hidden>&rarr;</span>
+          </Link>
+          <Link
+            href="/moris/pair"
+            className="inline-flex items-center gap-1.5 rounded-full border border-line px-5 py-2.5 text-sm font-medium text-muted transition-colors hover:border-accent hover:text-accent"
+          >
+            See the same model answer twice <span aria-hidden>&rarr;</span>
+          </Link>
+        </div>
+      </section>
+
       {/* Closing thesis + Institute framing */}
       <section className="mt-12 border-t border-line pt-8">
         <p className="max-w-3xl font-serif text-lg font-light italic leading-snug text-ink sm:text-xl">
