@@ -257,6 +257,12 @@ export default function MorisLanding() {
           project onto and how the gate turns a projection into a verdict, is the
           subject of a filed US utility patent and is disclosed in full under NDA.
         </p>
+        {/* The licence line. It was on the About page, which is seventh in the nav and the hardest
+            place on the site to find for the reader most likely to transact. It belongs where the
+            mechanism is already being discussed. */}
+        <p className="mt-4 max-w-2xl text-muted">
+          The mechanism is available for license, and the corpus non-exclusively.
+        </p>
         <Link
           href="/contact"
           className="mt-6 inline-flex items-center gap-1.5 rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-ink"
