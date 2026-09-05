@@ -85,7 +85,7 @@ export default function Home() {
             href="/moris/chat"
             className="inline-flex items-center gap-1.5 rounded-full border border-accent/40 bg-white px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:border-accent hover:text-accent"
           >
-            Say something <span aria-hidden>&rarr;</span>
+            Ask MORIS <span aria-hidden>&rarr;</span>
           </Link>
           <Link
             href="/moris/pair"

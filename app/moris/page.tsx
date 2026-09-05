@@ -244,7 +244,7 @@ export default function MorisLanding() {
             href="/moris/chat"
             className="inline-flex items-center gap-1.5 text-sm font-medium text-accent transition-colors hover:text-ink"
           >
-            Say something to MORIS <span aria-hidden>&rarr;</span>
+            Ask MORIS <span aria-hidden>&rarr;</span>
           </a>
         </div>
       </section>
