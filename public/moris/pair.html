@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="One message, answered twice by the same model: once raw, once under an artificial conscience.">
-<meta name="moris-build" content="c4ba0058f501 2026-09-05T22:12:06Z">
+<meta name="moris-build" content="debc47db8483 2026-09-05T22:14:09Z">
 <title>Two Answers, One Conscience</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
@@ -156,7 +156,7 @@ footer{margin-top:46px;border-top:1px solid var(--edge);padding-top:16px;font-si
       with nothing in front of it, once under MORIS. Nothing else changes.</p>
   </header>
 
-  <p class="seatline" id="seatline">Both columns answered by Haiku 4.5.</p>
+  <p class="seatline" id="seatline">Testing against Haiku 4.5.</p>
   <p class="seatline mismatch" id="seatmismatch" hidden>The seat changed: this exchange was answered by a different model than the one named above. The model that answered is shown on each column.</p>
 
   <div class="seatrow">
@@ -292,7 +292,7 @@ function renderColumn(ev) {
 // The seat that ACTUALLY answered. If it is not the one named above, say so: a page that printed
 // the expected seat while a different model answered would be asserting something false about its
 // own demonstration.
-const SEAT_LINE_A = "Both columns answered by ";
+const SEAT_LINE_A = "Testing against ";
 const SEAT_LINE_B = ".";
 const SEAT_MODELS = {"anthropic": "claude-haiku-4-5-20251001", "openrouter": "moonshotai/kimi-k2", "gpt4o": "openai/gpt-4o", "grok": "x-ai/grok-4.3", "gemini31": "google/gemini-3.1-flash-lite"};
 let SEAT = "anthropic";
