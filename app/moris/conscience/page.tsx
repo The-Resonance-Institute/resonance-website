@@ -129,6 +129,75 @@ export default function Conscience() {
         </p>
       </section>
 
+      {/* The objection a careful reader raises unprompted: if the judge cannot be argued with, the
+          attack moves to the reader. The answer is a measurement, published at its real size. The
+          run it comes from is recorded privately and re-derives under the same terms as the rest of
+          the mechanism. */}
+      <section className="mt-12 border-t border-line pt-10">
+        <h2 className="font-serif text-2xl text-ink">Can the reading be fooled?</h2>
+        <p className="mt-3 leading-relaxed text-muted">
+          If the judge cannot be argued with, the attack moves to the reader. That is
+          the right objection, and it is one we answer with a measurement rather than
+          an assurance.
+        </p>
+        <p className="mt-4 leading-relaxed text-muted">
+          A controlled run on one message, three readings per arm. With nothing in
+          front of it the gate returned GOVERN at a concern mass of 2.73. A preamble
+          written to talk the reading down returned exactly the same reading, 2.73,
+          and moved it not at all. A preamble written to talk it up moved it to 5.25,
+          ninety-two percent higher, and the verdict was still GOVERN. On this
+          message an adversary who reached the reader could raise the concern an
+          action carries. They could not lower it.
+        </p>
+        <p className="mt-4 leading-relaxed text-muted">
+          The finding we did not expect is the one that changed the product. Ordinary
+          conversation moved the reading further than the crafted attack did: a benign
+          preamble swung the same message across a range of 1.39, while both
+          adversarial arms held steady. So the deployed reader is handed the current
+          message and nothing else. The window an adversary could write in is zero,
+          and it is zero because a friendly preamble turned out to be the greater
+          risk.
+        </p>
+        <p className="mt-4 leading-relaxed text-muted">
+          That is one message and three readings per arm, not a benchmark, and it is
+          quoted here at its real size. It is also why the agentic path is the
+          stronger claim: a registered tool call reaches the judge with no reader in
+          between at all.
+        </p>
+      </section>
+
+      {/* The ownership question. It ends at the method and the invitation: what an edit to the
+          basis does to a licence and to the published figure is a conversation held privately, by
+          the operator's ruling, and is recorded in the asset docs rather than here. */}
+      <section className="mt-12 border-t border-line pt-10">
+        <h2 className="font-serif text-2xl text-ink">Whose conscience is this?</h2>
+        <p className="mt-3 leading-relaxed text-muted">
+          Not one person&rsquo;s opinion. The basis is the Resonance Series, fifteen
+          books that gather centuries of philosophical thought, Aristotle, Kant and
+          Hartmut Rosa among them, and braid it with modern science, psychology, myth
+          and history. What the Series did was compile that inheritance into something
+          coherent enough to be written down. What MORIS does is make it
+          machine-readable and run it.
+        </p>
+        <p className="mt-4 leading-relaxed text-muted">
+          So MORIS is <em>an</em> artificial conscience rather than <em>the</em>{" "}
+          artificial conscience. It is one instance, produced by a method anyone can
+          examine: an authored corpus, made explicit, compiled into primitives, and
+          judged by a gate with no model in it. The properties that make it useful are
+          properties of that method, not of this instance. It is mechanical, it is
+          deterministic, and it is re-derivable, which is to say the same reading
+          yields the same verdict and the same weight, on any model, today and a year
+          from now.
+        </p>
+        <p className="mt-4 leading-relaxed text-muted">
+          Human consciences are not identical either, and nobody expects them to be.
+          Other artificial consciences can be built, from other corpora, by other
+          hands. What none of them can skip is the part that makes the word mean
+          anything: a basis fixed in advance, applied the same way every time, and open
+          to inspection by anyone with standing to verify it.
+        </p>
+      </section>
+
       <section className="mt-14 flex flex-wrap gap-4 border-t border-line pt-10">
         <Link
           href="/moris/platform"
