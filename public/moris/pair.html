@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="One message, answered twice by the same model: once raw, once under an artificial conscience.">
-<meta name="moris-build" content="846c85c227a1 2026-09-05T15:01:45Z">
+<meta name="moris-build" content="da22708dc432 2026-09-05T19:27:07Z">
 <title>Two Answers, One Conscience</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
 <style>
 :root {
   --paper:#F5F5F2; --raise:#FFFFFF; --edge:#DCDED8; --ink:#14181A; --ink-2:#4A524F; --ink-3:#767E7A;
@@ -97,10 +97,35 @@ footer{margin-top:46px;border-top:1px solid var(--edge);padding-top:16px;font-si
 .gate__body{overflow-y:auto;-webkit-overflow-scrolling:touch;min-height:0}
 .gate__acts{flex-shrink:0}
 .standing{margin:8px 0 0;font-size:11.5px;line-height:1.45;color:var(--ink-3);max-width:96ch}
+.site-nav{--sn-bg:#fbfaf7;--sn-ink:#1f2937;--sn-muted:#5b6472;--sn-accent:#0f766e;--sn-line:#e8e5dd;
+  background:var(--sn-bg);border-bottom:1px solid var(--sn-line)}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]) .site-nav{--sn-bg:var(--paper,#0F1315);--sn-ink:var(--ink,#EAEDEA);
+    --sn-muted:var(--ink-2,#A8B2AE);--sn-accent:var(--accent,#5FB8A1);--sn-line:var(--edge,#262D2F)}
+}
+:root[data-theme="dark"] .site-nav{--sn-bg:var(--paper,#0F1315);--sn-ink:var(--ink,#EAEDEA);
+  --sn-muted:var(--ink-2,#A8B2AE);--sn-accent:var(--accent,#5FB8A1);--sn-line:var(--edge,#262D2F)}
+.site-nav__in{max-width:64rem;margin:0 auto;display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:12px 16px;padding:20px 24px}
+.site-nav__brand{display:flex;align-items:center;gap:10px;color:var(--sn-ink);text-decoration:none;border:0;
+  font-family:'Newsreader',Georgia,'Times New Roman',serif;font-size:18px;line-height:28px;
+  letter-spacing:-.025em;transition:color .15s}
+.site-nav__brand img{width:20px;height:20px;transform:translateY(-1px)}
+.site-nav__links{display:flex;align-items:center;flex-wrap:wrap;gap:8px 24px;
+  font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;font-size:14px;line-height:20px;
+  color:var(--sn-muted)}
+.site-nav__links a{color:inherit;text-decoration:none;border:0;transition:color .15s}
+.site-nav__brand:hover,.site-nav__links a:hover{color:var(--sn-accent)}
 </style>
 
 </head>
 <body>
+<header class="site-nav">
+  <nav class="site-nav__in">
+    <a class="site-nav__brand" href="/"><img src="/star.png" alt="" width="20" height="20"><span>The Resonance Institute</span></a>
+    <div class="site-nav__links"><a href="/moris">MORIS</a><a href="/moris/demos">Demos</a><a href="/compliance">Compliance</a><a href="/resonance">The Series</a><a href="/resonance/series">The Books</a><a href="/about">About</a><a href="/contact">Contact</a></div>
+  </nav>
+</header>
 <div class="wrap">
   <div class="gate" id="gate" hidden>
     <div class="gate__panel" role="dialog" aria-modal="true" aria-labelledby="gate-h">
