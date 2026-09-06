@@ -26,7 +26,7 @@ export default function About() {
           and the intellectual property behind MORIS.
         </p>
         <p>
-          The Series came first: fifteen books on how a person, a community, and
+          The Series came first: fifteen manuscripts on how a person, a community, and
           an institution stay coherent under pressure, written as philosophy and
           not as documentation of a system. From it came{" "}
           <Link href="/moris" className="text-accent underline decoration-line hover:decoration-accent">

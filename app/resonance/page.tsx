@@ -61,7 +61,7 @@ export default function ResonanceLanding() {
 
       <Link href="/resonance/series" className="group block border-t border-line pt-8">
         <div className="flex items-baseline justify-between gap-4">
-          <h2 className="font-serif text-2xl text-ink">The fifteen books</h2>
+          <h2 className="font-serif text-2xl text-ink">The fifteen manuscripts</h2>
           <span className="shrink-0 text-sm font-medium text-accent transition-colors group-hover:text-ink">
             Open the series <span aria-hidden>&rarr;</span>
           </span>
@@ -93,7 +93,7 @@ export default function ResonanceLanding() {
       <section className="mt-12 border-t border-line pt-10">
         <h2 className="font-serif text-2xl text-ink">The shape of it</h2>
         <p className="mt-3 leading-relaxed text-muted">
-          One work, fifteen books, five trilogies. Each trilogy takes a single
+          One work, fifteen manuscripts, five trilogies. Each trilogy takes a single
           theme and carries it across three scales: the self, then the community,
           then the largest frame of civilization and world. Five themes, three
           scales each. The fifth trilogy is the capstone, which re-reads the whole
@@ -120,7 +120,7 @@ export default function ResonanceLanding() {
           href="/resonance/series"
           className="inline-flex items-center gap-1.5 text-sm font-medium text-accent transition-colors hover:text-ink"
         >
-          See all fifteen books, with covers <span aria-hidden>&rarr;</span>
+          See all fifteen manuscripts, with covers <span aria-hidden>&rarr;</span>
         </Link>
       </div>
 

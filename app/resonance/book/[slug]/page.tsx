@@ -47,7 +47,7 @@ export default async function BookPage({
           href="/resonance/series"
           className="text-sm text-muted transition-colors hover:text-accent"
         >
-          <span aria-hidden>&larr;</span> The fifteen books
+          <span aria-hidden>&larr;</span> The fifteen manuscripts
         </Link>
 
         <div className="mt-6 grid gap-8 sm:grid-cols-[200px_1fr] sm:gap-10">
@@ -196,7 +196,7 @@ export default async function BookPage({
           href="/resonance/series"
           className="inline-flex items-center gap-1.5 rounded-full border border-line px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:border-accent hover:text-accent"
         >
-          All fifteen books <span aria-hidden>&rarr;</span>
+          All fifteen manuscripts <span aria-hidden>&rarr;</span>
         </Link>
         {trilogy && (
           <Link

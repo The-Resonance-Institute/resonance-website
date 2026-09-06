@@ -43,7 +43,7 @@ export default function MorisLanding() {
           <Link href="/resonance" className="text-accent underline decoration-line hover:decoration-accent">
             Resonance Series
           </Link>
-          , fifteen books and 1.24 million words that gather centuries of
+          , fifteen manuscripts and 1.24 million words that gather centuries of
           philosophical thought, Aristotle, Kant and Hartmut Rosa among them, and
           braid it with modern science, psychology, myth and history. Neither MORIS
           nor the Series is a list of rules. They are a body of thought that yields
@@ -253,7 +253,7 @@ export default function MorisLanding() {
         <h2 className="font-serif text-2xl text-ink">Under NDA</h2>
         <p className="mt-3 max-w-2xl text-muted">
           Everything public here is the pre-NDA layer: the frame, the category, the
-          evidence. The mechanism, how the fifteen books become a basis a machine can
+          evidence. The mechanism, how the fifteen manuscripts become a basis a machine can
           project onto and how the gate turns a projection into a verdict, is the
           subject of a filed US utility patent and is disclosed in full under NDA.
         </p>
