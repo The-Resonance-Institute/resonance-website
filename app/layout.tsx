@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     template: "%s · The Resonance Institute",
   },
   description:
-    "An independent studio for rigorous philosophical thought where enduring questions meet modern technology, home to two bodies of work: the Resonance series, a living philosophy in fifteen books, and MORIS, an artificial conscience: a mechanical, deterministic control plane for moral thought.",
+    "An independent studio for rigorous philosophical thought where enduring questions meet modern technology, home to two bodies of work: the Resonance series, a living philosophy in fifteen manuscripts, and MORIS, an artificial conscience: a mechanical, deterministic control plane for moral thought.",
   applicationName: "The Resonance Institute",
   keywords: [
     "The Resonance Institute",
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     siteName: "The Resonance Institute",
     title: "The Resonance Institute",
     description:
-      "An independent studio for rigorous philosophical thought. Two bodies of work: the Resonance series, a living philosophy in fifteen books, and MORIS, an artificial conscience: a mechanical, deterministic control plane for moral thought.",
+      "An independent studio for rigorous philosophical thought. Two bodies of work: the Resonance series, a living philosophy in fifteen manuscripts, and MORIS, an artificial conscience: a mechanical, deterministic control plane for moral thought.",
   },
   twitter: {
     card: "summary_large_image",

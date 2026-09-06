@@ -51,7 +51,7 @@ export default function Home() {
             The Series
           </h2>
           <p className="mt-4 flex-1 text-lg leading-relaxed text-ink">
-            A living philosophy in fifteen books across five trilogies, each
+            A living philosophy in fifteen manuscripts across five trilogies, each
             theme carried from the self to the community to the world. It is also
             the substrate beneath MORIS.
           </p>

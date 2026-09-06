@@ -11,7 +11,7 @@ const links = [
   // regulator or a buyer looks for after seeing the demos and before reading the books.
   { href: "/compliance", label: "Compliance" },
   { href: "/resonance", label: "The Series" },
-  { href: "/resonance/series", label: "The Books" },
+  { href: "/resonance/series", label: "Manuscripts" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];

@@ -9,9 +9,9 @@ const trilogySlug = (name: string) =>
   canonTrilogies.find((t) => t.name === name)?.slug;
 
 export const metadata: Metadata = {
-  title: "The Fifteen Books",
+  title: "The Fifteen Manuscripts",
   description:
-    "The Resonance series in full: fifteen books across five trilogies, each theme carried from the self to the community to the world. All fifteen are written, over 1.2 million words; none is published yet.",
+    "The Resonance series in full: fifteen manuscripts across five trilogies, each theme carried from the self to the community to the world. All fifteen are written, over 1.2 million words; none is published yet.",
 };
 
 type Book = {
@@ -113,7 +113,7 @@ export default function Series() {
             <span aria-hidden>&larr;</span> The Series
           </Link>
           <h1 className="mt-5 font-serif text-4xl leading-tight text-ink sm:text-5xl">
-            The fifteen books.
+            The fifteen manuscripts.
           </h1>
           <p className="mt-6 max-w-xl font-serif text-xl font-light leading-relaxed text-ink">
             One work in five trilogies. Each trilogy carries a single theme across
@@ -125,7 +125,7 @@ export default function Series() {
           <div className="relative aspect-[2/3] overflow-hidden rounded-xl border border-line shadow-md">
             <Image
               src="/trilogies/all.jpg"
-              alt="Five Trilogies, A Living Philosophy, Fifteen Books"
+              alt="Five Trilogies, A Living Philosophy, Fifteen Manuscripts"
               fill
               sizes="(max-width: 640px) 208px, 260px"
               className="object-cover"
@@ -213,8 +213,8 @@ export default function Series() {
         </h2>
         <p className="mt-3 max-w-2xl leading-relaxed text-muted">
           <span className="italic text-ink">Echoes of the Unseen</span>, the
-          opening volume of the Resonance trilogy, will be published in 2026. A
-          date has not been set. The rest of the series follows it.
+          opening volume of the Resonance trilogy, is coming soon. The rest of the
+          series follows it.
         </p>
         <Link
           href="/contact"

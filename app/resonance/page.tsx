@@ -6,7 +6,7 @@ import { PublicationStatus } from "@/components/publication-status";
 export const metadata: Metadata = {
   title: "The Series",
   description:
-    "The Resonance series is a living philosophy in fifteen books across five trilogies, each theme carried from the self to the community to the world. All fifteen are written; none is published yet. It is also the substrate beneath MORIS.",
+    "The Resonance series is a living philosophy in fifteen manuscripts across five trilogies, each theme carried from the self to the community to the world. All fifteen are written; none is published yet. It is also the substrate beneath MORIS.",
 };
 
 const trilogies = [

@@ -1,8 +1,8 @@
 import Link from "next/link";
 
 // The publication status of the Resonance series, stated in one place so every
-// surface says the same thing. The work is finished; publication is the part
-// that has not happened. Word count is measured from the manuscripts:
+// surface says the same thing. The manuscripts are written; the editorial work
+// and publication have not happened. No year, no date, by the operator's word. Word count is measured from the manuscripts:
 // 1,236,478 across the fifteen books.
 
 export function PublicationStatus() {
@@ -15,11 +15,10 @@ export function PublicationStatus() {
         Written. Not yet published.
       </h2>
       <p className="mt-3 leading-relaxed text-muted">
-        All fifteen books are finished: five trilogies, over 1.2 million words,
-        written over years. None of them has been published yet. The first
-        volume,{" "}
-        <span className="italic text-ink">Echoes of the Unseen</span>, will be
-        published in 2026. A date has not been set.
+        All fifteen manuscripts are written: five trilogies, over 1.2 million
+        words. None has been published yet. Book one,{" "}
+        <span className="italic text-ink">Echoes of the Unseen</span>, is coming
+        soon.
       </p>
       <Link
         href="/contact"
@@ -37,9 +36,9 @@ export function PublicationNote() {
   return (
     <p className="text-sm leading-relaxed text-muted">
       <span className="text-ink">Written, not yet published.</span> All fifteen
-      books are finished; none has been published. The first volume,{" "}
-      <span className="italic">Echoes of the Unseen</span>, will be published in
-      2026. A date has not been set.
+      manuscripts are written, over 1.2 million words; none has been published
+      yet. Book one, <span className="italic">Echoes of the Unseen</span>, is
+      coming soon.
     </p>
   );
 }
