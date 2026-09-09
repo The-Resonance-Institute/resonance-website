@@ -34,6 +34,19 @@ const nextConfig: NextConfig = {
     ];
   },
 
+  // A SHARED EXCHANGE carries noindex as a HEADER as well as in its metadata. The meta tag covers
+  // a crawler that parses the page; the header covers everything else that fetches the URL. The
+  // first live verification (2026-09-08) found the tag present and the header empty. This route
+  // only: the person consented to a public link, not to an indexed one.
+  async headers() {
+    return [
+      {
+        source: "/moris/pair/:id",
+        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
+      },
+    ];
+  },
+
   // Book VIII was retitled from "The Two Clocks of Leadership" to "The Two
   // Clocks", so its route changed with it. The old path was live and is in the
   // sitemap Google has already crawled, so it redirects permanently rather than

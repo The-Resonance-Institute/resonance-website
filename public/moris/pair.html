@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="One message, answered twice by the same model: once raw, once under an artificial conscience.">
-<meta name="moris-build" content="d0f162890c05 2026-09-09T02:54:34Z">
+<meta name="moris-build" content="618d68bc1e68 2026-09-09T03:10:14Z">
 <title>Two Answers, One Conscience</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
@@ -113,6 +113,7 @@ footer{margin-top:46px;border-top:1px solid var(--edge);padding-top:16px;max-wid
 .share__page{margin-top:16px;padding-top:14px;border-top:1px solid var(--edge)}
 .share__consent{font-family:var(--sans);font-size:14px;line-height:1.55;color:var(--ink);margin:0 0 10px;max-width:64ch}
 .share__url{font-family:var(--mono);font-size:13px;word-break:break-all}
+.share__kept{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;margin-top:8px}
 .site-nav{--sn-bg:#fbfaf7;--sn-ink:#1f2937;--sn-muted:#5b6472;--sn-accent:#0f766e;--sn-line:#e8e5dd;
   background:var(--sn-bg);border-bottom:1px solid var(--sn-line)}
 @media (prefers-color-scheme: dark){
@@ -263,6 +264,14 @@ footer{margin-top:46px;border-top:1px solid var(--edge);padding-top:16px;max-wid
       </div>
       <p class="share__note" id="share-page-status" hidden></p>
     </div>
+  </section>
+
+  <section class="share" id="share-kept" hidden>
+    <h3>Pages shared from this browser</h3>
+    <p class="share__note">Each one deletes itself on the date shown. Delete it sooner here. The secret that allows
+      that is kept in this browser and nowhere else.</p>
+    <div id="share-kept-list"></div>
+    <p class="share__note" id="share-kept-status" hidden></p>
   </section>
 
   <footer>
@@ -729,7 +738,7 @@ window.MorisSharePage = (function () {
         if (n.nodeType === 3) t += n.textContent;
         else if (n.nodeType === 1 && !/\battr\b/.test(n.className || "")) t += n.textContent;
       });
-      t = t.replace(/\s+$/, "");
+      t = t.replace(/^\s+|\s+$/g, "");
       if (t) out.push(t);
     });
     return out.join(String.fromCharCode(10));
@@ -749,8 +758,36 @@ window.MorisSharePage = (function () {
       exchange_id: exchange || ""
     };
   }
-  function remember(rec) { try { localStorage.setItem(KEY, JSON.stringify(rec)); } catch (_) {} }
-  function forget() { try { localStorage.removeItem(KEY); } catch (_) {} }
+  // THE LIST OF PAGES SHARED FROM THIS BROWSER, newest first, at most twenty. The secret for each
+  // lives here and nowhere else; this is what "you can delete the page sooner from this browser"
+  // rests on, so it is read back on every load and not only held in memory until the next reload.
+  function kept() {
+    let list = [];
+    try { list = JSON.parse(localStorage.getItem(KEY) || "[]"); } catch (_) { list = []; }
+    if (list && !Array.isArray(list)) list = [list];
+    list = (list || []).filter(function (r) { return r && typeof r.id === "string" && typeof r.secret === "string" && typeof r.url === "string"; });
+    list.sort(function (a, b) { return String(b.expires_at || "").localeCompare(String(a.expires_at || "")); });
+    return list;
+  }
+  function save(list) {
+    try { if (list.length) localStorage.setItem(KEY, JSON.stringify(list.slice(0, 20))); else localStorage.removeItem(KEY); } catch (_) {}
+  }
+  function remember(rec) { save([rec].concat(kept().filter(function (r) { return r.id !== rec.id; }))); }
+  function forget(id) { save(kept().filter(function (r) { return r.id !== id; })); }
+  function keptStatus(m) { const e = $("share-kept-status"); e.textContent = m || ""; e.hidden = !m; }
+  function restore() {
+    const list = kept(), box = $("share-kept-list");
+    while (box.firstChild) box.removeChild(box.firstChild);
+    list.forEach(function (rec) {
+      const row = document.createElement("div"); row.className = "share__kept";
+      const a = document.createElement("a"); a.className = "share__url"; a.href = rec.url; a.textContent = rec.url; a.target = "_blank"; a.rel = "noopener";
+      const t = document.createElement("span"); t.className = "share__note"; t.textContent = "deletes itself on " + when(rec.expires_at);
+      const b = document.createElement("button"); b.type = "button"; b.textContent = "Delete";
+      b.addEventListener("click", function () { delById(rec); });
+      row.appendChild(a); row.appendChild(t); row.appendChild(b); box.appendChild(row);
+    });
+    $("share-kept").hidden = list.length === 0;
+  }
   function when(iso) {
     const d = new Date(iso);
     return isNaN(d.getTime()) ? iso : d.toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
@@ -779,20 +816,26 @@ window.MorisSharePage = (function () {
       });
       let d = null; try { d = await r.json(); } catch (_) { d = null; }
       if (!r.ok || !d || !d.id) { status((d && d.error) || ("HTTP " + r.status)); $("share-page-go").disabled = false; return; }
-      remember(d); showResult(d); status("");
+      remember(d); showResult(d); restore(); status("");
     } catch (e) {
       status("Could not reach the service. Nothing was stored."); $("share-page-go").disabled = false;
     }
   }
-  async function del() {
-    if (!current || !current.secret) return;
-    status("Deleting\u2026");
+  // ONE DELETE, whichever block it is pressed from. The request carries the secret and nothing else;
+  // a 404 counts as gone (expired, or deleted by the Institute), so the list does not keep a ghost.
+  async function delById(rec) {
+    const say = (current && rec.id === current.id) ? status : keptStatus;
+    say("Deleting\u2026");
     try {
-      const r = await fetch(SHARE_API + "/" + current.id, { method: "DELETE", headers: { "X-Moris-Share-Secret": current.secret } });
-      if (r.ok || r.status === 404) { forget(); current = null; $("share-page-result").hidden = true; $("share-page-go").disabled = false; status("Deleted. The page is gone."); }
-      else status("The page could not be deleted (HTTP " + r.status + "). Try again, or ask the Institute to delete it by its id.");
-    } catch (e) { status("Could not reach the service. The page is still there."); }
+      const r = await fetch(SHARE_API + "/" + rec.id, { method: "DELETE", headers: { "X-Moris-Share-Secret": rec.secret } });
+      if (r.ok || r.status === 404) {
+        forget(rec.id);
+        if (current && rec.id === current.id) { current = null; $("share-page-result").hidden = true; $("share-page-go").disabled = false; }
+        restore(); say("Deleted. The page is gone.");
+      } else say("The page could not be deleted (HTTP " + r.status + "). Try again, or ask the Institute to delete it by its id.");
+    } catch (e) { say("Could not reach the service. The page is still there."); }
   }
+  function del() { if (current && current.secret) delById(current); }
   function copy() {
     if (!current) return;
     try { navigator.clipboard.writeText(current.url).then(function () { status("Link copied."); }).catch(function () { status("This browser would not copy the link. Select it above."); }); }
@@ -802,9 +845,10 @@ window.MorisSharePage = (function () {
     $("share-page-go").addEventListener("click", share);
     $("share-page-delete").addEventListener("click", del);
     $("share-page-copy").addEventListener("click", copy);
+    restore();
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", wire); else if ($("share-page-go")) wire();
-  return { show: show, hide: hide, share: share, del: del, answerText: answerText, record: record };
+  return { show: show, hide: hide, share: share, del: del, answerText: answerText, record: record, restore: restore, kept: kept };
 })();
 /* sharepage:end */
 </script>
