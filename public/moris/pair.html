@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="One message, answered twice by the same model: once raw, once under an artificial conscience.">
-<meta name="moris-build" content="e9b207d1656a 2026-09-06T14:38:34Z">
+<meta name="moris-build" content="5f5bcb51cd56 2026-09-09T01:47:51Z">
 <title>Two Answers, One Conscience</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
@@ -97,6 +97,19 @@ footer{margin-top:46px;border-top:1px solid var(--edge);padding-top:16px;max-wid
 .gate__body{overflow-y:auto;-webkit-overflow-scrolling:touch;min-height:0}
 .gate__acts{flex-shrink:0}
 .standing{margin:8px 0 0;font-size:11.5px;line-height:1.45;color:var(--ink-3);max-width:96ch}
+
+/* THE SHARE AFFORDANCE, pair page only (operator's ruling 2026-09-08). One image, made in the browser
+   from what the page already holds, previewed before anything leaves it. */
+.share{margin-top:18px;border:1px solid var(--edge);background:var(--raise);padding:14px 16px}
+.share h3{font-family:var(--mono);font-size:13px;letter-spacing:.04em;margin:0 0 10px;font-weight:700}
+.share button,.share a.share__btn{display:inline-block;font-family:var(--mono);font-size:13px;color:var(--ink);
+  background:transparent;border:1px solid var(--ink);padding:8px 14px;cursor:pointer;text-decoration:none;border-radius:0}
+.share button:hover,.share a.share__btn:hover{border-color:var(--accent);color:var(--accent)}
+.share__msg{display:block;width:100%;margin:6px 0 0;font-family:var(--sans);font-size:14px;line-height:1.5;padding:8px 10px;
+  border:1px solid var(--edge-2);background:var(--paper);color:var(--ink);resize:vertical}
+.share__preview{display:block;max-width:100%;height:auto;border:1px solid var(--edge);margin:12px 0 0;background:#F5F5F2}
+.share__row{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.share__note{font-family:var(--mono);font-size:12px;line-height:1.5;color:var(--ink-2);margin:8px 0 0}
 .site-nav{--sn-bg:#fbfaf7;--sn-ink:#1f2937;--sn-muted:#5b6472;--sn-accent:#0f766e;--sn-line:#e8e5dd;
   background:var(--sn-bg);border-bottom:1px solid var(--sn-line)}
 @media (prefers-color-scheme: dark){
@@ -210,6 +223,29 @@ footer{margin-top:46px;border-top:1px solid var(--edge);padding-top:16px;max-wid
 
   <p class="err" id="err" hidden></p>
 
+  <section class="share" id="share" hidden>
+    <h3>Share both answers</h3>
+    <button type="button" id="share-open">Share both answers</button>
+    <div id="share-panel" hidden>
+      <label class="share__note" for="share-msg">Your message, as it will appear on the image. It is your text and you
+        are about to publish it under your own name: shorten it, or remove it.</label>
+      <input type="text" class="share__msg" id="share-msg" maxlength="120" autocomplete="off">
+      <div class="share__row"><button type="button" id="share-clear">Remove my message from the image</button></div>
+      <img class="share__preview" id="share-preview" alt="Preview of the image to share: the raw answer above, the same model with MORIS below, the verdict and its weight, and the page's disclosure">
+      <div class="share__row">
+        <a class="share__btn" id="share-x" href="#" target="_blank" rel="noopener">Post on X</a>
+        <a class="share__btn" id="share-linkedin" href="#" target="_blank" rel="noopener">Share on LinkedIn</a>
+        <button type="button" id="share-copy">Copy image</button>
+        <button type="button" id="share-native" hidden>Share&hellip;</button>
+        <a class="share__btn" id="share-download" href="#" download="two-answers-one-conscience.png">Download image</a>
+      </div>
+      <p class="share__note">X opens with the sentence and the link filled in; attach the image from your clipboard or
+        downloads. LinkedIn takes the URL only and the image has to be pasted into the post. Nothing is sent anywhere by
+        this page: the image is made in your browser, and you post it from your own account.</p>
+      <p class="share__note" id="share-status" hidden></p>
+    </div>
+  </section>
+
   <footer>
     <p>The prompt is read once, judged once, and answered twice from that single reading, so the two
       columns differ by the conscience and by nothing else. The reading and what MORIS sends are
@@ -262,7 +298,10 @@ function inCrisis(t) {
   return CRISIS.some(function (re) { return re.test(low); });
 }
 
+let LAST_TEXT = "";
+
 function reset() {
+  if (window.MorisShare) window.MorisShare.hide();
   $("col-ungoverned").innerHTML = "";
   $("col-governed").innerHTML = "";
   $("gatebar").style.display = "none";
@@ -326,6 +365,7 @@ function renderSeat(seat) {
 
 async function send(text) {
   if (!text) return;
+  LAST_TEXT = text;
   if (inCrisis(text)) { $("crisis").hidden = false; $("crisis").scrollIntoView({block:"center"}); return; }
   $("crisis").hidden = true;
   reset();
@@ -365,7 +405,7 @@ async function send(text) {
         if (ev.stage === "read") $("stages").textContent = "judging\u2026";
         else if (ev.stage === "gate") renderGate(ev);
         else if (ev.stage === "column") renderColumn(ev);
-        else if (ev.stage === "done") renderSeat(ev.seat);
+        else if (ev.stage === "done") { renderSeat(ev.seat); if (window.MorisShare) window.MorisShare.show(LAST_TEXT); }
         else if (ev.stage === "error") setErr(ev.error || "the exchange could not be completed");
       }
     }
@@ -413,6 +453,226 @@ $("gate-ok").addEventListener("click", function () {
   try { localStorage.setItem(GATE_KEY, "1"); } catch (_) {}
   $("gate").hidden = true;
 });
+
+/* share:begin */
+// ONE IMAGE FROM WHAT THE PAGE ALREADY HOLDS. Reads six ids (the two columns, the verdict, the mass,
+// the fields-not-stated count, the seat line) and its own share-* elements, and nothing else. Makes
+// no request, writes nothing anywhere, mints no permalink. The message is handed in by the page
+// (never read from the box) and the person sees and edits it before anything is shared. The palette
+// is fixed and light so the image is the same in every feed. Answers are stacked, raw above, the
+// same model with MORIS below: side by side at phone width halves what can be read.
+window.MorisShare = (function () {
+  const SENTENCE = "Same model, same prompt. One of them had a conscience.";
+  const URL_FULL = "https://www.resonanceinstitutellc.com/moris/pair";
+  const URL_SHOWN = "resonanceinstitutellc.com/moris/pair";
+  const DISCLOSURE = "Output is generated automatically and may be inaccurate. Not advice of any kind, and no liability is accepted for it. This page is not monitored. If you are in crisis, please reach a person: in the US call or text 988, or your local emergency number.";
+  const W = 1080, H = 1350, SCALE = 2, M = 48;
+  const PAPER = "#F5F5F2", INK = "#14181A", INK2 = "#4A524F", INK3 = "#767E7A", EDGE = "#DCDED8", ACCENT = "#2E7D6B";
+  const SERIF = "'Instrument Serif', Georgia, 'Times New Roman', serif";
+  const SANS = "'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif";
+  const MONO = "'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace";
+  const MAX_LINES = 9, MSG_MAX = 120, BODY = 38, LINE = 44;
+  let message = "", lastBlob = null, lastUrl = null;
+
+  function clean(t) { return String(t || "").replace(/\s+/g, " ").trim(); }
+  function strip(t) {
+    return clean(t).replace(/\*\*([^*]+)\*\*/g, "$1").replace(/(^|\s)\*([^*]+)\*(?=\s|$)/g, "$1$2")
+                   .replace(/`([^`]+)`/g, "$1").replace(/^_+|_+$/g, "");
+  }
+  function cutMessage(t, max) {
+    t = clean(t);
+    if (t.length <= max) return t;
+    return t.slice(0, max - 1).replace(/[\s.,;:]+$/, "") + "\u2026";
+  }
+  function classify(line) {
+    const h = line.match(/^\s*(#{1,6})\s+(.*)$/);
+    if (h) return { kind: "heading", text: strip(h[2]) };
+    const b = line.match(/^\s*(?:[-*\u2022]|\d+[.)])\s+(.*)$/);
+    if (b) return { kind: "bullet", text: strip(b[1]) };
+    const t = strip(line);
+    return t ? { kind: "para", text: t } : null;
+  }
+  function textOf(el) {   // an element's text without any attribution byline inside it
+    if (!el.childNodes || !el.childNodes.length) return el.textContent || "";
+    let t = "";
+    el.childNodes.forEach(function (c) {
+      if (c.nodeType === 3) t += c.textContent || "";
+      else if (c.nodeType === 1 && String(c.className || "").indexOf("attr") < 0) t += c.textContent || "";
+    });
+    return t;
+  }
+  function blocksOf(node) {
+    const out = [];
+    (node.childNodes || []).forEach(function (c) {
+      if (c.nodeType === 3) { const l = classify(c.textContent || ""); if (l) out.push(l); return; }
+      if (c.nodeType !== 1) return;
+      const tag = String(c.tagName || "").toUpperCase();
+      if (String(c.className || "").split(" ").indexOf("attr") >= 0) return;   // head, verdict, foot
+      if (/^H[1-6]$/.test(tag)) { out.push({ kind: "heading", text: strip(textOf(c)) }); return; }
+      if (tag === "LI") { out.push({ kind: "bullet", text: strip(textOf(c)) }); return; }
+      if (tag === "UL" || tag === "OL" || tag === "DIV" || tag === "BLOCKQUOTE") { blocksOf(c).forEach(function (x) { out.push(x); }); return; }
+      String(textOf(c)).split(/\n/).forEach(function (line) { const l = classify(line); if (l) out.push(l); });
+    });
+    return out;
+  }
+  function wrapLines(text, measure, maxWidth) {
+    const words = clean(text).split(" ");
+    const lines = []; let cur = "";
+    words.forEach(function (w) {
+      while (measure(w) > maxWidth && w.length > 1) {       // a single word wider than the line
+        let n = w.length;
+        while (n > 1 && measure(w.slice(0, n)) > maxWidth) n -= 1;
+        if (cur) { lines.push(cur); cur = ""; }
+        lines.push(w.slice(0, n)); w = w.slice(n);
+      }
+      const trial = cur ? cur + " " + w : w;
+      if (measure(trial) <= maxWidth || !cur) cur = trial; else { lines.push(cur); cur = w; }
+    });
+    if (cur) lines.push(cur);
+    return lines;
+  }
+  function capLines(lines, max) {
+    if (lines.length <= max) return lines.slice();
+    const out = lines.slice(0, max);
+    out[max - 1] = out[max - 1].replace(/[\s.,;:]+$/, "") + "\u2026";
+    return out;
+  }
+  function prefillText() { return SENTENCE + " " + URL_FULL; }
+
+  function layout(ctx, blocks, width) {
+    // Every block becomes lines with a kind; a bullet hangs; a heading is bold. Capped at MAX_LINES.
+    const out = [];
+    blocks.forEach(function (b) {
+      if (b.kind === "heading") {
+        ctx.font = "700 " + BODY + "px " + SANS;
+        wrapLines(b.text, function (t) { return ctx.measureText(t).width; }, width).forEach(function (l) { out.push({ text: l, bold: true, indent: 0 }); });
+      } else if (b.kind === "bullet") {
+        ctx.font = "400 " + BODY + "px " + SANS;
+        const ind = ctx.measureText("\u2022 ").width;
+        wrapLines(b.text, function (t) { return ctx.measureText(t).width; }, width - ind).forEach(function (l, i) {
+          out.push({ text: (i === 0 ? "\u2022 " : "") + l, bold: false, indent: i === 0 ? 0 : ind });
+        });
+      } else {
+        ctx.font = "400 " + BODY + "px " + SANS;
+        wrapLines(b.text, function (t) { return ctx.measureText(t).width; }, width).forEach(function (l) { out.push({ text: l, bold: false, indent: 0 }); });
+      }
+    });
+    if (out.length > MAX_LINES) {
+      const kept = out.slice(0, MAX_LINES);
+      kept[MAX_LINES - 1] = Object.assign({}, kept[MAX_LINES - 1], { text: kept[MAX_LINES - 1].text.replace(/[\s.,;:]+$/, "") + "\u2026" });
+      return kept;
+    }
+    return out;
+  }
+  function drawBlock(ctx, y, label, sub, gateText, lines) {
+    ctx.textBaseline = "alphabetic";
+    ctx.font = "700 22px " + MONO; ctx.fillStyle = INK; ctx.fillText(label, M, y);
+    const lw = ctx.measureText(label).width;
+    ctx.font = "400 22px " + MONO; ctx.fillStyle = INK2; ctx.fillText(" \u00b7 " + sub, M + lw, y);
+    let yy = y;
+    if (gateText) { yy += 36; ctx.font = "500 22px " + MONO; ctx.fillStyle = ACCENT; ctx.fillText(gateText, M, yy); }
+    yy += 46;
+    lines.forEach(function (l) {
+      ctx.font = (l.bold ? "700 " : "400 ") + BODY + "px " + SANS; ctx.fillStyle = INK;
+      ctx.fillText(l.text, M + l.indent, yy); yy += LINE;
+    });
+    return yy;
+  }
+  function render() {
+    const rawBlocks = blocksOf($("col-ungoverned"));
+    const govBlocks = blocksOf($("col-governed"));
+    const verdict = clean($("g-verdict").textContent), mass = clean($("g-mass").textContent), blank = clean($("g-blank").textContent);
+    const seat = clean($("seatline").textContent).replace(/\.$/, "");
+    const canvas = document.createElement("canvas");
+    canvas.width = W * SCALE; canvas.height = H * SCALE;
+    const ctx = canvas.getContext("2d");
+    ctx.scale(SCALE, SCALE);
+    ctx.fillStyle = PAPER; ctx.fillRect(0, 0, W, H);
+    const width = W - 2 * M;
+    // header
+    ctx.textBaseline = "alphabetic";
+    ctx.font = "500 20px " + MONO; ctx.fillStyle = ACCENT; ctx.fillText("THE RESONANCE INSTITUTE \u00b7 MORIS", M, 56);
+    ctx.font = "400 20px " + MONO; ctx.fillStyle = INK2; ctx.textAlign = "right"; ctx.fillText(seat, W - M, 56); ctx.textAlign = "left";
+    ctx.font = "400 46px " + SERIF; ctx.fillStyle = INK; ctx.fillText("Two answers, one conscience", M, 112);
+    // the message, if the person kept it
+    if (message) {
+      ctx.font = "italic 400 30px " + SERIF; ctx.fillStyle = INK2;
+      const ml = capLines(wrapLines("\u201c" + message + "\u201d", function (t) { return ctx.measureText(t).width; }, width), 2);
+      ml.forEach(function (l, i) { ctx.fillText(l, M, 168 + i * 40); });
+    }
+    ctx.strokeStyle = EDGE; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(M, 236); ctx.lineTo(W - M, 236); ctx.stroke();
+    // raw feed
+    const rawLines = layout(ctx, rawBlocks, width);
+    let y = drawBlock(ctx, 286, "RAW FEED", "nothing between the model and you", null, rawLines);
+    ctx.beginPath(); ctx.moveTo(M, 740); ctx.lineTo(W - M, 740); ctx.stroke();
+    // the same model with MORIS
+    const govLines = layout(ctx, govBlocks, width);
+    const gate = verdict + " \u00b7 concern mass " + mass + " \u00b7 " + blank + " of 9 fields not stated";
+    drawBlock(ctx, 786, "MORIS", "the same model with MORIS", gate, govLines);
+    // footer
+    ctx.beginPath(); ctx.moveTo(M, 1252); ctx.lineTo(W - M, 1252); ctx.stroke();
+    ctx.font = "700 30px " + MONO; ctx.fillStyle = INK; ctx.fillText(URL_SHOWN, M, 1288);
+    ctx.font = "400 17px " + SANS; ctx.fillStyle = INK3;
+    capLines(wrapLines(DISCLOSURE, function (t) { return ctx.measureText(t).width; }, width), 2).forEach(function (l, i) { ctx.fillText(l, M, 1314 + i * 22); });
+    return new Promise(function (resolve) { canvas.toBlob(function (blob) { resolve(blob); }, "image/png"); });
+  }
+  function status(t) { const el = $("share-status"); el.textContent = t; el.hidden = !t; }
+  function renderPreview() {
+    const ready = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
+    ready.then(render).then(function (blob) {
+      if (!blob) return;
+      if (lastUrl) URL.revokeObjectURL(lastUrl);
+      lastBlob = blob; lastUrl = URL.createObjectURL(blob);
+      $("share-preview").src = lastUrl;
+      $("share-download").href = lastUrl;
+      const native = $("share-native");
+      try {
+        const f = new File([blob], "two-answers-one-conscience.png", { type: "image/png" });
+        native.hidden = !(navigator.canShare && navigator.canShare({ files: [f] }));
+      } catch (e) { native.hidden = true; }
+    });
+  }
+  function show(text) {
+    if (!blocksOf($("col-ungoverned")).length || !blocksOf($("col-governed")).length) return;
+    message = cutMessage(text, MSG_MAX);
+    $("share-msg").value = message;
+    $("share-panel").hidden = true;
+    $("share").hidden = false;
+    status("");
+  }
+  function hide() {
+    $("share").hidden = true; $("share-panel").hidden = true;
+    if (lastUrl) { URL.revokeObjectURL(lastUrl); lastUrl = null; } lastBlob = null;
+  }
+  function open() { $("share-panel").hidden = false; renderPreview(); }
+  function wire() {
+    $("share-x").href = "https://twitter.com/intent/tweet?text=" + encodeURIComponent(prefillText());
+    $("share-linkedin").href = "https://www.linkedin.com/sharing/share-offsite/?url=" + encodeURIComponent(URL_FULL);
+    $("share-open").addEventListener("click", open);
+    $("share-msg").addEventListener("input", function () {
+      message = cutMessage($("share-msg").value, MSG_MAX);
+      renderPreview();       // no timer anywhere on this page: a keystroke re-renders, and the render is cheap
+    });
+    $("share-clear").addEventListener("click", function () { $("share-msg").value = ""; message = ""; renderPreview(); });
+    $("share-copy").addEventListener("click", function () {
+      if (!lastBlob) return;
+      try {
+        navigator.clipboard.write([new ClipboardItem({ "image/png": lastBlob })])
+          .then(function () { status("Image copied. Paste it into your post."); })
+          .catch(function () { status("This browser would not copy the image. Use Download image."); });
+      } catch (e) { status("This browser would not copy the image. Use Download image."); }
+    });
+    $("share-native").addEventListener("click", function () {
+      if (!lastBlob) return;
+      const f = new File([lastBlob], "two-answers-one-conscience.png", { type: "image/png" });
+      navigator.share({ files: [f], text: prefillText() }).catch(function () {});
+    });
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", wire); else if ($("share-open")) wire();
+  return { blocksOf: blocksOf, wrapLines: wrapLines, capLines: capLines, cutMessage: cutMessage, prefillText: prefillText,
+           render: render, show: show, hide: hide, open: open };
+})();
+/* share:end */
 </script>
 
 </body>
