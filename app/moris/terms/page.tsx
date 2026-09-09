@@ -113,8 +113,21 @@ export default function Terms() {
           .
         </P>
         <P>
-          Because nothing is stored, nothing can be retrieved, corrected, or
-          deleted afterwards, and we cannot tell you what you submitted.
+          One exception, and it is yours to make. On the two-answer
+          demonstration there is a button marked Share as a page. Pressing it
+          stores that one exchange, your message and both answers with the
+          verdict and its weight, on our servers at a public link for thirty
+          days, after which it is deleted. Nothing about you is stored with it:
+          no session, no browser, no location. The link is not listed or
+          indexed, but anyone who has it can read it. You can delete the page
+          sooner from the browser you shared it from, and that ability lives in
+          that browser and is lost with it. We can delete a page by its id at
+          any time, and will on request.
+        </P>
+        <P>
+          Because nothing else is stored, nothing else can be retrieved,
+          corrected, or deleted afterwards, and we cannot tell you what you
+          submitted.
         </P>
       </Section>
 

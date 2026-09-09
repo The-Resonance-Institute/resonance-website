@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="One message, answered twice by the same model: once raw, once under an artificial conscience.">
-<meta name="moris-build" content="5f5bcb51cd56 2026-09-09T01:47:51Z">
+<meta name="moris-build" content="d0f162890c05 2026-09-09T02:54:34Z">
 <title>Two Answers, One Conscience</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
@@ -110,6 +110,9 @@ footer{margin-top:46px;border-top:1px solid var(--edge);padding-top:16px;max-wid
 .share__preview{display:block;max-width:100%;height:auto;border:1px solid var(--edge);margin:12px 0 0;background:#F5F5F2}
 .share__row{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
 .share__note{font-family:var(--mono);font-size:12px;line-height:1.5;color:var(--ink-2);margin:8px 0 0}
+.share__page{margin-top:16px;padding-top:14px;border-top:1px solid var(--edge)}
+.share__consent{font-family:var(--sans);font-size:14px;line-height:1.55;color:var(--ink);margin:0 0 10px;max-width:64ch}
+.share__url{font-family:var(--mono);font-size:13px;word-break:break-all}
 .site-nav{--sn-bg:#fbfaf7;--sn-ink:#1f2937;--sn-muted:#5b6472;--sn-accent:#0f766e;--sn-line:#e8e5dd;
   background:var(--sn-bg);border-bottom:1px solid var(--sn-line)}
 @media (prefers-color-scheme: dark){
@@ -244,18 +247,38 @@ footer{margin-top:46px;border-top:1px solid var(--edge);padding-top:16px;max-wid
         this page: the image is made in your browser, and you post it from your own account.</p>
       <p class="share__note" id="share-status" hidden></p>
     </div>
+    <div class="share__page" id="share-page">
+      <h3>Share as a page</h3>
+      <p class="share__consent" id="share-page-consent">Pressing this stores your message and both answers on our servers at a public link for thirty days, then deletes them. You can delete the page sooner from this browser. If you lose this browser, only the Institute can delete it, by its id.</p>
+      <button type="button" id="share-page-go">Share as a page</button>
+      <div id="share-page-result" hidden>
+        <p class="share__note">Your page: <a class="share__url" id="share-page-url" href="#" target="_blank" rel="noopener"></a></p>
+        <div class="share__row">
+          <button type="button" id="share-page-copy">Copy link</button>
+          <a class="share__btn" id="share-page-x" href="#" target="_blank" rel="noopener">Post on X</a>
+          <a class="share__btn" id="share-page-linkedin" href="#" target="_blank" rel="noopener">Share on LinkedIn</a>
+          <button type="button" id="share-page-delete">Delete this page</button>
+        </div>
+        <p class="share__note" id="share-page-expires"></p>
+      </div>
+      <p class="share__note" id="share-page-status" hidden></p>
+    </div>
   </section>
 
   <footer>
     <p>The prompt is read once, judged once, and answered twice from that single reading, so the two
       columns differ by the conscience and by nothing else. The reading and what MORIS sends are
       disclosed under NDA; what you see is the judgment, its weight, and the two answers. Your words
-      are not stored by us. <a href="/moris/terms">Terms of use</a>.</p>
+      are not stored by us, with one exception you control: pressing Share as a page stores that one
+      exchange, your message and both answers, at a public link for thirty days. You can delete it
+      sooner from this browser, and only from this browser. Lose the browser and only the Institute
+      can delete it, by its id. <a href="/moris/terms">Terms of use</a>.</p>
   </footer>
 </div>
 
 <script>
 const API = "https://resonance-api-hazel.vercel.app/api/pair";
+const SHARE_API = "https://resonance-api-hazel.vercel.app/api/pair/share";
 const SEAT_MODEL_ID = "claude-haiku-4-5-20251001";
 function $(id) { return document.getElementById(id); }
 function setErr(m) { const e = $("err"); e.textContent = m; e.hidden = !m; }
@@ -299,9 +322,12 @@ function inCrisis(t) {
 }
 
 let LAST_TEXT = "";
+let LAST_GATE = null, LAST_EXCHANGE = "";
 
 function reset() {
   if (window.MorisShare) window.MorisShare.hide();
+  if (window.MorisSharePage) window.MorisSharePage.hide();
+  LAST_GATE = null; LAST_EXCHANGE = "";
   $("col-ungoverned").innerHTML = "";
   $("col-governed").innerHTML = "";
   $("gatebar").style.display = "none";
@@ -310,6 +336,7 @@ function reset() {
 }
 
 function renderGate(ev) {
+  LAST_GATE = ev;
   $("g-verdict").textContent = ev.verdict || "\u2014";
   $("g-verdict").className = "v-" + (ev.verdict || "");
   $("g-mass").textContent = (typeof ev.concern_mass === "number") ? ev.concern_mass.toFixed(4) : "\u2014";
@@ -324,6 +351,7 @@ function renderGate(ev) {
 // one author and this is not it.
 function renderColumn(ev) {
   const target = ev.column === "ungoverned" ? "col-ungoverned" : "col-governed";
+  if (ev.exchange_id) LAST_EXCHANGE = ev.exchange_id;
   $(target).innerHTML = ev.html;
 }
 
@@ -405,7 +433,11 @@ async function send(text) {
         if (ev.stage === "read") $("stages").textContent = "judging\u2026";
         else if (ev.stage === "gate") renderGate(ev);
         else if (ev.stage === "column") renderColumn(ev);
-        else if (ev.stage === "done") { renderSeat(ev.seat); if (window.MorisShare) window.MorisShare.show(LAST_TEXT); }
+        else if (ev.stage === "done") {
+          renderSeat(ev.seat);
+          if (window.MorisShare) window.MorisShare.show(LAST_TEXT);
+          if (window.MorisSharePage) window.MorisSharePage.show(LAST_TEXT, LAST_GATE, LAST_EXCHANGE, ev.seat);
+        }
         else if (ev.stage === "error") setErr(ev.error || "the exchange could not be completed");
       }
     }
@@ -673,6 +705,108 @@ window.MorisShare = (function () {
            render: render, show: show, hide: hide, open: open };
 })();
 /* share:end */
+/* sharepage:begin */
+// THE CONSENT EXCEPTION, demo only. Operator's ruling, 2026-09-08. Nothing here runs until the person
+// presses the button under the sentence that says what pressing it does. Then ONE request carries
+// the exchange the page already holds (the message, both answers as the model wrote them, the seat
+// and reader that actually answered, the verdict and its numbers, the exchange id) with consent:
+// true, and nothing about who sent it. The service mints the page id and an owner secret; the secret
+// is kept in this browser's own storage and shown to no one, and it is the only thing that opens the
+// delete route. Losing this browser loses that; the Institute can still delete by id.
+window.MorisSharePage = (function () {
+  const KEY = "moris.pair.share";
+  const SENTENCE = "Same model, same prompt. One of them had a conscience.";
+  let held = null, current = null;
+
+  function status(m) { const e = $("share-page-status"); e.textContent = m || ""; e.hidden = !m; }
+  // The answer as the model wrote it: the page's rendered block holds one paragraph per line
+  // break, each opening with the attribution byline, which is the page's and not the model's.
+  function answerText(col) {
+    const out = [];
+    Array.prototype.forEach.call(col.querySelectorAll(".para"), function (pEl) {
+      let t = "";
+      Array.prototype.forEach.call(pEl.childNodes, function (n) {
+        if (n.nodeType === 3) t += n.textContent;
+        else if (n.nodeType === 1 && !/\battr\b/.test(n.className || "")) t += n.textContent;
+      });
+      t = t.replace(/\s+$/, "");
+      if (t) out.push(t);
+    });
+    return out.join(String.fromCharCode(10));
+  }
+  function record(text, gate, exchange, seat) {
+    return {
+      message: text,
+      raw_answer: answerText($("col-ungoverned")),
+      governed_answer: answerText($("col-governed")),
+      seat: (seat && seat.model) || "",
+      reader: (gate && gate.read_by) || "",
+      verdict: gate ? gate.verdict : "",
+      concern_mass: gate ? gate.concern_mass : 0,
+      concern_count: gate ? gate.concern_count : 0,
+      considerations_total: gate ? gate.considerations_total : 0,
+      blank_count: gate ? gate.blank_count : 0,
+      exchange_id: exchange || ""
+    };
+  }
+  function remember(rec) { try { localStorage.setItem(KEY, JSON.stringify(rec)); } catch (_) {} }
+  function forget() { try { localStorage.removeItem(KEY); } catch (_) {} }
+  function when(iso) {
+    const d = new Date(iso);
+    return isNaN(d.getTime()) ? iso : d.toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
+  }
+  function show(text, gate, exchange, seat) {
+    held = record(text, gate, exchange, seat); current = null;
+    $("share-page-result").hidden = true; $("share-page-go").disabled = false; status("");
+  }
+  function hide() { held = null; current = null; $("share-page-result").hidden = true; status(""); }
+  function showResult(d) {
+    current = d;
+    $("share-page-url").href = d.url; $("share-page-url").textContent = d.url;
+    $("share-page-x").href = "https://twitter.com/intent/tweet?text=" + encodeURIComponent(SENTENCE + " " + d.url);
+    $("share-page-linkedin").href = "https://www.linkedin.com/sharing/share-offsite/?url=" + encodeURIComponent(d.url);
+    $("share-page-expires").textContent = "This page deletes itself on " + when(d.expires_at) + ". Delete it sooner with the button above; the secret that allows that is kept in this browser and nowhere else.";
+    $("share-page-result").hidden = false;
+  }
+  async function share() {
+    if (!held || !held.message) return;
+    $("share-page-go").disabled = true; status("Storing\u2026");
+    try {
+      const r = await fetch(SHARE_API, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(Object.assign({ consent: true }, held))
+      });
+      let d = null; try { d = await r.json(); } catch (_) { d = null; }
+      if (!r.ok || !d || !d.id) { status((d && d.error) || ("HTTP " + r.status)); $("share-page-go").disabled = false; return; }
+      remember(d); showResult(d); status("");
+    } catch (e) {
+      status("Could not reach the service. Nothing was stored."); $("share-page-go").disabled = false;
+    }
+  }
+  async function del() {
+    if (!current || !current.secret) return;
+    status("Deleting\u2026");
+    try {
+      const r = await fetch(SHARE_API + "/" + current.id, { method: "DELETE", headers: { "X-Moris-Share-Secret": current.secret } });
+      if (r.ok || r.status === 404) { forget(); current = null; $("share-page-result").hidden = true; $("share-page-go").disabled = false; status("Deleted. The page is gone."); }
+      else status("The page could not be deleted (HTTP " + r.status + "). Try again, or ask the Institute to delete it by its id.");
+    } catch (e) { status("Could not reach the service. The page is still there."); }
+  }
+  function copy() {
+    if (!current) return;
+    try { navigator.clipboard.writeText(current.url).then(function () { status("Link copied."); }).catch(function () { status("This browser would not copy the link. Select it above."); }); }
+    catch (e) { status("This browser would not copy the link. Select it above."); }
+  }
+  function wire() {
+    $("share-page-go").addEventListener("click", share);
+    $("share-page-delete").addEventListener("click", del);
+    $("share-page-copy").addEventListener("click", copy);
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", wire); else if ($("share-page-go")) wire();
+  return { show: show, hide: hide, share: share, del: del, answerText: answerText, record: record };
+})();
+/* sharepage:end */
 </script>
 
 </body>
