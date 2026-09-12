@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function Home() {
   return (
     <div className="mx-auto max-w-5xl px-6">
-      {/* Institute statement — compact */}
+      {/* Institute statement: compact */}
       <section className="pt-14 pb-10 sm:pt-16">
         <p className="max-w-3xl font-serif text-xl font-light leading-snug text-ink sm:text-2xl">
           The Resonance Institute is an independent studio for rigorous
@@ -16,7 +16,7 @@ export default function Home() {
 
       {/* Two zones, side by side */}
       <section className="grid gap-6 md:grid-cols-2">
-        {/* MORIS — primary (accent-tinted, visually weightier) */}
+        {/* MORIS: primary (accent-tinted, visually weightier) */}
         <div className="flex flex-col rounded-2xl border border-accent/20 bg-accent-soft p-8 sm:p-9">
           <p className="text-xs font-medium uppercase tracking-[0.18em] text-accent">
             The system

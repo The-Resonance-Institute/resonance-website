@@ -175,7 +175,7 @@ export default async function TrilogyPage({
             ))}
           </div>
           {trilogy.passage.source && (
-            <p className="mt-4 pl-6 text-sm text-muted">— {trilogy.passage.source}</p>
+            <p className="mt-4 pl-6 text-sm text-muted">{trilogy.passage.source}</p>
           )}
         </section>
       )}

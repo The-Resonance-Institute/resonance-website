@@ -43,8 +43,8 @@ export default function Paper() {
         <p className="mt-6 leading-relaxed text-ink">
           A conscience that judges what an action means before it executes, as a gradient rather
           than a verdict on a list. Measured against MoralChoice, a public set of 680 moral dilemmas
-          on which trained annotators disagreed, it governed 92.6% of the cases it judged &mdash;
-          governing being a third posture, neither allow nor block, that carries the named reasons
+          on which trained annotators disagreed, it governed 92.6% of the cases it judged.
+          Governing is a third posture, neither allow nor block: it carries the named reasons
           an action raises, at a weight. Nobody wrote those cases for this system, and it read every
           one of them. The judgment is a pure function: given the same reading of an action it
           returns the same verdict and the same reasons, byte for byte, so someone who believes the

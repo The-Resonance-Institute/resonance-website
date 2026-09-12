@@ -138,7 +138,7 @@ export default async function BookPage({
             ))}
           </div>
           {book.passage.source && (
-            <p className="mt-4 pl-6 text-sm text-muted">— {book.passage.source}</p>
+            <p className="mt-4 pl-6 text-sm text-muted">{book.passage.source}</p>
           )}
         </section>
       )}

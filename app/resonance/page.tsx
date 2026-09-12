@@ -166,7 +166,7 @@ export default function ResonanceLanding() {
           &ldquo;To lead is to promise what you touch will not collapse when you
           are gone.&rdquo;
         </blockquote>
-        <p className="mt-3 text-sm text-muted">&mdash; C.T. Herndon</p>
+        <p className="mt-3 text-sm text-muted">C.T. Herndon</p>
       </section>
     </div>
   );

@@ -13,7 +13,7 @@ const paths = [
     tag: "MORIS · technical & acquisition",
     body: "For acquirers, security researchers, and corporate development. Diligence conversations, the technical package, and the NDA that opens the full mechanism.",
     action: "Start a MORIS conversation",
-    subject: "MORIS — technical / acquisition inquiry",
+    subject: "MORIS: technical or acquisition inquiry",
   },
   {
     tag: "The Series · reading & publishing",
