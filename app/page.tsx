@@ -14,6 +14,37 @@ export default function Home() {
         </p>
       </section>
 
+      {/* THE OPEN LETTER, 2026-09-15. It shipped at /open-letter with no link from anywhere, so a
+          visitor could not find it. It leads the page, above the two zones, because it is the piece
+          people are being sent here to read. */}
+      <section className="mb-6 rounded-2xl border border-ink/10 bg-white p-8 sm:p-9">
+        <p className="text-xs font-medium uppercase tracking-[0.18em] text-accent">
+          Open letter &middot; September 2026
+        </p>
+        <h2 className="mt-3 font-serif text-3xl leading-tight text-ink sm:text-4xl">
+          We Built the Intelligence. We Never Built the Conscience.
+        </h2>
+        <p className="mt-4 max-w-3xl text-lg leading-relaxed text-ink">
+          In a person, intelligence without a conscience has a name: psychopath. That is what we are
+          building in artificial intelligence, at industrial scale. The letter makes the case for the
+          missing piece, and shows that one exists.
+        </p>
+        <div className="mt-6 flex flex-wrap gap-3">
+          <Link
+            href="/open-letter"
+            className="inline-flex items-center gap-1.5 rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-ink"
+          >
+            Read the open letter <span aria-hidden>&rarr;</span>
+          </Link>
+          <a
+            href="/open-letter/We-Built-the-Intelligence-Open-Letter.pdf"
+            className="inline-flex items-center gap-1.5 rounded-full border border-line px-5 py-2.5 text-sm font-medium text-muted transition-colors hover:border-accent hover:text-accent"
+          >
+            Download the PDF <span aria-hidden>&darr;</span>
+          </a>
+        </div>
+      </section>
+
       {/* Two zones, side by side */}
       <section className="grid gap-6 md:grid-cols-2">
         {/* MORIS: primary (accent-tinted, visually weightier) */}

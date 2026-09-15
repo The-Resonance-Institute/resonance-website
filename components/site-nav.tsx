@@ -7,6 +7,8 @@ const links = [
   // chat surface was linked from nowhere at all. A nav entry is the fix, and it points at a hub
   // rather than at one of them, because a single link cannot serve two demonstrations.
   { href: "/moris/demos", label: "Demos" },
+  // The open letter, 2026-09-15: it was live with no link from anywhere on the site.
+  { href: "/open-letter", label: "Open Letter" },
   // Compliance sits between the demonstrations and the philosophy on purpose: it is what a
   // regulator or a buyer looks for after seeing the demos and before reading the books.
   { href: "/compliance", label: "Compliance" },
