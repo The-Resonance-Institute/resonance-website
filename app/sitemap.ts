@@ -8,6 +8,8 @@ const base = "https://www.resonanceinstitutellc.com";
 // generates the pages, so adding a volume cannot leave the sitemap behind.
 const staticRoutes: { path: string; priority: number }[] = [
   { path: "", priority: 1 },
+  // The open letter, 2026-09-15: the category introduced for labs, acquirers, press and policymakers.
+  { path: "/open-letter", priority: 0.9 },
   { path: "/moris", priority: 0.9 },
   { path: "/moris/problem", priority: 0.8 },
   { path: "/moris/conscience", priority: 0.8 },

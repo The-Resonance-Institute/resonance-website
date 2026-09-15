@@ -58,6 +58,14 @@ const nextConfig: NextConfig = {
         destination: "/resonance/book/the-two-clocks",
         permanent: true,
       },
+      // The open letter lives at /open-letter. /letter is the short form people will type or say,
+      // so it forwards there. Temporary on purpose: a short path may be wanted for something else
+      // later, and a permanent redirect is cached by browsers past any change of mind.
+      {
+        source: "/letter",
+        destination: "/open-letter",
+        permanent: false,
+      },
     ];
   },
 };
