@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 // THE OPEN LETTER, published 2026-09-15. The text is the same as the distribution PDF served beside
-// it (public/open-letter/) and the source of record in the MORIS asset repository
-// (Moris_asset/posts/we-built-the-intelligence/). Change all three together, never one. Every figure
-// traces to a record named in the sources list; no primitive names, no em dash.
+// it (public/open-letter/) and as the source of record, which lives in the private research
+// repository and is not named here. Change all three together, never one. Every figure traces to a
+// record named in the sources list; no primitive names, no em dash.
 
 export const metadata: Metadata = {
   title: "We Built the Intelligence. We Never Built the Conscience.",
