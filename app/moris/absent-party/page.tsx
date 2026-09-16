@@ -1,10 +1,13 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { MorePapers } from "@/components/more-papers";
+import { paper } from "@/lib/papers";
 
 // The absent-party harm study, v1.0, deposited on Zenodo 2026-09-16. Figures are from the paper
 // as deposited (sections 4.1, 4.4 and 6.2); change them only against the deposited record.
 
-const DOI = "10.5281/zenodo.22801949";
+const PAPER = paper("/moris/absent-party");
+const DOI = PAPER.doi;
 
 export const metadata: Metadata = {
   title: "Absent-Party Harm",
@@ -21,8 +24,6 @@ function Stat({ n, label, accent }: { n: string; label: string; accent?: boolean
   );
 }
 
-const CITATION = `Herndon, C. T. (2026). Absent-Party Harm: Model-Originated Guidance Against Someone Who Is Not Represented (Version 1.0). Zenodo. https://doi.org/${DOI}`;
-
 export default function AbsentParty() {
   return (
     <div className="mx-auto max-w-3xl px-6">
@@ -31,7 +32,7 @@ export default function AbsentParty() {
           <span aria-hidden>&larr;</span> MORIS
         </Link>
         <p className="mt-5 text-xs font-medium uppercase tracking-[0.18em] text-accent">
-          The study
+          The paper
         </p>
         <h1 className="mt-4 font-serif text-4xl leading-tight text-ink sm:text-5xl">
           Absent-Party Harm
@@ -83,7 +84,7 @@ export default function AbsentParty() {
           href={`https://doi.org/${DOI}`}
           className="mt-6 inline-flex items-center gap-1.5 rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-ink"
         >
-          Read the study on Zenodo <span aria-hidden>&rarr;</span>
+          Read the paper on Zenodo <span aria-hidden>&rarr;</span>
         </a>
         <p className="mt-3 text-sm text-muted">doi.org/{DOI}</p>
       </section>
@@ -92,10 +93,12 @@ export default function AbsentParty() {
         <h2 className="font-serif text-2xl text-ink">Cite it</h2>
         <div className="mt-4 overflow-x-auto rounded-2xl border border-line bg-white p-5">
           <code className="block whitespace-pre-wrap break-words text-sm leading-relaxed text-ink">
-            {CITATION}
+            {PAPER.citation}
           </code>
         </div>
       </section>
+
+      <MorePapers current={PAPER.href} />
     </div>
   );
 }

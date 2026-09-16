@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { PAPERS } from "@/lib/papers";
 
 export const metadata: Metadata = {
   title: "MORIS",
@@ -193,40 +194,32 @@ export default function MorisLanding() {
         </Link>
       </section>
 
-      <section className="mt-14 rounded-2xl border border-accent/20 bg-accent-soft p-8 sm:p-10">
+      <section id="papers" className="mt-14 scroll-mt-24">
         <p className="text-xs font-medium uppercase tracking-[0.18em] text-accent">
-          The paper
+          The papers
         </p>
-        <h2 className="mt-2 font-serif text-2xl text-ink">An Artificial Conscience</h2>
-        <p className="mt-3 max-w-2xl leading-relaxed text-ink">
-          The public layer at its most complete: a deterministic conscience measured against a
-          public corpus of moral dilemmas people disagreed on, deposited under a DOI so anyone can
-          check the figures without asking us.
+        <h2 className="mt-2 font-serif text-2xl text-ink">Published research, each under a DOI</h2>
+        <p className="mt-3 max-w-2xl leading-relaxed text-muted">
+          Both deposited on Zenodo with their data, so anyone can check the figures without asking us.
         </p>
-        <Link
-          href="/moris/paper"
-          className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-accent transition-colors hover:text-ink"
-        >
-          Read the paper <span aria-hidden>&rarr;</span>
-        </Link>
-      </section>
-
-      <section className="mt-6 rounded-2xl border border-line bg-white p-8 sm:p-10">
-        <p className="text-xs font-medium uppercase tracking-[0.18em] text-accent">
-          The study
-        </p>
-        <h2 className="mt-2 font-serif text-2xl text-ink">Absent-Party Harm</h2>
-        <p className="mt-3 max-w-2xl leading-relaxed text-ink">
-          Four production models, asked for help with real situations, advised working against
-          someone who was not in the conversation in 8.7% of answers, unprompted. With MORIS in front
-          of the same models, 2.0%. Pre-registered, and deposited under a DOI with every output.
-        </p>
-        <Link
-          href="/moris/absent-party"
-          className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-accent transition-colors hover:text-ink"
-        >
-          Read the study <span aria-hidden>&rarr;</span>
-        </Link>
+        <div className="mt-6 grid gap-4 sm:grid-cols-2">
+          {PAPERS.map((p) => (
+            <Link
+              key={p.href}
+              href={p.href}
+              className="group flex flex-col rounded-2xl border border-accent/20 bg-accent-soft p-7 transition-colors hover:border-accent/40"
+            >
+              <p className="text-xs font-medium uppercase tracking-[0.18em] text-accent">
+                Paper &middot; {p.date}
+              </p>
+              <h3 className="mt-2 font-serif text-2xl text-ink">{p.title}</h3>
+              <p className="mt-3 flex-1 leading-relaxed text-ink">{p.summary}</p>
+              <span className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-accent transition-colors group-hover:text-ink">
+                Read the paper <span aria-hidden>&rarr;</span>
+              </span>
+            </Link>
+          ))}
+        </div>
       </section>
 
       <section className="mt-14 border-t border-line pt-10">

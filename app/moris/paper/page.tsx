@@ -1,8 +1,10 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { MorePapers } from "@/components/more-papers";
+import { paper } from "@/lib/papers";
 
 export const metadata: Metadata = {
-  title: "The Paper",
+  title: "An Artificial Conscience",
   description:
     "An Artificial Conscience: a deterministic conscience judged against MoralChoice, a public corpus of 680 moral dilemmas humans disagreed on. It governed 92.6% of judged cases, 95.9% across an exhaustive enumeration, and its verdict is byte-identical given the reading. Deposited under a DOI, so anyone who thinks the moral basis is wrong can still check the system does what it says.",
 };
@@ -18,8 +20,7 @@ function Stat({ n, label, accent }: { n: string; label: string; accent?: boolean
   );
 }
 
-const CITATION =
-  "Herndon, C. T. (2026). An Artificial Conscience: Deterministic moral judgment as a gradient, measured against a public corpus. Zenodo. https://doi.org/10.5281/zenodo.21936444";
+const PAPER = paper("/moris/paper");
 
 export default function Paper() {
   return (
@@ -79,22 +80,24 @@ export default function Paper() {
           deposited materials together.
         </p>
         <a
-          href="https://doi.org/10.5281/zenodo.21936444"
+          href={`https://doi.org/${PAPER.doi}`}
           className="mt-6 inline-flex items-center gap-1.5 rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-ink"
         >
           Read the paper on Zenodo <span aria-hidden>&rarr;</span>
         </a>
-        <p className="mt-3 text-sm text-muted">doi.org/10.5281/zenodo.21936444</p>
+        <p className="mt-3 text-sm text-muted">doi.org/{PAPER.doi}</p>
       </section>
 
       <section className="mt-12 border-t border-line pt-10">
         <h2 className="font-serif text-2xl text-ink">Cite it</h2>
         <div className="mt-4 overflow-x-auto rounded-2xl border border-line bg-white p-5">
           <code className="block whitespace-pre-wrap break-words text-sm leading-relaxed text-ink">
-            {CITATION}
+            {PAPER.citation}
           </code>
         </div>
       </section>
+
+      <MorePapers current={PAPER.href} />
     </div>
   );
 }

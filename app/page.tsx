@@ -66,10 +66,10 @@ export default function Home() {
             Enter the MORIS wing <span aria-hidden>&rarr;</span>
           </Link>
           <Link
-            href="/moris/paper"
+            href="/moris#papers"
             className="mt-2 inline-flex items-center gap-1.5 text-sm font-medium text-accent transition-colors hover:text-ink"
           >
-            Read the paper, deposited under a DOI <span aria-hidden>&rarr;</span>
+            Read the papers, each under a DOI <span aria-hidden>&rarr;</span>
           </Link>
         </div>
 

@@ -58,6 +58,7 @@ const demos = [
   { href: "/moris/shift", label: "resonanceinstitutellc.com/moris/shift", text: "The full record of an AI agent’s governed shift." },
   { href: "/moris/proof", label: "resonanceinstitutellc.com/moris/proof", text: "The numbers behind the judgment." },
   { href: "https://doi.org/10.5281/zenodo.21936444", label: "doi.org/10.5281/zenodo.21936444", text: "The paper, “An Artificial Conscience.”" },
+  { href: "https://doi.org/10.5281/zenodo.22801949", label: "doi.org/10.5281/zenodo.22801949", text: "The paper, “Absent-Party Harm.”" },
 ];
 
 const sources = [
