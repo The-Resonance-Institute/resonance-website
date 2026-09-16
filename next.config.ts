@@ -44,6 +44,12 @@ const nextConfig: NextConfig = {
         source: "/moris/pair/:id",
         headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
       },
+      // Documents shared by direct link only (the investor deck), never linked from the site and never
+      // in the sitemap. Unlisted, not secret: the repository is public.
+      {
+        source: "/d/:path*",
+        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
+      },
     ];
   },
 
