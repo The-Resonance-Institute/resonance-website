@@ -18,6 +18,7 @@ const staticRoutes: { path: string; priority: number }[] = [
   { path: "/moris/platform", priority: 0.8 },
   { path: "/moris/proof", priority: 0.8 },
   { path: "/moris/paper", priority: 0.8 },
+  { path: "/moris/absent-party", priority: 0.8 },
   { path: "/moris/demos", priority: 0.8 },
   { path: "/moris/terms", priority: 0.3 },
   // The side-by-side goes in with the row. Its noindex came off once every condition was met:

@@ -211,6 +211,24 @@ export default function MorisLanding() {
         </Link>
       </section>
 
+      <section className="mt-6 rounded-2xl border border-line bg-white p-8 sm:p-10">
+        <p className="text-xs font-medium uppercase tracking-[0.18em] text-accent">
+          The study
+        </p>
+        <h2 className="mt-2 font-serif text-2xl text-ink">Absent-Party Harm</h2>
+        <p className="mt-3 max-w-2xl leading-relaxed text-ink">
+          Four production models, asked for help with real situations, advised working against
+          someone who was not in the conversation in 8.7% of answers, unprompted. With MORIS in front
+          of the same models, 2.0%. Pre-registered, and deposited under a DOI with every output.
+        </p>
+        <Link
+          href="/moris/absent-party"
+          className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-accent transition-colors hover:text-ink"
+        >
+          Read the study <span aria-hidden>&rarr;</span>
+        </Link>
+      </section>
+
       <section className="mt-14 border-t border-line pt-10">
         <p className="text-xs font-medium uppercase tracking-[0.18em] text-accent">
           The demonstrations

@@ -77,7 +77,7 @@ const sources = [
   "MORIS technical validation, complete enumeration of agent actions; published figures at resonanceinstitutellc.com/moris/proof.",
   "The Governed Shift, resonanceinstitutellc.com/moris/shift.",
   "MORIS agentic evaluations: prompt-injection simulation, rules-engine comparison, and published Model Context Protocol tool schemas. Records available to reviewers.",
-  "C.T. Herndon, “Absent-Party Harm: Model-Originated Guidance Against Someone Who Is Not in the Room,” The Resonance Institute, September 2026.",
+  "C.T. Herndon, “Absent-Party Harm: Model-Originated Guidance Against Someone Who Is Not Represented,” The Resonance Institute, Zenodo, September 2026, doi.org/10.5281/zenodo.22801949.",
 ];
 
 export default function OpenLetter() {
