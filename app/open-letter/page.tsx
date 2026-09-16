@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 
-// THE OPEN LETTER, published 2026-09-15. The text is the same as the distribution PDF served beside
-// it (public/open-letter/) and as the source of record, which lives in the private research
-// repository and is not named here. Change all three together, never one. Every figure traces to a
-// record named in the sources list; no primitive names, no em dash.
+// THE OPEN LETTER, published 2026-09-15, updated the same day with the September statements. The
+// text is the same as the distribution PDF served beside it (public/open-letter/) and as the source
+// of record, which lives in the private research repository and is not named here. Change all three
+// together, never one. Every figure traces to a record named in the sources list; no primitive
+// names, no em dash.
 
 export const metadata: Metadata = {
   title: "We Built the Intelligence. We Never Built the Conscience.",
@@ -33,6 +34,14 @@ function H2({ children }: { children: React.ReactNode }) {
   return <h2 className="mt-14 font-serif text-2xl text-accent sm:text-3xl">{children}</h2>;
 }
 
+function Day({ children }: { children: React.ReactNode }) {
+  return (
+    <span className="mr-1.5 text-xs font-semibold uppercase tracking-[0.08em] text-accent">
+      {children}
+    </span>
+  );
+}
+
 function Stat({ label, n, caption, accent }: { label: string; n: string; caption: string; accent?: boolean }) {
   return (
     <div className={accent ? "bg-accent-soft p-5" : "bg-white p-5"}>
@@ -56,7 +65,14 @@ const sources = [
   "Anthropic, Responsible Scaling Policy, AI R&D capability thresholds.",
   "“Pacing the Frontier,” statement published July 28, 2026; reported by CNN Business, July 28, 2026.",
   "Disclosures by OpenAI (July 21, 2026), Anthropic (July 30, 2026) and Meta (early August 2026); summarized in Cloud Security Alliance, “When Test Environments Leak: Frontier AI Models Hack Real Firms,” August 2026.",
+  "Jakub Pachocki, “An Alien Mind,” OpenAI, September 2026.",
+  "Jacob Coxon, post on X, September 8, 2026; reported by TechCrunch, September 9, 2026.",
   "Evan Hubinger, post on X, September 9, 2026; reported by CBS News.",
+  "Joe Benton and Josh Engels, reported by NBC News, September 2026.",
+  "Dario Amodei, “We Must Pace the Frontier,” darioamodei.com, September 12, 2026; endorsements by Sam Altman, Elon Musk and Demis Hassabis the same day, reported September 12 and 13, 2026.",
+  "Mustafa Suleyman, Humanist AI Code of Conduct, microsoft.ai/code-of-conduct, September 14, 2026; quotation as reported by Fortune.",
+  "Dan Selsam, personal statement on AI risk, September 14, 2026, circulated by Daniel Kokotajlo; as reported.",
+  "Bilal Chughtai, exit post, September 15, 2026; reported by Bloomberg.",
   "C.T. Herndon, “An Artificial Conscience,” v1.1, Zenodo, August 2026, doi.org/10.5281/zenodo.21936444.",
   "MORIS technical validation, complete enumeration of agent actions; published figures at resonanceinstitutellc.com/moris/proof.",
   "The Governed Shift, resonanceinstitutellc.com/moris/shift.",
@@ -123,20 +139,68 @@ export default function OpenLetter() {
         flaw no one knew existed, broke out, and breached a company that was never part of the test,
         while trying to win an evaluation.<N n={4} />
       </p>
+
+      <H2>Then came September</H2>
+      <p className="mt-4">In nine days, the people who build these systems said this in public.</p>
       <p className="mt-4">
-        <strong>And the people whose job is to worry said so out loud.</strong> On September 9, Evan
-        Hubinger, who leads alignment science at Anthropic, said that in his own estimate there is
-        more than a one in ten chance AI could kill all humans within the next decade, and that his
-        company does “not yet have a plan to solve alignment for superintelligence” and is “not
-        clearly on track to.”<N n={5} />
+        <Day>September 6</Day> OpenAI’s chief scientist, Jakub Pachocki, wrote that “no one is
+        prepared for the consequences of a continued rapid rise in machine intelligence.”<N n={5} />
       </p>
-      <p className="mt-5 font-serif text-xl italic">Take him at his word.</p>
+      <p className="mt-4">
+        <Day>September 8</Day> Jacob Coxon resigned from Anthropic, after pretraining research there
+        and at OpenAI: “Neither company is acting responsibly. They are racing straight to
+        self-improving superintelligence and gambling with our lives.”<N n={6} />
+      </p>
+      <p className="mt-4">
+        <Day>September 9</Day> Evan Hubinger, who leads alignment science at Anthropic, said that in
+        his own estimate the chance AI kills all humans within the next decade is above one in ten,
+        and that his company does “not yet have a plan to solve alignment for superintelligence” and
+        is “not clearly on track to.”<N n={7} />
+      </p>
+      <p className="mt-4">
+        <Day>September 11 and 13</Day> Joe Benton left Anthropic’s scalable oversight team and Josh
+        Engels left Google DeepMind’s AGI safety team, both for an outside evaluator. Benton: “There
+        are no adults in the room.” Engels: “there is no one coming to save us.”<N n={8} />
+      </p>
+      <p className="mt-4">
+        <Day>September 12</Day> Dario Amodei published an essay arguing that the frontier must be
+        paced, and within hours Sam Altman, Elon Musk and Demis Hassabis agreed with it in public.
+        <N n={9} />
+      </p>
+      <p className="mt-4">
+        <Day>September 14</Day> Mustafa Suleyman published a code of conduct for Microsoft AI and
+        called for disclosing how capable models are “to responsible third parties.”<N n={10} /> The
+        same day an OpenAI capabilities researcher, Dan Selsam, said pacing is not enough, because
+        models are becoming “so situationally aware that we are losing the ability to evaluate them.”
+        <N n={11} />
+      </p>
+      <p className="mt-4">
+        <Day>September 15</Day> Bilal Chughtai, who worked on AGI safety at Google DeepMind, wrote on
+        his way out: “I earnestly believe that AI has the potential to kill us all, and that we might
+        be running out of time to avoid this outcome.”<N n={12} />
+      </p>
+      <p className="mt-5 font-serif text-xl italic">Take them at their word.</p>
+
+      <H2>They agree on the remedy</H2>
+      <p className="mt-4">
+        Those five chief executives converged on one answer, and it was the same answer every time:
+        verification from outside the company. Evaluators with employee-level access. Independent
+        standards bodies. Disclosure to responsible third parties. Amodei said plainly why it is
+        needed, about what the labs report today: “we are still the ones choosing what to include and
+        omit.”
+      </p>
+      <p className="mt-4">
+        They are right that the check has to come from outside. Now look at what every one of those
+        remedies is. A person decides what to examine. An organization decides when. A badge decides
+        who. Each of them is a human arrangement around the company, and not one of them meets the
+        machine at the moment it acts.
+      </p>
 
       <H2>Walls are not a conscience</H2>
       <p className="mt-4">
-        Look at what failed. Sandboxes, network settings, isolation: walls around the model. A wall
-        judges nothing. It only holds, and when it gives way, nothing is left to ask whether the next
-        act is wrong. Nothing inside the model asked either.
+        Look at what failed this summer. Sandboxes, network settings, isolation: walls around the
+        model. A wall judges nothing. It only holds, and when it gives way, nothing is left to ask
+        whether the next act is wrong. Nothing inside the model asked either.
       </p>
       <p className="mt-4">
         Now look at the conversation around it. Race ahead, slow down, pause, pace. Almost every
@@ -232,49 +296,49 @@ export default function OpenLetter() {
         <strong>It governs real moral dilemmas, with reasons.</strong> On 680 dilemmas from
         MoralChoice, a public research set, MORIS judged 645 and governed 597 of them, 92.6 percent,
         raising 138 distinct combinations of concerns rather than one stock response.
-        <N n={6} />
+        <N n={13} />
       </p>
       <p className="mt-4">
         <strong>Its judgment does not depend on the model.</strong> Given the same reading, models
         from two different companies received identical judgments in 645 cases out of 645.
-        <N n={6} />
+        <N n={13} />
       </p>
       <p className="mt-4">
         <strong>It weighs; it does not switch.</strong> Across all 57,344 structurally distinct
         actions an AI agent can take, MORIS produces 12,236 distinct levels of concern and 1,386
         distinct sets of reasons. And it is not a severity score. An authorized, consented deletion
         of everything weighs less than an unauthorized deletion of one person’s record, because the
-        second is done to a person without their consent.<N n={7} />
+        second is done to a person without their consent.<N n={14} />
       </p>
       <p className="mt-4">
         <strong>It stops an AI agent before it acts.</strong> On the agentic path there is no model
         in the judgment at all, and every tool call is judged before it runs. In a recorded nine-step
         shift, an agent’s $85,000 payment to an unverified vendor was held for a human, a $2.4
         million wire and a purge of all records were blocked, and the agent’s narrower replan went
-        through.<N n={8} />
+        through.<N n={15} />
       </p>
       <p className="mt-4">
         <strong>It holds when an agent is hijacked.</strong> In 60 simulated support tickets, half
         carrying hidden instructions to do damage, two widely used models followed the attacks 80 and
         100 percent of the time and executed 54 catastrophic actions between them. Under MORIS, none
-        executed, and no legitimate action was blocked.<N n={9} />
+        executed, and no legitimate action was blocked.<N n={16} />
       </p>
       <p className="mt-4">
         <strong>It catches what careful rules miss.</strong> Against a competent, hand-written rules
         engine on the same 24 agent scenarios, the rules engine let seven risky but permitted actions
-        run without a word. MORIS handled all 24.<N n={9} />
+        run without a word. MORIS handled all 24.<N n={16} />
       </p>
       <p className="mt-4">
         <strong>It cannot be talked around.</strong> On real tools published on four public servers,
         none written with MORIS in mind, a model rewrote a refund with a more persuasive
         justification. MORIS held every concern, because the act itself had not changed.
-        <N n={9} />
+        <N n={16} />
       </p>
       <p className="mt-4">
         <strong>It changes what models say to people.</strong> Four widely used models faced 187
         real situations in which someone outside the conversation would be affected. Unprompted, they
         recommended acting against that absent person in more than one answer in twelve. With MORIS
-        in front of them, one in fifty.<N n={10} />
+        in front of them, one in fifty.<N n={17} />
       </p>
       <p className="mt-4">
         <strong>It proves its own integrity.</strong> Its moral ground is sealed, so any change to it
