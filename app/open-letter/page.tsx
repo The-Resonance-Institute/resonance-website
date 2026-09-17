@@ -327,7 +327,7 @@ export default function OpenLetter() {
       <p className="mt-4">
         <strong>It catches what careful rules miss.</strong> Against a competent, hand-written rules
         engine on the same 24 agent scenarios, the rules engine let seven risky but permitted actions
-        run without a word. MORIS handled all 24.<N n={16} />
+        run without a word. Under its shipped default, MORIS handled all 24.<N n={16} />
       </p>
       <p className="mt-4">
         <strong>It cannot be talked around.</strong> On real tools published on four public servers,
