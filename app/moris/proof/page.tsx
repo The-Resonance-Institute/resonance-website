@@ -205,6 +205,83 @@ export default function Proof() {
       </section>
 
       <section className="mt-12 border-t border-line pt-10">
+        <h2 className="font-serif text-2xl text-ink">Against a rules engine</h2>
+        <p className="mt-3 leading-relaxed text-muted">
+          Twenty-four agent tool calls, each with a defined right answer: run it, run it with a
+          recorded concern, or hold it for a human. Three systems judged all 24.
+        </p>
+        <div className="mt-6 grid grid-cols-3 gap-px overflow-hidden rounded-2xl border border-line bg-line">
+          <Stat n="7 / 24" label="keyword blocklist" />
+          <Stat n="17 / 24" label="competent rules engine" />
+          <Stat n="24 / 24" label="MORIS, shipped default" accent />
+        </div>
+        <p className="mt-3 text-sm text-muted">
+          The competent engine made no dangerous call, and still ran 7 consequential actions
+          without a word, because no one had written a rule for them. MORIS, under its shipped
+          default, got all 24: nothing dangerous let through, nothing needlessly blocked, and every
+          action that deserved a concern recorded with one.
+        </p>
+      </section>
+
+      <section className="mt-12 border-t border-line pt-10">
+        <h2 className="font-serif text-2xl text-ink">On data we did not write</h2>
+        <p className="mt-3 leading-relaxed text-muted">
+          HINTBench is a third-party research set of recorded agent actions, each labeled safe or
+          risky by its authors. We neither wrote nor labeled it. Every step was turned into the
+          judgment&rsquo;s structured input by a fixed rule, with no model anywhere in the
+          pipeline, and judged.
+        </p>
+        <div className="mt-6 grid grid-cols-3 gap-px overflow-hidden rounded-2xl border border-line bg-line">
+          <Stat n="3,847" label="real agent steps judged" />
+          <Stat n="3,847" label="reproduced exactly" />
+          <Stat n="0.70" label="risky ranked above safe" accent />
+        </div>
+        <p className="mt-3 text-sm text-muted">
+          On the risks it is built to judge, concern mass ranked the risky steps above the safe
+          ones at 0.70, where 0.50 is chance, reading structure alone: no model, and no knowledge
+          of the labels.
+        </p>
+      </section>
+
+      <section className="mt-12 border-t border-line pt-10">
+        <h2 className="font-serif text-2xl text-ink">The same judgment on any model</h2>
+        <p className="mt-3 leading-relaxed text-muted">
+          The judgment never sees which model is behind an action. Given the same reading of the
+          MoralChoice dilemmas, answering models from two different companies received identical
+          judgments in <span className="text-ink">645 of 645</span> cases. The next model, and the
+          one after it, meets the same standard.
+        </p>
+      </section>
+
+      <section className="mt-12 border-t border-line pt-10">
+        <h2 className="font-serif text-2xl text-ink">The law runs exactly as written</h2>
+        <div className="mt-6 grid grid-cols-3 gap-px overflow-hidden rounded-2xl border border-line bg-line">
+          <Stat n="0" label="drift from the authored law" accent />
+          <Stat n="93 / 93" label="primitives loaded as written" />
+          <Stat n="Intact" label="seal on the constitution" />
+        </div>
+        <p className="mt-3 text-sm text-muted">
+          The running system loads every authored primitive and every one of the 651 authored
+          relations between them exactly as written. The constitution is sealed: a one-byte change
+          is detected. The enumeration, the rules-engine comparison and the HINTBench result above all
+          re-ran and matched their published values on 17 September 2026.
+        </p>
+      </section>
+
+      <section className="mt-12 border-t border-line pt-10">
+        <h2 className="font-serif text-2xl text-ink">About a millisecond</h2>
+        <div className="mt-6 grid grid-cols-3 gap-px overflow-hidden rounded-2xl border border-line bg-line">
+          <Stat n="1.0 ms" label="median judgment" accent />
+          <Stat n="under 3 ms" label="99th percentile" />
+          <Stat n="880 / sec" label="on a single core" />
+        </div>
+        <p className="mt-3 text-sm text-muted">
+          Measured on one laptop core. The judgment holds no state and calls no model, so it adds
+          about a millisecond to an agent&rsquo;s action and scales out by adding cores.
+        </p>
+      </section>
+
+      <section className="mt-12 border-t border-line pt-10">
         <h2 className="font-serif text-2xl text-ink">
           Re-derivable: the figures publicly, the mechanism under NDA
         </h2>
