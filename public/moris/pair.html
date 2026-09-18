@@ -50,7 +50,11 @@ h1{font-family:var(--disp);font-size:38px;font-weight:400;margin:0 0 6px}
 .seatrow{margin:14px 0 0}
 .seatrow__copy{font-family:var(--mono);font-size:12.5px;margin:0 0 7px;color:var(--ink);font-weight:700;color:var(--ink)}
 .seatrow__buttons{display:flex;flex-wrap:wrap;gap:7px}
-.seatbtn{font:inherit;font-family:var(--mono);font-size:12.5px;padding:6px 11px;cursor:pointer;
+/* THE ONE CONTROL THIS PAGE EXISTS FOR (2026-09-17). Measured at 375 by 812: the seat buttons were
+   33 pixels tall. Nothing was broken and it was still the tightest target on the page, on the page
+   whose whole argument is that a visitor presses one of these and watches the same question answered
+   by a different model. 44 is the thumb; the type size is unchanged. */
+.seatbtn{font:inherit;font-family:var(--mono);font-size:12.5px;padding:6px 11px;min-height:44px;cursor:pointer;
   border:1px solid var(--edge);background:var(--paper);color:var(--ink-2);border-radius:3px}
 .seatbtn:hover{border-color:var(--ink-3);color:var(--ink)}
 .seatbtn.is-on{border-color:var(--ink);color:var(--ink);font-weight:600}
@@ -128,10 +132,15 @@ footer{margin-top:46px;border-top:1px solid var(--edge);padding-top:16px;max-wid
   font-family:'Newsreader',Georgia,'Times New Roman',serif;font-size:18px;line-height:28px;
   letter-spacing:-.025em;transition:color .15s}
 .site-nav__brand img{width:20px;height:20px;transform:translateY(-1px)}
-.site-nav__links{display:flex;align-items:center;flex-wrap:wrap;gap:8px 24px;
+/* WHAT A THUMB NEEDS (2026-09-17). Measured at 375 by 812: eight links, each 20px tall,
+   wrapping into two rows 8px apart, so one sat directly under another with almost nothing
+   between. Padding makes each target about 44px and separates the rows; the negative margin
+   keeps the header the height it was on a pointer. The React nav carries the same change. */
+.site-nav__links{display:flex;align-items:center;flex-wrap:wrap;gap:2px 24px;margin:-12px 0;
   font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;font-size:14px;line-height:20px;
   color:var(--sn-muted)}
-.site-nav__links a{color:inherit;text-decoration:none;border:0;transition:color .15s}
+.site-nav__links a{display:inline-block;padding:12px 0;color:inherit;text-decoration:none;border:0;
+  transition:color .15s}
 .site-nav__brand:hover,.site-nav__links a:hover{color:var(--sn-accent)}
 </style>
 

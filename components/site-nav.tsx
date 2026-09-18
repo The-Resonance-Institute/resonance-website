@@ -44,12 +44,19 @@ export function SiteNav() {
             The Resonance Institute
           </span>
         </Link>
-        <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-muted sm:gap-x-6">
+        {/* WHAT A THUMB NEEDS (2026-09-17). Measured on the live site at 375 by 812: eight links,
+            each 20 pixels tall, wrapping into two rows with an 8 pixel gap between them, so
+            "Manuscripts" sat directly under "MORIS" with almost nothing between. Nothing overflowed
+            and nothing looked wrong; it was simply hard to hit the one you meant. The links now
+            carry vertical padding, which makes each target about 44 pixels and separates the rows,
+            and the negative vertical margin keeps the header the height it was on a pointer.
+            The static demo pages in public/moris/ carry their own copy of this nav. */}
+        <div className="-my-2 flex flex-wrap items-center gap-x-5 gap-y-1 text-sm text-muted sm:gap-x-6">
           {links.map((l) => (
             <Link
               key={l.href}
               href={l.href}
-              className="transition-colors hover:text-accent"
+              className="py-3 transition-colors hover:text-accent"
             >
               {l.label}
             </Link>

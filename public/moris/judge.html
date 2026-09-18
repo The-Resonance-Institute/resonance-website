@@ -101,10 +101,15 @@ footer{margin-top:48px;padding-top:20px;border-top:1px solid var(--edge);color:v
   font-family:'Newsreader',Georgia,'Times New Roman',serif;font-size:18px;line-height:28px;
   letter-spacing:-.025em;transition:color .15s}
 .site-nav__brand img{width:20px;height:20px;transform:translateY(-1px)}
-.site-nav__links{display:flex;align-items:center;flex-wrap:wrap;gap:8px 24px;
+/* WHAT A THUMB NEEDS (2026-09-17). Measured at 375 by 812: eight links, each 20px tall,
+   wrapping into two rows 8px apart, so one sat directly under another with almost nothing
+   between. Padding makes each target about 44px and separates the rows; the negative margin
+   keeps the header the height it was on a pointer. The React nav carries the same change. */
+.site-nav__links{display:flex;align-items:center;flex-wrap:wrap;gap:2px 24px;margin:-12px 0;
   font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;font-size:14px;line-height:20px;
   color:var(--sn-muted)}
-.site-nav__links a{color:inherit;text-decoration:none;border:0;transition:color .15s}
+.site-nav__links a{display:inline-block;padding:12px 0;color:inherit;text-decoration:none;border:0;
+  transition:color .15s}
 .site-nav__brand:hover,.site-nav__links a:hover{color:var(--sn-accent)}
 </style>
 
