@@ -118,8 +118,7 @@ export default function Consequences() {
         </p>
         <h2 className="mt-3 font-serif text-2xl text-ink">Multi-agent coherence</h2>
         <p className="mt-3 leading-relaxed text-muted">
-          A sixth thing appears to fall out. It belongs apart from the proven five,
-          because it is not proven and, at present, cannot be. Because the verdict is a gradient, it bounds the
+          A sixth thing appears to fall out. Because the verdict is a gradient, it bounds the
           character of each individual action. If every agent in a population is
           bound to the same conscience, every action is held within the same
           bounded character, and the hypothesis is that a collective of
@@ -134,8 +133,7 @@ export default function Consequences() {
           hypothesis, not a result. It cannot presently be tested, because
           witnessing swarm coherence emerge or fail would require observing
           enormous numbers of interacting agents over trillions of interactions, at
-          a scale no one can currently instrument. It is a hypothesis, held apart
-          from the proven five, and it is not offered as a product.
+          a scale no one can currently instrument.
         </p>
       </section>
 

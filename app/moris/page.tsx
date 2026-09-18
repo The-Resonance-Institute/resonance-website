@@ -39,6 +39,15 @@ export default function MorisLanding() {
           MORIS (Moral Operating Runtime Integrity System) is an artificial conscience: a mechanical, deterministic control plane for moral thought.
           It is an analog of human conscience, as artificial intelligence is an analog of human cognition: the function, built in a machine, without the claim that anything is aware.
         </p>
+        {/* THE CATEGORY CLAIM (operator, 2026-09-18). Three questions, not three products, and
+            only one of them is answerable at the point of action. A category claim rather than a
+            superiority claim, which is both truer and harder to argue with. */}
+        <p className="mt-6 max-w-2xl text-lg leading-relaxed text-ink">
+          Guardrails ask whether an input is allowed. Alignment asks whether a model
+          was trained well. A conscience asks whether an act is right, at the moment
+          it is about to happen. Only one of those can be answered at the point of
+          action.
+        </p>
         <p className="mt-4 max-w-2xl text-muted">
           It is derived from the{" "}
           <Link href="/resonance" className="text-accent underline decoration-line hover:decoration-accent">
@@ -63,10 +72,9 @@ export default function MorisLanding() {
       </section>
 
       <section className="mt-14 rounded-2xl border border-line bg-accent-soft p-8 sm:p-10">
-        <h2 className="font-serif text-2xl text-ink">The honest edge</h2>
+        <h2 className="font-serif text-2xl text-ink">No model in the judge</h2>
         <p className="mt-3 max-w-2xl text-ink">
-          The claim is not that MORIS blocks more than a good policy. It is that it
-          reads what a rulebook cannot, and makes the decision provable. The
+          It reads what a rulebook cannot, and makes the decision provable. The
           judgment is a pure function: no model sits where the verdict is decided,
           so no crafted prompt can argue it out of its answer, and the same action,
           read the same way, always yields the same verdict. A jailbreak works by

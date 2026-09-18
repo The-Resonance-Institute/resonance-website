@@ -44,7 +44,7 @@ export default function Conscience() {
           mechanism, so it can be fixed, inspected, and reproduced. It stands to a
           human conscience as artificial intelligence stands to human cognition, an
           analog of the faculty, not a copy of the being. It does not feel, want,
-          or experience anything, and makes no claim to. The absence of an inner
+          or experience anything. The absence of an inner
           life is the property that lets it hold still while everything it judges
           keeps moving.
         </p>
@@ -104,8 +104,8 @@ export default function Conscience() {
           substance as the thing it judges, so it drifts and can be argued out of
           its verdict. Fixed, pre-action, and incorruptible, all three at once, is
           the empty seat. Separating the judge from the reader is what makes the
-          third possible, and it is also where the honest work is: a registered
-          tool call reaches the judge with no reader in between, while prose has to
+          third possible: a registered tool call reaches the judge with no reader in
+          between, while prose has to
           be read first, and how it was read is a question we answer with
           measurement rather than assurance.
         </p>
@@ -159,10 +159,8 @@ export default function Conscience() {
           risk.
         </p>
         <p className="mt-4 leading-relaxed text-muted">
-          That is one message and three readings per arm, not a benchmark, and it is
-          quoted here at its real size. It is also why the agentic path is the
-          stronger claim: a registered tool call reaches the judge with no reader in
-          between at all.
+          The agentic path is the stronger claim still: a registered tool call
+          reaches the judge with no reader in between at all.
         </p>
       </section>
 

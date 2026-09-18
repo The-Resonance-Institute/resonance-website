@@ -145,17 +145,15 @@ export default function Proof() {
       <section className="mt-12 border-t border-line pt-10">
         <h2 className="font-serif text-2xl text-ink">How far the reasons reach</h2>
         <p className="mt-3 leading-relaxed text-muted">
-          The 1,386 packages are drawn from a constitution of 93 authored primitives, and
-          how far into it a judgment reaches is stated exactly, as bare counts, of 93:
+          The 1,386 packages are drawn from a constitution of 93 authored primitives.
+          How far into it a judgment reaches, of 93:
         </p>
         <ul className="mt-4 space-y-2 text-muted">
           <li className="flex gap-3">
             <span className="w-10 shrink-0 font-serif text-lg text-ink">22</span>
             <span className="leading-relaxed">
               raise a concern from an action&rsquo;s structure alone, with no content
-              read at all: the content-blind floor the agentic path starts from, not
-              the limit of what the constitution reaches. The counts below climb from
-              here.
+              read at all: the content-blind floor the agentic path starts from.
             </span>
           </li>
           <li className="flex gap-3">

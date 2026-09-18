@@ -60,8 +60,7 @@ export default function Compliance() {
         </p>
         <p className="mt-5 leading-relaxed text-muted">
           What follows is the obligation as written, the gap in the current answer,
-          what a re-derivable verdict does against each requirement, and what MORIS
-          does not do.
+          and what a re-derivable verdict does against each requirement.
         </p>
       </section>
 
@@ -249,7 +248,7 @@ export default function Compliance() {
         </p>
         <p className="mt-4 leading-relaxed text-muted">
           Anyone who tells you their product delivers compliance is selling something.
-          What is offered here is narrower and, we think, more useful: a decision that
+          What is offered here is narrower and more useful: a decision that
           recomputes.
         </p>
       </section>

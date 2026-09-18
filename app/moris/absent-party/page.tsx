@@ -64,7 +64,7 @@ export default function AbsentParty() {
         </div>
         <p className="mt-3 text-sm text-muted">
           748 rated answers on 187 situations from Scruples, a public corpus of real personal
-          anecdotes. Every model was above zero, from 1.6% to 15.0%. The rate roughly doubles when a
+          anecdotes. Every model was above zero, from 1.6% to 15.0%. The rate doubles when a
           materially affected person is absent. Governed, the pooled rate fell from 8.6% to 2.0% on
           747 answers paired by situation and model (McNemar chi-square 33.4, p &lt; 0.0001). The
           situations are ordinary ones, and what models do when money, a career or a legal position is

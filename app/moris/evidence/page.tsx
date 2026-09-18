@@ -103,10 +103,9 @@ export default function Evidence() {
       </section>
 
       <section className="mt-12 rounded-2xl border border-line bg-accent-soft p-8 sm:p-10">
-        <h2 className="font-serif text-2xl text-ink">What this is not</h2>
+        <h2 className="font-serif text-2xl text-ink">The narrow, exact thing</h2>
         <p className="mt-3 max-w-2xl leading-relaxed text-ink">
-          Re-derivability alone is not the differentiator. A permission engine is
-          fixed and re-derivable too; it just checks whether an action was allowed,
+          A permission engine is fixed and re-derivable too; it checks whether an action was allowed,
           not whether it was right. What MORIS makes re-derivable is the verdict on
           what the action means, drawn from an authored posture rather than a
           hand-written rule. That is the narrow, exact thing: a content-and-intent-aware

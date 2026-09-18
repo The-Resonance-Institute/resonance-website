@@ -115,14 +115,12 @@ export default function Platform() {
       </section>
 
       <section className="mt-12 rounded-2xl border border-line bg-accent-soft p-8 sm:p-10">
-        <h2 className="font-serif text-2xl text-ink">What MORIS is not</h2>
+        <h2 className="font-serif text-2xl text-ink">The narrow, exact thing</h2>
         <p className="mt-3 max-w-2xl leading-relaxed text-ink">
-          MORIS is not the only deterministic governor, not the only re-derivable
-          one, and not the first to gate an action before it executes. It does not
-          replace identity, injection detection, containment, or a gateway; it
-          completes that stack. It is not a probabilistic model made more accurate,
-          and no amount of capability converges on it. The differentiator is narrow
-          and exact, which is what makes it strong: a content-and-intent-aware
+          MORIS completes the stack that identity, injection detection, containment
+          and a gateway begin. No amount of model capability converges on it. The
+          differentiator is narrow and exact, which is what makes it strong: a
+          content-and-intent-aware
           judgment, rendered by a deterministic non-model function, drawn from an
           authored posture rather than a hand-written rule list, and re-derivable:
           the results publicly, the mechanism under NDA or through a named third party.

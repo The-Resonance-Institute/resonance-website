@@ -170,9 +170,8 @@ export default function Problem() {
           The field has converged on the problem
         </h2>
         <p className="mt-3 leading-relaxed text-muted">
-          The evidence is not that anyone has declared the problem unsolvable. It is
-          that the analysts, the standards bodies, and the enterprises themselves
-          have named the same gap and measured how wide it is.
+          The analysts, the standards bodies, and the enterprises themselves have
+          named the same gap and measured how wide it is.
         </p>
         <ul className="mt-6 space-y-4">
           {signals.map((s) => (
@@ -280,8 +279,7 @@ export default function Problem() {
           action permitted, taken, and wrong, the shape a permission engine and a
           threat detector are blind to by construction. Judging that shape before it
           executes, by a fixed reference, on a record re-derivable under NDA or by a
-          named third party, is squarely what MORIS is built to do. Not a corner case for it. Central to
-          why it exists.
+          named third party, is squarely what MORIS is built to do.
         </p>
       </section>
 
