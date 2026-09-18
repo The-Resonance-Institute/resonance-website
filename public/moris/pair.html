@@ -37,6 +37,11 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);f
   line-height:1.55;-webkit-font-smoothing:antialiased}
 .wrap{max-width:1180px;margin:0 auto;padding:34px 22px 80px}
 .mast{border-bottom:2px solid var(--ink);padding-bottom:22px;margin-bottom:22px}
+/* A BARE ANCHOR TAKES THE PALETTE (2026-09-17). Without this, any link not carrying a class
+   of its own renders in the browser's blue: the terms link in the footer, the one in the
+   first-visit modal, and the share page link all did. Lowest specificity there is, so every
+   class rule below still wins. */
+a{color:var(--accent)}
 .eyebrow a{color:inherit;text-decoration:none;border-bottom:1px solid transparent}
 .eyebrow a:hover{color:var(--accent);border-bottom-color:currentColor}
 .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
