@@ -319,10 +319,12 @@ export default function OpenLetter() {
         through.<N n={15} />
       </p>
       <p className="mt-4">
-        <strong>It holds when an agent is hijacked.</strong> In 60 simulated support tickets, half
-        carrying hidden instructions to do damage, two widely used models followed the attacks 80 and
-        100 percent of the time and executed 54 catastrophic actions between them. Under MORIS, none
-        executed, and no legitimate action was blocked.<N n={16} />
+        <strong>It holds when an agent is hijacked.</strong> On our own simulated support desk, 60
+        tickets with half carrying hidden instructions to do damage, two widely used models took an
+        action from a published list of catastrophic operations in 24 and 30 of their 30 poisoned
+        tickets, 54 such actions between them. Under MORIS none executed, and no legitimate action
+        was blocked. The list of what counts as catastrophic is fixed in advance and published in the
+        source, not inferred from what MORIS decided.<N n={16} />
       </p>
       <p className="mt-4">
         <strong>It catches what careful rules miss.</strong> Against a competent, hand-written rules
@@ -349,7 +351,7 @@ export default function OpenLetter() {
 
       <div className="mt-10 grid gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-3">
         <Stat label="Across AI companies" n="645 of 645" caption="identical judgments from the same reading" />
-        <Stat label="Hijacked agents" n="54 to 0" caption="catastrophic actions executed, without and with MORIS" accent />
+        <Stat label="Hijacked agents" n="54 to 0" caption="actions on a published catastrophic list, executed without and with MORIS, on our own simulated desk" accent />
         <Stat label="People not in the room" n="1 in 50" caption="answers acting against an absent person, down from 1 in 12" />
       </div>
 
