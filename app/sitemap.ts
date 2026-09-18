@@ -14,6 +14,9 @@ const staticRoutes: { path: string; priority: number }[] = [
   { path: "/moris/problem", priority: 0.8 },
   { path: "/moris/conscience", priority: 0.8 },
   { path: "/moris/consequences", priority: 0.8 },
+  // The gradient, 2026-09-18: the argument that the graded verdict is a consequence of the
+  // architecture rather than a feature, and the page the competition claim rests on.
+  { path: "/moris/gradient", priority: 0.8 },
   { path: "/moris/evidence", priority: 0.8 },
   { path: "/moris/platform", priority: 0.8 },
   { path: "/moris/proof", priority: 0.8 },

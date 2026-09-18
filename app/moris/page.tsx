@@ -146,6 +146,24 @@ export default function MorisLanding() {
           </span>
         </Link>
         <Link
+          href="/moris/gradient"
+          className="group rounded-2xl border border-line bg-white p-7 transition-colors hover:border-accent"
+        >
+          <p className="text-xs font-medium uppercase tracking-[0.18em] text-accent">
+            The gradient
+          </p>
+          <h3 className="mt-2 font-serif text-xl text-ink">
+            Permitted, and still wrong
+          </h3>
+          <p className="mt-2 leading-relaxed text-muted">
+            Why a graded verdict is what this architecture produces, and what a
+            deployment can do with the resolution.
+          </p>
+          <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-accent transition-colors group-hover:text-ink">
+            Read <span aria-hidden>&rarr;</span>
+          </span>
+        </Link>
+        <Link
           href="/moris/evidence"
           className="group rounded-2xl border border-line bg-white p-7 transition-colors hover:border-accent"
         >
