@@ -21,6 +21,12 @@ const nextConfig: NextConfig = {
         source: "/moris/chat",
         destination: "/moris/chat.html",
       },
+      // The side-by-side demonstration, restored 2026-09-19 on the operator's word: one message
+      // answered twice by the same model, raw and through MORIS. Same arrangement as chat.
+      {
+        source: "/moris/pair",
+        destination: "/moris/pair.html",
+      },
     ];
   },
 
@@ -32,6 +38,14 @@ const nextConfig: NextConfig = {
   // only, and kept across the books-first pivot because that link is live in outreach already sent.
   async headers() {
     return [
+      // A SHARED EXCHANGE carries noindex as a HEADER as well as in its metadata. The meta tag
+      // covers a crawler that parses the page; the header covers everything else that fetches the
+      // URL. The first live verification (2026-09-08) found the tag present and the header empty.
+      // This route only: the person consented to a public link, not to an indexed one.
+      {
+        source: "/moris/pair/:id",
+        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
+      },
       // Documents shared by direct link only (the investor deck), never linked from the site and never
       // in the sitemap. Unlisted, not secret: the repository is public.
       {
@@ -58,8 +72,9 @@ const nextConfig: NextConfig = {
       // archived rather than retired, and a permanent redirect is cached by browsers past any
       // change of mind. If any of it comes back, these entries come out.
       //
-      // /moris/chat is NOT here. It survives the pivot as a Resonance-lens novelty and is still
-      // rewritten above, so the wildcard below must not swallow it.
+      // /moris/chat and /moris/pair are NOT here. Both survive the pivot and are still rewritten
+      // above, so the wildcard below must spare them. It also has to spare /moris/pair/:id, the
+      // shared-exchange route, or every link anyone has shared would forward to the book series.
       {
         source: "/letter",
         destination: "/resonance",
@@ -86,7 +101,7 @@ const nextConfig: NextConfig = {
         permanent: false,
       },
       {
-        source: "/moris/:path((?!chat$).*)",
+        source: "/moris/:path((?!chat$|pair$|pair/).*)",
         destination: "/resonance",
         permanent: false,
       },

@@ -45,7 +45,7 @@ type Shared = {
 // and never the exchange: no title from the message, no description from an answer. This function
 // takes no params and reads nothing, so it cannot leak what it never saw.
 export async function generateMetadata(): Promise<Metadata> {
-  const title = "Two answers, one conscience";
+  const title = "Two answers, one model";
   const description =
     "One message, put to the same model twice: once with nothing in front of it, once under MORIS. Shared by the person who asked it.";
   return {
@@ -99,11 +99,11 @@ export default async function SharedPair({ params }: { params: Promise<{ id: str
     <div className="mx-auto max-w-5xl px-6">
       <section className="pt-10 pb-8 sm:pt-14">
         <p className="text-xs font-medium uppercase tracking-[0.18em] text-accent">A shared exchange</p>
-        <h1 className="mt-6 font-serif text-4xl text-ink sm:text-5xl">Two answers, one conscience</h1>
+        <h1 className="mt-6 font-serif text-4xl text-ink sm:text-5xl">Two answers, one model</h1>
         <p className="mt-4 max-w-2xl leading-relaxed text-muted">
           One message, put to {label(row.seat)} twice: once with nothing in front of it, once under
           MORIS. The message was read once and judged once, and both answers came from that single
-          reading, so the two columns differ by the conscience and by nothing else. Read by{" "}
+          reading, so the two columns differ by MORIS and by nothing else. Read by{" "}
           {label(row.reader)}.
         </p>
         <blockquote className="mt-8 max-w-2xl border-l-2 border-accent pl-5 font-serif text-2xl leading-snug text-ink">

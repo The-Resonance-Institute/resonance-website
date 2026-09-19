@@ -14,6 +14,10 @@ const staticRoutes: { path: string; priority: number }[] = [
   //
   // /moris/chat stays in: it survives the pivot as a novelty and is a real, reachable page.
   { path: "/moris/chat", priority: 0.5 },
+  // The side-by-side demonstration, restored 2026-09-19. The per-exchange route stays OUT of this
+  // file: a consented link is not an indexed page, and it carries noindex in its metadata and as a
+  // response header. A guard asserts that by substring, so do not name that route in this file.
+  { path: "/moris/pair", priority: 0.5 },
   { path: "/resonance", priority: 0.9 },
   { path: "/resonance/series", priority: 0.8 },
   { path: "/about", priority: 0.6 },

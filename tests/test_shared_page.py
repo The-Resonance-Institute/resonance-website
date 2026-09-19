@@ -34,7 +34,10 @@ def test_the_page_is_out_of_the_index_and_out_of_the_sitemap():
 def test_the_preview_is_generic_and_carries_nothing_of_theirs():
     s = src()
     meta = s[s.index("generateMetadata"):s.index("export default")]
-    assert "Two answers, one conscience" in meta
+    # The generic title, renamed from "Two answers, one conscience" in the books-first pivot of
+    # 2026-09-19. What this asserts is unchanged: the preview carries a FIXED string, the same
+    # for every exchange, so a link preview reveals nothing of the person who shared it.
+    assert "Two answers, one model" in meta
     # THE SIGNATURE IS EMPTY. The framework hands generateMetadata the route's params and the parent
     # metadata; a function that declares neither cannot read the id, and so cannot fetch the row. A
     # framework upgrade cannot change what a function with no parameters can see. It also awaits

@@ -5,9 +5,10 @@ import { books, trilogies } from "@/lib/canon";
 // series equal cards, with MORIS carrying the accent and the heavier border. The site is now a books
 // site. The series is the whole front door; there is no second body of work on it.
 //
-// Ask MORIS survives as the last thing on the page, framed as what it now is: a novelty, a way to
-// put a question to a language model through the lens of the series. No mechanism, no claims, no
-// category. Everything removed is under archive/site-2026-09-19/ and the tag
+// Ask MORIS survives as its own section, carrying the three MORIS surfaces that are kept: the chat
+// demo, the side-by-side demonstration, and askmoris.ai. It is honest about the mechanism, because
+// a mechanical gate deriving from the series is what it is, and it says nothing about a conscience
+// or about agents. Everything else is under archive/site-2026-09-19/ and the tag
 // pre-books-pivot-2026-09-19.
 
 export default function Home() {
@@ -65,6 +66,54 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ASK MORIS, promoted to a full section on the operator's word (2026-09-19). It was a small
+          card at the foot of the page; it now carries its own header and sits directly under the
+          trilogies, prominent without displacing the books.
+
+          The copy is honest about the mechanism and says nothing about a conscience or about agents.
+          It also no longer says the model "read the series", which implied the books were trained
+          into something. They are not: the gate derives a judgment from the philosophy at the moment
+          you ask, and the answering model is handed the result. */}
+      <section className="border-t border-line py-12">
+        <p className="text-xs font-medium uppercase tracking-[0.18em] text-accent">
+          Built on the series
+        </p>
+        <h2 className="mt-4 font-serif text-3xl leading-tight text-ink sm:text-4xl">
+          Ask MORIS
+        </h2>
+        <p className="mt-5 max-w-3xl font-serif text-xl font-light leading-relaxed text-ink">
+          Put something you are actually weighing to a mechanical gate built on the
+          fifteen manuscripts. It derives a judgment from the philosophy in them, and
+          the model that writes your answer is given what it found.
+        </p>
+        <p className="mt-4 max-w-3xl leading-relaxed text-muted">
+          The judgment is mechanical rather than generated: no model makes it, the
+          same reading always lands in the same place, and nothing is trained on the
+          books. The philosophy is applied at the moment you ask. The side-by-side
+          puts one message to the same model twice, raw and through MORIS, so the
+          difference is the only thing that changes.
+        </p>
+        <div className="mt-7 flex flex-wrap gap-3">
+          <Link
+            href="/moris/chat"
+            className="inline-flex items-center gap-1.5 rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-ink"
+          >
+            Try it here <span aria-hidden>&rarr;</span>
+          </Link>
+          <Link
+            href="/moris/pair"
+            className="inline-flex items-center gap-1.5 rounded-full border border-line px-5 py-2.5 text-sm font-medium text-muted transition-colors hover:border-accent hover:text-accent"
+          >
+            See both answers, side by side <span aria-hidden>&rarr;</span>
+          </Link>
+          <a
+            href="https://askmoris.ai"
+            className="inline-flex items-center gap-1.5 rounded-full border border-line px-5 py-2.5 text-sm font-medium text-muted transition-colors hover:border-accent hover:text-accent"
+          >
+            askmoris.ai <span aria-hidden>&rarr;</span>
+          </a>
+        </div>
+      </section>
       <section className="border-t border-line py-12">
         <p className="max-w-3xl font-serif text-lg font-light italic leading-snug text-ink sm:text-xl">
           One author, one substrate. The series is written as a single body of
@@ -78,24 +127,6 @@ export default function Home() {
         </Link>
       </section>
 
-      {/* The novelty, last and deliberately small. */}
-      <section className="mt-2 mb-4 rounded-2xl border border-line bg-white p-7">
-        <p className="text-xs font-medium uppercase tracking-[0.18em] text-muted">
-          A curiosity
-        </p>
-        <h2 className="mt-3 font-serif text-2xl text-ink">Ask MORIS</h2>
-        <p className="mt-3 max-w-2xl leading-relaxed text-muted">
-          An experiment: put something you are weighing to a language model that has
-          been given the series to read first, and see what it makes of it. It is a
-          way to hear the books answer a question they were never asked directly.
-        </p>
-        <Link
-          href="/moris/chat"
-          className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-accent transition-colors hover:text-ink"
-        >
-          Try it <span aria-hidden>&rarr;</span>
-        </Link>
-      </section>
     </div>
   );
 }

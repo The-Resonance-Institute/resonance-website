@@ -1,9 +1,12 @@
 """The books-first pivot, 2026-09-19, enforced rather than remembered.
 
 THE OPERATOR'S RULING. The site is a books site. The open letter and the compliance page are gone,
-the MORIS wing is gone, and all mention of an artificial conscience and of agentic work goes with
-them. MORIS survives as one thing only: /moris/chat, a novelty, a way to put a question to a language
-model through the lens of the Resonance series.
+the MORIS wing is gone, and no surface may call anything a conscience or describe agentic work.
+
+WHAT SURVIVES, and it is allowed to be honest about itself: /moris/chat and the side-by-side
+demonstration at /moris/pair, with its per-exchange route. Both may say plainly that a mechanical
+gate derives a judgment from the philosophy in the series, because that is what they do. What they
+may not do is call it a conscience, or position it for agents.
 
 WHY THIS IS A TEST. A sweep is a rule you performed once. The site is edited by whoever is in it
 next, and the phrases removed here are the ones most likely to come back by habit, because they were
@@ -22,7 +25,7 @@ SUFFIXES = {".tsx", ".ts", ".html", ".css", ".mts"}
 
 # Phrases the pivot removed. Matched case-insensitively on live source only.
 BANNED = ("artificial conscience", "agentic", "a conscience", "the conscience",
-          "control plane for moral thought", "open letter")
+          "one conscience", "control plane for moral thought", "open letter")
 
 
 def strip_comments(text: str) -> str:
@@ -62,9 +65,17 @@ def test_the_removed_vocabulary_does_not_come_back():
 
 
 def test_the_removed_routes_are_gone_from_the_app():
-    gone = ["open-letter", "compliance", "moris"]
-    present = [d for d in gone if (ROOT / "app" / d).exists()]
+    present = [d for d in ("open-letter", "compliance") if (ROOT / "app" / d).exists()]
     assert not present, f"a removed route is back under app/: {present}"
+
+    # app/moris is NOT banned wholesale. The side-by-side demonstration was restored on 2026-09-19
+    # and its per-exchange route lives at app/moris/pair/[id], so the wing is checked page by page
+    # rather than by forbidding the directory.
+    wing = ROOT / "app" / "moris"
+    if wing.exists():
+        back = sorted(p.name for p in wing.iterdir() if p.is_dir() and p.name != "pair")
+        assert not back, f"a removed MORIS page is back under app/moris/: {back}"
+        assert not (wing / "page.tsx").exists(), "the MORIS landing page is back"
 
 
 def test_the_archive_actually_holds_what_was_removed():
@@ -76,6 +87,8 @@ def test_the_archive_actually_holds_what_was_removed():
                      "app/moris/conscience/page.tsx", "app/moris/terms/page.tsx",
                      "public/moris/shift.html", "public/moris/judge.html",
                      "public/open-letter/We-Built-the-Intelligence-Open-Letter.pdf"):
+        # pair.html and app/moris/pair/[id] are deliberately absent: archived on 2026-09-19
+        # and restored the same day, so the archive no longer holds them.
         assert (a / expected).exists(), f"archive is missing {expected}"
 
 
@@ -94,8 +107,22 @@ def test_the_moris_wildcard_redirect_does_not_swallow_the_chat_page():
     cfg = (ROOT / "next.config.ts").read_text(encoding="utf-8")
     m = re.search(r'source:\s*"(/moris/:path[^"]*)"', cfg)
     assert m, "the /moris wildcard redirect is missing"
-    assert "chat" in m.group(1), \
-        f"the wildcard {m.group(1)!r} does not exclude chat, so /moris/chat redirects away"
+    for survivor in ("chat", "pair"):
+        assert survivor in m.group(1), (
+            f"the wildcard {m.group(1)!r} does not exclude {survivor}, so /moris/{survivor} "
+            f"redirects away. For pair this would also forward every per-exchange link already "
+            f"sent to the book series instead of rendering the exchange.")
+
+
+def test_the_side_by_side_is_reachable_and_its_links_are_not_indexed():
+    """Restored 2026-09-19. Adding the file is not adding the page: it needs its rewrite entry. And
+    a consented link was agreed to as a link, not as an indexed page, so it keeps its header."""
+    assert (ROOT / "public" / "moris" / "pair.html").exists(), "the side-by-side page is missing"
+    assert (ROOT / "app" / "moris" / "pair" / "[id]" / "page.tsx").exists(), \
+        "the per-exchange route is missing, so every link already sent would 404"
+    cfg = (ROOT / "next.config.ts").read_text(encoding="utf-8")
+    assert '"/moris/pair"' in cfg and '"/moris/pair.html"' in cfg, "/moris/pair has no rewrite"
+    assert "noindex" in cfg, "the per-exchange noindex header is missing"
 
 
 def test_the_unlisted_deck_is_kept_and_stays_unlinked():
@@ -117,5 +144,5 @@ def test_the_sitemap_lists_no_removed_route():
     paths = set(re.findall(r'path:\s*"([^"]*)"', sitemap))
     forbidden = {p for p in paths
                  if p.startswith("/open-letter") or p.startswith("/compliance")
-                 or (p.startswith("/moris") and p != "/moris/chat")}
+                 or (p.startswith("/moris") and p not in {"/moris/chat", "/moris/pair"})}
     assert not forbidden, f"the sitemap still lists removed routes: {sorted(forbidden)}"
