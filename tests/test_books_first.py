@@ -182,3 +182,42 @@ def test_no_live_page_links_to_a_route_that_was_removed():
         "a live page links to a route removed in the books-first pivot. The link will redirect "
         "rather than 404, so it looks fine and silently sends the visitor somewhere else: "
         + "; ".join(sorted(set(hits))))
+
+
+def _react_nav():
+    src = (ROOT / "components" / "site-nav.tsx").read_text(encoding="utf-8")
+    block = src[src.index("const links = ["):src.index("];", src.index("const links = ["))]
+    return re.findall(r'href:\s*"([^"]*)",\s*label:\s*"([^"]*)"', block)
+
+
+def _static_nav(name):
+    src = (ROOT / "public" / "moris" / name).read_text(encoding="utf-8")
+    m = re.search(r'<div class="site-nav__links">(.*?)</div>', src, flags=re.S)
+    assert m, f"{name} has no site-nav__links block"
+    return re.findall(r'<a href="([^"]*)">([^<]*)</a>', m.group(1))
+
+
+def test_the_three_hand_maintained_navs_do_not_diverge():
+    """THE FAILURE THIS CATCHES IS THE ONE THE DEAD-LINK GUARD CANNOT SEE.
+
+    The site header exists in THREE places: components/site-nav.tsx for React routes, and a
+    hand-copied block inside each of public/moris/chat.html and public/moris/pair.html, which are
+    generated pages with deliberately isolated stylesheets. On 2026-09-19 pair.html shipped live
+    still carrying the pre-pivot header, because it was in the archive when the sweep ran.
+
+    A dead-link check only fires when a nav points at a route that no longer exists. If someone ADDS
+    an item to the React nav, or renames a label, every link stays valid and the static pages simply
+    stop matching the rest of the site. Nothing would report it and the pages would look fine in
+    isolation. This asserts the three are identical, item for item, in order.
+
+    If these ever need to differ on purpose, that is a design decision and this test is where it gets
+    written down. The real fix is one source for the nav, which is a build change rather than a test.
+    """
+    react = _react_nav()
+    assert react, "the React nav could not be parsed; the guard is not looking at anything"
+    for page in ("chat.html", "pair.html"):
+        assert _static_nav(page) == react, (
+            f"public/moris/{page} carries a header that no longer matches components/site-nav.tsx. "
+            f"It is hand-copied and does not update itself.\n"
+            f"  site-nav.tsx: {react}\n"
+            f"  {page}: {_static_nav(page)}")
