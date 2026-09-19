@@ -146,3 +146,39 @@ def test_the_sitemap_lists_no_removed_route():
                  if p.startswith("/open-letter") or p.startswith("/compliance")
                  or (p.startswith("/moris") and p not in {"/moris/chat", "/moris/pair"})}
     assert not forbidden, f"the sitemap still lists removed routes: {sorted(forbidden)}"
+
+
+def test_no_live_page_links_to_a_route_that_was_removed():
+    """THE GAP THIS CLOSES, found on the live site 2026-09-19 and not by any test.
+
+    public/moris/pair.html carries its own hand-copied nav, because it is a generated static page
+    with an isolated stylesheet rather than a React route. When the books-first nav sweep ran, that
+    file was sitting in the archive, so it missed the sweep entirely. It was restored later the same
+    day still carrying the OLD nav: MORIS, Demos, Compliance, plus a breadcrumb into /moris/demos and
+    a consent modal pointing at the archived terms page. Four dead links, shipped and live.
+
+    The vocabulary guard could not see it. Nothing on that page said "conscience"; it linked to pages
+    that no longer exist, which is a different failure and needs its own check. Every one of those
+    links resolved with a 307 rather than a 404, so nothing looked broken from the outside either.
+
+    This is the check that generalises: whatever a live page links to internally must be a route this
+    site still serves.
+    """
+    removed_prefixes = ("/moris", "/open-letter", "/compliance")
+    survivors = {"/moris/chat", "/moris/pair"}
+
+    hits = []
+    for p in live_files():
+        if p.suffix not in {".tsx", ".html"}:
+            continue
+        text = strip_comments(p.read_text(encoding="utf-8", errors="ignore"))
+        for href in re.findall(r'href="(/[^"#?]*)"', text):
+            href = href.rstrip("/") or "/"
+            if href in survivors or href.startswith("/moris/pair/"):
+                continue
+            if any(href == pre or href.startswith(pre + "/") for pre in removed_prefixes):
+                hits.append(f"{p.relative_to(ROOT)} -> {href}")
+    assert not hits, (
+        "a live page links to a route removed in the books-first pivot. The link will redirect "
+        "rather than 404, so it looks fine and silently sends the visitor somewhere else: "
+        + "; ".join(sorted(set(hits))))
