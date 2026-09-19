@@ -1,19 +1,20 @@
 import Link from "next/link";
 import Image from "next/image";
 
+import nav from "@/content/nav.json";
+
 // BOOKS-FIRST PIVOT, 2026-09-19. The Series leads. MORIS, the open letter and the compliance page
 // came out of the nav with the pages themselves; all of it is under archive/site-2026-09-19/ and the
 // tag pre-books-pivot-2026-09-19, and it may come back.
 //
-// Ask MORIS is last and is the only MORIS surface left on the site: a novelty, a way to put a
-// question to a language model through the lens of the series, not a product entry.
-const links = [
-  { href: "/resonance", label: "The Series" },
-  { href: "/resonance/series", label: "Manuscripts" },
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
-  { href: "/moris/chat", label: "Ask MORIS" },
-];
+// Ask MORIS is last and is the only MORIS wing entry left: a novelty, not a product entry.
+//
+// THE LINKS ARE NOT DEFINED HERE ANY MORE. content/nav.json is the single source, because this
+// header also exists as hand-written HTML inside the generated pages under public/moris/, which are
+// served as plain files with deliberately isolated stylesheets and cannot import this component.
+// Three copies maintained by memory put a pre-pivot header live on 2026-09-19. Those blocks are now
+// GENERATED from the same JSON by scripts/sync_static_nav.py.
+const links = nav.links;
 
 // THE ROW WRAPS ON NARROW SCREENS (2026-09-15). The brand and seven links were one unbreakable flex
 // row, so at phone width the links ran past the right edge and every page scrolled sideways, with the

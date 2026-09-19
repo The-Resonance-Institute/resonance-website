@@ -17,6 +17,7 @@ Ask MORIS, and the archive, which exists to be brought back and is excluded thro
 """
 import pathlib
 import re
+import sys
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 ARCHIVE = ROOT / "archive"
@@ -184,40 +185,58 @@ def test_no_live_page_links_to_a_route_that_was_removed():
         + "; ".join(sorted(set(hits))))
 
 
-def _react_nav():
-    src = (ROOT / "components" / "site-nav.tsx").read_text(encoding="utf-8")
-    block = src[src.index("const links = ["):src.index("];", src.index("const links = ["))]
-    return re.findall(r'href:\s*"([^"]*)",\s*label:\s*"([^"]*)"', block)
+import json
+import subprocess
 
 
-def _static_nav(name):
-    src = (ROOT / "public" / "moris" / name).read_text(encoding="utf-8")
-    m = re.search(r'<div class="site-nav__links">(.*?)</div>', src, flags=re.S)
-    assert m, f"{name} has no site-nav__links block"
-    return re.findall(r'<a href="([^"]*)">([^<]*)</a>', m.group(1))
+def test_the_nav_has_exactly_one_source():
+    """SINGLE SOURCE, 2026-09-19. content/nav.json is the only place the header is defined.
 
-
-def test_the_three_hand_maintained_navs_do_not_diverge():
-    """THE FAILURE THIS CATCHES IS THE ONE THE DEAD-LINK GUARD CANNOT SEE.
-
-    The site header exists in THREE places: components/site-nav.tsx for React routes, and a
-    hand-copied block inside each of public/moris/chat.html and public/moris/pair.html, which are
-    generated pages with deliberately isolated stylesheets. On 2026-09-19 pair.html shipped live
-    still carrying the pre-pivot header, because it was in the archive when the sweep ran.
-
-    A dead-link check only fires when a nav points at a route that no longer exists. If someone ADDS
-    an item to the React nav, or renames a label, every link stays valid and the static pages simply
-    stop matching the rest of the site. Nothing would report it and the pages would look fine in
-    isolation. This asserts the three are identical, item for item, in order.
-
-    If these ever need to differ on purpose, that is a design decision and this test is where it gets
-    written down. The real fix is one source for the nav, which is a build change rather than a test.
+    components/site-nav.tsx must IMPORT it rather than carry its own list. A literal array in that
+    file is how the three copies started, and it is the thing this check exists to prevent coming
+    back: the moment someone re-inlines the links "just for a second", the static pages stop being
+    generated from the same truth and nothing reports it.
     """
-    react = _react_nav()
-    assert react, "the React nav could not be parsed; the guard is not looking at anything"
-    for page in ("chat.html", "pair.html"):
-        assert _static_nav(page) == react, (
-            f"public/moris/{page} carries a header that no longer matches components/site-nav.tsx. "
-            f"It is hand-copied and does not update itself.\n"
-            f"  site-nav.tsx: {react}\n"
-            f"  {page}: {_static_nav(page)}")
+    src = (ROOT / "components" / "site-nav.tsx").read_text(encoding="utf-8")
+    assert "content/nav.json" in src, "site-nav.tsx no longer reads the single source"
+    assert not re.search(r'\{\s*href:\s*"', src), (
+        "site-nav.tsx defines nav links inline again. Put them in content/nav.json and run "
+        "scripts/sync_static_nav.py.")
+
+    links = json.loads((ROOT / "content" / "nav.json").read_text(encoding="utf-8"))["links"]
+    assert links, "content/nav.json lists no links"
+    for l in links:
+        assert set(l) == {"href", "label"}, f"unexpected keys in a nav entry: {l}"
+
+
+def test_the_static_headers_are_generated_and_current():
+    """THE FAILURE THIS REPLACES. The header used to exist in three hand-maintained places, and on
+    2026-09-19 public/moris/pair.html shipped live carrying the pre-pivot one: MORIS, Demos,
+    Compliance. It had been in the archive during the nav sweep and came back untouched. Every dead
+    link answered 307 rather than 404 because of the pivot's own redirects, so nothing looked broken
+    and only the operator caught it.
+
+    The static pages are served as plain HTML with deliberately isolated stylesheets and cannot
+    import the React component, so they are GENERATED from content/nav.json instead. This runs the
+    generator in check mode: if the JSON changed and the pages were not regenerated, this fails and
+    names the command that fixes it, rather than the drift reaching the site.
+    """
+    r = subprocess.run([sys.executable, "scripts/sync_static_nav.py", "--check"],
+                       cwd=ROOT, capture_output=True, text=True)
+    assert r.returncode == 0, (
+        "the generated headers are out of date with content/nav.json. "
+        + r.stdout + r.stderr)
+
+
+def test_the_generator_is_actually_writing_the_header_it_claims():
+    """The positive control. A generator whose check mode passes because it silently found nothing
+    to compare would make the test above decoration. This asserts the rendered block is present in
+    both targets, with every link from the source in it."""
+    links = json.loads((ROOT / "content" / "nav.json").read_text(encoding="utf-8"))["links"]
+    for name in ("chat.html", "pair.html"):
+        html = (ROOT / "public" / "moris" / name).read_text(encoding="utf-8")
+        m = re.search(r'<div class="site-nav__links">(.*?)</div>', html, flags=re.S)
+        assert m, f"{name} has no header block for the generator to write"
+        for l in links:
+            anchor = f'<a href="{l["href"]}">{l["label"]}</a>'
+            assert anchor in m.group(1), f"{name} is missing {anchor}"
