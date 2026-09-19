@@ -1,22 +1,18 @@
 import Link from "next/link";
 import Image from "next/image";
 
+// BOOKS-FIRST PIVOT, 2026-09-19. The Series leads. MORIS, the open letter and the compliance page
+// came out of the nav with the pages themselves; all of it is under archive/site-2026-09-19/ and the
+// tag pre-books-pivot-2026-09-19, and it may come back.
+//
+// Ask MORIS is last and is the only MORIS surface left on the site: a novelty, a way to put a
+// question to a language model through the lens of the series, not a product entry.
 const links = [
-  { href: "/moris", label: "MORIS" },
-  // Both demos were reachable only by hunting: the agentic record sat eighth on a sub-page and the
-  // chat surface was linked from nowhere at all. A nav entry is the fix, and it points at a hub
-  // rather than at one of them, because a single link cannot serve two demonstrations.
-  { href: "/moris/demos", label: "Demos" },
-  // Compliance sits between the demonstrations and the philosophy on purpose: it is what a
-  // regulator or a buyer looks for after seeing the demos and before reading the books.
-  { href: "/compliance", label: "Compliance" },
   { href: "/resonance", label: "The Series" },
   { href: "/resonance/series", label: "Manuscripts" },
-  // The open letter, 2026-09-15: it was live with no link from anywhere on the site. Placed between
-  // Manuscripts and About by the operator's ruling.
-  { href: "/open-letter", label: "Open Letter" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
+  { href: "/moris/chat", label: "Ask MORIS" },
 ];
 
 // THE ROW WRAPS ON NARROW SCREENS (2026-09-15). The brand and seven links were one unbreakable flex

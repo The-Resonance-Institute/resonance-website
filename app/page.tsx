@@ -1,145 +1,99 @@
 import Link from "next/link";
+import { books, trilogies } from "@/lib/canon";
+
+// BOOKS-FIRST PIVOT, 2026-09-19. This page led with an open letter and then gave MORIS and the
+// series equal cards, with MORIS carrying the accent and the heavier border. The site is now a books
+// site. The series is the whole front door; there is no second body of work on it.
+//
+// Ask MORIS survives as the last thing on the page, framed as what it now is: a novelty, a way to
+// put a question to a language model through the lens of the series. No mechanism, no claims, no
+// category. Everything removed is under archive/site-2026-09-19/ and the tag
+// pre-books-pivot-2026-09-19.
 
 export default function Home() {
   return (
     <div className="mx-auto max-w-5xl px-6">
-      {/* Institute statement: compact */}
       <section className="pt-14 pb-10 sm:pt-16">
-        <p className="max-w-3xl font-serif text-xl font-light leading-snug text-ink sm:text-2xl">
-          The Resonance Institute is an independent studio for rigorous
-          philosophical thought, where enduring questions meet modern technology.
-          From one authored foundation come two bodies of work, the Resonance
-          series and MORIS, and the teaching and counsel that grow from the same
-          source.
-        </p>
-      </section>
-
-      {/* THE OPEN LETTER, 2026-09-15. It shipped at /open-letter with no link from anywhere, so a
-          visitor could not find it. It leads the page, above the two zones, because it is the piece
-          people are being sent here to read. */}
-      <section className="mb-6 rounded-2xl border border-ink/10 bg-white p-8 sm:p-9">
         <p className="text-xs font-medium uppercase tracking-[0.18em] text-accent">
-          Open letter &middot; September 2026
+          The Resonance Institute
         </p>
-        <h2 className="mt-3 font-serif text-3xl leading-tight text-ink sm:text-4xl">
-          We Built the Intelligence. We Never Built the Conscience.
-        </h2>
-        <p className="mt-4 max-w-3xl text-lg leading-relaxed text-ink">
-          In a person, intelligence without a conscience has a name: psychopath. That is what we are
-          building in artificial intelligence, at industrial scale. The letter makes the case for the
-          missing piece, and shows that one exists.
+        <h1 className="mt-4 max-w-3xl font-serif text-4xl leading-tight text-ink sm:text-5xl">
+          A living philosophy, in fifteen manuscripts.
+        </h1>
+        <p className="mt-6 max-w-3xl font-serif text-xl font-light leading-relaxed text-ink">
+          The Resonance series carries one question through five trilogies: how a
+          person holds together, how a community holds together, and how the world
+          does. Each theme travels from the self outward, and each book can be read
+          on its own.
         </p>
-        <div className="mt-6 flex flex-wrap gap-3">
-          <Link
-            href="/open-letter"
-            className="inline-flex items-center gap-1.5 rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-ink"
-          >
-            Read the open letter <span aria-hidden>&rarr;</span>
-          </Link>
-          <a
-            href="/open-letter/We-Built-the-Intelligence-Open-Letter.pdf"
-            className="inline-flex items-center gap-1.5 rounded-full border border-line px-5 py-2.5 text-sm font-medium text-muted transition-colors hover:border-accent hover:text-accent"
-          >
-            Download the PDF <span aria-hidden>&darr;</span>
-          </a>
-        </div>
-      </section>
-
-      {/* Two zones, side by side */}
-      <section className="grid gap-6 md:grid-cols-2">
-        {/* MORIS: primary (accent-tinted, visually weightier) */}
-        <div className="flex flex-col rounded-2xl border border-accent/20 bg-accent-soft p-8 sm:p-9">
-          <p className="text-xs font-medium uppercase tracking-[0.18em] text-accent">
-            The system
-          </p>
-          <h2 className="mt-3 font-serif text-4xl text-ink sm:text-5xl">MORIS</h2>
-          <p className="mt-4 flex-1 text-lg leading-relaxed text-ink">
-            An artificial conscience: a mechanical, deterministic control plane for
-            moral thought. For machines that act, it judges what an action means
-            before it executes, the same way every time, and leaves a trace anyone
-            can replay.
-          </p>
-          <Link
-            href="/moris"
-            className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-accent transition-colors hover:text-ink"
-          >
-            Enter the MORIS wing <span aria-hidden>&rarr;</span>
-          </Link>
-          <Link
-            href="/moris#papers"
-            className="mt-2 inline-flex items-center gap-1.5 text-sm font-medium text-accent transition-colors hover:text-ink"
-          >
-            Read the papers, each under a DOI <span aria-hidden>&rarr;</span>
-          </Link>
-        </div>
-
-        {/* The Series - prominent secondary */}
-        <div className="flex flex-col rounded-2xl border border-line bg-white p-8 sm:p-9">
-          <p className="text-xs font-medium uppercase tracking-[0.18em] text-muted">
-            The substrate
-          </p>
-          <h2 className="mt-3 font-serif text-4xl text-ink sm:text-5xl">
-            The Series
-          </h2>
-          <p className="mt-4 flex-1 text-lg leading-relaxed text-ink">
-            A living philosophy in fifteen manuscripts across five trilogies, each
-            theme carried from the self to the community to the world. It is also
-            the substrate beneath MORIS.
-          </p>
+        <div className="mt-8 flex flex-wrap gap-3">
           <Link
             href="/resonance"
-            className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-accent transition-colors hover:text-ink"
+            className="inline-flex items-center gap-1.5 rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-ink"
           >
             Enter the Series <span aria-hidden>&rarr;</span>
           </Link>
-        </div>
-      </section>
-
-      {/* THE THIRD DOOR. The front page had the system and the substrate and nothing for a person,
-          while every conversion so far came from someone typing a real thing into a box the front
-          door never mentioned. Full width and below the two cards, so the existing grid is
-          untouched, and carrying both surfaces: the chat page is the box, the pair page is the
-          proof for anyone who arrives sceptical. */}
-      <section className="mt-6 rounded-2xl border border-accent/20 bg-accent-soft p-8 sm:p-9">
-        <p className="text-xs font-medium uppercase tracking-[0.18em] text-accent">
-          Ask MORIS
-        </p>
-        <h2 className="mt-3 font-serif text-3xl text-ink sm:text-4xl">
-          A place to think
-        </h2>
-        <p className="mt-4 max-w-2xl text-lg leading-relaxed text-ink">
-          Bring something you are actually weighing and see what a conscience makes
-          of it.
-        </p>
-        <div className="mt-6 flex flex-wrap gap-3">
           <Link
-            href="/moris/chat"
-            className="inline-flex items-center gap-1.5 rounded-full border border-accent/40 bg-white px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:border-accent hover:text-accent"
-          >
-            Ask MORIS <span aria-hidden>&rarr;</span>
-          </Link>
-          <Link
-            href="/moris/pair"
+            href="/resonance/series"
             className="inline-flex items-center gap-1.5 rounded-full border border-line px-5 py-2.5 text-sm font-medium text-muted transition-colors hover:border-accent hover:text-accent"
           >
-            See the same model answer twice <span aria-hidden>&rarr;</span>
+            All {books.length} manuscripts <span aria-hidden>&rarr;</span>
           </Link>
         </div>
       </section>
 
-      {/* Closing thesis + Institute framing */}
-      <section className="mt-12 border-t border-line pt-8">
+      <section className="border-t border-line py-12">
+        <h2 className="font-serif text-2xl text-ink">The five trilogies</h2>
+        <div className="mt-6 grid gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
+          {trilogies.map((t) => (
+            <Link
+              key={t.slug}
+              href={`/resonance/trilogy/${t.slug}`}
+              className="group bg-white p-6 transition-colors hover:bg-accent-soft"
+            >
+              <p className="text-xs font-medium uppercase tracking-[0.18em] text-muted">
+                {t.numeral}
+              </p>
+              <h3 className="mt-2 font-serif text-xl text-ink transition-colors group-hover:text-accent">
+                {t.name}
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted">
+                {t.governingQuestion}
+              </p>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section className="border-t border-line py-12">
         <p className="max-w-3xl font-serif text-lg font-light italic leading-snug text-ink sm:text-xl">
-          You do not make a faster machine safe with a better brake. You steer
-          it. MORIS governs how each action proceeds, where a rulebook can only
-          stop it.
+          One author, one substrate. The series is written as a single body of
+          thought rather than a shelf of separate titles.
         </p>
         <Link
           href="/about"
           className="mt-4 inline-flex items-center gap-1.5 text-sm text-muted transition-colors hover:text-accent"
         >
-          One author, one substrate. About the Institute{" "}
-          <span aria-hidden>&rarr;</span>
+          About the Institute <span aria-hidden>&rarr;</span>
+        </Link>
+      </section>
+
+      {/* The novelty, last and deliberately small. */}
+      <section className="mt-2 mb-4 rounded-2xl border border-line bg-white p-7">
+        <p className="text-xs font-medium uppercase tracking-[0.18em] text-muted">
+          A curiosity
+        </p>
+        <h2 className="mt-3 font-serif text-2xl text-ink">Ask MORIS</h2>
+        <p className="mt-3 max-w-2xl leading-relaxed text-muted">
+          An experiment: put something you are weighing to a language model that has
+          been given the series to read first, and see what it makes of it. It is a
+          way to hear the books answer a question they were never asked directly.
+        </p>
+        <Link
+          href="/moris/chat"
+          className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-accent transition-colors hover:text-ink"
+        >
+          Try it <span aria-hidden>&rarr;</span>
         </Link>
       </section>
     </div>

@@ -23,16 +23,15 @@ export const metadata: Metadata = {
     template: "%s · The Resonance Institute",
   },
   description:
-    "An independent studio for rigorous philosophical thought where enduring questions meet modern technology, home to two bodies of work: the Resonance series, a living philosophy in fifteen manuscripts, and MORIS, an artificial conscience: a mechanical, deterministic control plane for moral thought.",
+    "An independent studio for rigorous philosophical thought, where enduring questions meet modern technology. Home of the Resonance series, a living philosophy in fifteen manuscripts across five trilogies by C. T. Herndon.",
   applicationName: "The Resonance Institute",
   keywords: [
     "The Resonance Institute",
     "Resonance series",
-    "MORIS",
-    "artificial conscience",
     "C. T. Herndon",
     "philosophy",
-    "AI safety",
+    "books",
+    "trilogy",
   ],
   openGraph: {
     type: "website",
@@ -40,13 +39,13 @@ export const metadata: Metadata = {
     siteName: "The Resonance Institute",
     title: "The Resonance Institute",
     description:
-      "An independent studio for rigorous philosophical thought. Two bodies of work: the Resonance series, a living philosophy in fifteen manuscripts, and MORIS, an artificial conscience: a mechanical, deterministic control plane for moral thought.",
+      "An independent studio for rigorous philosophical thought, where enduring questions meet modern technology. Home of the Resonance series, a living philosophy in fifteen manuscripts across five trilogies by C. T. Herndon.",
   },
   twitter: {
     card: "summary_large_image",
     title: "The Resonance Institute",
     description:
-      "An independent studio for rigorous philosophical thought. The Resonance series and MORIS, an artificial conscience: a mechanical, deterministic control plane for moral thought.",
+      "An independent studio for rigorous philosophical thought. Home of the Resonance series, a living philosophy in fifteen manuscripts by C. T. Herndon.",
   },
   robots: { index: true, follow: true },
 };
@@ -68,7 +67,7 @@ export default function RootLayout({
               name: "The Resonance Institute",
               url: "https://www.resonanceinstitutellc.com",
               description:
-                "An independent studio for rigorous philosophical thought, home to the Resonance series and MORIS, an artificial conscience: a mechanical, deterministic control plane for moral thought.",
+                "An independent studio for rigorous philosophical thought. Home of the Resonance series, a living philosophy in fifteen manuscripts by C. T. Herndon.",
               founder: { "@type": "Person", name: "Christopher T. Herndon" },
               location: {
                 "@type": "Place",

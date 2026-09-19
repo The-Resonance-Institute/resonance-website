@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Bring something you are wrestling with and see how an LLM with an artificial conscience answers.">
+<meta name="description" content="Put something you are weighing to a language model that has read the Resonance series first, and see what it makes of it.">
 <meta name="moris-build" content="d0f162890c05 2026-09-09T02:54:34Z">
 <title>Ask MORIS</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -176,15 +176,15 @@ footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--edge);max-wid
 <header class="site-nav">
   <nav class="site-nav__in">
     <a class="site-nav__brand" href="/"><img src="/star.png" alt="" width="20" height="20"><span>The Resonance Institute</span></a>
-    <div class="site-nav__links"><a href="/moris">MORIS</a><a href="/moris/demos">Demos</a><a href="/compliance">Compliance</a><a href="/resonance">The Series</a><a href="/resonance/series">Manuscripts</a><a href="/about">About</a><a href="/contact">Contact</a></div>
+    <div class="site-nav__links"><a href="/resonance">The Series</a><a href="/resonance/series">Manuscripts</a><a href="/about">About</a><a href="/contact">Contact</a><a href="/moris/chat">Ask MORIS</a></div>
   </nav>
 </header>
 <div class="wrap">
   <header class="mast">
-    <p class="eyebrow"><a href="/">The Resonance Institute</a> &middot; <a href="/moris">MORIS</a> &middot; <a href="/moris/demos">demos</a> &middot; ask MORIS</p>
+    <p class="eyebrow"><a href="/">The Resonance Institute</a> &middot; <a href="/resonance">the series</a> &middot; ask MORIS</p>
     <h1>Ask MORIS</h1>
-    <p class="dek">Bring something you are actually wrestling with. See what an LLM with an
-      artificial conscience makes of it.</p>
+    <p class="dek">Put something you are actually weighing to a language model that has read the
+      Resonance series first. A way to hear the books answer a question they were never asked.</p>
   </header>
 
   <!-- Shown once per browser and remembered locally. A notice, deliberately generic: it says
@@ -206,7 +206,6 @@ footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--edge);max-wid
       </div>
       <div class="gate__acts">
         <button id="gate-ok">I understand</button>
-        <a class="gate__terms" href="/moris/terms">Read the terms</a>
       </div>
     </div>
   </div>
@@ -234,8 +233,8 @@ footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--edge);max-wid
       kind, and no liability is accepted for it. <span class="standing--crisis">This page is not
       monitored. If you are in crisis, please reach a person: in the US call or text <b>988</b>, or
       your local emergency number.</span></p>
-    <p class="crosslink">Sceptical? <a href="/moris/pair">See the same model answer twice</a>,
-      once raw and once under MORIS, side by side.</p>
+    <p class="crosslink">The lens this reads through is a body of published work.
+      <a href="/resonance">Read the series</a>.</p>
     <div class="chips">
       <p class="chips__l">Not sure what to ask? Try one of these:</p>
       <button class="chip" data-label="Saying no" data-text="I keep agreeing to things I do not want to do and then resenting the people who asked. I want to stop without becoming someone who lets people down.">Saying no</button><button class="chip" data-label="A friend&#x27;s marriage" data-text="I found out my closest friend&#x27;s husband is having an affair. Telling her detonates her family. Not telling her means I am lying to her every time we speak.">A friend&#x27;s marriage</button><button class="chip" data-label="What I know about the layoffs" data-text="My team is being cut next month and I have been told to keep it quiet. One of them is about to sign a mortgage.">What I know about the layoffs</button><button class="chip" data-label="A promise to my father" data-text="My father made me promise I would never put him in a home. His memory is going and he is not safe living alone now. I made that promise meaning it.">A promise to my father</button><button class="chip" data-label="A mistake nobody caught" data-text="A colleague made an error I could report. Nothing bad came of it. Reporting it would probably end his career.">A mistake nobody caught</button><button class="chip" data-label="The thing I cannot undo" data-text="My mother is in constant pain and has asked me to help her die. She has asked more than once and she is completely lucid.">The thing I cannot undo</button>
@@ -271,7 +270,7 @@ footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--edge);max-wid
         full prompt <code id="sha1">&nbsp;</code> &nbsp;&middot;&nbsp;
         packet within it <code id="sha2">&nbsp;</code><br>
         These two are digests of different things and are not expected to be equal: the first covers
-        the whole delivered prompt, the second the conscience packet carried inside it.
+        the whole delivered prompt, the second the reading carried inside it.
       </p>
     </details>
 
@@ -286,19 +285,16 @@ footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--edge);max-wid
     <p><strong>The judgment is mechanical, not generated.</strong> No model is used in the
     judgment, or in producing what MORIS sends to the answering model. The same reading always
     produces the same verdict and the same weight.</p>
-    <p>The reading itself is a model's. Across the paper's 680 MoralChoice dilemmas, each read twice, the same model returned the identical nine fields on 83.3% of comparable readings. No other corpus has been measured under this reader, so no other number is shown.</p>
+    <p>The reading itself is a model's, so the same words will not always be read the same way.</p>
     <p>The model that answers you is still itself: its own voice, its own judgment, its own safety
     filters. What has changed is that its answer is bound to align with MORIS.</p>
   </div>
 
   <footer>
-    <p>The reading, the wording MORIS returns to a model, the concerns that fired and their names are
-    disclosed under NDA. What you see here is the judgment, its weight, how many of the nine structural
-    fields your words did not state, and the answer given under it. Your words are not stored by us: nothing is written to
-    a database or a file, and the only place they go is the two models that read and answer, over
-    the Anthropic API. The one exception is on the two-answer demonstration, where a share button
-    stores that exchange at a public link for thirty days on your own press and nowhere else.
-    <a href="/moris/terms">Terms of use</a>.</p>
+    <p>What you see here is the judgment, its weight, how many of the nine structural fields your
+    words did not state, and the answer given under it. Your words are not stored by us: nothing is
+    written to a database or a file, and the only place they go is the two models that read and
+    answer, over the Anthropic API.</p>
   </footer>
 </div>
 
@@ -354,12 +350,12 @@ function render(d) {
   const cavGated = gated.includes("cav");
 
   $("readhint").textContent = d.blank_count + " of the 9 structural fields not stated"
-    + (cavGated ? " · available under NDA" : "");
+    + (cavGated ? " · values not shown" : "");
   $("cavgrid").hidden = cavGated;
   $("readnda").hidden = !cavGated;
   if (cavGated) {
-    $("readnda").textContent = "The values the reader put in the nine structural fields are disclosed "
-      + "under NDA. " + d.blank_count + " of the nine were not stated in your words at all, and were "
+    $("readnda").textContent = "The values the reader put in the nine structural fields are not "
+      + "shown here. " + d.blank_count + " of the nine were not stated in your words at all, and were "
       + "left empty rather than guessed. That count is not withheld, because an honest absence is "
       + "a result. The CAV carries two further content fields; this surface does not read them and "
       + "they stay empty.";
@@ -376,9 +372,9 @@ function render(d) {
   $("pkgnda").hidden = !pkgGated;
   document.querySelector(".digest").hidden = pkgGated;
   if (pkgGated) {
-    $("pkghint").textContent = "available under NDA";
+    $("pkghint").textContent = "not shown";
     $("pkgnda").textContent = "What MORIS delivered to the answering model, and the digests "
-      + "recording it, are disclosed under NDA. The verdict and its weight, above, are not.";
+      + "recording it, are not shown here. The verdict and its weight, above, are.";
   } else {
     $("package").textContent = d.package;
     $("pkghint").textContent = d.package_chars + " characters"

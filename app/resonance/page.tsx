@@ -129,14 +129,7 @@ export default function ResonanceLanding() {
           The work was written for anyone who
           knows that leadership and relationship are more than a seven-step program
           or a handful of hacks, that they are the long work of connecting at every
-          level and tending the relationships around you. It is also the substrate
-          beneath{" "}
-          <Link href="/moris" className="text-accent underline decoration-line hover:decoration-accent">
-            MORIS
-          </Link>
-          , the same philosophy compiled into a fixed basis a machine can project
-          an action onto. The philosophy is the parent; the system is what it
-          proved capable of.
+          level and tending the relationships around you.
         </p>
       </section>
 

@@ -8,30 +8,12 @@ const base = "https://www.resonanceinstitutellc.com";
 // generates the pages, so adding a volume cannot leave the sitemap behind.
 const staticRoutes: { path: string; priority: number }[] = [
   { path: "", priority: 1 },
-  // The open letter, 2026-09-15: the category introduced for labs, acquirers, press and policymakers.
-  { path: "/open-letter", priority: 0.9 },
-  { path: "/moris", priority: 0.9 },
-  { path: "/moris/problem", priority: 0.8 },
-  { path: "/moris/conscience", priority: 0.8 },
-  { path: "/moris/consequences", priority: 0.8 },
-  // The gradient, 2026-09-18: the argument that the graded verdict is a consequence of the
-  // architecture rather than a feature, and the page the competition claim rests on.
-  { path: "/moris/gradient", priority: 0.8 },
-  { path: "/moris/evidence", priority: 0.8 },
-  { path: "/moris/platform", priority: 0.8 },
-  { path: "/moris/proof", priority: 0.8 },
-  { path: "/moris/paper", priority: 0.8 },
-  { path: "/moris/absent-party", priority: 0.8 },
-  { path: "/moris/demos", priority: 0.8 },
-  { path: "/moris/terms", priority: 0.3 },
-  // The side-by-side goes in with the row. Its noindex came off once every condition was met:
-  // the seat line is true across five seats, the modal is dismissable on a phone, and the
-  // attribution survives a crop.
-  { path: "/moris/pair", priority: 0.8 },
-  { path: "/moris/shift", priority: 0.8 },
-  // The chat surface goes in with the launch. /moris/judge stays out: it is the CAV builder,
-  // an instrument rather than a demonstration, and it keeps its noindex.
-  { path: "/moris/chat", priority: 0.8 },
+  // BOOKS-FIRST PIVOT, 2026-09-19. The open letter, the compliance page and the whole MORIS wing
+  // came out of the sitemap with the pages. Every one of those URLs now redirects to /resonance
+  // (next.config.ts), so a crawler that already has them gets a forward rather than a 404.
+  //
+  // /moris/chat stays in: it survives the pivot as a novelty and is a real, reachable page.
+  { path: "/moris/chat", priority: 0.5 },
   { path: "/resonance", priority: 0.9 },
   { path: "/resonance/series", priority: 0.8 },
   { path: "/about", priority: 0.6 },

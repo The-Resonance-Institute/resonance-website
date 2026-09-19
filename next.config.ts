@@ -6,30 +6,20 @@ const nextConfig: NextConfig = {
   // would let a number be typed rather than derived -- the one failure that page exists to disprove.
   // It is served from public/ so its stylesheet stays fully isolated from the site's globals, and
   // rewritten here so the URL has no .html on it.
+  // /moris/chat is a generated static page, not a React route. It is served from public/ so its
+  // stylesheet stays fully isolated from the site's globals, and rewritten here so the URL has no
+  // .html on it. ADDING THE FILE IS NOT ADDING THE PAGE: a generated page shipped once without its
+  // entry here, answered 200 at the .html path and 404 at the clean one, and the deploy reported
+  // success throughout.
+  //
+  // The shift, judge and pair rewrites were removed in the books-first pivot (2026-09-19) along
+  // with the pages themselves; both are under archive/site-2026-09-19/ and the tag
+  // pre-books-pivot-2026-09-19.
   async rewrites() {
     return [
       {
-        source: "/moris/shift",
-        destination: "/moris/shift.html",
-      },
-      // The chat and builder surfaces, same arrangement. Both ship unlinked, absent from the
-      // sitemap, and carrying noindex in the document, so they can be read on the real domain
-      // before anyone can find them.
-      {
         source: "/moris/chat",
         destination: "/moris/chat.html",
-      },
-      {
-        source: "/moris/judge",
-        destination: "/moris/judge.html",
-      },
-      // The side-by-side page, same arrangement again. ADDING THE FILE IS NOT ADDING THE PAGE: it
-      // shipped once without this entry, /moris/pair.html answered 200 and /moris/pair answered
-      // 404, and the deploy reported success throughout. A generated page is not reachable until it
-      // is rewritten here.
-      {
-        source: "/moris/pair",
-        destination: "/moris/pair.html",
       },
     ];
   },
@@ -38,12 +28,10 @@ const nextConfig: NextConfig = {
   // a crawler that parses the page; the header covers everything else that fetches the URL. The
   // first live verification (2026-09-08) found the tag present and the header empty. This route
   // only: the person consented to a public link, not to an indexed one.
+  // The unlisted deck. Never linked from any page, never in the sitemap, reachable by direct link
+  // only, and kept across the books-first pivot because that link is live in outreach already sent.
   async headers() {
     return [
-      {
-        source: "/moris/pair/:id",
-        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
-      },
       // Documents shared by direct link only (the investor deck), never linked from the site and never
       // in the sitemap. Unlisted, not secret: the repository is public.
       {
@@ -64,12 +52,42 @@ const nextConfig: NextConfig = {
         destination: "/resonance/book/the-two-clocks",
         permanent: true,
       },
-      // The open letter lives at /open-letter. /letter is the short form people will type or say,
-      // so it forwards there. Temporary on purpose: a short path may be wanted for something else
-      // later, and a permanent redirect is cached by browsers past any change of mind.
+      // BOOKS-FIRST PIVOT, 2026-09-19. The open letter, the compliance page and the MORIS wing were
+      // removed and archived. Google has crawled all of these, so they forward to the series rather
+      // than going dark across fifteen paths at once. TEMPORARY, every one of them: the material is
+      // archived rather than retired, and a permanent redirect is cached by browsers past any
+      // change of mind. If any of it comes back, these entries come out.
+      //
+      // /moris/chat is NOT here. It survives the pivot as a Resonance-lens novelty and is still
+      // rewritten above, so the wildcard below must not swallow it.
       {
         source: "/letter",
-        destination: "/open-letter",
+        destination: "/resonance",
+        permanent: false,
+      },
+      {
+        source: "/open-letter",
+        destination: "/resonance",
+        permanent: false,
+      },
+      {
+        source: "/open-letter/:path*",
+        destination: "/resonance",
+        permanent: false,
+      },
+      {
+        source: "/compliance",
+        destination: "/resonance",
+        permanent: false,
+      },
+      {
+        source: "/moris",
+        destination: "/resonance",
+        permanent: false,
+      },
+      {
+        source: "/moris/:path((?!chat$).*)",
+        destination: "/resonance",
         permanent: false,
       },
     ];
