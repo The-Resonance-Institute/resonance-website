@@ -6,7 +6,17 @@ import type { Metadata } from "next";
 // together, never one. Every figure traces to a record named in the sources list; no primitive
 // names, no em dash.
 
+// UNLISTED FROM 2026-09-20. The books-first pivot removed this letter from the site; the operator
+// then kept it reachable, because its URL and the PDF beside it went out in a great deal of outreach
+// and those links are still in people's inboxes. So it is treated exactly like the deck at /d/: no
+// link from any page, absent from the sitemap, noindex in this metadata AND as a response header
+// (next.config.ts), reachable by direct link only.
+//
+// UNLISTED IS NOT SECRET, and this path is guessable in a way the deck's is not. Google has already
+// crawled it, so noindex asks for removal rather than preventing discovery, and anyone who types the
+// URL gets the letter. That is the accepted trade for not breaking correspondence already sent.
 export const metadata: Metadata = {
+  robots: { index: false, follow: false },
   title: "We Built the Intelligence. We Never Built the Conscience.",
   description:
     "An open letter on the piece missing from artificial intelligence: a conscience outside the model, mechanical and deterministic, that no training run can wear away. One has been built, and it has results.",

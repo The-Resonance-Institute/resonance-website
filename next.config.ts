@@ -52,6 +52,18 @@ const nextConfig: NextConfig = {
         source: "/d/:path*",
         headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
       },
+      // The open letter, unlisted from 2026-09-20 for the same reason: the URL and the PDF beside it
+      // are live in outreach already sent. The meta tag covers a crawler that parses the page; this
+      // header covers the PDF, which has no metadata to carry one, and anything else that fetches
+      // either URL.
+      {
+        source: "/open-letter",
+        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
+      },
+      {
+        source: "/open-letter/:path*",
+        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
+      },
     ];
   },
 
@@ -75,19 +87,12 @@ const nextConfig: NextConfig = {
       // /moris/chat and /moris/pair are NOT here. Both survive the pivot and are still rewritten
       // above, so the wildcard below must spare them. It also has to spare /moris/pair/:id, the
       // shared-exchange route, or every link anyone has shared would forward to the book series.
+      // /open-letter and the PDF beside it are NOT redirected. Restored unlisted on 2026-09-20:
+      // those links went out in outreach and still have to resolve. /letter is the short form people
+      // were told to type, so it forwards there rather than to the series.
       {
         source: "/letter",
-        destination: "/resonance",
-        permanent: false,
-      },
-      {
-        source: "/open-letter",
-        destination: "/resonance",
-        permanent: false,
-      },
-      {
-        source: "/open-letter/:path*",
-        destination: "/resonance",
+        destination: "/open-letter",
         permanent: false,
       },
       {
