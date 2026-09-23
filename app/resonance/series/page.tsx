@@ -34,7 +34,7 @@ const trilogies: Trilogy[] = [
     numeral: "I",
     name: "Presence",
     line: "Presence as the ground of leadership: what leadership is before a word is spoken.",
-    art: "/trilogies/resonance.jpg", // shows the old trilogy name; awaiting regenerated art
+    art: "/trilogies/presence.jpg",
     books: [
       { n: 1, title: "Echoes of the Unseen", scale: "The self", cover: "/covers/book1.jpg" },
       { n: 2, title: "The Fields of Belonging", scale: "The community", cover: "/covers/book2.jpg" },

@@ -63,7 +63,7 @@ export default function ResonanceLanding() {
         </div>
         <div className="mt-5 flex gap-2.5 sm:gap-3">
           {[
-            ["resonance", "Presence"],
+            ["presence", "Presence"],
             ["transformation", "Transformation"],
             ["time", "Time"],
             ["sacred", "The Sacred"],
