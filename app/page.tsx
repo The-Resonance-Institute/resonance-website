@@ -19,13 +19,14 @@ export default function Home() {
           The Resonance Institute
         </p>
         <h1 className="mt-4 max-w-3xl font-serif text-4xl leading-tight text-ink sm:text-5xl">
-          A living philosophy, in fifteen manuscripts.
+          A living philosophy, in twelve volumes.
         </h1>
         <p className="mt-6 max-w-3xl font-serif text-xl font-light leading-relaxed text-ink">
-          The Resonance series carries one question through five trilogies: how a
-          person holds together, how a community holds together, and how the world
-          does. Each theme travels from the self outward, and each book can be read
-          on its own.
+          Four trilogies, twelve volumes, approximately one million words,
+          complete. The series carries one question throughout: how a person holds
+          together, how a community holds together, and how the world does. Each
+          theme travels from the self outward, and each volume can be read on its
+          own.
         </p>
         <div className="mt-8 flex flex-wrap gap-3">
           <Link
@@ -38,13 +39,13 @@ export default function Home() {
             href="/resonance/series"
             className="inline-flex items-center gap-1.5 rounded-full border border-line px-5 py-2.5 text-sm font-medium text-muted transition-colors hover:border-accent hover:text-accent"
           >
-            All {books.length} manuscripts <span aria-hidden>&rarr;</span>
+            All {books.length} volumes <span aria-hidden>&rarr;</span>
           </Link>
         </div>
       </section>
 
       <section className="border-t border-line py-12">
-        <h2 className="font-serif text-2xl text-ink">The five trilogies</h2>
+        <h2 className="font-serif text-2xl text-ink">The four trilogies</h2>
         <div className="mt-6 grid gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
           {trilogies.map((t) => (
             <Link
@@ -83,7 +84,7 @@ export default function Home() {
         </h2>
         <p className="mt-5 max-w-3xl font-serif text-xl font-light leading-relaxed text-ink">
           Put something you are actually weighing to a mechanical gate built on the
-          fifteen manuscripts. It derives a judgment from the philosophy in them, and
+          twelve volumes. It derives a judgment from the philosophy in them, and
           the model that writes your answer is given what it found.
         </p>
         <p className="mt-4 max-w-3xl leading-relaxed text-muted">

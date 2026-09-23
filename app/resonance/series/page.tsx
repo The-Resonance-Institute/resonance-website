@@ -9,9 +9,9 @@ const trilogySlug = (name: string) =>
   canonTrilogies.find((t) => t.name === name)?.slug;
 
 export const metadata: Metadata = {
-  title: "The Fifteen Manuscripts",
+  title: "The Twelve Volumes",
   description:
-    "The Resonance series in full: fifteen manuscripts across five trilogies, each theme carried from the self to the community to the world. All fifteen are written, over 1.2 million words; none is published yet.",
+    "The Resonance series in full: four trilogies, twelve volumes, approximately one million words, complete. Each theme is carried from the self to the community to the world. All twelve are written; none is published yet.",
 };
 
 type Book = {
@@ -74,17 +74,6 @@ const trilogies: Trilogy[] = [
       { n: 12, title: "The Mercy of Illumination", scale: "The world", cover: "/covers/book12.jpg" },
     ],
   },
-  {
-    numeral: "V",
-    name: "The Grammar of God",
-    line: "The capstone. The whole work re-read as language, the parts of speech by which a life is composed.",
-    art: "/trilogies/grammar.jpg",
-    books: [
-      { n: 13, title: "Article and Noun", cover: "/covers/book13.jpg" },
-      { n: 14, title: "Verb and Adjective", cover: "/covers/book14.jpg" },
-      { n: 15, title: "Conjunction and Punctuation", cover: "/covers/book15.jpg" },
-    ],
-  },
 ];
 
 function Cover({ book }: { book: Book }) {
@@ -104,7 +93,12 @@ function Cover({ book }: { book: Book }) {
 export default function Series() {
   return (
     <div className="mx-auto max-w-5xl px-6">
-      <section className="grid items-center gap-10 pt-16 pb-10 sm:grid-cols-[1fr_260px] sm:pt-20">
+      {/* THE COMPOSITE VOLUME IS PULLED, 2026-09-22. /trilogies/all.jpg has "FIVE TRILOGIES" and
+          "FIFTEEN BOOKS" set into the artwork, and its five objects stand for the five trilogies, so
+          it cannot be re-captioned into a twelve-volume image. It would contradict every line of
+          copy beside it. The file is archived, not deleted; restore this column when four-trilogy
+          art exists. The hero is a single column until then. */}
+      <section className="pt-16 pb-10 sm:pt-20">
         <div>
           <Link
             href="/resonance"
@@ -113,25 +107,13 @@ export default function Series() {
             <span aria-hidden>&larr;</span> The Series
           </Link>
           <h1 className="mt-5 font-serif text-4xl leading-tight text-ink sm:text-5xl">
-            The fifteen manuscripts.
+            The twelve volumes.
           </h1>
           <p className="mt-6 max-w-xl font-serif text-xl font-light leading-relaxed text-ink">
-            One work in five trilogies. Each trilogy carries a single theme across
-            three scales, from the self to the community to the world. The fifth
-            re-reads the whole as language.
+            Four trilogies, twelve volumes, approximately one million words,
+            complete. Each trilogy carries a single theme across three scales, from
+            the self to the community to the world.
           </p>
-        </div>
-        <div className="mx-auto w-52 sm:w-full">
-          <div className="relative aspect-[2/3] overflow-hidden rounded-xl border border-line shadow-md">
-            <Image
-              src="/trilogies/all.jpg"
-              alt="Five Trilogies, A Living Philosophy, Fifteen Manuscripts"
-              fill
-              sizes="(max-width: 640px) 208px, 260px"
-              className="object-cover"
-              priority
-            />
-          </div>
         </div>
       </section>
 

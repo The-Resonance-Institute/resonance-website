@@ -311,3 +311,91 @@ def test_the_open_letter_is_unlisted_not_deleted():
     for f in live_files():
         text = strip_comments(f.read_text(encoding="utf-8", errors="ignore"))
         assert 'href="/open-letter' not in text and 'href="/letter"' not in text,             f"{f.relative_to(ROOT)} links the unlisted open letter"
+
+
+# --- the Canon is twelve volumes, 2026-09-22 -----------------------------------------------------
+
+SERIES_LINE = "four trilogies, twelve volumes, approximately one million words, complete"
+GRAMMAR_SLUGS = ("grammar-of-god", "article-and-noun", "verb-and-adjective",
+                 "conjunction-and-punctuation")
+
+
+def test_the_canon_data_holds_twelve_volumes_in_four_trilogies():
+    """The structural fact. Everything else on the site derives from this file: the routes, the
+    sitemap, the trilogy grid and the volume count in the home page CTA."""
+    canon = json.loads((ROOT / "content" / "canon.json").read_text(encoding="utf-8"))
+    assert len(canon["books"]) == 12, f"{len(canon['books'])} books in canon.json, expected 12"
+    assert len(canon["trilogies"]) == 4, f"{len(canon['trilogies'])} trilogies, expected 4"
+    assert [b["n"] for b in canon["books"]] == list(range(1, 13)), "book numbering is not 1..12"
+
+    # nothing may still point at the removed trilogy from inside the data
+    for t in canon["trilogies"]:
+        assert t["slug"] not in GRAMMAR_SLUGS, f"the removed trilogy is back: {t['slug']}"
+        for s in t["bookSlugs"]:
+            assert s not in GRAMMAR_SLUGS, f"{t['slug']} still lists {s}"
+    for b in canon["books"]:
+        assert b["slug"] not in GRAMMAR_SLUGS, f"a removed volume is back: {b['slug']}"
+        assert b.get("trilogySlug") != "grammar-of-god", b["slug"]
+
+
+def test_no_reader_facing_surface_mentions_the_removed_trilogy():
+    """The operator's words: no mention, no listing, no "coming later", no footnote. It is not part
+    of the published shape of the series, so a reader never encounters it.
+
+    The archive and the frozen zones are excluded, as everywhere else in this file: the open letter
+    is frozen by ruling, and archive/ exists to hold exactly this."""
+    hits = []
+    for p in live_files(include_unlisted=False):
+        text = strip_comments(p.read_text(encoding="utf-8", errors="ignore")).lower()
+        for term in ("grammar of god", "grammar-of-god", "article and noun",
+                     "verb and adjective", "conjunction and punctuation"):
+            if term in text:
+                hits.append(f"{p.relative_to(ROOT)}: {term!r}")
+    assert not hits, ("the Grammar of God trilogy reappeared on a reader-facing surface: "
+                      + "; ".join(sorted(set(hits))))
+
+
+def test_no_reader_facing_surface_still_says_fifteen_or_five_trilogies():
+    """The counts move together. A page saying "fifteen" beside data holding twelve is the seam a
+    reader notices first."""
+    hits = []
+    for p in live_files(include_unlisted=False):
+        text = strip_comments(p.read_text(encoding="utf-8", errors="ignore")).lower()
+        for term in ("fifteen", "five trilogies", "1.2 million", "1,236,478", "1.24 million"):
+            if term in text:
+                hits.append(f"{p.relative_to(ROOT)}: {term!r}")
+    assert not hits, "a reader-facing surface still carries the old counts: " + "; ".join(sorted(set(hits)))
+
+
+def test_the_series_line_is_used_verbatim():
+    """The operator asked for this phrasing verbatim so it reads the same everywhere it appears.
+    Checked as a whole string: a paraphrase in one place is how a set of surfaces starts drifting."""
+    found = [p.relative_to(ROOT).as_posix() for p in live_files(include_unlisted=False)
+             if SERIES_LINE in " ".join(
+                 p.read_text(encoding="utf-8", errors="ignore").lower().split())]
+    assert len(found) >= 4, (
+        f"the series line appears verbatim in only {len(found)} files ({found}); it is the "
+        f"description used wherever the series is described to a reader")
+
+
+def test_the_removed_routes_forward_rather_than_going_dark():
+    """All four were live and in the sitemap. A 404 across four crawled paths is a worse signal than
+    a redirect, and the material is withheld rather than retired."""
+    cfg = (ROOT / "next.config.ts").read_text(encoding="utf-8")
+    for slug in GRAMMAR_SLUGS:
+        route = (f"/resonance/trilogy/{slug}" if slug == "grammar-of-god"
+                 else f"/resonance/book/{slug}")
+        assert f'source: "{route}"' in cfg, f"{route} has no redirect and will 404"
+
+
+def test_the_removed_art_is_archived_not_deleted():
+    """Including the composite: /trilogies/all.jpg has FIVE TRILOGIES and FIFTEEN BOOKS set into the
+    artwork, so it cannot be re-captioned into a twelve-volume image and was pulled from the page.
+    It is kept so it can be replaced rather than recreated from nothing."""
+    a = ARCHIVE / "site-2026-09-22-grammar-of-god"
+    for rel in ("covers/book13.jpg", "covers/book14.jpg", "covers/book15.jpg",
+                "trilogies/grammar.jpg", "trilogies/all.jpg"):
+        assert (a / rel).exists(), f"archive is missing {rel}"
+    for gone in ("public/covers/book13.jpg", "public/trilogies/grammar.jpg",
+                 "public/trilogies/all.jpg"):
+        assert not (ROOT / gone).exists(), f"{gone} is still being served"

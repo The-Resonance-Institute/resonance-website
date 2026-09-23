@@ -95,6 +95,33 @@ const nextConfig: NextConfig = {
         destination: "/open-letter",
         permanent: false,
       },
+      // THE GRAMMAR OF GOD TRILOGY, removed from all forward-facing series information on
+      // 2026-09-22 by operator ruling. The Canon is twelve volumes. The manuscripts and the
+      // copyright are unaffected and it remains a follow-on after the twelve are in the world, but
+      // it does not appear anywhere a reader can see.
+      //
+      // These four routes were live and in the sitemap, so they forward rather than going dark.
+      // TEMPORARY, like the pivot's redirects: the material is withheld, not retired.
+      {
+        source: "/resonance/trilogy/grammar-of-god",
+        destination: "/resonance",
+        permanent: false,
+      },
+      {
+        source: "/resonance/book/article-and-noun",
+        destination: "/resonance",
+        permanent: false,
+      },
+      {
+        source: "/resonance/book/verb-and-adjective",
+        destination: "/resonance",
+        permanent: false,
+      },
+      {
+        source: "/resonance/book/conjunction-and-punctuation",
+        destination: "/resonance",
+        permanent: false,
+      },
       {
         source: "/compliance",
         destination: "/resonance",

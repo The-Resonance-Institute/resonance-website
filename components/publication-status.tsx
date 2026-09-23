@@ -2,8 +2,12 @@ import Link from "next/link";
 
 // The publication status of the Resonance series, stated in one place so every
 // surface says the same thing. The manuscripts are written; the editorial work
-// and publication have not happened. No year, no date, by the operator's word. Word count is measured from the manuscripts:
-// 1,236,478 across the fifteen books.
+// and publication have not happened. No year, no date, by the operator's word.
+//
+// THE SERIES LINE IS VERBATIM, by the operator's ruling of 2026-09-22: "four trilogies, twelve
+// volumes, approximately one million words, complete." It reads the same in every place it appears.
+// The measured figure behind "approximately one million" is 970,224 words across Books I-XII,
+// counted from the manuscripts; it is deliberately not printed, because the phrase is the ruling.
 
 export function PublicationStatus() {
   return (
@@ -15,8 +19,8 @@ export function PublicationStatus() {
         Written. Not yet published.
       </h2>
       <p className="mt-3 leading-relaxed text-muted">
-        All fifteen manuscripts are written: five trilogies, over 1.2 million
-        words. None has been published yet. Book one,{" "}
+        Four trilogies, twelve volumes, approximately one million words,
+        complete. None has been published yet. Book one,{" "}
         <span className="italic text-ink">Echoes of the Unseen</span>, is coming
         soon.
       </p>
@@ -35,10 +39,10 @@ export function PublicationStatus() {
 export function PublicationNote() {
   return (
     <p className="text-sm leading-relaxed text-muted">
-      <span className="text-ink">Written, not yet published.</span> All fifteen
-      manuscripts are written, over 1.2 million words; none has been published
-      yet. Book one, <span className="italic">Echoes of the Unseen</span>, is
-      coming soon.
+      <span className="text-ink">Written, not yet published.</span> Four
+      trilogies, twelve volumes, approximately one million words, complete; none
+      has been published yet. Book one,{" "}
+      <span className="italic">Echoes of the Unseen</span>, is coming soon.
     </p>
   );
 }

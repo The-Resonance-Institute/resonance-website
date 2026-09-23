@@ -6,7 +6,7 @@ import { PublicationStatus } from "@/components/publication-status";
 export const metadata: Metadata = {
   title: "The Series",
   description:
-    "The Resonance series is a living philosophy in fifteen manuscripts across five trilogies, each theme carried from the self to the community to the world. All fifteen are written; none is published yet. It is also the substrate beneath MORIS.",
+    "The Resonance series is four trilogies, twelve volumes, approximately one million words, complete. Each theme is carried from the self to the community to the world. All twelve are written; none is published yet.",
 };
 
 const trilogies = [
@@ -29,11 +29,6 @@ const trilogies = [
     n: "IV",
     name: "The Sacred",
     line: "What is owed to the depth of things. Reverence as a capacity.",
-  },
-  {
-    n: "V",
-    name: "The Grammar of God",
-    line: "The capstone. The whole work re-read as language, the parts of speech by which a life is composed.",
   },
 ];
 
@@ -61,7 +56,7 @@ export default function ResonanceLanding() {
 
       <Link href="/resonance/series" className="group block border-t border-line pt-8">
         <div className="flex items-baseline justify-between gap-4">
-          <h2 className="font-serif text-2xl text-ink">The fifteen manuscripts</h2>
+          <h2 className="font-serif text-2xl text-ink">The twelve volumes</h2>
           <span className="shrink-0 text-sm font-medium text-accent transition-colors group-hover:text-ink">
             Open the series <span aria-hidden>&rarr;</span>
           </span>
@@ -72,7 +67,6 @@ export default function ResonanceLanding() {
             ["transformation", "Transformation"],
             ["time", "Time"],
             ["sacred", "The Sacred"],
-            ["grammar", "The Grammar of God"],
           ].map(([slug, name]) => (
             <div
               key={slug}
@@ -93,11 +87,10 @@ export default function ResonanceLanding() {
       <section className="mt-12 border-t border-line pt-10">
         <h2 className="font-serif text-2xl text-ink">The shape of it</h2>
         <p className="mt-3 leading-relaxed text-muted">
-          One work, fifteen manuscripts, five trilogies. Each trilogy takes a single
-          theme and carries it across three scales: the self, then the community,
-          then the largest frame of civilization and world. Five themes, three
-          scales each. The fifth trilogy is the capstone, which re-reads the whole
-          as language.
+          Four trilogies, twelve volumes, approximately one million words,
+          complete. Each trilogy takes a single theme and carries it across three
+          scales: the self, then the community, then the largest frame of
+          civilization and world. Four themes, three scales each.
         </p>
       </section>
 
@@ -120,7 +113,7 @@ export default function ResonanceLanding() {
           href="/resonance/series"
           className="inline-flex items-center gap-1.5 text-sm font-medium text-accent transition-colors hover:text-ink"
         >
-          See all fifteen manuscripts, with covers <span aria-hidden>&rarr;</span>
+          See all twelve volumes, with covers <span aria-hidden>&rarr;</span>
         </Link>
       </div>
 
