@@ -457,3 +457,26 @@ def test_every_asset_canon_points_at_actually_exists():
 
     walk(canon)
     assert not missing, ("canon.json names assets that are not in public/: " + "; ".join(missing))
+
+
+def test_tap_targets_are_thumb_sized():
+    """THE DEFECT THIS CATCHES, found live on 2026-09-17 in the header and on 2026-09-23 in the
+    footer.
+
+    Both rows of links were 20 pixels tall on a phone. Nothing overflowed, nothing was hidden and
+    nothing looked wrong in a screenshot; the links were simply hard to hit, and a wrapped row sat
+    almost flush against the row above it. The fix is one class, py-3, which takes a 14 pixel link
+    to about 44 pixels, with a negative vertical margin on the row so the bar keeps its height on a
+    pointer.
+
+    It is one class, so it is one careless edit from being gone again, and its absence is invisible
+    on a desktop. Hence a test rather than a comment.
+    """
+    for rel in ("components/site-nav.tsx", "components/site-footer.tsx"):
+        text = (ROOT / rel).read_text(encoding="utf-8")
+        anchors = re.findall(r'className="([^"]*(?:transition-colors hover:text-accent)[^"]*)"', text)
+        assert anchors, f"{rel}: found no styled links; has the markup changed shape?"
+        thin = [c for c in anchors if "py-3" not in c and "text-ink" not in c]
+        assert not thin, (
+            f"{rel}: link(s) without py-3, so about 20 pixels tall on a phone instead of 44: {thin}"
+        )
