@@ -2,12 +2,12 @@
   "trilogies": [
     {
       "numeral": "I",
-      "slug": "resonance",
-      "name": "Resonance",
+      "slug": "presence",
+      "name": "Presence",
       "art": "/trilogies/resonance.jpg",
-      "heading": "TRILOGY I · THE RESONANCE TRILOGY",
+      "heading": "TRILOGY I · THE PRESENCE TRILOGY",
       "summary": [
-        "The Resonance Trilogy is the opening movement of the Resonance series. It begins with a single human life, widens into the field created between people, and finally asks whether what is formed there can endure beyond the lives that formed it.",
+        "Presence is the opening movement of the series. It begins with a single human life, widens into the field created between people, and finally asks whether what is formed there can endure beyond the lives that formed it.",
         "Book I begins with Tuning. Echoes of the Unseen asks what must become coherent within a person before leadership can become trustworthy outside them. Resonance begins beneath technique, in the alignment of inner and outer life, and develops through authenticity, resilience, promise, listening, questions, humility, vision, trust, courage, adaptability, and wisdom.",
         "Book II moves into Aligning. The Fields of Belonging takes the tuned individual into community and culture. Here leadership is no longer principally the conduct of one person. It becomes the shaping of conditions: belonging, shared meaning, ritual, covenant, cadence, repair, productive conflict, collective learning, and the wisdom that becomes possible when many voices can remain distinct without becoming divided.",
         "Book III becomes Shaping. The Covenant of the Future extends resonance beyond the present community and into civilization. Story, memory, money, power, repair, the earth, education, technology, and succession become forms of stewardship. Leadership is tested by whether meaning can survive the leader, whether promises can travel farther than the people who made them, and whether those not yet born are treated as participants in decisions made today.",
@@ -37,7 +37,7 @@
           "“To the unborn, we give our fidelity.”",
           "“To the living, we give our courage.”"
         ],
-        "source": "The Resonance Trilogy"
+        "source": "The Presence Trilogy"
       },
       "bookSlugs": [
         "echoes-of-the-unseen",
@@ -180,8 +180,8 @@
       "title": "Echoes of the Unseen",
       "subtitle": "Resonance and the Self · Tuning",
       "scale": "The self",
-      "trilogySlug": "resonance",
-      "trilogyName": "Resonance",
+      "trilogySlug": "presence",
+      "trilogyName": "Presence",
       "cover": "/covers/book1.jpg",
       "description": [
         "Echoes of the Unseen begins the Resonance series with a proposition that will govern everything that follows: leadership starts before the first word is spoken.",
@@ -212,8 +212,8 @@
       "title": "The Fields of Belonging",
       "subtitle": "Resonance and the Community · Aligning",
       "scale": "The community",
-      "trilogySlug": "resonance",
-      "trilogyName": "Resonance",
+      "trilogySlug": "presence",
+      "trilogyName": "Presence",
       "cover": "/covers/book2.jpg",
       "description": [
         "If Echoes of the Unseen asks how a person becomes resonant, The Fields of Belonging asks what happens when resonant lives begin to share a room.",
@@ -247,11 +247,11 @@
       "title": "The Covenant of the Future",
       "subtitle": "Resonance and the Civilization · Shaping",
       "scale": "The world",
-      "trilogySlug": "resonance",
-      "trilogyName": "Resonance",
+      "trilogySlug": "presence",
+      "trilogyName": "Presence",
       "cover": "/covers/book3.jpg",
       "description": [
-        "The Covenant of the Future asks the Resonance Trilogy’s most demanding question: What do we owe to people who cannot yet speak to us?",
+        "The Covenant of the Future asks Presence’s most demanding question: What do we owe to people who cannot yet speak to us?",
         "Having moved from the self to the community, the series now enlarges resonance to the scale of civilization and time. Leadership becomes stewardship not simply of present relationships but of inheritance: the stories, institutions, resources, symbols, knowledge, technologies, landscapes, and moral obligations that one generation receives and eventually hands to another.",
         "The book develops this responsibility through nine stewardships: custody of story and symbol, architectures of memory, measure and money, power and covenant, repair and foresight, earth covenant, education and initiation, technology and wonder, and bequest and renewal. Each asks the same underlying question in a different form: are we consuming what has been entrusted to us, or shaping it so that life and meaning can continue after us?",
         "The cathedral, the planted oak, the ledger, the bell, the compass, the river, the classroom, and the inherited tool all become instruments of continuity. The future is not treated as an abstraction. It is made morally present in choices about budgets, buildings, institutions, ecosystems, education, authority, and technology.",

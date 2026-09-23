@@ -102,6 +102,14 @@ const nextConfig: NextConfig = {
       //
       // These four routes were live and in the sitemap, so they forward rather than going dark.
       // TEMPORARY, like the pivot's redirects: the material is withheld, not retired.
+      // THE FIRST TRILOGY IS PRESENCE, 2026-09-23. It was Resonance, and that path is already
+      // indexed, so this one is PERMANENT rather than temporary: the trilogy did not go away, it
+      // was renamed, and the old URL should stop being requested rather than be kept alive.
+      {
+        source: "/resonance/trilogy/resonance",
+        destination: "/resonance/trilogy/presence",
+        permanent: true,
+      },
       {
         source: "/resonance/trilogy/grammar-of-god",
         destination: "/resonance",

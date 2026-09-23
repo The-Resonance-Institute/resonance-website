@@ -32,9 +32,9 @@ type Trilogy = {
 const trilogies: Trilogy[] = [
   {
     numeral: "I",
-    name: "Resonance",
+    name: "Presence",
     line: "Presence as the ground of leadership: what leadership is before a word is spoken.",
-    art: "/trilogies/resonance.jpg",
+    art: "/trilogies/resonance.jpg", // shows the old trilogy name; awaiting regenerated art
     books: [
       { n: 1, title: "Echoes of the Unseen", scale: "The self", cover: "/covers/book1.jpg" },
       { n: 2, title: "The Fields of Belonging", scale: "The community", cover: "/covers/book2.jpg" },
@@ -207,7 +207,7 @@ export default function Series() {
         </h2>
         <p className="mt-3 max-w-2xl leading-relaxed text-muted">
           <span className="italic text-ink">Echoes of the Unseen</span>, the
-          opening volume of the Resonance trilogy, is coming soon. The rest of the
+          opening volume of Presence, is coming soon. The rest of the
           series follows it.
         </p>
         <Link
