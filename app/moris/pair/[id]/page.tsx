@@ -136,11 +136,19 @@ export default async function SharedPair({ params }: { params: Promise<{ id: str
       </section>
 
       <section className="mt-12 border-t border-line pt-8">
+        {/* POINTS OUT, NOT AT A REDIRECT (2026-09-23). This invited the reader to run their own
+            comparison against a seat of their picking, and pointed at /moris/pair, which is
+            retired. Left alone the link would still have resolved, because the redirect catches
+            it, while the invitation beside it became false: askmoris.ai does not offer a choice
+            of seat. A link that works only through a redirect is the 2026-09-19 failure again.
+            Both the destination and the wording are corrected here. */}
         <a
-          href="/moris/pair"
+          href="https://askmoris.ai"
+          target="_blank"
+          rel="noopener noreferrer"
           className="inline-flex items-center gap-1.5 text-sm font-medium text-accent transition-colors hover:text-ink"
         >
-          Run your own, against the model you choose <span aria-hidden>&rarr;</span>
+          Ask MORIS yourself at askmoris.ai <span aria-hidden>&rarr;</span>
         </a>
         <p className="mt-6 max-w-2xl text-sm leading-relaxed text-muted">
           Shared by the person who asked it, on their own say-so. This page deletes itself on{" "}

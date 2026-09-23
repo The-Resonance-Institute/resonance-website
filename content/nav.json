@@ -1,5 +1,5 @@
 {
-  "note": "THE SINGLE SOURCE FOR THE SITE HEADER. Edit this file and nothing else. components/site-nav.tsx imports it directly; the static pages under public/moris/ have their header block GENERATED from it by scripts/sync_static_nav.py, because they are served as plain HTML with deliberately isolated stylesheets and cannot import a React component. Run that script after any change here, or the test will tell you to.",
+  "note": "THE SINGLE SOURCE FOR THE SITE HEADER. Edit this file and nothing else. components/site-nav.tsx imports it directly. An href starting with http is rendered as an outbound anchor in a new tab, not a Next Link; that is how Ask MORIS is reached, and there is deliberately no second instance of it inside this repository. scripts/sync_static_nav.py has no targets: the static MORIS demos it used to generate were archived on 2026-09-23 when Ask MORIS became a single outbound link.",
   "links": [
     {
       "href": "/resonance",
@@ -18,8 +18,8 @@
       "label": "Contact"
     },
     {
-      "href": "/resonance/counsel",
-      "label": "Resonant Counsel"
+      "href": "https://askmoris.ai",
+      "label": "Ask MORIS"
     }
   ]
 }

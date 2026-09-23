@@ -12,10 +12,10 @@ const staticRoutes: { path: string; priority: number }[] = [
   // came out of the sitemap with the pages. Every one of those URLs now redirects to /resonance
   // (next.config.ts), so a crawler that already has them gets a forward rather than a 404.
   //
-  // 2026-09-23: /moris/chat and /moris/pair came out too. The MORIS demos are frozen and stay
-  // reachable at their own URLs, but they are no longer part of the series site and the series
-  // pages do not link to them, so they do not belong in this sitemap.
-  { path: "/resonance/counsel", priority: 0.7 },
+  // 2026-09-23, second pass: /resonance/counsel came out with the page. The companion was
+  // evaluated and could not distinguish a question the books answer from one they do not, so it
+  // was never built and the page describing it came down. /moris/chat and /moris/pair came out
+  // earlier the same day and now forward to askmoris.ai, which is the one instance of Ask MORIS.
   { path: "/resonance", priority: 0.9 },
   { path: "/resonance/series", priority: 0.8 },
   { path: "/about", priority: 0.6 },

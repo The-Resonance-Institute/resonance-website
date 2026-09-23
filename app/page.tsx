@@ -5,9 +5,9 @@ import { books, trilogies } from "@/lib/canon";
 // series equal cards, with MORIS carrying the accent and the heavier border. The site is now a books
 // site. The series is the whole front door; there is no second body of work on it.
 //
-// Resonant Counsel is the one companion section, and it is a feature of the twelve volumes rather
-// than a product with an identity of its own. The MORIS demos are frozen and no longer linked
-// from any series page. Everything removed is under archive/site-2026-09-19/ and the tag
+// 2026-09-23: Resonant Counsel came down and Ask MORIS became a single outbound link to
+// askmoris.ai. The static MORIS demos that used to live under public/moris/ are archived and
+// their clean URLs now forward there. Everything removed is under archive/ and the tag
 // pre-books-pivot-2026-09-19.
 
 export default function Home() {
@@ -65,42 +65,41 @@ export default function Home() {
         </div>
       </section>
 
-      {/* RESONANT COUNSEL, 2026-09-23. This is a rewrite, not a relabel. The section here sold a
-          mechanical gate that derives a judgment, which is the MORIS pitch and the wrong promise on
-          a book site. What it describes now is what the thing is: a reader brings something they are
-          weighing, a model answers bound to the twelve volumes, and the citation shows where the
-          answer came from.
+      {/* ASK MORIS, 2026-09-23. Resonant Counsel is gone from this site and nothing replaces it
+          here. The companion was evaluated on 09-23 and the retrieval it would have run could not
+          tell a question the books answer from one they do not: the worst on-topic question scored
+          below the best question about roasting a chicken. Rather than ship a weaker promise, the
+          page came down. The index and the evaluation are kept as evidence.
 
-          The links to /moris/chat, /moris/pair and askmoris.ai are gone. Those surfaces are frozen
-          and keep the old series title and volume count; the series pages simply stop pointing at
-          them. */}
+          What sits here instead is a link OUT. Ask MORIS runs at askmoris.ai and there is no second
+          instance of it in this repository. It is a demonstration that ends by pointing at a book,
+          which is the only reason it is on a book site at all. The twelve volumes are the product. */}
       <section className="border-t border-line py-12">
         <p className="text-xs font-medium uppercase tracking-[0.18em] text-accent">
-          A feature of the twelve volumes
+          A demonstration
         </p>
         <h2 className="mt-4 font-serif text-3xl leading-tight text-ink sm:text-4xl">
-          Resonant Counsel
+          Ask MORIS
         </h2>
         <p className="mt-5 max-w-3xl font-serif text-xl font-light leading-relaxed text-ink">
-          Counsel drawn from the twelve volumes, with the volume and passage
-          behind every answer.
+          An AI bound to the Resonance philosophy.
         </p>
         <p className="mt-4 max-w-3xl leading-relaxed text-muted">
-          Bring something you are weighing. A model answers you bound to the
-          series, and the citation shows which volume and which passage it drew
-          on, so you can read the passage yourself and judge whether the answer
-          was faithful to it. When the books do not address a question, it says
-          so.
+          It answers from one body of thought, and it shows you which principles
+          applied and where they came from in the books.
         </p>
         <div className="mt-7 flex flex-wrap gap-3">
-          <Link
-            href="/resonance/counsel"
+          <a
+            href="https://askmoris.ai"
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-ink"
           >
-            Resonant Counsel <span aria-hidden>&rarr;</span>
-          </Link>
+            Ask MORIS at askmoris.ai <span aria-hidden>&rarr;</span>
+          </a>
         </div>
       </section>
+
       <section className="border-t border-line py-12">
         <p className="max-w-3xl font-serif text-lg font-light italic leading-snug text-ink sm:text-xl">
           One author, one substrate. The series is written as a single body of

@@ -48,16 +48,33 @@ export function SiteNav() {
             carry vertical padding, which makes each target about 44 pixels and separates the rows,
             and the negative vertical margin keeps the header the height it was on a pointer.
             The static demo pages in public/moris/ carry their own copy of this nav. */}
+        {/* ONE INSTANCE, ONE URL (2026-09-23). Ask MORIS lives at askmoris.ai and nowhere else.
+            It is not rebuilt inside this repository, and this entry is a plain outbound anchor
+            rather than a Next Link, because a Link would client-side route and 404. A new tab,
+            because the visitor is reading about books and we are handing them a demonstration,
+            not sending them away from the series. */}
         <div className="-my-2 flex flex-wrap items-center gap-x-5 gap-y-1 text-sm text-muted sm:gap-x-6">
-          {links.map((l) => (
-            <Link
-              key={l.href}
-              href={l.href}
-              className="py-3 transition-colors hover:text-accent"
-            >
-              {l.label}
-            </Link>
-          ))}
+          {links.map((l) =>
+            l.href.startsWith("http") ? (
+              <a
+                key={l.href}
+                href={l.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="py-3 transition-colors hover:text-accent"
+              >
+                {l.label}
+              </a>
+            ) : (
+              <Link
+                key={l.href}
+                href={l.href}
+                className="py-3 transition-colors hover:text-accent"
+              >
+                {l.label}
+              </Link>
+            ),
+          )}
         </div>
       </nav>
     </header>

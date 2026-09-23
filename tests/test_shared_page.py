@@ -51,8 +51,20 @@ def test_the_preview_is_generic_and_carries_nothing_of_theirs():
 
 
 def test_the_page_renders_the_whole_exchange_and_the_way_to_run_your_own():
+    """THE WAY TO RUN YOUR OWN MOVED OFF-SITE, 2026-09-23.
+
+    This asserted href="/moris/pair". That route is retired and now redirects to askmoris.ai, so
+    the old link would still have worked and the guard would still have passed, while the sentence
+    beside it ("against the model you choose") became false: the seat is not the visitor's to pick
+    there. A link that resolves through a redirect is the exact failure this suite already learned
+    about on 2026-09-19, so the page points at the one live instance directly.
+    """
     s = src()
     for needle in ("message", "raw_answer", "governed_answer", "verdict", "concern_mass", "blank_count",
-                   "expires_at", 'href="/moris/pair"', "Output is generated automatically"):
+                   "expires_at", 'href="https://askmoris.ai"', "Output is generated automatically"):
         assert needle in s, needle
+    assert 'href="/moris/pair"' not in s, (
+        "the shared page links at a retired route that only resolves because a redirect catches it")
+    assert "model you choose" not in s, (
+        "the page still promises a choice of seat, which askmoris.ai does not offer")
     assert "notFound()" in s, "an unknown or expired id is a 404, not an empty page"

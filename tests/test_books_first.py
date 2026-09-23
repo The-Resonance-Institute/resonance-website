@@ -122,36 +122,94 @@ def test_the_archive_actually_holds_what_was_removed():
         assert (a / expected).exists(), f"archive is missing {expected}"
 
 
-def test_ask_moris_survives_and_is_reachable():
-    """The one MORIS surface kept. It is served from public/ and needs its rewrite entry: adding the
-    file is not adding the page, which this site has learned once already."""
-    chat = ROOT / "public" / "moris" / "chat.html"
-    assert chat.exists(), "the surviving chat surface is missing"
-    cfg = (ROOT / "next.config.ts").read_text(encoding="utf-8")
-    assert '"/moris/chat"' in cfg and '"/moris/chat.html"' in cfg, \
-        "/moris/chat has no rewrite, so the clean URL will 404 while the .html answers 200"
+def test_ask_moris_is_one_outbound_instance_and_is_not_rebuilt_here():
+    """ONE INSTANCE, ONE URL. Operator ruling, 2026-09-23.
+
+    Ask MORIS runs at askmoris.ai. This repository must not hold a second copy of it, and every
+    reference to it from a live page must be an outbound link to that one instance.
+
+    THE FAILURE THIS PREVENTS is the easy one: someone rebuilds the chat surface here "just to have
+    it on the site", and now there are two, drifting, with two sets of copy to keep honest and two
+    places a stale claim can survive. That is how three copies of the site header came to exist,
+    which cost a live page on 2026-09-19.
+    """
+    assert not (ROOT / "public" / "moris").exists(), (
+        "public/moris/ is back. The static demos were archived on 2026-09-23; Ask MORIS is a link "
+        "out, not a page served from here.")
+
+    outbound = []
+    for f in live_files():
+        if f.suffix not in {".tsx", ".html"}:
+            continue
+        text = f.read_text(encoding="utf-8", errors="ignore")
+        for m in re.finditer(r"<a\b[^>]*askmoris\.ai[^>]*>", text, re.S):
+            outbound.append((f.relative_to(ROOT), m.group(0)))
+        if re.search(r"<Link\b[^>]*askmoris", text, re.S):
+            raise AssertionError(
+                f"{f.relative_to(ROOT)} reaches askmoris.ai through a Next Link. A Link "
+                f"client-side routes and will 404 on an external host; use a plain anchor.")
+    assert outbound, "nothing on the site links to askmoris.ai any more"
+    for where, tag in outbound:
+        assert 'target="_blank"' in tag, f"{where}: outbound Ask MORIS link does not open a new tab"
+        assert "noopener" in tag, f"{where}: outbound Ask MORIS link is missing rel=noopener"
+
+    nav = json.loads((ROOT / "content" / "nav.json").read_text(encoding="utf-8"))["links"]
+    ext = [l["href"] for l in nav if l["href"].startswith("http")]
+    assert ext == ["https://askmoris.ai"], (
+        f"the nav's outbound entries are not exactly the one Ask MORIS link: {ext}")
+    src = (ROOT / "components" / "site-nav.tsx").read_text(encoding="utf-8")
+    assert 'startsWith("http")' in src, (
+        "site-nav.tsx no longer distinguishes an outbound href, so the Ask MORIS entry renders as "
+        "a Next Link and 404s")
 
 
-def test_the_moris_wildcard_redirect_does_not_swallow_the_chat_page():
-    """The redirect that forwards the removed wing must not catch the page that survived it."""
+def test_the_moris_wildcard_spares_only_the_shared_exchanges():
+    """The wildcard forwards the retired MORIS wing. Exactly one thing must escape it.
+
+    /moris/pair/:id is a SHARED EXCHANGE. A visitor consented to a public link to their own
+    exchange and that link was sent. Forwarding it breaks a promise made to a person, which is a
+    different act from retiring a demo, so the route keeps serving.
+
+    /moris/chat and /moris/pair are no longer spared, and that is the 2026-09-23 change: they
+    forward to askmoris.ai rather than being served from here.
+    """
     cfg = (ROOT / "next.config.ts").read_text(encoding="utf-8")
     m = re.search(r'source:\s*"(/moris/:path[^"]*)"', cfg)
     assert m, "the /moris wildcard redirect is missing"
-    for survivor in ("chat", "pair"):
-        assert survivor in m.group(1), (
-            f"the wildcard {m.group(1)!r} does not exclude {survivor}, so /moris/{survivor} "
-            f"redirects away. For pair this would also forward every per-exchange link already "
-            f"sent to the book series instead of rendering the exchange.")
+    pattern = m.group(1)
+    assert "pair/" in pattern, (
+        f"the wildcard {pattern!r} does not spare /moris/pair/:id, so every shared exchange link "
+        f"already sent would forward away from the exchange it names")
+    for gone in ("chat$", "pair$"):
+        assert gone not in pattern, (
+            f"the wildcard still spares {gone!r}, but nothing serves it since the static demos "
+            f"were archived, so that URL goes dark instead of forwarding to askmoris.ai")
 
 
-def test_the_side_by_side_is_reachable_and_its_links_are_not_indexed():
-    """Restored 2026-09-19. Adding the file is not adding the page: it needs its rewrite entry. And
-    a consented link was agreed to as a link, not as an indexed page, so it keeps its header."""
-    assert (ROOT / "public" / "moris" / "pair.html").exists(), "the side-by-side page is missing"
-    assert (ROOT / "app" / "moris" / "pair" / "[id]" / "page.tsx").exists(), \
-        "the per-exchange route is missing, so every link already sent would 404"
+def test_the_retired_demos_forward_out_and_shared_exchanges_still_render():
+    """Two different promises, kept differently.
+
+    The DEMOS were ours to retire. /moris/chat and /moris/pair forward to askmoris.ai so a link
+    already in someone's hand lands on the live thing rather than going dark. Temporary redirects,
+    because the pages are archived rather than destroyed and a 308 is cached past a change of mind.
+
+    The SHARED EXCHANGES were not ours to retire. The per-exchange route still exists and still
+    carries its noindex header: the person agreed to a link, not to an indexed page.
+    """
     cfg = (ROOT / "next.config.ts").read_text(encoding="utf-8")
-    assert '"/moris/pair"' in cfg and '"/moris/pair.html"' in cfg, "/moris/pair has no rewrite"
+    for route in ("/moris/chat", "/moris/pair"):
+        m = re.search(r'source:\s*"' + re.escape(route) + r'",\s*destination:\s*"([^"]+)",\s*'
+                      r'permanent:\s*(true|false)', cfg, re.S)
+        assert m, f"{route} has no redirect, so it goes dark now the static file is archived"
+        assert m.group(1) == "https://askmoris.ai", (
+            f"{route} forwards to {m.group(1)!r} rather than to the one live instance")
+        assert m.group(2) == "false", (
+            f"{route} forwards permanently; the demos are archived, not destroyed")
+    assert not re.search(r'destination:\s*"/moris/(chat|pair)\.html"', cfg), (
+        "a rewrite still points at an archived static file")
+
+    assert (ROOT / "app" / "moris" / "pair" / "[id]" / "page.tsx").exists(), (
+        "the per-exchange route is gone, so every shared link already sent would 404")
     assert "noindex" in cfg, "the per-exchange noindex header is missing"
 
 
@@ -195,7 +253,9 @@ def test_no_live_page_links_to_a_route_that_was_removed():
     site still serves.
     """
     removed_prefixes = ("/moris", "/open-letter", "/compliance")
-    survivors = {"/moris/chat", "/moris/pair"}
+    # 2026-09-23: /moris/chat and /moris/pair are no longer served here, so nothing
+    # internal under /moris survives except a shared exchange.
+    survivors: set = set()
 
     hits = []
     for p in live_files():
@@ -257,34 +317,56 @@ def test_the_static_headers_are_generated_and_current():
         + r.stdout + r.stderr)
 
 
-def test_the_frozen_demo_headers_are_not_synced_and_keep_their_own_nav():
-    """THE QUARANTINE, ENFORCED WHERE IT ACTUALLY BROKE.
+def test_the_archived_demos_are_out_of_public_and_the_sync_has_no_targets():
+    """THE QUARANTINE, AFTER THE DEMOS LEFT.
 
-    public/moris/chat.html and public/moris/pair.html used to be sync targets, because all three
-    copies of the header had drifted apart and single-sourcing them was the fix. On 2026-09-23 the
-    MORIS demos were frozen: no edits, no sweeps, no consistency pass, keeping the old series title
-    and the old volume count because they are a separate body of work that may be revived.
+    public/moris/chat.html and public/moris/pair.html were sync targets, then frozen, and on
+    2026-09-23 archived entirely when Ask MORIS became a single outbound link. Kept, not deleted:
+    that body of work may be revived.
 
-    Running the sync out of habit during the Resonant Counsel rename wrote a series link straight
-    into a quarantined surface. Reverted, and the target list is now empty with its reason written
-    beside it.
-
-    So this asserts the OPPOSITE of what the old generator test did. The frozen pages must keep
-    their own Ask MORIS header and must NOT carry the series nav, and the sync must not be pointed
-    at them again.
+    scripts/sync_static_nav.py keeps its empty TARGETS. The machinery stays because a future
+    generated page that is NOT frozen belongs in it; what must never come back is a sweep writing
+    the series nav into a quarantined surface, which is what happened once.
     """
     import scripts.sync_static_nav as sync  # noqa: PLC0415
     assert sync.TARGETS == (), (
-        f"the nav sync has targets again: {sync.TARGETS}. The frozen MORIS demos must never be "
-        f"in this list; a non-frozen generated page may be.")
+        f"the nav sync has targets again: {sync.TARGETS}. Nothing generated is served from public/ "
+        f"any more, so a target here is writing into something it should not.")
 
-    for name in ("chat.html", "pair.html"):
-        html = (ROOT / "public" / "moris" / name).read_text(encoding="utf-8")
-        m = re.search(r'<div class="site-nav__links">(.*?)</div>', html, flags=re.S)
-        assert m, f"{name} lost its header block"
-        assert "Ask MORIS" in m.group(1), f"{name} lost its own frozen nav"
-        assert "Resonant Counsel" not in m.group(1), (
-            f"{name} carries the series nav; the quarantine was crossed")
+    archive = ROOT / "archive" / "site-2026-09-23-counsel-and-demos"
+    for name in ("chat.html", "pair.html", "counsel-page.tsx"):
+        assert (archive / name).exists(), f"{name} was removed rather than archived"
+    assert not (ROOT / "public" / "moris").exists(), "the static demos are being served again"
+
+
+def test_the_counsel_page_is_gone_and_its_url_forwards():
+    """RESONANT COUNSEL, RETIRED 2026-09-23 BEFORE IT SHIPPED.
+
+    The page described a companion that would answer from the twelve volumes and say when the books
+    were silent. The retrieval that would have backed it was evaluated the same day against sixty
+    on-topic, fifteen adjacent and fifteen off-topic questions, and the distributions overlapped:
+    the worst on-topic question scored 0.541 while "how do I stop a puppy from biting" scored 0.638.
+    No threshold separated them. The page promised a behaviour nothing could deliver, so it came
+    down rather than being quietly weakened.
+
+    The URL forwards instead of 404ing, because it sat in the nav and the sitemap for four days.
+    """
+    assert not (ROOT / "app" / "resonance" / "counsel").exists(), "the counsel route is back"
+    assert (ROOT / "archive" / "site-2026-09-23-counsel-and-demos" / "counsel-page.tsx").exists(), (
+        "the counsel page was deleted rather than archived")
+
+    cfg = (ROOT / "next.config.ts").read_text(encoding="utf-8")
+    assert re.search(r'source:\s*"/resonance/counsel"', cfg), (
+        "/resonance/counsel has no redirect and will 404 for anyone who kept the link")
+
+    for f in live_files():
+        if f.suffix not in {".tsx", ".html", ".json", ".ts"} or f.name == "next.config.ts":
+            continue
+        text = strip_comments(f.read_text(encoding="utf-8", errors="ignore"))
+        assert "/resonance/counsel" not in text, (
+            f"{f.relative_to(ROOT)} still links to the retired counsel page")
+        assert "Resonant Counsel" not in text, (
+            f"{f.relative_to(ROOT)} still names Resonant Counsel on a live surface")
 
 
 def test_the_open_letter_is_unlisted_not_deleted():

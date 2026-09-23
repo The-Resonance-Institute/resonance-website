@@ -10,9 +10,9 @@ export function SiteFooter() {
             target about 44 pixels, and the negative vertical margin on the row keeps the footer
             the height it was on a pointer. Guarded by test_tap_targets_are_thumb_sized. */}
         <div className="-my-2 flex flex-wrap items-center gap-x-5 gap-y-1">
-          {/* BOOKS-FIRST PIVOT, 2026-09-19. MORIS, Demos and Compliance came out with their
-              pages. Ask MORIS stays as the one novelty surface and sits last, after the
-              institute links, because it is a curiosity rather than a destination. */}
+          {/* Ask MORIS sits last, after the institute links, because it is a demonstration
+              rather than a destination. Since 2026-09-23 it is a single outbound link to
+              askmoris.ai: there is no second instance of it in this repository. */}
           <Link href="/resonance" className="py-3 transition-colors hover:text-accent">
             The Series
           </Link>
@@ -25,9 +25,15 @@ export function SiteFooter() {
           <Link href="/privacy" className="py-3 transition-colors hover:text-accent">
             Privacy
           </Link>
-          <Link href="/resonance/counsel" className="py-3 transition-colors hover:text-accent">
-            Resonant Counsel
-          </Link>
+          {/* Outbound, one instance, new tab. See components/site-nav.tsx. */}
+          <a
+            href="https://askmoris.ai"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="py-3 transition-colors hover:text-accent"
+          >
+            Ask MORIS
+          </a>
         </div>
         <div className="flex flex-col gap-1 sm:items-end">
           <a

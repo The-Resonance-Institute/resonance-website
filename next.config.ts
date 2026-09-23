@@ -17,16 +17,6 @@ const nextConfig: NextConfig = {
   // pre-books-pivot-2026-09-19.
   async rewrites() {
     return [
-      {
-        source: "/moris/chat",
-        destination: "/moris/chat.html",
-      },
-      // The side-by-side demonstration, restored 2026-09-19 on the operator's word: one message
-      // answered twice by the same model, raw and through MORIS. Same arrangement as chat.
-      {
-        source: "/moris/pair",
-        destination: "/moris/pair.html",
-      },
     ];
   },
 
@@ -84,9 +74,10 @@ const nextConfig: NextConfig = {
       // archived rather than retired, and a permanent redirect is cached by browsers past any
       // change of mind. If any of it comes back, these entries come out.
       //
-      // /moris/chat and /moris/pair are NOT here. Both survive the pivot and are still rewritten
-      // above, so the wildcard below must spare them. It also has to spare /moris/pair/:id, the
-      // shared-exchange route, or every link anyone has shared would forward to the book series.
+      // /moris/chat and /moris/pair ARE here now (2026-09-23): they forward to askmoris.ai rather
+      // than to the series, because the live thing they demonstrated is there. The wildcard below
+      // no longer spares them. It still has to spare /moris/pair/:id, the shared-exchange route, or
+      // every link anyone has shared would forward away from their own exchange.
       // /open-letter and the PDF beside it are NOT redirected. Restored unlisted on 2026-09-20:
       // those links went out in outreach and still have to resolve. /letter is the short form people
       // were told to type, so it forwards there rather than to the series.
@@ -135,13 +126,43 @@ const nextConfig: NextConfig = {
         destination: "/resonance",
         permanent: false,
       },
+      // ONE INSTANCE, ONE URL (2026-09-23). Ask MORIS runs at askmoris.ai. The two static demos
+      // that used to be served from public/moris/ are archived under
+      // archive/site-2026-09-23-counsel-and-demos/ and their clean URLs forward there, so a link
+      // already sent lands on the live thing instead of 404ing or going dark.
+      //
+      // TEMPORARY, DELIBERATELY. These are 307s, not 308s. A permanent redirect is cached by the
+      // browser past any change of mind, and the demos are archived rather than destroyed.
+      {
+        source: "/moris/chat",
+        destination: "https://askmoris.ai",
+        permanent: false,
+      },
+      {
+        source: "/moris/pair",
+        destination: "https://askmoris.ai",
+        permanent: false,
+      },
+      // /moris/pair/:id IS NOT REDIRECTED, and the wildcard above still spares it. Those are shared
+      // exchanges: a visitor consented to a public link to their own exchange and that link went
+      // out. Forwarding it to a marketing page would break a promise made to a person, which is a
+      // different act from retiring a demo. The route keeps serving the exchange it names.
+      //
+      // The companion that was going to live at /resonance/counsel was evaluated on 2026-09-23 and
+      // not built; the page came down with it. Forward to the series rather than 404, because the
+      // URL was in the nav and the sitemap for four days.
+      {
+        source: "/resonance/counsel",
+        destination: "/resonance",
+        permanent: false,
+      },
       {
         source: "/moris",
         destination: "/resonance",
         permanent: false,
       },
       {
-        source: "/moris/:path((?!chat$|pair$|pair/).*)",
+        source: "/moris/:path((?!pair/).*)",
         destination: "/resonance",
         permanent: false,
       },
