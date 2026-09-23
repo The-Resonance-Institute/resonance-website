@@ -11,7 +11,7 @@ const trilogySlug = (name: string) =>
 export const metadata: Metadata = {
   title: "The Twelve Volumes",
   description:
-    "The Resonance series in full: four trilogies, twelve volumes, approximately one million words, complete. Each theme is carried from the self to the community to the world. All twelve are written; none is published yet.",
+    "The Resonance series in full. A Living Philosophy of Leadership. Four trilogies, twelve volumes, approximately one million words. Complete. Each theme is carried from the self to the community to the world. All twelve are written; none is published yet.",
 };
 
 type Book = {
@@ -119,7 +119,7 @@ export default function Series() {
           <div className="relative aspect-[2/3] overflow-hidden rounded-xl border border-line shadow-md">
             <Image
               src="/trilogies/all.jpg"
-              alt="Four Trilogies, A Living Philosophy, Twelve Volumes"
+              alt="A Living Philosophy of Leadership: Four Trilogies, Twelve Volumes"
               fill
               sizes="(max-width: 640px) 208px, 260px"
               className="object-cover"

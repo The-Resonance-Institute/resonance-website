@@ -6,7 +6,7 @@ import { PublicationStatus } from "@/components/publication-status";
 export const metadata: Metadata = {
   title: "The Series",
   description:
-    "The Resonance series is four trilogies, twelve volumes, approximately one million words, complete. Each theme is carried from the self to the community to the world. All twelve are written; none is published yet.",
+    "The Resonance series. A Living Philosophy of Leadership. Four trilogies, twelve volumes, approximately one million words. Complete. Each theme is carried from the self to the community to the world. All twelve are written; none is published yet.",
 };
 
 const trilogies = [
@@ -40,13 +40,13 @@ export default function ResonanceLanding() {
           The Series
         </p>
         <h1 className="mt-4 font-serif text-4xl leading-tight text-ink sm:text-5xl">
-          A living philosophy, learned by tuning.
+          A Living Philosophy of Leadership.
         </h1>
         <p className="mt-6 font-serif text-xl font-light leading-relaxed text-ink">
-          Leadership is resonance: the sound a whole life makes when it meets a
-          whole people, learned not by technique but by tuning. Every book stands
-          alone; together they make one patient argument across the self, the
-          community, and time itself.
+          Four trilogies, twelve volumes, approximately one million words.
+          Complete. A philosophy of leadership worked at three scales, self,
+          community and world, across four domains. Every volume stands alone;
+          together they make one patient argument.
         </p>
       </section>
 

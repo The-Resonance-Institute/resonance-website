@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "The Resonance Institute is the studio of C. T. Herndon, based in Huntington Beach, California. It publishes the Resonance Series: four trilogies, twelve volumes, approximately one million words, complete. Not a lab, no venture funding. Its subject is resonance.",
+    "The Resonance Institute is the studio of C. T. Herndon, based in Huntington Beach, California. It publishes the Resonance Series. A Living Philosophy of Leadership. Four trilogies, twelve volumes, approximately one million words. Complete. Not a lab, no venture funding. Its subject is resonance.",
 };
 
 export default function About() {

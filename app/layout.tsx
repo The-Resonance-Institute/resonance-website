@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     template: "%s · The Resonance Institute",
   },
   description:
-    "An independent studio for rigorous philosophical thought, where enduring questions meet modern technology. Home of the Resonance series by C. T. Herndon: four trilogies, twelve volumes, approximately one million words, complete.",
+    "An independent studio for rigorous philosophical thought, where enduring questions meet modern technology. Home of the Resonance series by C. T. Herndon. A Living Philosophy of Leadership. Four trilogies, twelve volumes, approximately one million words. Complete.",
   applicationName: "The Resonance Institute",
   keywords: [
     "The Resonance Institute",
@@ -39,13 +39,13 @@ export const metadata: Metadata = {
     siteName: "The Resonance Institute",
     title: "The Resonance Institute",
     description:
-      "An independent studio for rigorous philosophical thought, where enduring questions meet modern technology. Home of the Resonance series by C. T. Herndon: four trilogies, twelve volumes, approximately one million words, complete.",
+      "An independent studio for rigorous philosophical thought, where enduring questions meet modern technology. Home of the Resonance series by C. T. Herndon. A Living Philosophy of Leadership. Four trilogies, twelve volumes, approximately one million words. Complete.",
   },
   twitter: {
     card: "summary_large_image",
     title: "The Resonance Institute",
     description:
-      "An independent studio for rigorous philosophical thought. Home of the Resonance series by C. T. Herndon: four trilogies, twelve volumes, approximately one million words, complete.",
+      "An independent studio for rigorous philosophical thought. Home of the Resonance series by C. T. Herndon. A Living Philosophy of Leadership. Four trilogies, twelve volumes, approximately one million words. Complete.",
   },
   robots: { index: true, follow: true },
 };
@@ -67,7 +67,7 @@ export default function RootLayout({
               name: "The Resonance Institute",
               url: "https://www.resonanceinstitutellc.com",
               description:
-                "An independent studio for rigorous philosophical thought. Home of the Resonance series by C. T. Herndon: four trilogies, twelve volumes, approximately one million words, complete.",
+                "An independent studio for rigorous philosophical thought. Home of the Resonance series by C. T. Herndon. A Living Philosophy of Leadership. Four trilogies, twelve volumes, approximately one million words. Complete.",
               founder: { "@type": "Person", name: "Christopher T. Herndon" },
               location: {
                 "@type": "Place",

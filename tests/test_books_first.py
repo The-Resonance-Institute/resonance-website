@@ -315,7 +315,11 @@ def test_the_open_letter_is_unlisted_not_deleted():
 
 # --- the Canon is twelve volumes, 2026-09-22 -----------------------------------------------------
 
-SERIES_LINE = "four trilogies, twelve volumes, approximately one million words, complete"
+# THE STANDING DESCRIPTION, verbatim by operator ruling 2026-09-23. Note the punctuation: it is
+# sentences, not a comma list, and it changed from the 09-22 form when the series title was set.
+# Matched as a whole string precisely because a paraphrase in one place is how surfaces drift.
+SERIES_LINE = ("a living philosophy of leadership. four trilogies, twelve volumes, "
+               "approximately one million words. complete")
 GRAMMAR_SLUGS = ("grammar-of-god", "article-and-noun", "verb-and-adjective",
                  "conjunction-and-punctuation")
 

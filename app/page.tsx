@@ -19,13 +19,12 @@ export default function Home() {
           The Resonance Institute
         </p>
         <h1 className="mt-4 max-w-3xl font-serif text-4xl leading-tight text-ink sm:text-5xl">
-          A living philosophy, in twelve volumes.
+          A Living Philosophy of Leadership.
         </h1>
         <p className="mt-6 max-w-3xl font-serif text-xl font-light leading-relaxed text-ink">
-          Four trilogies, twelve volumes, approximately one million words,
-          complete. The series carries one question throughout: how a person holds
-          together, how a community holds together, and how the world does. Each
-          theme travels from the self outward, and each volume can be read on its
+          Four trilogies, twelve volumes, approximately one million words.
+          Complete. A philosophy of leadership worked at three scales, self,
+          community and world, across four domains. Each volume can be read on its
           own.
         </p>
         <div className="mt-8 flex flex-wrap gap-3">
