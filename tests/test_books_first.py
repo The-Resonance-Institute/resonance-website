@@ -257,18 +257,34 @@ def test_the_static_headers_are_generated_and_current():
         + r.stdout + r.stderr)
 
 
-def test_the_generator_is_actually_writing_the_header_it_claims():
-    """The positive control. A generator whose check mode passes because it silently found nothing
-    to compare would make the test above decoration. This asserts the rendered block is present in
-    both targets, with every link from the source in it."""
-    links = json.loads((ROOT / "content" / "nav.json").read_text(encoding="utf-8"))["links"]
+def test_the_frozen_demo_headers_are_not_synced_and_keep_their_own_nav():
+    """THE QUARANTINE, ENFORCED WHERE IT ACTUALLY BROKE.
+
+    public/moris/chat.html and public/moris/pair.html used to be sync targets, because all three
+    copies of the header had drifted apart and single-sourcing them was the fix. On 2026-09-23 the
+    MORIS demos were frozen: no edits, no sweeps, no consistency pass, keeping the old series title
+    and the old volume count because they are a separate body of work that may be revived.
+
+    Running the sync out of habit during the Resonant Counsel rename wrote a series link straight
+    into a quarantined surface. Reverted, and the target list is now empty with its reason written
+    beside it.
+
+    So this asserts the OPPOSITE of what the old generator test did. The frozen pages must keep
+    their own Ask MORIS header and must NOT carry the series nav, and the sync must not be pointed
+    at them again.
+    """
+    import scripts.sync_static_nav as sync  # noqa: PLC0415
+    assert sync.TARGETS == (), (
+        f"the nav sync has targets again: {sync.TARGETS}. The frozen MORIS demos must never be "
+        f"in this list; a non-frozen generated page may be.")
+
     for name in ("chat.html", "pair.html"):
         html = (ROOT / "public" / "moris" / name).read_text(encoding="utf-8")
         m = re.search(r'<div class="site-nav__links">(.*?)</div>', html, flags=re.S)
-        assert m, f"{name} has no header block for the generator to write"
-        for l in links:
-            anchor = f'<a href="{l["href"]}">{l["label"]}</a>'
-            assert anchor in m.group(1), f"{name} is missing {anchor}"
+        assert m, f"{name} lost its header block"
+        assert "Ask MORIS" in m.group(1), f"{name} lost its own frozen nav"
+        assert "Resonant Counsel" not in m.group(1), (
+            f"{name} carries the series nav; the quarantine was crossed")
 
 
 def test_the_open_letter_is_unlisted_not_deleted():

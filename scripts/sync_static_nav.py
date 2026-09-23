@@ -25,7 +25,17 @@ import sys
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "content" / "nav.json"
 # Every generated page that carries its own copy of the header.
-TARGETS = ("public/moris/chat.html", "public/moris/pair.html")
+#
+# EMPTY SINCE 2026-09-23, AND THAT IS THE POINT. The two static pages that used to be synced here,
+# public/moris/chat.html and public/moris/pair.html, are FROZEN by operator ruling: no edits, no
+# sweeps, no consistency pass. They keep the old series title, the old volume count and their own
+# Ask MORIS header, because they are a separate body of work that may be revived.
+#
+# This script ran against them once by habit during the Resonant Counsel rename and wrote a series
+# link into a quarantined surface. That is the exact failure the quarantine exists to prevent, and
+# it is why the list is empty rather than the script deleted: a future generated page that is NOT
+# frozen belongs here, and the machinery should be waiting for it.
+TARGETS: tuple = ()
 
 OPEN = '<div class="site-nav__links">'
 CLOSE = "</div>"

@@ -20,8 +20,8 @@ export function SiteFooter() {
           <Link href="/privacy" className="transition-colors hover:text-accent">
             Privacy
           </Link>
-          <Link href="/moris/chat" className="transition-colors hover:text-accent">
-            Ask MORIS
+          <Link href="/resonance/counsel" className="transition-colors hover:text-accent">
+            Resonant Counsel
           </Link>
         </div>
         <div className="flex flex-col gap-1 sm:items-end">
