@@ -388,14 +388,22 @@ def test_the_removed_routes_forward_rather_than_going_dark():
         assert f'source: "{route}"' in cfg, f"{route} has no redirect and will 404"
 
 
-def test_the_removed_art_is_archived_not_deleted():
-    """Including the composite: /trilogies/all.jpg has FIVE TRILOGIES and FIFTEEN BOOKS set into the
-    artwork, so it cannot be re-captioned into a twelve-volume image and was pulled from the page.
-    It is kept so it can be replaced rather than recreated from nothing."""
+def test_the_removed_art_is_archived_and_the_composite_was_replaced():
+    """The five-object artwork is retired, not deleted. Its type read FIVE TRILOGIES and FIFTEEN
+    BOOKS, and its five objects stood for the five trilogies: the seven-knot cord in the foreground
+    was the Grammar of God trilogy's own instrument, from Book XV, where each knot is a conjunction.
+    No caption could have made that a twelve-volume image, so it was regenerated rather than edited.
+
+    The replacement is served at the same path, which is why this asserts the file EXISTS and is the
+    new one, by dimensions: the retired image is 720x1080, the replacement 1024x1536."""
     a = ARCHIVE / "site-2026-09-22-grammar-of-god"
     for rel in ("covers/book13.jpg", "covers/book14.jpg", "covers/book15.jpg",
                 "trilogies/grammar.jpg", "trilogies/all.jpg"):
         assert (a / rel).exists(), f"archive is missing {rel}"
-    for gone in ("public/covers/book13.jpg", "public/trilogies/grammar.jpg",
-                 "public/trilogies/all.jpg"):
+    for gone in ("public/covers/book13.jpg", "public/trilogies/grammar.jpg"):
         assert not (ROOT / gone).exists(), f"{gone} is still being served"
+
+    live = ROOT / "public" / "trilogies" / "all.jpg"
+    assert live.exists(), "the composite is missing; the series hero will render an empty column"
+    retired = (a / "trilogies/all.jpg").stat().st_size
+    assert live.stat().st_size != retired, "the retired five-trilogy artwork is being served again"

@@ -93,12 +93,12 @@ function Cover({ book }: { book: Book }) {
 export default function Series() {
   return (
     <div className="mx-auto max-w-5xl px-6">
-      {/* THE COMPOSITE VOLUME IS PULLED, 2026-09-22. /trilogies/all.jpg has "FIVE TRILOGIES" and
-          "FIFTEEN BOOKS" set into the artwork, and its five objects stand for the five trilogies, so
-          it cannot be re-captioned into a twelve-volume image. It would contradict every line of
-          copy beside it. The file is archived, not deleted; restore this column when four-trilogy
-          art exists. The hero is a single column until then. */}
-      <section className="pt-16 pb-10 sm:pt-20">
+      {/* THE COMPOSITE VOLUME, REPLACED 2026-09-22. The previous artwork had "FIVE TRILOGIES" and
+          "FIFTEEN BOOKS" set into the image, and its five objects stood for the five trilogies: the
+          seven-knot cord was the Grammar of God trilogy's own instrument, from Book XV. No caption
+          could have rescued that, so the column was pulled and the art regenerated with four
+          objects and corrected type. The retired image is in archive/site-2026-09-22-grammar-of-god/. */}
+      <section className="grid items-center gap-10 pt-16 pb-10 sm:grid-cols-[1fr_260px] sm:pt-20">
         <div>
           <Link
             href="/resonance"
@@ -114,6 +114,18 @@ export default function Series() {
             complete. Each trilogy carries a single theme across three scales, from
             the self to the community to the world.
           </p>
+        </div>
+        <div className="mx-auto w-52 sm:w-full">
+          <div className="relative aspect-[2/3] overflow-hidden rounded-xl border border-line shadow-md">
+            <Image
+              src="/trilogies/all.jpg"
+              alt="Four Trilogies, A Living Philosophy, Twelve Volumes"
+              fill
+              sizes="(max-width: 640px) 208px, 260px"
+              className="object-cover"
+              priority
+            />
+          </div>
         </div>
       </section>
 
