@@ -427,3 +427,33 @@ def test_the_removed_art_is_archived_and_the_composite_was_replaced():
     assert live.exists(), "the composite is missing; the series hero will render an empty column"
     retired = (a / "trilogies/all.jpg").stat().st_size
     assert live.stat().st_size != retired, "the retired five-trilogy artwork is being served again"
+
+
+def test_every_asset_canon_points_at_actually_exists():
+    """THE DEFECT THIS CATCHES, found live on 2026-09-23.
+
+    The Presence rename changed the trilogy's slug, name, heading and summary in canon.json but NOT
+    its `art` path, which still read /trilogies/resonance.jpg. The trilogy LANDING page takes its art
+    from the page file and was updated; the trilogy DETAIL page takes it from canon and was not. So
+    /resonance/trilogy/presence shipped with a broken cover while every text guard passed, because
+    they all check words and none of them checked whether a file is there.
+
+    canon.json drives the routes, the sitemap and the imagery. Every path it names must resolve.
+    """
+    canon = json.loads((ROOT / "content" / "canon.json").read_text(encoding="utf-8"))
+    missing = []
+
+    def walk(o, trail="canon"):
+        if isinstance(o, dict):
+            for k, v in o.items():
+                if isinstance(v, str) and v.startswith("/") and v.endswith((".jpg", ".png", ".webp")):
+                    if not (ROOT / "public" / v.lstrip("/")).exists():
+                        missing.append(f"{trail}.{k} -> {v}")
+                else:
+                    walk(v, f"{trail}.{k}")
+        elif isinstance(o, list):
+            for i, v in enumerate(o):
+                walk(v, f"{trail}[{i}]")
+
+    walk(canon)
+    assert not missing, ("canon.json names assets that are not in public/: " + "; ".join(missing))
