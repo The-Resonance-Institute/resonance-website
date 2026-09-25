@@ -5,9 +5,19 @@ about itself all day; none of that stops a well-meaning change HERE from vendori
 a build work. The mistake this guards against does not look like a mistake at the time. It looks like
 "the API call is awkward in local dev, I'll just import the judge directly", or a bundler configured to
 copy a sibling directory, or someone committing a debugging fixture with a semantic card pasted into
-it. Each of those publishes, irreversibly, the thing the site itself says is disclosed only under NDA
-and is the subject of a filed utility patent. Anyone can clone this repo; a git revert does not
-un-clone it.
+it. Each of those publishes, irreversibly, the runtime that is the subject of a filed utility
+patent. Anyone can clone this repo; a git revert does not un-clone it.
+
+WHAT CHANGED ON 2026-09-23, AND WHY THIS GUARD DID NOT. The stakes used to be stated as "the thing
+the site itself says is disclosed only under NDA". That NDA is gone: askmoris.ai now publishes the
+reading, the primitives that fired with the passages behind them, and the packet delivered to the
+answering model with its digests. So the reason is no longer confidentiality.
+
+It is that DISCLOSING THE OUTPUT AND SHIPPING THE ENGINE ARE DIFFERENT ACTS. Showing what a judgment
+weighed, on a service you control, is the product. Committing the runtime and the 93 semantic cards
+into a public repository hands anyone a copy of the patented mechanism, permanently, with no service
+and no attribution around it. A stale rationale is worse than none, because the next person to read
+it can check that the NDA no longer exists and conclude the guard has expired. It has not.
 
 WHAT IS ALLOWED. This site may talk to the judging service over HTTPS and render what it returns. It
 may not contain the runtime, the semantic cards, or a path that reaches into the research repository.
