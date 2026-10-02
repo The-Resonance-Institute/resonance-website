@@ -16,6 +16,10 @@ const staticRoutes: { path: string; priority: number }[] = [
   // evaluated and could not distinguish a question the books answer from one they do not, so it
   // was never built and the page describing it came down. /moris/chat and /moris/pair came out
   // earlier the same day and now forward to askmoris.ai, which is the one instance of Ask MORIS.
+  // THE OPEN LETTER returned to the sitemap on 2026-10-02 with "The Conscience Is Already There".
+  // It was out while it was unlisted; it is in the header now, and a page in the nav that is hidden
+  // from crawlers is an incoherent half-state. test_the_sitemap_lists_no_removed_route asserts it.
+  { path: "/open-letter", priority: 0.8 },
   { path: "/resonance", priority: 0.9 },
   { path: "/resonance/series", priority: 0.8 },
   { path: "/about", priority: 0.6 },

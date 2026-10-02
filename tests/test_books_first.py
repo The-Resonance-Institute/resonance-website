@@ -34,13 +34,23 @@ LIVE_DIRS = ("app", "components", "lib", "public")
 # out in outreach already sent and those links still have to resolve; breaking correspondence is a
 # different decision from changing the site's positioning, and the operator made only the second one.
 #
-# The vocabulary guard does not scan them, and that exemption is the whole reason this constant has a
-# comment. The open letter IS the artificial-conscience argument; that is what it was written to be.
-# Rewriting it to pass a guard would falsify a document people were sent. What the guard protects is
-# what a visitor to this site reads, and nothing here is reachable from anything a visitor sees.
-# Everything else still applies to them: they may never be linked (test_no_live_page_links_to_a_route
-# _that_was_removed keeps /open-letter in its removed prefixes on purpose) and never indexed.
-UNLISTED = ("app/open-letter", "public/open-letter", "public/d")
+# THE OPEN LETTER LEFT THIS SET ON 2026-10-02, by operator ruling, and the reasoning is recorded in
+# test_the_open_letter_is_listed_and_navigable below. It is now in the header and in the sitemap, so
+# the four properties this constant grants no longer apply to it. Only the investor deck remains.
+UNLISTED = ("public/d",)
+
+# THE ONE VOCABULARY EXEMPTION, 2026-10-02, argued rather than quietly widened.
+#
+# The open letter is a signed public document from the Institute, not site copy. Its whole subject is
+# conscience and agentic behaviour; the title is "The Conscience Is Already There". Rewriting it to
+# pass this guard would falsify a document published under the operator's name, which is the same
+# distinction the "quoted prose is not site copy" ruling already draws elsewhere.
+#
+# WHAT THIS EXEMPTION IS NOT. It is not a narrowing of the pivot. The site is still books-first, there
+# is still no MORIS wing, and Ask MORIS is still a single outbound link. Every other live surface is
+# scanned exactly as before. If the banned vocabulary turns up anywhere but this one file the guard
+# still fails, which is why a file is named rather than a phrase removed from the list.
+VOCAB_EXEMPT = ("app/open-letter/page.tsx",)
 SUFFIXES = {".tsx", ".ts", ".html", ".css", ".mts"}
 
 # Phrases the pivot removed. Matched case-insensitively on live source only.
@@ -82,6 +92,8 @@ def live_files(include_unlisted: bool = False):
 def test_the_removed_vocabulary_does_not_come_back():
     hits = []
     for p in live_files():
+        if p.relative_to(ROOT).as_posix() in VOCAB_EXEMPT:
+            continue
         text = strip_comments(p.read_text(encoding="utf-8", errors="ignore")).lower()
         for phrase in BANNED:
             if phrase in text:
@@ -92,10 +104,19 @@ def test_the_removed_vocabulary_does_not_come_back():
         + "; ".join(hits))
 
 
+def test_the_vocabulary_exemption_covers_exactly_one_file_and_it_exists():
+    """An exemption nobody can see the edges of is a hole. These are the edges."""
+    assert len(VOCAB_EXEMPT) == 1, (
+        "the vocabulary exemption grew. Each addition is an operator decision about what a visitor "
+        f"may read on this site, not an edit: {VOCAB_EXEMPT}")
+    for rel in VOCAB_EXEMPT:
+        assert (ROOT / rel).exists(), f"the exemption names a file that does not exist: {rel}"
+
+
 def test_the_removed_routes_are_gone_from_the_app():
-    # open-letter is NOT checked here any more. It was restored on 2026-09-20 as an unlisted
-    # document, reachable by direct link only; test_the_open_letter_is_unlisted_not_deleted governs
-    # it now. compliance stays gone outright.
+    # open-letter is NOT checked here any more. Restored unlisted on 2026-09-20 and made a listed,
+    # navigable route again on 2026-10-02; test_the_open_letter_is_listed_and_navigable governs it
+    # now. compliance stays gone outright.
     present = [d for d in ("compliance",) if (ROOT / "app" / d).exists()]
     assert not present, f"a removed route is back under app/: {present}"
 
@@ -120,6 +141,18 @@ def test_the_archive_actually_holds_what_was_removed():
         # pair.html and app/moris/pair/[id] are deliberately absent: archived on 2026-09-19
         # and restored the same day, so the archive no longer holds them.
         assert (a / expected).exists(), f"archive is missing {expected}"
+
+    # THE FIRST OPEN LETTER, replaced 2026-10-02. "We Built the Intelligence. We Never Built the
+    # Conscience.", published 2026-09-15 and sent to press desks and legislators. The operator ruled
+    # it archived rather than kept live: weeks had passed, the argument had moved on, and anyone
+    # following an old link should arrive at what the Institute now says. Archived rather than
+    # deleted, because a document that went out under his name does not stop existing when the site
+    # stops serving it.
+    first = ARCHIVE / "open-letter-2026-09-15"
+    assert first.is_dir(), "the first open letter was replaced without being archived"
+    for expected in ("app/open-letter/page.tsx",
+                     "public/open-letter/We-Built-the-Intelligence-Open-Letter.pdf"):
+        assert (first / expected).exists(), f"the first open letter archive is missing {expected}"
 
 
 def test_ask_moris_is_one_outbound_instance_and_is_not_rebuilt_here():
@@ -231,9 +264,12 @@ def test_the_sitemap_lists_no_removed_route():
     sitemap = (ROOT / "app" / "sitemap.ts").read_text(encoding="utf-8")
     paths = set(re.findall(r'path:\s*"([^"]*)"', sitemap))
     forbidden = {p for p in paths
-                 if p.startswith("/open-letter") or p.startswith("/compliance")
+                 if p.startswith("/compliance")
                  or (p.startswith("/moris") and p not in {"/moris/chat", "/moris/pair"})}
     assert not forbidden, f"the sitemap still lists removed routes: {sorted(forbidden)}"
+    # /open-letter is no longer a removed route. It is in the header, so it belongs in the sitemap;
+    # a page in the nav and absent from the sitemap is the incoherent half-state this catches.
+    assert "/open-letter" in paths, "the open letter is navigable but absent from the sitemap"
 
 
 def test_no_live_page_links_to_a_route_that_was_removed():
@@ -252,7 +288,9 @@ def test_no_live_page_links_to_a_route_that_was_removed():
     This is the check that generalises: whatever a live page links to internally must be a route this
     site still serves.
     """
-    removed_prefixes = ("/moris", "/open-letter", "/compliance")
+    # /open-letter left this tuple on 2026-10-02: it is a served, listed route again, so a link to
+    # it is correct rather than a dead link. /letter still forwards to it.
+    removed_prefixes = ("/moris", "/compliance")
     # 2026-09-23: /moris/chat and /moris/pair are no longer served here, so nothing
     # internal under /moris survives except a shared exchange.
     survivors: set = set()
@@ -369,46 +407,54 @@ def test_the_counsel_page_is_gone_and_its_url_forwards():
             f"{f.relative_to(ROOT)} still names Resonant Counsel on a live surface")
 
 
-def test_the_open_letter_is_unlisted_not_deleted():
-    """RESTORED UNLISTED 2026-09-20, on the operator's word, for the same reason as the deck: the
-    letter's URL and the PDF beside it went out in a great deal of outreach and those links are still
-    in people's inboxes.
+def test_the_open_letter_is_listed_and_navigable():
+    """LISTED FROM 2026-10-02, reversing the unlisted arrangement of 2026-09-20 on the operator's word.
 
-    Unlisted here means exactly four things, and all four are asserted: it is served rather than
-    redirected, no page links to it, it is out of the sitemap, and it carries noindex both in the
-    page's own metadata and as a response header. The header is not redundant with the meta tag: the
-    PDF has no metadata to carry one, and it is the file most likely to be fetched directly.
+    THE RULING. The first letter was archived and "The Conscience Is Already There" replaced it at the
+    same URL. His reasoning: weeks had passed since that outreach and the story had changed, so anyone
+    following an old link should arrive at what the Institute now says rather than at what it said in
+    September. That is the opposite instruction from the one that created the unlisted state, where
+    the whole point was that old links must keep delivering the document people were actually sent.
 
-    UNLISTED IS NOT SECRET, and it is weaker here than for the deck. /d/ sits behind an unguessable
-    path; /open-letter is memorable and Google has already crawled it, so noindex asks for removal
-    rather than preventing discovery. That is the accepted trade, recorded here so nobody later reads
-    this arrangement as a promise of privacy.
+    WHAT CHANGED AND WHAT DID NOT. All four unlisted properties are reversed here: it is linked from
+    the header, it is in the sitemap, it carries no noindex in metadata or as a response header, and
+    the first letter's PDF forwards to the new one instead of being served. What did not change is the
+    rest of the books-first pivot. The site is still a books site, there is still no MORIS wing, and
+    Ask MORIS is still one outbound link. This is one document, promoted by name.
+
+    THE COST, RECORDED SO IT IS NOT DISCOVERED LATER. A visitor-reachable surface now uses the
+    vocabulary the pivot removed, which is why VOCAB_EXEMPT exists and why it names exactly one file.
     """
     page = ROOT / "app" / "open-letter" / "page.tsx"
-    assert page.exists(), "the open letter is gone; it is kept unlisted, not removed"
-    pdf = ROOT / "public" / "open-letter" / "We-Built-the-Intelligence-Open-Letter.pdf"
-    assert pdf.exists(), "the distribution PDF is gone, and that is the link most people were sent"
-
+    assert page.exists(), "the open letter page is gone"
     src = page.read_text(encoding="utf-8")
-    assert re.search(r"robots:\s*\{[^}]*index:\s*false", src),         "the open letter lost its noindex metadata"
+    assert "The Conscience Is Already There" in src, "the page is not the new letter"
 
+    pdf = ROOT / "public" / "open-letter" / "The-Conscience-Is-Already-There.pdf"
+    assert pdf.exists(), "the distribution PDF for the new letter is missing"
+    old_pdf = ROOT / "public" / "open-letter" / "We-Built-the-Intelligence-Open-Letter.pdf"
+    assert not old_pdf.exists(), (
+        "the first letter's PDF is still served. It was archived, and its URL forwards to the new "
+        "letter so that an old link arrives at what the Institute now says.")
+
+    # Indexable: the noindex that made it unlisted is gone from the page and from the config.
+    assert not re.search(r"robots:\s*\{[^}]*index:\s*false", src), (
+        "the open letter is in the header and still carries noindex")
     cfg = (ROOT / "next.config.ts").read_text(encoding="utf-8")
-    # Served, not redirected: a redirect here would break every link already sent.
-    assert not re.search(r'source:\s*"/open-letter[^"]*",\s+destination', cfg), \
-        "the open letter is being redirected again, which breaks the links it exists to preserve"
-    # And noindex as a header, for the page and for the PDF beside it.
     for route in ('"/open-letter"', '"/open-letter/:path*"'):
         i = cfg.find(f"source: {route}")
-        assert i != -1, f"no header entry for {route}"
-        assert "noindex" in cfg[i:i + 220], f"{route} has no X-Robots-Tag noindex header"
+        if i != -1:
+            assert "noindex" not in cfg[i:i + 220], (
+                f"{route} still carries an X-Robots-Tag noindex header")
 
-    # Out of the sitemap, and linked from nowhere. The dead-link guard keeps /open-letter in its
-    # removed prefixes precisely so this stays true.
-    sitemap = (ROOT / "app" / "sitemap.ts").read_text(encoding="utf-8")
-    assert "/open-letter" not in sitemap, "the unlisted open letter is in the sitemap"
-    for f in live_files():
-        text = strip_comments(f.read_text(encoding="utf-8", errors="ignore"))
-        assert 'href="/open-letter' not in text and 'href="/letter"' not in text,             f"{f.relative_to(ROOT)} links the unlisted open letter"
+    # The old PDF URL forwards rather than 404ing, because that link is in people's inboxes.
+    assert "We-Built-the-Intelligence-Open-Letter.pdf" in cfg, (
+        "nothing forwards the first letter's PDF URL; every link already sent would 404")
+
+    # In the header, from the one source that defines it.
+    links = json.loads((ROOT / "content" / "nav.json").read_text(encoding="utf-8"))["links"]
+    assert any(l["href"] == "/open-letter" for l in links), (
+        "the open letter is not in content/nav.json, which is the only place the header is defined")
 
 
 # --- the Canon is twelve volumes, 2026-09-22 -----------------------------------------------------

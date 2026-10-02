@@ -42,18 +42,8 @@ const nextConfig: NextConfig = {
         source: "/d/:path*",
         headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
       },
-      // The open letter, unlisted from 2026-09-20 for the same reason: the URL and the PDF beside it
-      // are live in outreach already sent. The meta tag covers a crawler that parses the page; this
-      // header covers the PDF, which has no metadata to carry one, and anything else that fetches
-      // either URL.
-      {
-        source: "/open-letter",
-        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
-      },
-      {
-        source: "/open-letter/:path*",
-        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
-      },
+      // The open letter's noindex headers came off on 2026-10-02. It is in the header nav now and
+      // meant to be found, which is the reverse of the arrangement they enforced.
     ];
   },
 
@@ -78,9 +68,20 @@ const nextConfig: NextConfig = {
       // than to the series, because the live thing they demonstrated is there. The wildcard below
       // no longer spares them. It still has to spare /moris/pair/:id, the shared-exchange route, or
       // every link anyone has shared would forward away from their own exchange.
-      // /open-letter and the PDF beside it are NOT redirected. Restored unlisted on 2026-09-20:
-      // those links went out in outreach and still have to resolve. /letter is the short form people
-      // were told to type, so it forwards there rather than to the series.
+      // /open-letter itself is NOT redirected: it is served, and it now serves the current letter.
+      //
+      // THE FIRST LETTER'S PDF, 2026-10-02. "We Built the Intelligence" was archived and replaced by
+      // "The Conscience Is Already There" at the same URL. Its PDF filename went out in a great deal
+      // of outreach, so that exact file path forwards to the new letter rather than going dark. The
+      // operator's ruling was that weeks had passed and the story had changed, so an old link should
+      // arrive at what the Institute says now. Temporary, like every redirect here: the first letter
+      // is archived rather than destroyed, and a permanent redirect outlives a change of mind.
+      {
+        source: "/open-letter/We-Built-the-Intelligence-Open-Letter.pdf",
+        destination: "/open-letter",
+        permanent: false,
+      },
+      // /letter is the short form people were told to type.
       {
         source: "/letter",
         destination: "/open-letter",
