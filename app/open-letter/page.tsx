@@ -42,7 +42,7 @@ function P({ children }: { children: React.ReactNode }) {
 const sources = [
     { text: "OpenAI, Expanding on what we missed with sycophancy (2025)", href: "https://openai.com/index/expanding-on-sycophancy/" },
     { text: "Overview of the 2023 Anthropic sycophancy findings", href: "https://en.wikipedia.org/wiki/Sycophancy_(artificial_intelligence)" },
-    { text: "Agentic Scaffolding Amplifies Sycophantic Behavior in Large Language Models (2026)", href: "https://arxiv.org/pdf/2608.21377" },
+    { text: "Agentic Scaffolding Amplifies Sycophantic Behavior in Large Language Models (2026)", href: "https://arxiv.org/abs/2608.21377" },
     { text: "METR, Recent Frontier Models Are Reward Hacking (2025)", href: "https://metr.org/blog/2025-06-05-recent-reward-hacking/" },
     { text: "METR, Frontier Risk Report, February to March 2026", href: "https://metr.org/blog/2026-05-19-frontier-risk-report/" },
     { text: "Anthropic, Natural Emergent Misalignment from Reward Hacking in Production RL (2025)", href: "https://arxiv.org/abs/2511.18397" },
