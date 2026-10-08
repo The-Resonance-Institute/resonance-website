@@ -22,8 +22,8 @@ export default function About() {
           Huntington Beach, California. It holds the copyright to the{" "}
           <Link href="/resonance" className="text-accent underline decoration-line hover:decoration-accent">
             Resonance Series
-          </Link>
-          .
+          </Link>{" "}
+          and licenses it.
         </p>
         <p>
           Four trilogies, twelve volumes, approximately one million words,
@@ -32,8 +32,8 @@ export default function About() {
           community to the world, and each volume can be read on its own.
         </p>
         <p>
-          The Institute holds the Series and licenses it. It is not a lab and
-          takes no venture funding. It is a private institute, and its subject is
+          It is not a lab and takes no venture funding. It is a private
+          institute, and its subject is
           resonance: what it takes to see a person, a community, or an institution
           whole rather than as a collection of parts, and to live accordingly. That
           question is the thesis, and the books are the work.

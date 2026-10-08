@@ -41,7 +41,7 @@ export default async function TrilogyPage({
           href="/resonance"
           className="text-sm text-muted transition-colors hover:text-accent"
         >
-          <span aria-hidden>&larr;</span> The twelve volumes
+          <span aria-hidden>&larr;</span> The Philosophy
         </Link>
 
         <div className="mt-6 grid gap-8 sm:grid-cols-[220px_1fr] sm:gap-10">
