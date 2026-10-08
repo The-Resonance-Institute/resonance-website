@@ -693,9 +693,19 @@ def test_the_header_calls_it_the_philosophy_not_the_series():
     reading Philosophy pointing at a page headed Series is exactly the drift these guards exist for.
     """
     links = json.loads((ROOT / "content" / "nav.json").read_text(encoding="utf-8"))["links"]
-    first = links[0]
-    assert first["href"] == "/resonance", "the philosophy is no longer the first nav entry"
-    assert first["label"] == "The Philosophy", f"the nav calls it {first['label']!r}"
+    by_href = {l["href"]: l for l in links}
+    assert "/resonance" in by_href, "the philosophy is not in the header at all"
+    assert by_href["/resonance"]["label"] == "The Philosophy", (
+        f"the nav calls it {by_href['/resonance']['label']!r}")
+
+    # ORDER, OPERATOR 2026-10-08. The Philosophy stopped being the first entry. The Return goes in
+    # front of it, and this test had asserted position where it meant to assert the LABEL, so the
+    # two facts are now separate. The reason the order moved is that the site stopped being only a
+    # books site: the one object that is actually publishing leads, and the twelve complete volumes
+    # sit behind it. Recorded as an assertion so a future reordering is a decision, not a drift.
+    order = [l["href"] for l in links]
+    assert order.index("/the-return") < order.index("/resonance"), (
+        f"The Return no longer leads the header: {order}")
 
     stale = []
     for rel in ("app/resonance/page.tsx", "app/about/page.tsx",
