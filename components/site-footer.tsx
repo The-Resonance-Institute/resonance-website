@@ -14,7 +14,7 @@ export function SiteFooter() {
               rather than a destination. Since 2026-09-23 it is a single outbound link to
               askmoris.ai: there is no second instance of it in this repository. */}
           <Link href="/resonance" className="py-3 transition-colors hover:text-accent">
-            The Series
+            The Philosophy
           </Link>
           <Link href="/about" className="py-3 transition-colors hover:text-accent">
             About

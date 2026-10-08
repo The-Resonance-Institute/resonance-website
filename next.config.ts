@@ -94,12 +94,19 @@ const nextConfig: NextConfig = {
       //
       // These four routes were live and in the sitemap, so they forward rather than going dark.
       // TEMPORARY, like the pivot's redirects: the material is withheld, not retired.
-      // THE FIRST TRILOGY IS PRESENCE, 2026-09-23. It was Resonance, and that path is already
-      // indexed, so this one is PERMANENT rather than temporary: the trilogy did not go away, it
-      // was renamed, and the old URL should stop being requested rather than be kept alive.
+      // THE FIRST TRILOGY IS TUNING, 2026-10-07. It was Resonance, then Presence, and both of those
+      // paths were live and indexed, so both forward and both are PERMANENT rather than temporary:
+      // the trilogy did not go away, it was renamed, and the old URLs should stop being requested
+      // rather than be kept alive. The /resonance entry now points straight at tuning rather than
+      // chaining through presence, so a crawler following it takes one hop instead of two.
       {
         source: "/resonance/trilogy/resonance",
-        destination: "/resonance/trilogy/presence",
+        destination: "/resonance/trilogy/tuning",
+        permanent: true,
+      },
+      {
+        source: "/resonance/trilogy/presence",
+        destination: "/resonance/trilogy/tuning",
         permanent: true,
       },
       {

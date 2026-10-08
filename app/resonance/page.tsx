@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { PublicationStatus } from "@/components/publication-status";
 
 export const metadata: Metadata = {
-  title: "The Series",
+  title: "The Philosophy",
   description:
     "The Resonance series. A Living Philosophy of Leadership. Four trilogies, twelve volumes, approximately one million words. Complete. Each theme is carried from the self to the community to the world. All twelve are written; none is published yet.",
 };
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 const trilogies = [
   {
     n: "I",
-    name: "Resonance",
+    name: "Tuning",
     line: "Presence as the ground of leadership: what leadership is before a word is spoken.",
   },
   {
@@ -37,7 +37,7 @@ export default function ResonanceLanding() {
     <div className="mx-auto max-w-3xl px-6">
       <section className="pt-20 pb-10 sm:pt-28">
         <p className="text-xs font-medium uppercase tracking-[0.18em] text-muted">
-          The Series
+          The Philosophy
         </p>
         <h1 className="mt-4 font-serif text-4xl leading-tight text-ink sm:text-5xl">
           A Living Philosophy of Leadership.
@@ -63,7 +63,7 @@ export default function ResonanceLanding() {
         </div>
         <div className="mt-5 flex gap-2.5 sm:gap-3">
           {[
-            ["presence", "Presence"],
+            ["tuning", "Tuning"],
             ["transformation", "Transformation"],
             ["time", "Time"],
             ["sacred", "The Sacred"],

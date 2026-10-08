@@ -54,7 +54,7 @@ export default function About() {
           href="/resonance"
           className="inline-flex items-center gap-1.5 rounded-full border border-line px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:border-accent hover:text-accent"
         >
-          The Series <span aria-hidden>&rarr;</span>
+          The Philosophy <span aria-hidden>&rarr;</span>
         </Link>
       </section>
     </div>

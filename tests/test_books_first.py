@@ -608,3 +608,89 @@ def test_tap_targets_are_thumb_sized():
         assert not thin, (
             f"{rel}: link(s) without py-3, so about 20 pixels tall on a phone instead of 44: {thin}"
         )
+
+# --- Trilogy I is Tuning, 2026-10-07 -------------------------------------------------------------
+
+# THE WORD "PRESENCE" MEANS TWO THINGS ON THIS SITE, which is the whole reason this guard exists.
+# It was the first trilogy's NAME until 2026-10-07, and it is also an ordinary English word the
+# books use throughout. A find-and-replace would rename the trilogy correctly and corrupt a verbatim
+# quoted passage in the same pass. The operator's standing ruling is that quoted prose is not site
+# copy and is never swept, so these lines are pinned here by their content.
+PROSE_PRESENCE = (
+    "Breath is the first measure of presence",                    # Time trilogy summary
+    "bodily presence",                                            # The Sacred
+    "presence itself begins to alter what is possible",           # Book I description
+    "beyond the constant presence of a single leader",            # Book II description
+    "Completion is the presence of care",                         # VERBATIM passage, Book XII
+)
+
+
+def test_the_first_trilogy_is_tuning_and_the_quoted_prose_was_not_swept():
+    """RENAMED 2026-10-07 on the operator's word: the Presence Trilogy becomes the Tuning Trilogy.
+
+    This is the second rename of trilogy I. It was Resonance, then Presence, now Tuning, and Book I
+    already carried "Tuning" as its own subtitle before the trilogy took the name.
+
+    THE DEFECT THE LAST RENAME SHIPPED, guarded separately by
+    test_every_asset_canon_points_at_actually_exists: the name changed in canon.json and the art path
+    did not, so the detail page rendered a broken cover while every text check passed. The art path
+    is asserted here too, deliberately twice, because that is the one that got through.
+
+    WHAT THIS ADDS beyond the asset check is the other half: that renaming the trilogy did not also
+    rewrite the prose. Five lines that use "presence" as an ordinary word are pinned by content, one
+    of them a verbatim quotation from Book XII. If a later sweep takes them, this fails by name.
+    """
+    canon = json.loads((ROOT / "content" / "canon.json").read_text(encoding="utf-8"))
+    first = canon["trilogies"][0]
+    assert first["numeral"] == "I"
+    assert first["slug"] == "tuning", f"trilogy I slug is {first['slug']!r}"
+    assert first["name"] == "Tuning", f"trilogy I name is {first['name']!r}"
+    assert first["art"] == "/trilogies/tuning.jpg", f"trilogy I art is {first['art']!r}"
+    assert "TUNING" in first["heading"].upper(), f"trilogy I heading is {first['heading']!r}"
+
+    # Books I-III point at the renamed trilogy, by slug and by name.
+    for b in canon["books"][:3]:
+        assert b["trilogySlug"] == "tuning", f"book {b['n']} still points at {b['trilogySlug']!r}"
+        assert b["trilogyName"] == "Tuning", f"book {b['n']} still names {b['trilogyName']!r}"
+
+    # The artwork moved with the name, and the retired file is not still being served.
+    assert (ROOT / "public" / "trilogies" / "tuning.jpg").exists(), "the Tuning artwork is missing"
+    assert not (ROOT / "public" / "trilogies" / "presence.jpg").exists(), (
+        "presence.jpg is still in public/; it was archived with the name")
+
+    # Nothing anywhere still calls trilogy I by its retired name.
+    blob = json.dumps(canon, ensure_ascii=False)
+    for retired in ("The Presence Trilogy", '"Presence"', '"presence"'):
+        assert retired not in blob, f"canon.json still carries {retired!r} as the trilogy name"
+
+    # AND THE PROSE SURVIVED. This is the half a sweep gets wrong.
+    for line in PROSE_PRESENCE:
+        assert line in blob, (
+            f"a prose use of 'presence' was swept by the rename: {line!r}. Quoted prose is not site "
+            "copy; the trilogy name changed, the books did not.")
+
+
+def test_the_header_calls_it_the_philosophy_not_the_series():
+    """OPERATOR, 2026-10-07. The header stops saying "The Series" and says "The Philosophy".
+
+    "The Resonance Series" remains usable in body copy by his ruling; what changed is the label a
+    visitor navigates by, which now echoes the guarded line "A Living Philosophy of Leadership".
+
+    ALL SIX MOVE TOGETHER. The label is not only in the nav: it is the page title and the eyebrow at
+    /resonance, the footer link, the back-link on the manuscripts page and a link on About. A header
+    reading Philosophy pointing at a page headed Series is exactly the drift these guards exist for.
+    """
+    links = json.loads((ROOT / "content" / "nav.json").read_text(encoding="utf-8"))["links"]
+    first = links[0]
+    assert first["href"] == "/resonance", "the philosophy is no longer the first nav entry"
+    assert first["label"] == "The Philosophy", f"the nav calls it {first['label']!r}"
+
+    stale = []
+    for rel in ("app/resonance/page.tsx", "app/resonance/series/page.tsx",
+                "app/about/page.tsx", "components/site-footer.tsx"):
+        text = strip_comments((ROOT / rel).read_text(encoding="utf-8"))
+        if "The Series" in text:
+            stale.append(rel)
+    assert not stale, (
+        "these still label the work 'The Series' while the header says 'The Philosophy': "
+        + ", ".join(stale))
