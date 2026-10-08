@@ -790,6 +790,18 @@ PUBLICATION_PROMISES = (
 # or an invitation to wait for it. A correction is not a rule.
 
 
+# THE ONE NOTIFY EXEMPTION, 2026-10-07. "Know when it lands" came off every surface earlier today
+# because nothing was coming. The Return is coming: a finished manuscript, a final cover, and a
+# publication the operator intends. So the link returns, for that page and that phrase alone.
+#
+# WHAT IS NOT EXEMPTED, and this is the point of naming a phrase rather than a page. Every other
+# promise stays banned here too. The Return's page may not say "coming soon", may not give a date,
+# and may not say the series is publishing. The operator's instruction was explicit that the timing
+# does not need saying, and a page that invites someone to be told is honest in a way that a page
+# guessing at months is not.
+NOTIFY_EXEMPT = {"app/the-return/page.tsx": ("know when it lands",)}
+
+
 def test_no_surface_promises_publication():
     """THE WORK IS COMPLETE AND THERE IS NO PLAN TO PUBLISH IT.
 
@@ -811,9 +823,11 @@ def test_no_surface_promises_publication():
     for p in live_files(include_unlisted=False):
         text = strip_comments(p.read_text(encoding="utf-8", errors="ignore")).lower()
         text = " ".join(text.split())
+        rel = p.relative_to(ROOT).as_posix()
+        allowed = NOTIFY_EXEMPT.get(rel, ())
         for phrase in PUBLICATION_PROMISES:
-            if phrase in text:
-                hits.append(f"{p.relative_to(ROOT)}: {phrase!r}")
+            if phrase in text and phrase not in allowed:
+                hits.append(f"{rel}: {phrase!r}")
     assert not hits, (
         "a reader-facing surface still promises publication of the series. There is no plan to "
         "publish; saying otherwise invites a reader to wait for something that is not coming: "
@@ -828,3 +842,51 @@ def test_the_publication_status_component_is_gone():
         text = p.read_text(encoding="utf-8", errors="ignore")
         assert "PublicationStatus" not in text and "PublicationNote" not in text, (
             f"{p.relative_to(ROOT)} still imports or renders the retired publication component")
+
+
+# --- The Return, 2026-10-07 ----------------------------------------------------------------------
+
+def test_the_return_has_its_own_page():
+    """THE BOOK THAT IS ACTUALLY PUBLISHING, given its own route on the operator's word.
+
+    WHY IT IS NOT UNDER /resonance. The Return is one trade book drawn from the first three volumes,
+    not volume thirteen. Nesting it inside the series would file it as one of the twelve, which is
+    exactly what it is not, so it sits at its own path with its own entry in the header.
+
+    WHY THIS DOES NOT REOPEN THE PUBLICATION FRAME. Earlier today every promise of publication came
+    off the site, because the twelve volumes are complete and there is no plan to publish them. That
+    is unchanged and still enforced. This page is about a different object, and it carries exactly
+    one of the retired phrases, the notify link, under a named exemption. No date appears anywhere.
+    """
+    page = ROOT / "app" / "the-return" / "page.tsx"
+    assert page.exists(), "The Return has no page"
+    src = page.read_text(encoding="utf-8")
+    assert "The Return" in src
+    assert "Every leader fails" in src, "the subtitle is the argument; it belongs on the page"
+
+    cover = ROOT / "public" / "the-return" / "cover.jpg"
+    assert cover.exists(), "The Return's cover art is missing"
+
+    links = json.loads((ROOT / "content" / "nav.json").read_text(encoding="utf-8"))["links"]
+    assert any(l["href"] == "/the-return" for l in links), "The Return is not in the header"
+
+    sitemap = (ROOT / "app" / "sitemap.ts").read_text(encoding="utf-8")
+    assert "/the-return" in sitemap, "The Return is absent from the sitemap"
+
+
+def test_the_return_names_no_date():
+    """The operator ruled the timing does not need saying, and saying it is how a page goes stale
+    on a schedule nobody controls. A reader is invited to be told instead."""
+    text = strip_comments((ROOT / "app" / "the-return" / "page.tsx").read_text(encoding="utf-8")).lower()
+    for term in ("coming soon", "months", "weeks", "early 2027", "late 2026", "this winter",
+                 "this spring", "pre-order", "preorder", "publication date", "release date"):
+        assert term not in text, f"The Return's page names timing: {term!r}"
+
+
+def test_the_notify_exemption_is_one_page_and_one_phrase():
+    """An exemption nobody can see the edges of is a hole. These are the edges."""
+    assert len(NOTIFY_EXEMPT) == 1, f"the notify exemption grew: {sorted(NOTIFY_EXEMPT)}"
+    for rel, phrases in NOTIFY_EXEMPT.items():
+        assert (ROOT / rel).exists(), f"the exemption names a file that does not exist: {rel}"
+        assert phrases == ("know when it lands",), (
+            f"the exemption widened beyond the notify link: {phrases}")

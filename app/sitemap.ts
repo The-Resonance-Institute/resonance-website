@@ -19,6 +19,10 @@ const staticRoutes: { path: string; priority: number }[] = [
   // THE OPEN LETTER returned to the sitemap on 2026-10-02 with "The Conscience Is Already There".
   // It was out while it was unlisted; it is in the header now, and a page in the nav that is hidden
   // from crawlers is an incoherent half-state. test_the_sitemap_lists_no_removed_route asserts it.
+  // THE RETURN, 2026-10-07. The one book that is publishing, and the only page here that
+  // invites a reader to be told when it lands. It is not under /resonance on purpose: it is
+  // one trade book drawn from the first three volumes, not volume thirteen.
+  { path: "/the-return", priority: 0.9 },
   { path: "/open-letter", priority: 0.8 },
   { path: "/resonance", priority: 0.9 },
   { path: "/about", priority: 0.6 },
