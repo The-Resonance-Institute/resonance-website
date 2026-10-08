@@ -38,7 +38,7 @@ export default async function TrilogyPage({
     <div className="mx-auto max-w-3xl px-6">
       <section className="pt-16 pb-10 sm:pt-20">
         <Link
-          href="/resonance/series"
+          href="/resonance"
           className="text-sm text-muted transition-colors hover:text-accent"
         >
           <span aria-hidden>&larr;</span> The twelve volumes
@@ -182,7 +182,7 @@ export default async function TrilogyPage({
 
       <section className="mt-14 flex flex-wrap gap-4 border-t border-line pt-10">
         <Link
-          href="/resonance/series"
+          href="/resonance"
           className="inline-flex items-center gap-1.5 rounded-full border border-line px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:border-accent hover:text-accent"
         >
           All twelve volumes <span aria-hidden>&rarr;</span>

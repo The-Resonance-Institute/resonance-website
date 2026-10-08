@@ -34,7 +34,7 @@ export default function Home() {
             Enter the Series <span aria-hidden>&rarr;</span>
           </Link>
           <Link
-            href="/resonance/series"
+            href="/resonance"
             className="inline-flex items-center gap-1.5 rounded-full border border-line px-5 py-2.5 text-sm font-medium text-muted transition-colors hover:border-accent hover:text-accent"
           >
             All {books.length} volumes <span aria-hidden>&rarr;</span>

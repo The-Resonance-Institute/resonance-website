@@ -81,6 +81,17 @@ const nextConfig: NextConfig = {
         destination: "/open-letter",
         permanent: false,
       },
+      // THE MANUSCRIPTS PAGE WAS MERGED INTO /resonance, 2026-10-07. The site had two pages
+      // saying overlapping things about one body of work, and the header offered two doors into
+      // it. This URL is indexed and was in the sitemap, so it forwards rather than going dark.
+      // TEMPORARY, against the usual instinct for a merge: the operator is mid-restructure and has
+      // already said a standalone page comes back later, and a permanent redirect is cached in
+      // browsers past a change of mind.
+      {
+        source: "/resonance/series",
+        destination: "/resonance",
+        permanent: false,
+      },
       // /letter is the short form people were told to type.
       {
         source: "/letter",

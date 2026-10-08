@@ -521,7 +521,12 @@ def test_the_series_line_is_used_verbatim():
     found = [p.relative_to(ROOT).as_posix() for p in live_files(include_unlisted=False)
              if SERIES_LINE in " ".join(
                  p.read_text(encoding="utf-8", errors="ignore").lower().split())]
-    assert len(found) >= 4, (
+    # THE FLOOR DROPPED FROM 4 TO 3 ON 2026-10-07, and it is a count rather than a rule, so it is
+    # worth saying why. The Manuscripts page was merged into /resonance and carried one of the four
+    # instances with it. Nothing was paraphrased and nothing drifted: there is simply one fewer
+    # page describing the series to a reader. What this guard is actually for is the VERBATIM part,
+    # that wherever the line appears it appears whole, and that is unchanged.
+    assert len(found) >= 3, (
         f"the series line appears verbatim in only {len(found)} files ({found}); it is the "
         f"description used wherever the series is described to a reader")
 
@@ -686,11 +691,64 @@ def test_the_header_calls_it_the_philosophy_not_the_series():
     assert first["label"] == "The Philosophy", f"the nav calls it {first['label']!r}"
 
     stale = []
-    for rel in ("app/resonance/page.tsx", "app/resonance/series/page.tsx",
-                "app/about/page.tsx", "components/site-footer.tsx"):
+    for rel in ("app/resonance/page.tsx", "app/about/page.tsx",
+                "components/site-footer.tsx"):
         text = strip_comments((ROOT / rel).read_text(encoding="utf-8"))
         if "The Series" in text:
             stale.append(rel)
     assert not stale, (
         "these still label the work 'The Series' while the header says 'The Philosophy': "
         + ", ".join(stale))
+
+
+# --- one page, 2026-10-07 ------------------------------------------------------------------------
+
+def test_the_philosophy_is_one_page_and_manuscripts_is_gone():
+    """MERGED 2026-10-07 on the operator's word. One page, /resonance, called The Philosophy.
+
+    The site had grown two pages saying overlapping things: /resonance stated the series line, listed
+    the four trilogies as cards and carried a "first volume" callout, and /resonance/series stated
+    the series line again, listed the same four trilogies with their art and covers, and carried a
+    second "Book One comes first" callout. The operator wanted one.
+
+    WHAT HAD TO SURVIVE THE MERGE is every link into a book. They all lived on the Manuscripts page,
+    in the cover grids, so the whole trilogy-and-covers block moved across rather than being
+    rebuilt. That is what the twelve cover paths below assert: all twelve books are reachable from
+    the one page, and if a trilogy block is ever dropped its three books stop being linked anywhere
+    a visitor can reach.
+
+    /resonance/series itself is indexed and forwards rather than going dark. TEMPORARY, against the
+    usual instinct for a merge: the operator is mid-restructure and has already said a standalone
+    page comes back later, and a permanent redirect is cached in browsers past a change of mind.
+    """
+    assert not (ROOT / "app" / "resonance" / "series" / "page.tsx").exists(), (
+        "the Manuscripts page is still here; it was merged into /resonance, not kept")
+
+    links = json.loads((ROOT / "content" / "nav.json").read_text(encoding="utf-8"))["links"]
+    assert not any(l["href"] == "/resonance/series" for l in links), "the nav still lists Manuscripts"
+    assert not any(l["label"] == "Manuscripts" for l in links), "the nav still says Manuscripts"
+
+    page = (ROOT / "app" / "resonance" / "page.tsx").read_text(encoding="utf-8")
+    for n in range(1, 13):
+        assert f"/covers/book{n}.jpg" in page, (
+            f"book {n} is not on the merged page; its link lived in the cover grid that moved here")
+    for art in ("tuning", "transformation", "time", "sacred"):
+        assert f"/trilogies/{art}.jpg" in page, f"the {art} trilogy block did not survive the merge"
+    assert "/resonance/book/" in page, "the merged page links no books at all"
+
+    # Nothing still points at the retired path, and it forwards rather than 404ing.
+    offenders = []
+    for p in live_files():
+        if p.suffix not in {".tsx", ".html"}:
+            continue
+        if 'href="/resonance/series"' in strip_comments(p.read_text(encoding="utf-8", errors="ignore")):
+            offenders.append(p.relative_to(ROOT).as_posix())
+    assert not offenders, f"these still link the retired Manuscripts path: {offenders}"
+
+    sitemap = (ROOT / "app" / "sitemap.ts").read_text(encoding="utf-8")
+    assert '"/resonance/series"' not in sitemap, "the sitemap still lists the retired path"
+
+    cfg = (ROOT / "next.config.ts").read_text(encoding="utf-8")
+    i = cfg.find('source: "/resonance/series"')
+    assert i != -1, "/resonance/series does not forward; an indexed URL would 404"
+    assert '"/resonance"' in cfg[i:i + 200], "/resonance/series forwards somewhere unexpected"

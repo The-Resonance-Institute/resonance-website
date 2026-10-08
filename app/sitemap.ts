@@ -21,7 +21,6 @@ const staticRoutes: { path: string; priority: number }[] = [
   // from crawlers is an incoherent half-state. test_the_sitemap_lists_no_removed_route asserts it.
   { path: "/open-letter", priority: 0.8 },
   { path: "/resonance", priority: 0.9 },
-  { path: "/resonance/series", priority: 0.8 },
   { path: "/about", priority: 0.6 },
   { path: "/contact", priority: 0.6 },
   { path: "/privacy", priority: 0.3 },
