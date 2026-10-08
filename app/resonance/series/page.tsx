@@ -33,7 +33,7 @@ const trilogies: Trilogy[] = [
   {
     numeral: "I",
     name: "Tuning",
-    line: "Presence as the ground of leadership: what leadership is before a word is spoken.",
+    line: "How a leader comes into tune: with themselves, with the people around them, and with those not yet born.",
     art: "/trilogies/tuning.jpg",
     books: [
       { n: 1, title: "Echoes of the Unseen", scale: "The self", cover: "/covers/book1.jpg" },

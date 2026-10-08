@@ -13,7 +13,7 @@ const trilogies = [
   {
     n: "I",
     name: "Tuning",
-    line: "Presence as the ground of leadership: what leadership is before a word is spoken.",
+    line: "How a leader comes into tune: with themselves, with the people around them, and with those not yet born.",
   },
   {
     n: "II",
@@ -135,9 +135,9 @@ export default function ResonanceLanding() {
           <span className="italic text-ink">
             Book One &middot; Tuning &middot; Echoes of the Unseen
           </span>{" "}
-          (Resonance and the Self). Presence as the ground of leadership: the
-          tuning of the inner instrument. It is the volume the series opens with,
-          and the one being published first.
+          (Resonance and the Self). The first work is inward: the tuning of the
+          inner instrument. It is the volume the series opens with, and the one
+          being published first.
         </p>
         <Link
           href="/resonance/book/echoes-of-the-unseen"
