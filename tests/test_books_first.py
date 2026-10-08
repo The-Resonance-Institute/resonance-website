@@ -862,7 +862,10 @@ def test_the_return_has_its_own_page():
     assert page.exists(), "The Return has no page"
     src = page.read_text(encoding="utf-8")
     assert "The Return" in src
-    assert "Every leader fails" in src, "the subtitle is the argument; it belongs on the page"
+    # SUBTITLE CHANGED 2026-10-08: "Every Leader Fails. The Good Ones Come Back." became
+    # "Every Leader Drifts. Coming Back Is the Work." Drift is the condition; the return is the work.
+    assert "Every leader drifts" in src, "the subtitle is the argument; it belongs on the page"
+    assert "Every leader fails" not in src, "the retired subtitle is still on the page"
 
     cover = ROOT / "public" / "the-return" / "cover.jpg"
     assert cover.exists(), "The Return's cover art is missing"

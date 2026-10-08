@@ -24,11 +24,11 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "The Return",
   description:
-    "The Return: Every Leader Fails. The Good Ones Come Back. A book on leadership by C.T. Herndon, drawn from the first three volumes of A Living Philosophy.",
+    "The Return: Every Leader Drifts. Coming Back Is the Work. A book on leadership by C.T. Herndon, drawn from the first three volumes of A Living Philosophy.",
   openGraph: {
-    title: "The Return: Every Leader Fails. The Good Ones Come Back.",
+    title: "The Return: Every Leader Drifts. Coming Back Is the Work.",
     description:
-      "A book on leadership by C.T. Herndon. Not an infallible leader, but a real one, honest enough to fail in plain sight and disciplined enough to return.",
+      "A book on leadership by C.T. Herndon. Not an infallible leader, but a real one, honest enough to name their own drift in plain sight and disciplined enough to return.",
     type: "book",
   },
 };
@@ -45,7 +45,7 @@ export default function TheReturn() {
             The Return
           </h1>
           <p className="mt-4 font-serif text-xl font-light leading-relaxed text-ink sm:text-2xl">
-            Every leader fails. The good ones come back.
+            Every leader drifts. Coming back is the work.
           </p>
           <p className="mt-6 max-w-xl leading-relaxed text-muted">
             A book about what a team is actually watching: whether you turn up when
@@ -63,7 +63,7 @@ export default function TheReturn() {
           <div className="relative aspect-[2/3] overflow-hidden rounded-xl border border-line shadow-md">
             <Image
               src="/the-return/cover.jpg"
-              alt="Cover of The Return: Every Leader Fails. The Good Ones Come Back., by C.T. Herndon"
+              alt="Cover of The Return: Every Leader Drifts. Coming Back Is the Work., by C.T. Herndon"
               fill
               sizes="(max-width: 640px) 224px, 280px"
               className="object-cover"
@@ -78,7 +78,8 @@ export default function TheReturn() {
         <p className="mt-4 max-w-2xl font-serif text-xl font-light leading-relaxed text-ink">
           Good leadership is a whole person meeting a whole team, in small, real
           acts carried daily. Not an infallible leader, but a real one, honest
-          enough to fail in plain sight and disciplined enough to return.
+          enough to name their own drift in plain sight and disciplined enough to
+          return.
         </p>
         <p className="mt-5 max-w-2xl leading-relaxed text-muted">
           Fourteen chapters move from the compass a leader steers by to what they
