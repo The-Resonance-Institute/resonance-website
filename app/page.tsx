@@ -37,7 +37,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "The Resonance Institute",
   description:
-    "The Resonance Institute is the private studio of C. T. Herndon, exploring timeless truths and the future with AI. Philosophy on how a person, a team and an institution stay coherent under pressure, a book for working leaders, and software that holds a machine to the same standard.",
+    "The Resonance Institute is the private studio of C. T. Herndon, where enduring questions meet modern technology. Philosophy as a posture rather than a method: the alignment of inner and outer, and how a person stands toward the world. Tuning, Transformation, Time and the Sacred, twelve volumes complete, a book for working leaders, and software held to the same standard.",
 };
 
 export default function Home() {
@@ -70,10 +70,26 @@ export default function Home() {
 
             THE LEAD NAMES THE THREE THINGS, in the order the cards sit below it, so the hero and
             the grid stop describing the studio differently. */}
+        {/* THE LEAD IS THE BOOKS' OWN WORD FOR THEMSELVES, and it took two wrong answers to get
+            here. The first said the philosophy was about staying coherent under pressure, a
+            management abstract of a million words. The second picked the series' most repeated
+            moral claim, who bears the cost and who was absent, and made one theme stand for twelve
+            volumes. Both were written without reading the manuscripts.
+
+            POSTURE IS THE SERIES' OWN TERM, used by the books about themselves rather than applied
+            to them. Book IX closes its letter to the reader: "I hope you leave this work not with a
+            conclusion but with a posture." Book IX again, mid-argument: "Not a claim. A posture."
+            Book VII: "The duet is not a doctrine." Book I says outright that it is "not a book that
+            tells you how to perform leadership."
+
+            THE ALIGNMENT OF INNER AND OUTER is likewise quoted, not coined. Book I's Overture: "The
+            body listens for coherence, the alignment of inner and outer, past and present." That is
+            the hinge the whole series turns on, which is why it belongs in the first sentence a
+            visitor reads rather than three pages in. */}
         <p className="mt-6 max-w-3xl font-serif text-xl font-light leading-relaxed text-ink">
-          Philosophy on how a person, a team and an institution stay coherent
-          under pressure. A book for working leaders. And software that holds a
-          machine to the same standard.
+          Philosophy as a posture rather than a method: the alignment of inner
+          and outer, and how a person stands toward the world. A book for
+          working leaders. And software held to the same standard.
         </p>
       </section>
 
@@ -111,9 +127,14 @@ export default function Home() {
             <h3 className="mt-2 font-serif text-xl text-ink transition-colors group-hover:text-accent">
               A Living Philosophy
             </h3>
+            {/* THE FOUR ARE NAMED HERE, not counted. "Four trilogies" told a visitor the shape of
+                the thing and nothing about what is in it; Tuning, Transformation, Time and the
+                Sacred tell them what the series actually concerns in six words. The names are the
+                manuscripts' own: every volume's front matter carries its trilogy on the title
+                page. */}
             <p className="mt-2 flex-1 text-sm leading-relaxed text-muted">
-              Four trilogies, twelve volumes, approximately one million words.
-              Complete. Carried from the self to the community to the world.
+              Tuning, Transformation, Time and the Sacred. Twelve volumes,
+              complete, carried from the self to the community to the world.
             </p>
             <p className="mt-4 text-sm font-medium text-accent">
               Enter the philosophy <span aria-hidden>&rarr;</span>
