@@ -111,19 +111,12 @@ export default function TheReturn() {
             A Living Philosophy
           </Link>
           , and written in a plainer voice that moves at the pace of a working day.
-          Partway through, the book stops and prints four passages from those
-          volumes exactly as they were first written, so a reader hears the older
-          voice for a while before the chapters resume.
         </p>
       </section>
 
+      {/* No author paragraph here. /about already carries it, and repeating it on the one page a
+          reader is most likely to act on puts biography between them and the only thing to do. */}
       <section className="mt-14 border-t border-line pt-10 pb-6">
-        <p className="max-w-2xl leading-relaxed text-muted">
-          C.T. Herndon spent his career leading people in industrial manufacturing,
-          most recently as a senior operations executive, and before that in
-          military intelligence with the U.S. Army. He is the founder of The
-          Resonance Institute.
-        </p>
         {/* The same button as the hero, not a bare text link. A 14px inline link renders about 20
             pixels tall on a phone, which is the exact defect this repo found in the header in
             September and the footer later that month. This is the page's one action; it should be
