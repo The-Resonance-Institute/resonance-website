@@ -3,7 +3,7 @@ import Image from "next/image";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { books, getBook, trilogyOfBook, booksInTrilogy } from "@/lib/canon";
-import { PublicationNote } from "@/components/publication-status";
+import { SeriesNote } from "@/components/series-note";
 
 export function generateStaticParams() {
   return books.map((b) => ({ slug: b.slug }));
@@ -92,7 +92,7 @@ export default async function BookPage({
       </section>
 
       <section className="border-t border-line pt-6">
-        <PublicationNote />
+        <SeriesNote />
       </section>
 
       {/* Book description (editorial) */}

@@ -752,3 +752,66 @@ def test_the_philosophy_is_one_page_and_manuscripts_is_gone():
     i = cfg.find('source: "/resonance/series"')
     assert i != -1, "/resonance/series does not forward; an indexed URL would 404"
     assert '"/resonance"' in cfg[i:i + 200], "/resonance/series forwards somewhere unexpected"
+
+
+# --- no plan to publish, 2026-10-07 --------------------------------------------------------------
+
+# OPERATOR, 2026-10-07: "remove all references of publishing for the resonance series or any of the
+# books in it, there is now no plan to publish."
+#
+# PHRASES, NOT THE BARE WORD. "Publish" has honest uses on this site that have nothing to do with
+# the series: askmoris.ai publishes the mechanism on every answer, and the open letter discusses
+# published research. Banning the word would force those to be reworded to satisfy a guard, which
+# is the failure mode this repository keeps writing comments about. So what is banned is the
+# series' publication frame, in the words it was actually written in.
+PUBLICATION_PROMISES = (
+    "not yet published",
+    "none has been published",
+    "is published yet",
+    "being published first",
+    "coming soon",
+    "first to land",
+    "know when it lands",
+    "publishes the series",
+    "publishes the resonance series",
+)
+
+
+def test_no_surface_promises_publication():
+    """THE WORK IS COMPLETE AND THERE IS NO PLAN TO PUBLISH IT.
+
+    What came down: a Publication status band reading "Written. Not yet published" with a "Know
+    when it lands" link into /contact, the same note in one line on every book and trilogy page,
+    "First to land" and "the one being published first" on the Philosophy page, a second "Know when
+    it lands" button on every trilogy page, and the Institute describing itself as publishing the
+    Series.
+
+    THE SIGNUP MATTERED MOST. "Know when it lands" pointed at /contact and invited a reader to wait
+    for something that is not coming. A dead link is a nuisance; a promise nobody intends to keep
+    is different in kind, and that is why these are phrases rather than a tidy-up.
+
+    WHAT IS DELIBERATELY NOT ASSERTED: that the site says the work is unpublished. It says nothing
+    about publication at all. Stating "not published" is itself a publication frame and invites the
+    question of when.
+    """
+    hits = []
+    for p in live_files(include_unlisted=False):
+        text = strip_comments(p.read_text(encoding="utf-8", errors="ignore")).lower()
+        text = " ".join(text.split())
+        for phrase in PUBLICATION_PROMISES:
+            if phrase in text:
+                hits.append(f"{p.relative_to(ROOT)}: {phrase!r}")
+    assert not hits, (
+        "a reader-facing surface still promises publication of the series. There is no plan to "
+        "publish; saying otherwise invites a reader to wait for something that is not coming: "
+        + "; ".join(sorted(set(hits))))
+
+
+def test_the_publication_status_component_is_gone():
+    """It existed to state the publication status in one place. There is no status to state."""
+    assert not (ROOT / "components" / "publication-status.tsx").exists(), (
+        "components/publication-status.tsx is still here; the whole publication frame came down")
+    for p in live_files(include_unlisted=False):
+        text = p.read_text(encoding="utf-8", errors="ignore")
+        assert "PublicationStatus" not in text and "PublicationNote" not in text, (
+            f"{p.relative_to(ROOT)} still imports or renders the retired publication component")

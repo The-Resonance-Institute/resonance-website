@@ -2,7 +2,6 @@ import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
 import { books as canonBooks, trilogies as canonTrilogies } from "@/lib/canon";
-import { PublicationStatus } from "@/components/publication-status";
 
 // ONE PAGE, 2026-10-07. This was two: /resonance stated the series line, listed the four trilogies
 // as cards and carried a "first volume" callout, and /resonance/series stated the series line
@@ -20,7 +19,7 @@ import { PublicationStatus } from "@/components/publication-status";
 export const metadata: Metadata = {
   title: "The Philosophy",
   description:
-    "The Resonance series. A Living Philosophy of Leadership. Four trilogies, twelve volumes, approximately one million words. Complete. Each theme is carried from the self to the community to the world. All twelve are written; none is published yet.",
+    "The Resonance series. A Living Philosophy of Leadership. Four trilogies, twelve volumes, approximately one million words. Complete. Each theme is carried from the self to the community to the world.",
 };
 
 const bookSlug = (n: number) => canonBooks.find((b) => b.n === n)?.slug;
@@ -140,10 +139,6 @@ export default function Philosophy() {
         </div>
       </section>
 
-      <div className="pb-4">
-        <PublicationStatus />
-      </div>
-
       <section className="border-t border-line pt-10">
         <h2 className="font-serif text-2xl text-ink">The shape of it</h2>
         <p className="mt-3 max-w-2xl leading-relaxed text-muted">
@@ -222,7 +217,7 @@ export default function Philosophy() {
           Philosophy page's version, which names the book and links to it rather than to contact. */}
       <section className="mt-6 rounded-2xl border border-line bg-white p-8 sm:p-10">
         <p className="text-xs font-medium uppercase tracking-[0.18em] text-accent">
-          First to land
+          Where it opens
         </p>
         <h2 className="mt-3 font-serif text-2xl text-ink">The first volume</h2>
         <p className="mt-3 max-w-2xl leading-relaxed text-muted">
@@ -230,23 +225,14 @@ export default function Philosophy() {
             Book One &middot; Tuning &middot; Echoes of the Unseen
           </span>{" "}
           (Resonance and the Self). The first work is inward: the tuning of the
-          inner instrument. It is the volume the series opens with, and the one
-          being published first.
+          inner instrument. It is the volume the series opens with.
         </p>
-        <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
-          <Link
-            href="/resonance/book/echoes-of-the-unseen"
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-accent transition-colors hover:text-ink"
-          >
-            Read about Book One <span aria-hidden>&rarr;</span>
-          </Link>
-          <Link
-            href="/contact"
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-muted transition-colors hover:text-accent"
-          >
-            Know when it lands <span aria-hidden>&rarr;</span>
-          </Link>
-        </div>
+        <Link
+          href="/resonance/book/echoes-of-the-unseen"
+          className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-accent transition-colors hover:text-ink"
+        >
+          Read about Book One <span aria-hidden>&rarr;</span>
+        </Link>
       </section>
 
       <section className="mt-12 border-t border-line pt-10">
