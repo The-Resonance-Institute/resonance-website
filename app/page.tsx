@@ -37,7 +37,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "The Resonance Institute",
   description:
-    "The Resonance Institute is the private studio of C. T. Herndon. One question, worked in books and in software: what it takes to see a person, a team or an institution whole rather than as a collection of parts. Home to A Living Philosophy, The Return, and Ask MORIS.",
+    "The Resonance Institute is the private studio of C. T. Herndon, exploring timeless truths and the future with AI. Philosophy on how a person, a team and an institution stay coherent under pressure, a book for working leaders, and software that holds a machine to the same standard.",
 };
 
 export default function Home() {
@@ -48,22 +48,32 @@ export default function Home() {
           The Resonance Institute
         </p>
         <h1 className="mt-4 max-w-3xl font-serif text-4xl leading-tight text-ink sm:text-5xl">
-          A private studio, working on one question.
+          A private studio where enduring questions meet modern technology.
         </h1>
+        {/* THE HERO LINE WAS ALREADY WRITTEN, and the only real work was finding it. It had been
+            sitting in app/layout.tsx since the site was built, in the metadata description and
+            nowhere else, which meant every link preview said what this studio is while the front
+            door never did. Four drafts went past it before the operator recognised his own
+            sentence. They are recorded because each failed differently and the failures are the
+            argument for this one.
+
+            "Working on one question" was tentative about work that is finished. "People under
+            pressure" was true but silent on the half of this studio that is software. "The future
+            of AI" was rejected outright: it forecasts a technology and would file this studio next
+            to the people building one. "With AI" was the correction, keeping the human rather than
+            the machine at the centre, and that principle survives into the line now standing.
+
+            ENDURING QUESTIONS MEET MODERN TECHNOLOGY does what none of the drafts managed. It puts
+            the constant first and the technology second, it is a meeting rather than a list, and it
+            is wide enough to hold work that is not announced yet without being rewritten to admit
+            it.
+
+            THE LEAD NAMES THE THREE THINGS, in the order the cards sit below it, so the hero and
+            the grid stop describing the studio differently. */}
         <p className="mt-6 max-w-3xl font-serif text-xl font-light leading-relaxed text-ink">
-          What it takes to see a person, a team or an institution whole rather
-          than as a collection of parts, and what it costs to act on what you
-          see.
-        </p>
-        {/* ONE SENTENCE, NOT THREE, and the reason is measured rather than aesthetic. The first
-            draft spent three sentences here and pushed "What is here" to y=799 in an 812 pixel
-            viewport, so a visitor on a phone saw the hero and no destination at all: the same
-            first-screen defect this repo has already recorded elsewhere. Trimming it brings the
-            cards above the fold. If this paragraph grows again, re-measure. */}
-        <p className="mt-5 max-w-3xl leading-relaxed text-muted">
-          The answers come out as books, where the question is argued at length
-          and in plain language, and as software, where the same thinking has to
-          hold up in front of a real decision.
+          Philosophy on how a person, a team and an institution stay coherent
+          under pressure. A book for working leaders. And software that holds a
+          machine to the same standard.
         </p>
       </section>
 
