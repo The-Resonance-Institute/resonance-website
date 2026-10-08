@@ -776,6 +776,12 @@ PUBLICATION_PROMISES = (
     "publishes the resonance series",
 )
 
+# NOT BANNED, ON PURPOSE. "Opens with" and "comes first" were corrected in the copy on 2026-10-07
+# and briefly added here, which was wrong: they are ordinary English about reading order, and a
+# guard that grows by one phrase every time a sentence is reworded ends up forbidding the language
+# rather than the promise. What belongs on this list is a claim that the series will be published
+# or an invitation to wait for it. A correction is not a rule.
+
 
 def test_no_surface_promises_publication():
     """THE WORK IS COMPLETE AND THERE IS NO PLAN TO PUBLISH IT.

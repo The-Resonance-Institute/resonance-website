@@ -213,27 +213,10 @@ export default function Philosophy() {
         ))}
       </div>
 
-      {/* ONE "first volume" callout, not two. Both pages carried one before the merge; this is the
-          Philosophy page's version, which names the book and links to it rather than to contact. */}
-      <section className="mt-6 rounded-2xl border border-line bg-white p-8 sm:p-10">
-        <p className="text-xs font-medium uppercase tracking-[0.18em] text-accent">
-          Where it opens
-        </p>
-        <h2 className="mt-3 font-serif text-2xl text-ink">The first volume</h2>
-        <p className="mt-3 max-w-2xl leading-relaxed text-muted">
-          <span className="italic text-ink">
-            Book One &middot; Tuning &middot; Echoes of the Unseen
-          </span>{" "}
-          (Resonance and the Self). The first work is inward: the tuning of the
-          inner instrument. It is the volume the series opens with.
-        </p>
-        <Link
-          href="/resonance/book/echoes-of-the-unseen"
-          className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-accent transition-colors hover:text-ink"
-        >
-          Read about Book One <span aria-hidden>&rarr;</span>
-        </Link>
-      </section>
+      {/* THE "first volume" CALLOUT CAME OUT, 2026-10-07. It singled out Book One as the one that
+          opens the series, which is a release order, and there is no release. The trilogy sections
+          above already present all twelve in order with their numbers, so a reader who wants to
+          start at the beginning can see where the beginning is without being told to wait for it. */}
 
       <section className="mt-12 border-t border-line pt-10">
         <p className="max-w-2xl leading-relaxed text-muted">

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { books, trilogies } from "@/lib/canon";
+import { trilogies } from "@/lib/canon";
 
 // BOOKS-FIRST PIVOT, 2026-09-19. This page led with an open letter and then gave MORIS and the
 // series equal cards, with MORIS carrying the accent and the heavier border. The site is now a books
@@ -32,12 +32,6 @@ export default function Home() {
             className="inline-flex items-center gap-1.5 rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-ink"
           >
             Enter the Series <span aria-hidden>&rarr;</span>
-          </Link>
-          <Link
-            href="/resonance"
-            className="inline-flex items-center gap-1.5 rounded-full border border-line px-5 py-2.5 text-sm font-medium text-muted transition-colors hover:border-accent hover:text-accent"
-          >
-            All {books.length} volumes <span aria-hidden>&rarr;</span>
           </Link>
         </div>
       </section>
