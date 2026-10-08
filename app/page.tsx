@@ -18,7 +18,7 @@ export default function Home() {
           The Resonance Institute
         </p>
         <h1 className="mt-4 max-w-3xl font-serif text-4xl leading-tight text-ink sm:text-5xl">
-          A Living Philosophy of Leadership.
+          A Living Philosophy.
         </h1>
         <p className="mt-6 max-w-3xl font-serif text-xl font-light leading-relaxed text-ink">
           Four trilogies, twelve volumes, approximately one million words.

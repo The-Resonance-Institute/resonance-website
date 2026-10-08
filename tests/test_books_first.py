@@ -462,7 +462,14 @@ def test_the_open_letter_is_listed_and_navigable():
 # THE STANDING DESCRIPTION, verbatim by operator ruling 2026-09-23. Note the punctuation: it is
 # sentences, not a comma list, and it changed from the 09-22 form when the series title was set.
 # Matched as a whole string precisely because a paraphrase in one place is how surfaces drift.
-SERIES_LINE = ("a living philosophy of leadership. four trilogies, twelve volumes, "
+# SHORTENED 2026-10-07 by operator ruling: "A Living Philosophy of Leadership" becomes "A Living
+# Philosophy". The series title reverts to the form the August cover art already carries.
+#
+# THE PROSE SENSE IS NOT THE TITLE. The open letter has a section called "Why a philosophy of
+# leadership" and a sentence beginning "A philosophy of leadership does not set the conscience
+# against the work". Those are an argument about leadership, not the name of the series, and they
+# stay. What changed is the capitalized title.
+SERIES_LINE = ("a living philosophy. four trilogies, twelve volumes, "
                "approximately one million words. complete")
 GRAMMAR_SLUGS = ("grammar-of-god", "article-and-noun", "verb-and-adjective",
                  "conjunction-and-punctuation")
@@ -679,7 +686,7 @@ def test_the_header_calls_it_the_philosophy_not_the_series():
     """OPERATOR, 2026-10-07. The header stops saying "The Series" and says "The Philosophy".
 
     "The Resonance Series" remains usable in body copy by his ruling; what changed is the label a
-    visitor navigates by, which now echoes the guarded line "A Living Philosophy of Leadership".
+    visitor navigates by, which now echoes the guarded line "A Living Philosophy".
 
     ALL SIX MOVE TOGETHER. The label is not only in the nav: it is the page title and the eyebrow at
     /resonance, the footer link, the back-link on the manuscripts page and a link on About. A header

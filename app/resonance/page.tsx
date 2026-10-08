@@ -19,7 +19,7 @@ import { books as canonBooks, trilogies as canonTrilogies } from "@/lib/canon";
 export const metadata: Metadata = {
   title: "The Philosophy",
   description:
-    "The Resonance series. A Living Philosophy of Leadership. Four trilogies, twelve volumes, approximately one million words. Complete. Each theme is carried from the self to the community to the world.",
+    "The Resonance series. A Living Philosophy. Four trilogies, twelve volumes, approximately one million words. Complete. Each theme is carried from the self to the community to the world.",
 };
 
 const bookSlug = (n: number) => canonBooks.find((b) => b.n === n)?.slug;
@@ -116,7 +116,7 @@ export default function Philosophy() {
             The Philosophy
           </p>
           <h1 className="mt-4 font-serif text-4xl leading-tight text-ink sm:text-5xl">
-            A Living Philosophy of Leadership.
+            A Living Philosophy.
           </h1>
           <p className="mt-6 max-w-xl font-serif text-xl font-light leading-relaxed text-ink">
             Four trilogies, twelve volumes, approximately one million words.
@@ -129,7 +129,7 @@ export default function Philosophy() {
           <div className="relative aspect-[2/3] overflow-hidden rounded-xl border border-line shadow-md">
             <Image
               src="/trilogies/all.jpg"
-              alt="A Living Philosophy of Leadership: Four Trilogies, Twelve Volumes"
+              alt="A Living Philosophy: Four Trilogies, Twelve Volumes"
               fill
               sizes="(max-width: 640px) 208px, 260px"
               className="object-cover"
