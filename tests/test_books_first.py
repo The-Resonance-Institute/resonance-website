@@ -942,3 +942,42 @@ def test_the_philosophy_pull_quote_names_its_volume():
     assert block, "the pull quote is gone from the philosophy page"
     assert re.search(r"Book\s+[IVX]+", block.group(1)), (
         "the pull quote does not name the volume it comes from")
+
+
+def test_the_notify_link_asks_to_be_notified():
+    """THE BUTTON MUST DO WHAT IT SAYS. Both "Know when it lands" buttons pointed at /contact, a
+    page that offers an email address and says nothing about the book. A visitor who clicked the one
+    commercial action on this site arrived somewhere that did not know why they came, and then had
+    to compose the request themselves from a standing start.
+
+    A MAILTO, NOT A FORM, and not a bare page link. The no-form ruling of 2026-09-25 is recorded in
+    app/contact/page.tsx and settles the mechanism: a mailto goes from the visitor's own mail client
+    to one inbox and touches nobody in between, where a form service would route their name and
+    words through an outside company on the same domain that promises it does not. A prefilled
+    subject is the whole fix: it carries the intent that the button already stated.
+    """
+    src = (ROOT / "app" / "the-return" / "page.tsx").read_text(encoding="utf-8")
+    code = strip_comments(src)
+
+    # CHECKED ON BEHAVIOUR, NOT ON SPELLING. The first version of this guard read href="..."
+    # literals and went red the moment the address moved into a constant, which is the href being
+    # spelled differently rather than the button behaving differently. What matters is that the page
+    # carries a mailto, that it names the book in a subject, and that no button routes to the
+    # generic contact page.
+    assert "mailto:" in code, (
+        "the notify links are not mailto links; the button cannot act on its promise")
+    assert "subject=" in code, "the notify mailto carries no subject"
+    assert "The Return" in code, "the notify mailto does not name the book"
+
+    buttons = code.count("Know when it lands")
+    assert buttons == 2, f"expected both notify buttons, found {buttons}"
+    assert 'href="/contact"' not in code, (
+        "a notify button still routes to the generic contact page instead of asking to be told")
+
+
+def test_contact_names_the_book_it_receives_mail_about():
+    """The page is still reachable from the footer, so it must not read as though The Return does
+    not exist. Anyone who arrives there by navigation should see it named among the invited
+    topics."""
+    text = strip_comments((ROOT / "app" / "contact" / "page.tsx").read_text(encoding="utf-8"))
+    assert "The Return" in text, "the contact page does not name The Return"

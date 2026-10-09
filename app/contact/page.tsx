@@ -51,9 +51,13 @@ export default function Contact() {
             MORIS IS NAMED AS A WELCOME TOPIC. Dropping the acquisition card removed the only
             mention of it here, which risked reading as "do not write about that". It is one of
             three things explicitly invited. */}
+        {/* THE RETURN IS NAMED HERE, 2026-10-08. Its two notify buttons now open a prefilled
+            mailto rather than routing here, but this page is still in the footer of every page, so
+            anyone who arrives by navigation should see the book that is coming listed among the
+            things worth writing about. Leaving it out would read as though it does not exist. */}
         <p className="mt-5 max-w-2xl leading-relaxed text-muted">
-          Questions about the books, about MORIS, or about anything here are
-          welcome. It reaches me directly.
+          Questions about the books, about The Return, about MORIS, or about
+          anything here are welcome. It reaches me directly.
         </p>
         <p className="mt-8">
           <a

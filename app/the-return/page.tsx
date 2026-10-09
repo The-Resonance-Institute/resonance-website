@@ -33,6 +33,17 @@ export const metadata: Metadata = {
   },
 };
 
+// THE NOTIFY LINK IS A MAILTO, 2026-10-08. Both buttons pointed at /contact, a page that offers an
+// email address and says nothing about this book, so the one commercial action on this site landed
+// somewhere that did not know why the visitor came. The mechanism follows the no-form ruling of
+// 2026-09-25 recorded in app/contact/page.tsx: a mailto goes from the visitor own mail client to
+// one inbox and touches nobody in between, where a form service would route their name and words
+// through an outside company on the same domain that promises it does not. The prefilled subject
+// carries the intent the button already stated, so nobody composes a request from a standing start.
+const NOTIFY =
+  "mailto:contact@resonanceinstitutellc.com" +
+  "?subject=" + encodeURIComponent("The Return: tell me when it lands");
+
 export default function TheReturn() {
   return (
     <div className="mx-auto max-w-5xl px-6">
@@ -52,12 +63,12 @@ export default function TheReturn() {
             you said you would, where the correction happens and where the credit
             goes, and what you do on the day you get it wrong in front of everyone.
           </p>
-          <Link
-            href="/contact"
+          <a
+            href={NOTIFY}
             className="mt-7 inline-flex items-center gap-1.5 rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-ink"
           >
             Know when it lands <span aria-hidden>&rarr;</span>
-          </Link>
+          </a>
         </div>
         <div className="mx-auto w-56 sm:w-full">
           <div className="relative aspect-[2/3] overflow-hidden rounded-xl border border-line shadow-md">
@@ -122,12 +133,12 @@ export default function TheReturn() {
             pixels tall on a phone, which is the exact defect this repo found in the header in
             September and the footer later that month. This is the page's one action; it should be
             as easy to hit at the bottom as at the top. */}
-        <Link
-          href="/contact"
+        <a
+          href={NOTIFY}
           className="mt-7 inline-flex items-center gap-1.5 rounded-full border border-line px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:border-accent hover:text-accent"
         >
           Know when it lands <span aria-hidden>&rarr;</span>
-        </Link>
+        </a>
       </section>
     </div>
   );
