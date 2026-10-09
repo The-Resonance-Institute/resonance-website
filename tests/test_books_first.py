@@ -903,3 +903,42 @@ def test_the_notify_exemption_is_one_page_and_one_phrase():
         assert (ROOT / rel).exists(), f"the exemption names a file that does not exist: {rel}"
         assert phrases == ("know when it lands",), (
             f"the exemption widened beyond the notify link: {phrases}")
+
+
+# --- quotations are checkable, 2026-10-08 -------------------------------------------------------
+
+# THE SENTENCE THAT WAS NOT IN THE BOOKS. /resonance closed on a blockquote, in quotation marks and
+# attributed to the author, reading "To lead is to promise what you touch will not collapse when you
+# are gone." It appears in none of the fifteen manuscripts, and no fragment of it does either. It
+# entered in 351953a and survived every pivot since, because nothing on this site checked prose
+# against the source. It is banned by exact string so it cannot be restored by a copy revert.
+FABRICATED_QUOTES = (
+    "to lead is to promise what you touch will not collapse",
+)
+
+
+def test_no_quotation_is_attributed_that_the_books_do_not_contain():
+    """A quotation mark and a name is a claim about the source, and this site made one it could not
+    honour. The ban is on the specific retired sentence rather than on quoting generally, because a
+    guard cannot read the manuscripts: they are not in this repository and must not be."""
+    hits = []
+    for p in live_files(include_unlisted=True):
+        text = " ".join(strip_comments(
+            p.read_text(encoding="utf-8", errors="ignore")).lower().split())
+        for q in FABRICATED_QUOTES:
+            if q in text:
+                hits.append(f"{p.relative_to(ROOT).as_posix()}: {q!r}")
+    assert not hits, (
+        "a sentence the manuscripts do not contain is being quoted and attributed: "
+        + "; ".join(hits))
+
+
+def test_the_philosophy_pull_quote_names_its_volume():
+    """An attribution a reader can act on. "C.T. Herndon" under a sentence sends them to a million
+    words; the volume sends them to one book. This is the cheap half of the lesson above: naming the
+    source is what would have caught the invented line years earlier."""
+    src = (ROOT / "app" / "resonance" / "page.tsx").read_text(encoding="utf-8")
+    block = re.search(r"<blockquote(.*?)</section>", src, re.S)
+    assert block, "the pull quote is gone from the philosophy page"
+    assert re.search(r"Book\s+[IVX]+", block.group(1)), (
+        "the pull quote does not name the volume it comes from")

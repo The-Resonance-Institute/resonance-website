@@ -34,10 +34,34 @@ import type { Metadata } from "next";
 // restating the series in new phrasing: a paraphrase in one place is how a set of surfaces starts
 // drifting apart, which is the whole reason that guard exists.
 
+// THE HOME PAGE CARRIES ITS OWN SOCIAL PAIR, 2026-10-08. Setting only `description` on a page
+// overrides the layout's description and nothing else, so og:description and twitter:description
+// kept falling back to app/layout.tsx and a link preview of the domain still said "four trilogies"
+// after the page had started naming them. The layout's pair stays as it is: it is the site-wide
+// default every other page still uses, and it carries the guarded series line.
+//
+// openGraph REPLACES the layout's object rather than merging into it, so type, url and siteName are
+// repeated here deliberately. Dropping them would silently strip them from this page alone. The
+// images are not repeated because opengraph-image.png and twitter-image.png are file conventions
+// and resolve on their own.
 export const metadata: Metadata = {
   title: "The Resonance Institute",
   description:
     "The Resonance Institute is the private studio of C. T. Herndon, where enduring questions meet modern technology. Philosophy as a posture rather than a method: the alignment of inner and outer, and how a person stands toward the world. Tuning, Transformation, Time and the Sacred, twelve volumes complete, a book for working leaders, and software held to the same standard.",
+  openGraph: {
+    type: "website",
+    url: "https://www.resonanceinstitutellc.com",
+    siteName: "The Resonance Institute",
+    title: "The Resonance Institute",
+    description:
+      "A private studio where enduring questions meet modern technology. Philosophy as a posture rather than a method, a book for working leaders, and software held to the same standard.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "The Resonance Institute",
+    description:
+      "A private studio where enduring questions meet modern technology. Philosophy as a posture rather than a method, a book for working leaders, and software held to the same standard.",
+  },
 };
 
 export default function Home() {

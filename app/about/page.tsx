@@ -27,9 +27,10 @@ export default function About() {
         </p>
         <p>
           Four trilogies, twelve volumes, approximately one million words,
-          complete. Philosophy on how a person, a community, and an institution stay
-          coherent under pressure. Each theme is carried from the self to the
-          community to the world, and each volume can be read on its own.
+          complete. Philosophy as a posture rather than a method: the alignment
+          of inner and outer, and how a person stands toward the world. Each
+          theme is carried from the self to the community to the world, and each
+          volume can be read on its own.
         </p>
         <p>
           It is not a lab and takes no venture funding. It is a private

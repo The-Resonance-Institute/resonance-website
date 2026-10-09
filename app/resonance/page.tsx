@@ -227,12 +227,34 @@ export default function Philosophy() {
         </p>
       </section>
 
+      {/* THE CLOSING QUOTE, REPLACED 2026-10-08 BECAUSE IT WAS NOT IN THE BOOKS. This blockquote
+          read "To lead is to promise what you touch will not collapse when you are gone," in
+          quotation marks, attributed to the author. That sentence appears in none of the fifteen
+          manuscripts, and neither does any fragment of it: "will not collapse" occurs three times
+          in other sentences, "what you touch" twice, "when you are gone" twice, never together. It
+          arrived in 351953a, the conscience-first rebuild, and survived every pivot since because
+          nothing checks prose against the source.
+
+          WHAT REPLACES IT IS VERIFIED, from Book VIII, The Two Clocks, in the archive passage that
+          closes on authority: "Authority is not our volume. It is the shape of our leaving ... The
+          deepest leadership is how a place behaves when we are not there." It carries the same
+          meaning the invented line was reaching for, what outlasts the person, and a reader who
+          goes looking will now find it.
+
+          THE ATTRIBUTION NAMES THE BOOK, not just the author, so the next person can check it in
+          one step rather than searching a million words. Any quotation added to this site should
+          be checked against the manuscripts in Canon Books Up To Date 082426/Ground truth/Final
+          Manuscripts 092926 and should name its volume. A digest is not a source: several lines
+          listed as verified in the 2026-09-16 series synthesis do not appear verbatim in the
+          092926 manuscripts at all. */}
       <section className="mt-14 border-t border-line pt-10 pb-4">
         <blockquote className="max-w-2xl font-serif text-2xl font-light italic leading-snug text-ink">
-          &ldquo;To lead is to promise what you touch will not collapse when you
-          are gone.&rdquo;
+          &ldquo;The deepest leadership is how a place behaves when we are not
+          there.&rdquo;
         </blockquote>
-        <p className="mt-3 text-sm text-muted">C.T. Herndon</p>
+        <p className="mt-3 text-sm text-muted">
+          The Two Clocks, Book VIII
+        </p>
       </section>
     </div>
   );
