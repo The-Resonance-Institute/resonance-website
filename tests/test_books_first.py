@@ -981,3 +981,25 @@ def test_contact_names_the_book_it_receives_mail_about():
     topics."""
     text = strip_comments((ROOT / "app" / "contact" / "page.tsx").read_text(encoding="utf-8"))
     assert "The Return" in text, "the contact page does not name The Return"
+
+
+def test_the_contact_description_matches_the_paragraph():
+    """THE DESCRIPTION IS THE PARAGRAPH ON THIS PAGE, so the two must not drift apart.
+
+    This is guarded because it went wrong twice in one day, here and on the home page: visible copy
+    was edited and the metadata description, which reads almost identically and is never on screen
+    while you work, was left behind. On a page whose description is a verbatim copy of its one
+    paragraph, that drift is mechanically checkable, so it is checked rather than remembered.
+
+    Deliberately narrow. It is not a rule that every page description must appear in its body; most
+    are written for search results and should not. It applies to this page because the sentence is
+    the same sentence.
+    """
+    src = (ROOT / "app" / "contact" / "page.tsx").read_text(encoding="utf-8")
+    m = re.search(r'description:\s*"([^"]+)"', strip_comments(src))
+    assert m, "the contact page has no metadata description"
+    desc = " ".join(m.group(1).split())
+    body = " ".join(strip_comments(src).split())
+    # the JSX wraps the same sentence across lines, so compare on collapsed whitespace
+    assert desc in body.replace(desc, desc, 1) and body.count(desc) >= 2, (
+        "the contact page description no longer matches its paragraph: " + desc)
