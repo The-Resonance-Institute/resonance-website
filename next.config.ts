@@ -76,9 +76,30 @@ const nextConfig: NextConfig = {
       // operator's ruling was that weeks had passed and the story had changed, so an old link should
       // arrive at what the Institute says now. Temporary, like every redirect here: the first letter
       // is archived rather than destroyed, and a permanent redirect outlives a change of mind.
+      // THE RESEARCH SECTION REPLACES THE OPEN LETTER, 2026-10-10. The letter was one signed
+      // argument; the research report is the evidence behind it, so /research is where an old
+      // letter link should now arrive. Both letters are archived under archive/, as before.
+      //
+      // ONE HOP, NOT TWO. The first letter's PDF used to forward to /open-letter, which would now
+      // forward again. Its destination is retargeted straight to /research instead, and the
+      // wildcard below catches the second letter's PDF and anything else ever indexed under that
+      // path. A chain of redirects loses crawlers and looks like a site nobody maintains.
+      //
+      // TEMPORARY, like every redirect in this file. The material is superseded, not destroyed,
+      // and a permanent redirect is cached in browsers past any change of mind.
       {
         source: "/open-letter/We-Built-the-Intelligence-Open-Letter.pdf",
-        destination: "/open-letter",
+        destination: "/research",
+        permanent: false,
+      },
+      {
+        source: "/open-letter/:path*",
+        destination: "/research",
+        permanent: false,
+      },
+      {
+        source: "/open-letter",
+        destination: "/research",
         permanent: false,
       },
       // THE MANUSCRIPTS PAGE WAS MERGED INTO /resonance, 2026-10-07. The site had two pages
@@ -92,10 +113,11 @@ const nextConfig: NextConfig = {
         destination: "/resonance",
         permanent: false,
       },
-      // /letter is the short form people were told to type.
+      // /letter is the short form people were told to type. Retargeted to /research on 2026-10-10
+      // with the rest, so it lands in one hop rather than bouncing through the retired letter.
       {
         source: "/letter",
-        destination: "/open-letter",
+        destination: "/research",
         permanent: false,
       },
       // THE GRAMMAR OF GOD TRILOGY, removed from all forward-facing series information on

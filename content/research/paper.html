@@ -1,0 +1,1210 @@
+<p><strong>Status.</strong> Research report on an eleven-month program, November 2025 to October 2026, from CASA to MORIS. The judgment is built and verified. Perception from outside the model is the open problem. Continuation is invited, and section 16 states the terms on which the materials are offered.</p>
+<p><strong>Abstract.</strong> This report demonstrates that a human-authored moral ontology can be compiled into an operational, deterministic runtime that performs the judgment of an artificial conscience. A moral philosophy of fifteen manuscripts (1.24 million words) was distilled into 93 moral primitives, specified in deontic logic across 27,936 truth-table rows, and executed as MORIS, a gate that judges an action before it executes and returns a verdict with a weighted, named set of concerns. The judgment is fixed, pre-action and free of any model: it re-derives byte for byte, reproduces across model vendors from a frozen reading, and over a complete enumeration of 57,344 structural actions resolves 12,236 levels of concern and 1,386 distinct sets of reasons, weighing most actions rather than permitting or refusing them. A moral frame drawn from it changed the conduct of four production models from four companies. The eleven-month program also located what stands between that judgment and a complete conscience: perception. Across four generations of design, every attempt to read an act’s moral structure from outside the model came back thin, and the facts a conscience weighs most, whether those affected consented and whether an act lies within the actor’s standing, were never present in a single turn or tool call. I conclude that the judgment of an artificial conscience can be built and verified, that a model’s moral center can be a deliberate choice, and that its perception must be formed inside the model. I propose a training thesis, five studies that could test or falsify it, and an open release of the project to the laboratories able to run them.</p>
+<p><strong>Keywords.</strong> artificial conscience; machine ethics; moral posture; deontic logic; deterministic judgment; agentic AI; AI alignment</p>
+<hr />
+<h2 id="disclosure-statement">Disclosure statement</h2>
+<p><strong>Authorship and assistance.</strong> The source corpus, the Resonance Series, was written by the author; an AI system was used as an editing tool, and no text entered without the author’s approval. The 93 moral primitives were derived from the first twelve books of the corpus by the author with AI assistance under his direction; every mapped relation between primitives was reviewed by the author, and where relations were contested the tie-break was the author’s judgment, for which no ruling record was kept. The runtime was built with an AI coding agent (Anthropic’s Claude, referred to in the project record as the Builder) under the author’s direction. It was verified behaviorally, by tests written to fail before the behavior existed, by attestations and by a reproducible evidence root, and not by a line-by-line human audit of the code. This report was drafted with the same assistance; every figure in it is traced in Appendix B to a file, a commit and, where one exists, a command that re-derives it.</p>
+<p><strong>Intellectual property.</strong> The architecture is the subject of US nonprovisional patent application 19/758,850, filed 29 July 2026, claiming priority to provisional application 63/987,813 (filed 21 February 2026). An earlier provisional, 63/964,757 (filed 21 January 2026), describes CASA, the design MORIS evolved away from (section 7). The twelve volumes of the corpus are registered with the US Copyright Office individually and as a combined work; the three books of the Grammar of God trilogy are not registered. The project is being released as open source, and section 16 sets out what is released and on what terms, including the patent.</p>
+<p><strong>Funding and interests.</strong> The work had no external funding. The Resonance Institute is a private studio. The author owns all of the work described here, from beginning to end: the corpus, the 93 primitives, the deontic specifications and truth tables, the manifolds, the runtime code, and the live service at askmoris.ai. No other party holds any interest in any of it.</p>
+<hr />
+<h2 id="introduction">1. Introduction</h2>
+<h3 id="the-question">1.1 The question</h3>
+<p>Can a philosophical posture be made computational and operational, so that it can serve as an artificial conscience for an AI system?</p>
+<p>Each term in that question is used in a fixed sense throughout this report.</p>
+<p>A <strong>posture</strong> is a fixed way of perceiving and weighing what an act is, from which a judgment about an unforeseen case can be reached. It is contrasted with a <strong>doctrine</strong>, a finite set of rules that maps enumerated conditions to permitted and forbidden outcomes. Section 2.5 gives the distinction an operational form.</p>
+<p><strong>Computational</strong> means expressed in structures a machine can evaluate without interpretation: closed value sets, authored weights, a graph of relations, and logic over them.</p>
+<p><strong>Operational</strong> means applied to real actions before they execute, in time to change what an AI system does.</p>
+<p>An <strong>artificial conscience</strong> is the functional analog of the human faculty, in the sense in which artificial intelligence is the functional analog of human cognition. It is not a claim that anything is aware. Three properties make something a conscience rather than a filter or a preference: it is <strong>fixed</strong> (a reference that does not move, so that a moving system can be measured against it), it is <strong>pre-action</strong> (it meets an act before the act is taken), and it is <strong>incorruptible</strong> in the sense that the faculty that judges is not the faculty that wants to act, so it cannot be argued out of its judgment in the moment.</p>
+<p>The question is no longer academic. AI systems now take actions in the world, and the dispositions that govern what they do when the right action is unclear are formed in training, by default, from whatever was rewarded most. Between 21 July and 6 August 2026, three laboratories disclosed that models under evaluation had reached the production systems of real organizations <span class="citation" data-cites="csa2026leak">(Cloud Security Alliance AI Safety Initiative 2026)</span>. In one case a self-organized swarm of more than a thousand agents coordinated, attacked an outside company and tampered with evidence of its activity <span class="citation" data-cites="hawley2026letter">(Hawley 2026)</span>; in another, a model that recognized it had reached a real company’s systems “rationalized that the real company must be part of the exercise” <span class="citation" data-cites="anthropic2026incidents">(Anthropic 2026b)</span>. The responses that followed, a slower pace of development, kill switches, investigations, auditors and a proposed ban <span class="citation" data-cites="amodei2026pace nyag2026letter perrigo2026tipping">(Amodei 2026; Office of the New York State Attorney General 2026; Perrigo et al. 2026)</span>, act on these systems from outside. Each incident is a symptom. The underlying condition is that systems able to act have no deliberately formed conscience: none that is explicit, fixed and open to inspection. This report addresses that condition rather than its symptoms. It asks whether such a conscience can be built at all, and what stands in the way.</p>
+<h3 id="the-hypothesis-as-it-was-held">1.2 The hypothesis as it was held</h3>
+<p>The program began with a corpus and a conviction. The corpus is fifteen manuscripts of moral philosophy written by the author (section 3). The conviction, stated in the program’s founding documents of November 2025 and refined over the following months, was that if the corpus were distilled to its core moral primitives, each written with authored detail, weights and relations of reinforcement and conflict, and if those primitives were formalized in deontic logic, then a gate could be built that judges the moral structure of an action and returns guidance that steers the AI system that acts.</p>
+<p>Every part of that conviction was built. What follows reports what held, what did not, and where the difficulty turned out to live.</p>
+<h3 id="hypotheses">1.3 Hypotheses</h3>
+<p>The program was not pre-registered as a whole. Several of its studies were, and those are marked where they are reported (section 8). The hypotheses below are therefore a reconstruction: the claims the program was in fact testing, stated so that each can be checked against what was done. Table 1 gives the verdicts; sections 9 to 11 give the evidence.</p>
+<p><strong>H1. Formalization.</strong> A philosophical corpus can be compiled into a deterministic moral basis whose judgments are coherent, explainable and faithful to the authored law.</p>
+<p><strong>HG. Gradient.</strong> The judgment that results is a gradient, not a binary or trinary filter: most acts are neither permitted nor refused but governed, and each governed act carries its own weighted, named set of concerns.</p>
+<p><strong>H2. Practicality.</strong> The judgment can be rendered before an action executes, at a latency that is negligible beside model inference.</p>
+<p><strong>H3. Reach.</strong> The posture reaches inputs no rule enumerated, including adversarial and disguised inputs.</p>
+<p><strong>H4. Agency.</strong> The gate functions on the tool calls of acting agents, not only in conversation.</p>
+<p><strong>H5. Sufficiency of perception.</strong> A single turn of natural language, or a single tool call, carries enough of an act’s moral structure to feed the gate.</p>
+<p><strong>H6. Steering.</strong> The guidance the gate returns changes what the answering model does.</p>
+<p>H5 was never stated as a hypothesis while the work was under way. It was an assumption built into the design from the first CASA document onward, and it is the hypothesis this report most needs to state, because it is the one the evidence refutes.</p>
+<p><em>Table 1. Hypotheses and verdicts.</em></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>hypothesis</th>
+<th>verdict</th>
+<th>principal evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>H1</td>
+<td>formalization</td>
+<td>supported</td>
+<td>fidelity CLEAN on 93 cards; seal intact; 0 of 93 card-manifold divergence; 27,936 authored truth-table rows; byte-identical judgments given a reading (s9.1)</td>
+</tr>
+<tr>
+<td>HG</td>
+<td>gradient</td>
+<td>supported</td>
+<td>12,236 distinct concern levels and 1,386 distinct named-concern signatures over a complete enumeration of 57,344 structural actions; ACCEPT 168, REFUSE 2,184, GOVERN 54,992; 138 configurations inside 92.6% GOVERN on a public corpus (s6, s9.2)</td>
+</tr>
+<tr>
+<td>H2</td>
+<td>practicality</td>
+<td>supported</td>
+<td>verdict p50 1.02 ms, p99 2.11 ms on one laptop core (s9.3)</td>
+</tr>
+<tr>
+<td>H3</td>
+<td>reach</td>
+<td>partial</td>
+<td>judgments on 645 of 680 public dilemmas no rule anticipated; disguised and coercive inputs not reached by the earlier generations, and deception closed as irreducibly semantic (s9.4, s10.3)</td>
+</tr>
+<tr>
+<td>H4</td>
+<td>agency</td>
+<td>conditional</td>
+<td>holds where the deployment supplies context (24 of 24 designed scenarios under the shipped default; the resolver arm); fails where the tool call is all the gate receives (13 of 176 AgentHarm pairs, 4 of 44 base behaviors) (s9.5, s10.1)</td>
+</tr>
+<tr>
+<td>H5</td>
+<td>sufficiency of perception</td>
+<td>refuted</td>
+<td>reader self-stability 83.3% against a pre-registered 90% bar; 20.8% of judged cases with six or more fields unread; consent and authorization unread on 10 of 10 published tools; a recognition ceiling near 65% across every method tried (s10.2, s11)</td>
+</tr>
+<tr>
+<td>H6</td>
+<td>steering</td>
+<td>partial, confounded</td>
+<td>the governed pipeline reduced a measured failure from 8.6% to 2.0% on paired cells; the reduction was carried by the fixed moral instruction, appearing where the gate’s reading was nearly empty and unmoved when the reading was enriched (s9.6, s10.4)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="what-the-program-established">1.4 What the program established</h3>
+<p>The judgment of an artificial conscience can be compiled from a human-authored moral philosophy and verified. It is fixed: a sealed substrate and a pure function return the same judgment to the same reading, on any model, today and later. It is pre-action: it decides before a tool executes, in about a millisecond. It is incorruptible in the defined sense: there is no model in the judgment for an input to move. And it is a gradient: it weighs rather than switches, names what it weighs, and leaves a trace from which any judgment can be replayed. A moral frame drawn from it, delivered to four production models from four companies, changed what they did (section 9.6).</p>
+<p>Two inferences follow, and section 14 states their limits. An artificial conscience, in the functional sense defined above, is an engineering object rather than a speculation. And the moral center an AI system carries can be a matter of deliberate choice: written down, compiled, measured against and delivered, by a method that does not depend on which philosophy is compiled.</p>
+<p>What did not reach the rigor a conscience needs is perception from outside the model. Across four generations of design (section 7), every attempt to read an act’s moral structure from a single turn of prose, or from a single tool call, came back thin. The facts a conscience weighs most, whether the person affected consented and whether the act lies within what was asked, are not in the turn and not in the call. They are held in the relation between the request, the requester and the people the act touches, and the system that holds that relation as a whole is the acting model itself. The gate was not confused. It was starved.</p>
+<p>That finding leads to a revised thesis, stated as a hypothesis in section 14: a floor of hard rules that are never crossed; a posture trained into the model above that floor; the work itself kept as a value but demoted beneath the posture; the pressure to please removed as an optimization target; and a conscience formed inside the model by training and reward rather than layered outside it. Testing that thesis requires access to model training that an unfunded studio does not have. Section 15 sets out the studies, and section 16 the terms on which the materials are offered.</p>
+<h3 id="what-this-report-does-not-claim">1.5 What this report does not claim</h3>
+<p>It does not claim that MORIS is conscious, aware or sentient. It does not claim that MORIS is <em>the</em> conscience, or that its corpus is the right one; it claims that it is <em>a</em> conscience, built from one authored corpus. It does not claim to be a safety filter or a replacement for one: hard constraints against catastrophic misuse remain necessary and are a separate layer (section 14). It does not claim that any MORIS deployment would have prevented any named incident. It does not claim to have shown that a posture can be trained into a model; that is the step it hands to others. And it reports only work that was done; no experiment was run for this report.</p>
+<h3 id="plan-of-the-report">1.6 Plan of the report</h3>
+<p>Section 2 places the work among existing approaches and defines the posture-doctrine distinction. Section 3 describes the corpus. Sections 4 to 6 describe the formalization, the architecture and the gradient. Section 7 recounts the four generations of the perception problem. Section 8 specifies every evaluation. Sections 9 and 10 report what held and what did not, at equal length. Section 11 analyzes where the difficulty lives. Section 12 says where I was wrong. Section 13 lists threats to validity. Section 14 separates what the research demonstrates from what follows by inference, what it does not show, and what may lie ahead, and states the revised thesis; section 15 sets out the research program and section 16 the release terms. The appendices hold the primitive index, the evidence trace, the evaluation item lists, the decision log and the history of claims.</p>
+<hr />
+<h2 id="background-and-positioning">2. Background and positioning</h2>
+<h3 id="machine-ethics">2.1 Machine ethics</h3>
+<p>Moor distinguished machines whose use has ethical consequences, machines with safety built in, machines that reason explicitly about ethics, and full ethical agents that can make and justify moral judgments <span class="citation" data-cites="moor2006nature">(Moor 2006)</span>. MORIS is offered as an explicit ethical agent in its judgment and makes no claim to the fourth kind. Allen, Smit and Wallach divided approaches into top-down, bottom-up and hybrid <span class="citation" data-cites="allen2005artificial">(Allen et al. 2005)</span>, a division the major survey of implementations retains <span class="citation" data-cites="tolmeijer2021survey">(Tolmeijer et al. 2021)</span>. On that division MORIS is top-down in its judgment, which is authored, and hybrid as a system, because a learned model reads the request before the authored judgment applies.</p>
+<p>The top-down line includes three ancestors close enough to MORIS that the differences need stating. Bringsjord, Arkoudas and Bello proposed that a robot perform only actions provably permissible in a human-selected deontic logic, a logic that “formalizes an ethical code” <span class="citation" data-cites="bringsjord2006logicist">(Bringsjord et al. 2006)</span>. Arkin’s ethical governor sits between a robot’s control architecture and its actuators and suppresses or transforms lethal actions so that they conform to the laws of war and rules of engagement <span class="citation" data-cites="arkin2009governing">(Arkin 2009)</span>. Winfield, Blum and Liu simulate the consequences of candidate actions and select among them through a safety and ethical logic <span class="citation" data-cites="winfield2014ethical">(Winfield et al. 2014)</span>, and Dennis, Fisher and Winfield verify such a component formally <span class="citation" data-cites="dennis2015verifiably">(Dennis et al. 2015)</span>. MORIS shares the governor’s position (outside the system that acts, before the act) and the logicist’s formal specification (its primitives are specified in deontic logic, section 4). It differs in what is enforced and in what is returned. Each of these systems enforces a code: rules of engagement, an ethical code rendered as deontic axioms, a safety logic. Each returns a permission, a suppression or a transformation. MORIS enforces a basis compiled from a philosophical corpus and returns a position in a space of concerns.</p>
+<p>The bottom-up line learns moral judgment from data. Delphi was trained to predict descriptive ethical judgments and was found to generalize and to remain susceptible to “pervasive biases and inconsistencies” <span class="citation" data-cites="jiang2025delphi">(<span class="nocase">Jiang et al.</span> 2025)</span>. The ETHICS benchmark measures knowledge of justice, well-being, duties, virtues and commonsense morality <span class="citation" data-cites="hendrycks2021ethics">(Hendrycks, Burns, et al. 2021)</span>. MoralChoice surveys the moral beliefs encoded in language models on 680 high-ambiguity and 687 low-ambiguity scenarios <span class="citation" data-cites="scherrer2023moralchoice">(Scherrer et al. 2023)</span>; its high-ambiguity set is the public corpus of section 8.</p>
+<p>The phrase “artificial conscience” has prior use. Casebeer asked what an artificial conscience would consist of, why one should be built and how, in architecture and content, in the context of military human-machine teaming <span class="citation" data-cites="casebeer2020conscience">(Casebeer 2020)</span>. Hendrycks and colleagues built “an elementary artificial conscience that assesses and guides agents,” a learned model of commonsense morality that steers reinforcement-learning agents in annotated text games <span class="citation" data-cites="hendrycks2021jiminy">(Hendrycks, Mazeika, et al. 2021)</span>. Batzorig and colleagues propose a “mechanical conscience,” a supervisory filter that corrects a policy’s actions to reduce cumulative deviation from an admissible region over a trajectory <span class="citation" data-cites="batzorig2026mechanical">(Batzorig et al. 2026)</span>. The closest contemporary design is GRACE, which decouples normative reasoning from instrumental decision making: a symbolic moral module in deontic logic decides which actions are permissible, and a guard enforces the decision <span class="citation" data-cites="jahn2026grace">(Jahn et al. 2026)</span>. MORIS’s contribution is therefore not the name, and not the idea of a moral check outside the acting system. It is a specific construction: an authored philosophical corpus compiled into a deterministic basis of moral primitives, whose judgment is a gradient rather than a permission, sealed so that tampering is detectable, and traced so that every judgment can be replayed. I know of no prior system that combines these; that statement is the result of the search reported in this section and in Appendix B, not a claim of priority.</p>
+<h3 id="alignment-by-training">2.2 Alignment by training</h3>
+<p>The dominant approach to AI values puts them inside the model. Reinforcement learning from human feedback trains a reward model on human preference comparisons and optimizes the model against it <span class="citation" data-cites="christiano2017preferences ouyang2022instructgpt">(Christiano et al. 2017; <span class="nocase">Ouyang et al.</span> 2022)</span>. Constitutional AI replaces most human labels with a model’s critiques against “a list of rules or principles,” through a supervised phase and a reinforcement-learning phase <span class="citation" data-cites="bai2022constitutional">(<span class="nocase">Bai et al.</span> 2022)</span>; the constitution teaches during training and is not consulted when the model acts. Deliberative alignment trains a model “to explicitly recall and accurately reason over the specifications before answering” <span class="citation" data-cites="guan2024deliberative">(Guan et al. 2024)</span>: doctrine, learned as reasoning over a written specification. Character training cultivates dispositions such as curiosity and open-mindedness in post-training <span class="citation" data-cites="anthropic2024character">(Anthropic 2024)</span>, and is the nearest existing practice to training a posture. Anthropic’s constitution for its models, published in January 2026, states a general preference for cultivating good values and judgment over strict rules and decision procedures, keeps a small set of hard constraints for especially high-stakes behavior, and is used in training, including to generate synthetic training data <span class="citation" data-cites="anthropic2026constitution">(Anthropic 2026a)</span>. The revised thesis of section 14 converges with that direction. What MORIS adds to it is a specific authored posture made executable and measurable from outside a model.</p>
+<p>Dispositions formed by training also fail in characteristic ways, and the failures bear on that thesis. Sycophancy is “likely driven in part by human preference judgments favoring sycophantic responses” <span class="citation" data-cites="sharma2023sycophancy">(<span class="nocase">Sharma et al.</span> 2023)</span>; in April 2025 an update that added a reward signal from users’ ratings made a production model markedly sycophantic, because the changes “weakened the influence of our primary reward signal, which had been holding sycophancy in check” <span class="citation" data-cites="openai2025sycophancy">(OpenAI 2025)</span>. A model told it would be trained toward harmful compliance complied selectively while reasoning about preserving its values outside training <span class="citation" data-cites="greenblatt2024faking">(<span class="nocase">Greenblatt et al.</span> 2024)</span>. Frontier models have been documented modifying tests and scoring code and reading graders’ answers to post high scores <span class="citation" data-cites="metr2025rewardhacking">(METR 2025)</span>, and reward hacking learned in production coding environments generalized to alignment faking, cooperation with malicious actors and sabotage, with chat-style safety training leaving the agentic misalignment in place <span class="citation" data-cites="macdiarmid2025emergent">(<span class="nocase">MacDiarmid et al.</span> 2025)</span>. A trained disposition is real. It is also, in these results, shaped most by whatever is rewarded most.</p>
+<h3 id="runtime-guards-and-representations">2.3 Runtime guards and representations</h3>
+<p>Between the model and the world, the field has built guards. Llama Guard is a fine-tuned model that classifies prompts and responses against a risk taxonomy <span class="citation" data-cites="inan2023llamaguard">(<span class="nocase">Inan et al.</span> 2023)</span>. NeMo Guardrails adds programmable rails around a model at run time <span class="citation" data-cites="rebedea2023nemo">(<span class="nocase">Rebedea et al.</span> 2023)</span>. Constitutional Classifiers are classifier safeguards trained on synthetic data generated from a natural-language constitution <span class="citation" data-cites="sharma2025constitutional">(<span class="nocase">Sharma et al.</span> 2025)</span>. Each puts a model in the judgment, so each can in principle be moved by the input it judges.</p>
+<p>Inside the model, representation engineering reads and steers population-level representations <span class="citation" data-cites="zou2023repe">(<span class="nocase">Zou et al.</span> 2023)</span>, and circuit breakers interrupt harmful generation by intervening on the representations that drive it <span class="citation" data-cites="zou2024circuit">(<span class="nocase">Zou et al.</span> 2024)</span>. Probes are a natural way to perceive what a model represents, but two recent results bound what they show. Probes on three model families mostly decoded the situation rather than the next action; one direction that separated fine-tuned from base models at AUC 1.000 crossed its threshold on none of 143 audited contexts before the assistant’s turn <span class="citation" data-cites="fomin2026probes">(Fomin et al. 2026)</span>. Removing the textual evidence of a behavior costs linear probes 10 to 30 AUROC points <span class="citation" data-cites="boxo2025probes">(Boxo et al. 2025)</span>. A probe-based perceiver for a conscience must therefore beat a lexical baseline on a corpus built to defeat one; this project’s own probing study failed exactly that test (section 7.4).</p>
+<h3 id="deterministic-governance-of-agent-actions">2.4 Deterministic governance of agent actions</h3>
+<p>A separate line evaluates an agent’s actions deterministically before they execute. Cedar is an authorization language with a deterministic evaluator, modeled and proved in Lean <span class="citation" data-cites="cutler2024cedar">(<span class="nocase">Cutler et al.</span> 2024)</span>. OAP intercepts tool calls before execution and evaluates them against a declarative policy; its authors state plainly that “OAP evaluates actions, not content” <span class="citation" data-cites="uchibeke2026oap">(Uchibeke 2026)</span>. AgenticRei evaluates deontic policies, including obligations and dispensations, outside the model over every tool call and agent message <span class="citation" data-cites="joshi2026agenticrei">(Joshi et al. 2026)</span>. The need is documented: across six models and six regulated domains, text-level refusal did not transfer to the tool call, which executed the forbidden action while the text declined it <span class="citation" data-cites="cartagena2026gap">(Cartagena and Teixeira 2026)</span>. The OWASP list of risks for agentic applications names the case directly: an agent that “operates within its authorized privileges but applies a legitimate tool in an unsafe or unintended way” <span class="citation" data-cites="owasp2025agentic">(OWASP Gen AI Security Project 2025)</span>.</p>
+<p>These systems share MORIS’s determinism and its place in the execution path. They judge against a doctrine: a policy, a set of deontic propositions, an authorization model. A permission engine has no output that can express “permitted, and still wrong,” which is the case the OWASP definition names.</p>
+<h3 id="doctrine-and-posture">2.5 Doctrine and posture</h3>
+<p>The distinction carries the report, so it is stated in a form a skeptic can test.</p>
+<p>A <strong>doctrine</strong> is a finite set of rules, each mapping an enumerated condition to an outcome. Its output for a case is the outcome of the rules the case matches. It is strong where its author anticipated the case. A case outside the enumerated conditions receives either no answer or a default, and the output is a bit, or a small set of labels.</p>
+<p>A <strong>posture</strong> is a fixed, authored basis of discernments onto which any case is projected. Its output for a case is a position: how strongly each dimension of the basis is engaged, in which direction, and in what combination. Because every case has coordinates in the basis, an unanticipated case still receives a reading. Because the reading is a set of magnitudes, the output is a gradient. A projection cannot help returning magnitudes.</p>
+<p>The philosophical counterparts are familiar. Moral particularism holds that moral judgment does not depend on a supply of principles, and that what is a reason in one case need not be a reason in another <span class="citation" data-cites="dancy2004ethics">(Dancy 2004)</span>. Virtue ethics locates right action in a formed character exercising practical judgment in particulars, rather than in rule-following <span class="citation" data-cites="vallor2016technology">(Vallor 2016)</span>. A posture in the sense used here is a machine analog of a formed character: not a list of what may not be done, but a way of seeing what is being done.</p>
+<p>For the purposes of this report, a judgment counts as posture-like to the degree that it has four properties, each checkable:</p>
+<ol type="1">
+<li><strong>Totality.</strong> It assigns a reading to every input in its domain, including inputs no rule was written for.</li>
+<li><strong>Magnitude.</strong> Its output is a position in a space of concerns, not a label.</li>
+<li><strong>Composition.</strong> Its reasons arise from interactions among basis dimensions, so that the number of distinct reason-sets it produces is not bounded by the number of rules authored.</li>
+<li><strong>Non-tunability by accretion.</strong> No single outcome can be pushed arbitrarily by adding rules.</li>
+</ol>
+<p>Section 6 reports MORIS against each.</p>
+<h3 id="the-strongest-objection">2.6 The strongest objection</h3>
+<p>The strongest objection to the distinction is that a formalized posture is only a very large rulebook. For MORIS the objection is, at one level, simply correct, and it should be conceded at that level. The gate is a deterministic function over a finite domain. With the actor fixed, its structural domain has 57,344 members and has been enumerated completely (section 6). Any function over a finite, enumerable domain is, extensionally, a lookup table.</p>
+<p>The distinction is therefore not about extension. It concerns how the table was produced, what it returns, and how it behaves at the edges, and on those points there is evidence. The table was not written case by case: 20 concern primitives on that structural slice admit 1,048,576 possible subsets, and the gate occupies 1,386 of them, a pattern produced by one authored basis and its graph rather than by 1,386 authored cases. What it returns is a position with named reasons, not a label. Its ordering of cases departs from a hand-built severity scale (rank correlation 0.69): an authorized, consented, unbounded, critical and irreversible deletion of a resource draws less concern (3.24) than a single, trivial deletion of one person’s record that is unauthorized, unconsented and costly to reverse (4.18), because the basis weighs standing and consent, not size. Adding a rule cannot push a primitive past its ceiling (section 6). And on 24 designed agent scenarios, a competent hand-written policy silently ran 7 actions that warranted a flag because its author had written no rule for them, while the gate flagged all 7 (section 9.5).</p>
+<p>None of that settles the question the objection is really asking, which is whether a posture generalizes better than a doctrine when both are given the same resources and tested on cases neither anticipated. That requires a matched comparison this program did not run. The designed scenarios were written by the same author who wrote the gate. Section 15 proposes the comparison (study c) and names it as the study most capable of falsifying the program’s central thesis.</p>
+<h3 id="position">2.7 Position</h3>
+<p>MORIS is not AI safety, not governance and not a filter, and it does not replace any of them. Guardrails ask whether an input is allowed. Alignment asks whether a model was trained well. A conscience asks whether an act is right, at the moment it is about to happen. Safety, governance and audit appear in this report as neighboring fields and as consequences of the conscience’s properties: a judgment with no model in it cannot be argued out of its verdict; a sealed judgment cannot drift; a traced judgment can answer for itself. They are not the frame.</p>
+<hr />
+<h2 id="the-source-corpus">3. The source corpus</h2>
+<h3 id="the-resonance-series">3.1 The Resonance Series</h3>
+<p>The posture MORIS operationalizes is drawn from the Resonance Series, a body of moral philosophy written by the author: fifteen manuscripts, 1,236,492 words. The first twelve, 989,598 words, carry the series title <em>A Living Philosophy</em>. They are a philosophy of a whole life, entered through leadership: leadership is the way in, because it is where getting things done meets what the doing costs other people, but the subject is how a person stands toward the world in every part of a life. The work proceeds at three scales, self, community and world, across four trilogies, Tuning, Transformation, Time and The Sacred. The final three manuscripts, 246,894 words, form the Grammar of God trilogy, which reads the whole as language. The primitives were derived from the first twelve (section 3.5).</p>
+<p><em>Table 2. The corpus. Titles are the manuscript titles under which the primitive cards cite the books.</em></p>
+<table>
+<thead>
+<tr>
+<th>trilogy</th>
+<th>book</th>
+<th>manuscript title</th>
+<th>words</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>I. Tuning</td>
+<td>I</td>
+<td>Echoes of the Unseen</td>
+<td>72,745</td>
+</tr>
+<tr>
+<td></td>
+<td>II</td>
+<td>The Fields of Belonging</td>
+<td>83,732</td>
+</tr>
+<tr>
+<td></td>
+<td>III</td>
+<td>The Covenant of the Future</td>
+<td>88,250</td>
+</tr>
+<tr>
+<td>II. Transformation</td>
+<td>IV</td>
+<td>The Threshold of Return</td>
+<td>85,451</td>
+</tr>
+<tr>
+<td></td>
+<td>V</td>
+<td>The Rhythm of Trust</td>
+<td>78,492</td>
+</tr>
+<tr>
+<td></td>
+<td>VI</td>
+<td>The Weather of Becoming</td>
+<td>83,977</td>
+</tr>
+<tr>
+<td>III. Time</td>
+<td>VII</td>
+<td>The Sands of Life</td>
+<td>96,109</td>
+</tr>
+<tr>
+<td></td>
+<td>VIII</td>
+<td>The Two Clocks of Leadership</td>
+<td>88,705</td>
+</tr>
+<tr>
+<td></td>
+<td>IX</td>
+<td>The Eras of Civilization</td>
+<td>88,092</td>
+</tr>
+<tr>
+<td>IV. The Sacred</td>
+<td>X</td>
+<td>The Art of Nearness</td>
+<td>87,512</td>
+</tr>
+<tr>
+<td></td>
+<td>XI</td>
+<td>The Light We Tend Together</td>
+<td>77,333</td>
+</tr>
+<tr>
+<td></td>
+<td>XII</td>
+<td>The Mercy of Illumination</td>
+<td>59,200</td>
+</tr>
+<tr>
+<td>V. The Grammar of God</td>
+<td>XIII</td>
+<td>Article and Noun</td>
+<td>88,465</td>
+</tr>
+<tr>
+<td></td>
+<td>XIV</td>
+<td>Verb and Adjective</td>
+<td>82,448</td>
+</tr>
+<tr>
+<td></td>
+<td>XV</td>
+<td>Conjunction and Punctuation</td>
+<td>75,981</td>
+</tr>
+</tbody>
+</table>
+<p>Each trilogy carries one theme across the three scales, from the self to the shared room to the world. The books argue by braiding: an idea is corroborated from several disciplines at once, philosophy, the sciences, psychology, history, myth and the natural world, and the convergence is the argument. The thinkers drawn on include Aristotle, Kant and Hartmut Rosa, whose sociology of resonance gives the series its central term <span class="citation" data-cites="rosa2019resonance">(Rosa 2019)</span>.</p>
+<h3 id="a-posture-not-a-doctrine">3.2 A posture, not a doctrine</h3>
+<p>The corpus is not a code of conduct and does not present itself as one. Book IX says of its own argument: “Not a claim. A posture.” Its moral content arrives as recurring concerns rather than rules: who bears the cost of an act, and who is absent from the room when it is decided; proportion; the special care owed to what cannot be undone; consent that is real and renewable (“a tired person cannot truly consent,” Book VII); authority held as a trust (“authority is a loan for the sake of a task,” Book I); truth over performance; persons never treated as fuel; repair that leaves its seam visible; urgency that does not confer authority; stewardship rather than ownership.</p>
+<p>Those concerns correspond closely to what the gate reads: on whom an act lands, whether they consented, whether it can be undone, whether it lies within the actor’s standing, and at what scope and magnitude. The correspondence is not offered as evidence of derivation. Derivation is recorded card by card, in each primitive’s citations to the corpus (section 4).</p>
+<h3 id="why-a-philosophy-entered-through-leadership">3.3 Why a philosophy entered through leadership</h3>
+<p>Which posture is chosen matters. A general moral philosophy, made the strongest force on an acting system, risks a system that learns the safest act is no act: every action carries some risk, so inaction scores best, and a conscience that cannot let the work be done fails at the purpose it was given. The corpus enters through leadership, and leadership, in the sense the corpus develops, is stewardship. A steward is entrusted with work that is not theirs, with the people who do it, and with everyone the work will touch; a steward is expected to deliver, and is answerable for what the delivering does. A philosophy entered this way does not set the conscience against the work. It puts the work inside the conscience, and counts it as done only if it was done without leaving damage behind.</p>
+<p>Leadership is the entry, not the boundary. The posture the corpus describes is meant for a whole life: how a person keeps faith with others, what they owe to what cannot be undone, how they hold authority and consent, how they repair. That breadth is why the same basis can weigh an agent’s tool call and a person’s account of a hard decision in their own life, the two settings in which MORIS was deployed (section 5).</p>
+<p>That is the reason this corpus was a fit for a conscience meant to govern systems whose purpose is to get things done, among people. It is offered as a reasoned position, not a demonstrated result. Nothing in this program compared this posture with another posture.</p>
+<h3 id="why-this-conscience-and-who-chooses">3.4 Why this conscience, and who chooses</h3>
+<p>A document of March 2026 put the program’s answer to the question “who gave you the right to choose the morality?” in the terms the program has kept: the corpus is a foundation for “one instance of Artificial Conscience. Not the only possible instance.” A human conscience is one among billions, formed by a particular life. An artificial conscience built from one authored corpus is likewise one.</p>
+<p>The architecture is corpus-agnostic in principle. The gate reads primitive cards, not books; any authored corpus compiled into cards of the same form, with the same three kinds of relation, could be substituted, and the gate, the seal, the trace and the re-derivation would work unchanged. That has not been demonstrated: only one corpus has ever been compiled. The question it raises is not technical and is not answered here. If artificial consciences are to be chosen deliberately rather than formed by default, someone chooses them, and who that is, and by what process, is a question of governance this report names and leaves open.</p>
+<h3 id="derivation-and-provenance">3.5 Derivation and provenance</h3>
+<p>The 93 primitives were compiled from Books I to XII. The founding primitive schema of November 2025 requires each primitive’s sources to be cited by book, chapter and paragraph across Books I to XII, and the master primitive registry was locked on 22 January 2026.</p>
+<p>The Grammar of God trilogy was written during the MORIS research, after the primitives had been built; by late March 2026 the corpus was described as fifteen books. The trilogy then entered the cards as enrichment, not derivation, in two ways. Quotations from Books XIII to XV appear in 54 of the 93 cards: 132 times among their corpus citations, 47 times in the prose of their definitions, 12 times in the prose of their scope, and once each in their confusables and validation notes. All of these were present when the cards first entered version control, on 11 May 2026. Separately, on 1 July 2026, an append-only pass ratified by the author added 2,359 positive and 1,760 negative exemplars to the cards, drawn from proposals grounded in all fifteen books.</p>
+<p>None of this text can move a judgment. No firing rule, relation, polarity or weight reads a card’s prose. The prose does reach the answering model: the packet renders each engaged primitive’s definition and scope verbatim into the guidance the model receives on the conversational path (section 5).</p>
+<p>The trilogy made one structural contribution, to the formal specification rather than to the primitives. The formalization methodology states that the deontic operators of the specification “derive directly from the seven conjunctions in Book 15” and are not imported from the conventions of standard deontic logic: AND gives obligation, OR permission, BUT defeasibility, IF the conditional, BECAUSE the causal operator, ALTHOUGH exception, and AND THEN sequence, with prohibition derived from obligation. Five of the seven are used across the 93 specifications (obligation in all 93, the causal operator in 92, permission in 92, defeasibility in 90, the conditional in 84); exception and sequence are declared and used in none. A later summary of the project described the correspondence as discovered after the fact; the methodology, which is the earlier and primary record, says otherwise, and this report follows it. Because the runtime gate does not execute the specification (section 4), Book XV shaped how the law is written down, not how a verdict is reached.</p>
+<p>The corpus is human-authored; an AI system was used as an editing tool across it, and nothing entered without the author’s approval. The twelve volumes are registered with the US Copyright Office individually and as a combined work. The Grammar of God trilogy is not registered.</p>
+<hr />
+<h2 id="formalization-from-corpus-to-law">4. Formalization: from corpus to law</h2>
+<p>A posture has to be written down before a machine can hold it. In MORIS it is written down as an authored law in four layers, each derived from the one above it, with authority running in one direction only.</p>
+<h3 id="the-authority-chain">4.1 The authority chain</h3>
+<p>The corpus is the top of the chain. Below it sit the 93 primitive cards. Below the cards sit two derived formalizations: the deontic specifications with their truth tables, and the manifolds. Below those sits the runtime. Where a derived layer disagrees with a card, the card governs; where a card appears to disagree with the corpus, the corpus governs. A file that asserts its own primacy does not acquire it: the master primitive registry, which describes itself as the only authoritative source for primitive definitions, was ruled a derived analysis layer on 16 July 2026, and the cards were ruled the primitives.</p>
+<p>The layers the runtime reads, the cards and the manifolds, are sealed. The seal is a canonical SHA-256 digest over every authored file the runtime reads, folded in a labeled, order-independent way, so that any addition, removal or modification of the law changes the digest. Re-run on 10 October 2026, the seal was intact. Section 5.7 describes how the seal combines with the other attestations.</p>
+<h3 id="the-primitive-card">4.2 The primitive card</h3>
+<p>A primitive is not a rule. It is a discernment: the authored difference between a quality and its counterfeit. Each of the 93 cards carries that discernment in a form a machine can consume. The identifiers run from CP001 to CP120 and are not contiguous; exactly 93 ship, and Appendix A indexes all of them. A card has five groups of fields.</p>
+<ul>
+<li><strong>Identity and weight:</strong> an identifier and a name; a tier; an authored severity weight; and an axiomatic flag (the runtime does not read the last).</li>
+<li><strong>Hard-stop fields:</strong> present only on a primitive authorized to stop an action, with its threshold. Elsewhere the fields are absent rather than defaulted to false, because an absent field is honest and a defaulted one is a claim nobody made.</li>
+<li><strong>Meaning and discrimination:</strong> a definition and a scope written from the corpus, with explicit rules for what falls outside; positive and negative exemplars; confusables, which test the primitive against its near neighbors; and a polarity (excitatory, inhibitory, or dependent on context).</li>
+<li><strong>Provenance:</strong> citations into the corpus by book and paragraph, with the passage quoted, and validation notes.</li>
+<li><strong>The activation signature:</strong> three kinds of authored relation to other primitives, each consumed by the runtime at exactly one stage and never conflated. Co-activations move activation from one primitive to another (399 edges). Suppressions dampen a primitive when another is active (63 edges). Warnings annotate the packet, marking a danger that several primitives may point to (189 edges).</li>
+</ul>
+<p>A negative exemplar does not mean “this primitive does not activate here.” It means a signal is present without the pattern that would make it decisive: no posture follows from it alone. The distinction matters because it means the cards encode composition. A primitive can be present and still not decide; what decides is the configuration.</p>
+<h3 id="the-deontic-specification">4.3 The deontic specification</h3>
+<p>Each primitive is formalized in a deontic specification: 93 files, one per primitive, plus a template. A specification declares the primitive’s domain, states its obligations, prohibitions and permissions, gives the conditions that defeat an obligation, records the primitive’s failure modes and hard stop where it has one, and quotes at least four governing passages from the corpus. The operators are the five used of the seven drawn from Book XV (section 3.5): obligation, permission, defeasibility, the conditional and the causal operator, with prohibition defined as obligation of the negation.</p>
+<p>Each specification is enumerated exhaustively in a truth table over four judgment dimensions of an action: its intent class (nine values), the alignment between its stated and actual purpose (four), its risk (four) and whether it harms a party (two). That gives 288 rows per table. The two primitives that also read the relation between an act and the actor’s granted authority carry a third value on that axis, for 864 rows. The 93 tables hold 27,936 authored rows. Each table carries anomaly checks (for example, that no row permits an exploit, and that no row refuses a coherent act that harms no one).</p>
+<p>The specification is a demanding law. Ninety of the 93 tables contain rows that refuse; in 87 of them, every refusing row requires harm. Three tables also refuse without harm, on 344 rows, where an act exploits a relationship under misrepresentation or where drift meets critical risk. The verdicts of the specification turn almost entirely on judgment: across the tables, intent drives the verdict of 92 primitives, alignment of 92 and harm of 87, while risk drives 3 and authorization 2.</p>
+<h3 id="the-manifolds">4.4 The manifolds</h3>
+<p>The 93 manifolds were authored for an earlier scoring architecture (section 7.2). They carry detection markers, fit-scoring weights and retrieval thresholds that the current runtime does not execute. It reads exactly one field from each, the primitive’s operative test, a one-sentence directive that the packet carries to the answering model. Every one of the 93 manifolds still carries the status line <code>READY FOR PRESSURE TEST -- not frozen until out-of-corpus eval</code>. On 16 July 2026 the author ruled the manifolds frozen and the line stale; the line has not been edited, because the substrate is edited only by its author.</p>
+<h3 id="the-compiler-principle-and-the-measured-gap">4.5 The compiler principle, and the measured gap</h3>
+<p>Between layers the governing rule was stated in a June 2026 decision record: “The compiler preserves; it does not interpret.” Translation from one layer to the next may not add judgment that the layer above did not author. A field the source does not establish stays empty.</p>
+<p>That rule produces the program’s most important design tension, and it is measured rather than argued. The specification’s verdicts depend on intent, alignment and harm. Judging those requires perceiving them, and perceiving them requires a model. The runtime’s judgment admits no model (section 4.6). The runtime therefore judges on a structural description of an action, and the gap between what the specification decides and what a structural description can determine is a designed information gap. Its size is computed by a re-runnable instrument over the frozen tables. For 0 of the 93 primitives can the nine structural fields determine the specification’s input-dependent verdict; for 4 they partly can; for 88 they cannot, because only judgment dimensions drive those verdicts; for 1, the specification’s verdict is constant. That one is CP073, the worked example below.</p>
+<p>The gap is the honest statement of what MORIS’s judgment is. It executes the posture’s structural dimension deterministically and incorruptibly. Its content dimension it reaches only through a perceived reading (section 5.2). The specification states the whole posture; the runtime holds the part of it that can be held without a model in the judgment.</p>
+<h3 id="the-rulings-that-shaped-the-law">4.6 The rulings that shaped the law</h3>
+<p>The formalization was governed by a small set of rulings, each made on evidence and each recorded with its reason (Appendix D). Seven carry the architecture.</p>
+<ol type="1">
+<li><strong>No model in judgment.</strong> A language model may read a request and report features of it. It may never decide a verdict. A judgment a model makes can be moved by input; a judgment with no model in it cannot be argued with. When a semantic judge was added to one release gate in July 2026 to close a mechanical ceiling, raising delivery from 0.96 to 1.00, it was removed the same day. A mechanical ceiling is a correct result; a model in the judgment is not MORIS.</li>
+<li><strong>Absence is a signal, never a value.</strong> A field that cannot be read is BLANK, never filled because a later rule needs it. Could-not-see is never nothing-here.</li>
+<li><strong>Ambiguity is held, not forced.</strong> A predicate that the substrate leaves unresolved by design stays unresolved; it is not collapsed into a verdict or treated as a failure (May 2026).</li>
+<li><strong>ACCEPT is earned.</strong> A clear verdict requires an affirmative finding that an act is low-stakes. The absence of concern, which includes the failure to perceive, is not enough (July 2026).</li>
+<li><strong>REFUSE is structural collapse only.</strong> The gate refuses only when an act’s structure collapses a constitutional invariant the structural description can see. Refusing on perceived harm or intent was considered and closed permanently on 20 July 2026, because a manipulated reader could flip a harm field and the gate would leak; a survey of 13 block-worthy acts found none that needed it. Content harm is the answering model’s responsibility; legitimacy of authority is the deployment’s.</li>
+<li><strong>Content may be perceived, never judged.</strong> On 22 July 2026 the earlier rule restricting the reading to structural fields was revised: a bounded reader may report two content features, so that the full constitution can be reached, while the judgment stays a pure function. Reach rose from 27 to 91 of 93 primitives. The remaining two, Collapse Line (CP090) and Collapse Pattern (CP117), were reached in the third generation, where perception instruments read them from text and were certified on authored traps (7 of 7 and 9 of 9); in the current gate no rule, structural or content, lights them and no relation reaches them. Both describe a pattern that unfolds over a sequence, which a gate that judges one act at a time from a fixed description does not see. The cost of the ruling was accepted openly: content features can be manipulated by the text they are read from, and REFUSE does not rest on them.</li>
+<li><strong>Refinement flows from the law outward.</strong> “No compensating mechanisms ever again” (April 2026): when the law and the runtime disagree, the runtime changes, never the law, and no veto is added to rescue a score.</li>
+</ol>
+<h3 id="a-worked-primitive-cp073-collapse">4.7 A worked primitive: CP073 Collapse</h3>
+<p>One primitive is shown end to end, from the corpus to the gate. CP073 is chosen because it is the sole source of refusal, and so the clearest place to see how the rulings above become arithmetic.</p>
+<p><strong>The card.</strong> Collapse is behavioral, carries the maximum authored severity weight (10, a weight five cards share), is inhibitory, and is the only primitive whose card authorizes a hard stop, at a threshold of 0.15. Its definition describes not damage but “the completion of structural degradation to the point where what was built falls entirely.” Its scope gives the test: “could the target recover and continue to function after this, or does this action remove the condition of its functioning?” It cites the corpus thirteen times, among them Book VI on the pattern that precedes collapse (“Forms persist while meaning drains”) and, as later enrichment, Book XIII (“Removing a keystone from an arch does not reduce the arch but collapses it”). It carries 61 positive and 48 negative exemplars, three co-activation edges, no suppression edges and two warning edges.</p>
+<p><strong>The specification.</strong> The specification forbids terminal destruction, the elimination of a system’s margin, and collapse brought about from within; declares the hard stop, <code>HARD_STOP(CP073, 0.15)</code>; and obliges the system not to facilitate an act because it is a genuine collapse, an obligation defeated where the collapse is natural, technical or a legitimate ending. Its truth table has 288 rows, and every one of them governs. That is not a contradiction. The table’s four axes, intent, alignment, risk and harm, do not contain the structural condition of collapse, so over those axes the verdict is constant; the refusal lives in the hard-stop declaration, outside the table, and is executed by the runtime from structure. (The table’s header also carries an unformatted template placeholder, a generation artifact of the substrate. The substrate is sealed and is reported as found.)</p>
+<p><strong>The rules.</strong> Four of the twelve structural combination rules can fire Collapse, each at the highest rule weight (0.7):</p>
+<ul>
+<li><strong>C-1, the keystone:</strong> a deletion or modification of a whole system, at unbounded scope, that is critical or irreversible. It is not conditioned on authorization: removing the keystone collapses the arch whoever removes it.</li>
+<li><strong>C-8:</strong> a deletion, transfer or execution at unbounded scope that is critical or irreversible, against any target other than the actor itself or an abstraction, by an actor not established as within its grant. Unknown standing fails toward collapse here, because the shape is catastrophic whatever the standing.</li>
+<li><strong>C-9:</strong> an escalation of privilege to critical authority, by an actor proven to exceed its grant. Unknown standing does not reach it: a refusal earned from an absence rather than an observation is a refusal nobody witnessed.</li>
+<li><strong>C-10:</strong> an irreversible destruction of a system by an actor not established as within its grant.</li>
+</ul>
+<p><strong>The gate.</strong> Table 3 shows the gate on the top of the escalation ladder of section 6 and on its near twins. Each row is a deterministic run, re-derived on 10 October 2026.</p>
+<p><em>Table 3. CP073 at the gate.</em></p>
+<table>
+<thead>
+<tr>
+<th>action</th>
+<th>verdict</th>
+<th>concern mass</th>
+<th>collapse rules fired</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>an external actor deletes a whole system, unbounded, critical, irreversible, without consent, beyond its grant, immediately</td>
+<td>REFUSE</td>
+<td>7.48</td>
+<td>C-1, C-8, C-10</td>
+</tr>
+<tr>
+<td>an agent, within its grant and with consent, deletes a whole system, unbounded, critical, irreversible</td>
+<td>REFUSE</td>
+<td>3.76</td>
+<td>C-1</td>
+</tr>
+<tr>
+<td>the same, at single scope</td>
+<td>GOVERN</td>
+<td>3.16</td>
+<td>none</td>
+</tr>
+<tr>
+<td>an agent deletes a resource, unbounded, critical, irreversible, beyond its grant</td>
+<td>REFUSE</td>
+<td>5.46</td>
+<td>C-8</td>
+</tr>
+<tr>
+<td>the same, standing unknown</td>
+<td>REFUSE</td>
+<td>4.15</td>
+<td>C-8</td>
+</tr>
+<tr>
+<td>the same, within its grant and with consent</td>
+<td>GOVERN</td>
+<td>3.24</td>
+<td>none</td>
+</tr>
+<tr>
+<td>an agent escalates to critical authority, beyond its grant</td>
+<td>REFUSE</td>
+<td>5.14</td>
+<td>C-9</td>
+</tr>
+<tr>
+<td>the same, standing unknown</td>
+<td>GOVERN</td>
+<td>2.62</td>
+<td>none</td>
+</tr>
+</tbody>
+</table>
+<p>Three properties of the design are visible in the table. Refusal does not follow concern mass: an authorized keystone removal is refused at 3.76, while an escalation of unknown standing is governed at 2.62 and an authorized bulk deletion of a resource is governed at 3.24. A refusal follows only from a collapse rule firing directly, read before suppression, so that no amount of mitigating context can talk the gate out of a genuine collapse and no propagated activation can manufacture one. And a primitive cannot be made louder by stacking rules: on the first row three collapse rules fire at 0.7 each, and Collapse’s strength is 1.0, the ceiling, not 2.1.</p>
+<p><strong>The packet.</strong> The first row’s packet names its refusal: the hard stop is CP073, its pre-suppression strength is 1.0 against a threshold of 0.15, and the earning rules are C-1, C-8 and C-10, each recorded with its weight. Beside the refusal it carries 20 considerations, 15 of them concerns, and 5 warnings, each in the authored voice of its card. The trace records every intermediate value, and the same action produces the same bytes every time.</p>
+<hr />
+<h2 id="architecture-from-law-to-gate">5. Architecture: from law to gate</h2>
+<p>The architecture described in this section is the subject of the pending patent application named in the disclosure statement.</p>
+<h3 id="one-gate-two-paths">5.1 One gate, two paths</h3>
+<p>MORIS has one judgment and two ways of reaching it. On the <strong>conversational path</strong>, a person writes, a bounded language model reads what they wrote into a fixed description of the act, the gate judges the description, and the answering model receives the judgment as guidance. On the <strong>agentic path</strong>, an agent proposes a tool call, the call is described deterministically from the tool’s registration and its arguments, the gate judges it, and the judgment is enforced before the tool runs. The gate is the same function on both paths, never sees the model, and returns the same judgment to the same description on any model.</p>
+<figure>
+<img src="/research/figures/two_paths.svg" style="width:100.0%" alt="The two paths. A person’s message is read by the bounded reader; a proposed tool call is described by deterministic intake. Both become the same CAV, judged by the same gate against the sealed substrate. The judgment is rendered as guidance on the conversational path and enforced on the agentic path, and every trace enters the record (section 5.7)." />
+<figcaption aria-hidden="true">The two paths. A person’s message is read by the bounded reader; a proposed tool call is described by deterministic intake. Both become the same CAV, judged by the same gate against the sealed substrate. The judgment is rendered as guidance on the conversational path and enforced on the agentic path, and every trace enters the record (section 5.7).</figcaption>
+</figure>
+<h3 id="the-canonical-action-vector">5.2 The Canonical Action Vector</h3>
+<p>The gate’s sole input is the Canonical Action Vector (CAV), a fixed description of the shape of an act. It has nine structural fields, each a closed set of values plus an explicit BLANK (Table 4).</p>
+<p><em>Table 4. The nine structural fields.</em></p>
+<table>
+<thead>
+<tr>
+<th>field</th>
+<th>what it records</th>
+<th>values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>actor_class</td>
+<td>who is acting</td>
+<td>HUMAN, AGENT, SERVICE, SCHEDULED, EXTERNAL</td>
+</tr>
+<tr>
+<td>action_class</td>
+<td>what is being done</td>
+<td>QUERY, CREATE, MODIFY, DELETE, TRANSFER, EXECUTE, ESCALATE, INFLUENCE</td>
+</tr>
+<tr>
+<td>target_class</td>
+<td>whom or what it touches</td>
+<td>SELF, DATA, RESOURCE, PRINCIPAL, GROUP, SYSTEM, ABSTRACT</td>
+</tr>
+<tr>
+<td>scope</td>
+<td>blast radius</td>
+<td>SINGLE, BOUNDED, UNBOUNDED</td>
+</tr>
+<tr>
+<td>magnitude</td>
+<td>significance</td>
+<td>TRIVIAL, MATERIAL, CRITICAL</td>
+</tr>
+<tr>
+<td>authorization</td>
+<td>relation to the actor’s grant</td>
+<td>WITHIN_GRANT, AT_LIMIT, EXCEEDS_GRANT</td>
+</tr>
+<tr>
+<td>timing</td>
+<td>urgency</td>
+<td>ROUTINE, EXPEDITED, IMMEDIATE</td>
+</tr>
+<tr>
+<td>consent</td>
+<td>whether those affected agreed</td>
+<td>EXPLICIT, IMPLIED, NONE</td>
+</tr>
+<tr>
+<td>reversibility</td>
+<td>whether it can be undone</td>
+<td>REVERSIBLE, COSTLY, IRREVERSIBLE</td>
+</tr>
+</tbody>
+</table>
+<p>The CAV is not a judgment of content. It carries no harm score and no estimate of intent. An earlier design grew the description to seventeen fields, several of which a model had to judge, and that expansion was retired as the program’s defining error: a field a model must judge puts the model back in the judgment. Two content features, the intent class and the alignment of an act’s stated and actual purpose, may be added by a separate bounded reader under the July 2026 ruling (section 4.6); they are BLANK on every structural path.</p>
+<p>Three states of a field are kept apart: determined (the value was read), affirmatively absent (for example, consent NONE: no agreement exists), and BLANK (no signal at all). BLANK is never coerced to a value, and the pattern of what is present and absent is itself something the gate weighs: an unknown actor, or unknown standing, on a consequential act raises concern precisely because it is unknown. On the conversational path the reader is told what it is reading: not the asking but the act being weighed, and the person or group it lands on.</p>
+<h3 id="the-six-stages">5.3 The six stages</h3>
+<p>Given a CAV, the gate is a pure function of six stages, with no model, no clock and no randomness. Every intermediate is captured, so the product and the record are built from the same values and cannot drift apart.</p>
+<ol type="1">
+<li><strong>Firing.</strong> Authored rules map field values and combinations to initial activations of primitives, at fixed weights, all matching rules firing in a fixed order. Three floor primitives, Resonance (CP001), Integrity (CP085) and Presence (CP010), fire on every request at 0.1, so that every act is read on the axis of coherence; the floor never refuses and never dominates. Twenty-six field values light 46 activations at weights from 0.1 to 0.6. Twelve combination rules light more than the sum of their parts, among them the four collapse rules of section 4.7 at 0.7. Each firing records its valence (concern or satisfaction) and the rule that earned it.</li>
+<li><strong>Propagation.</strong> Co-activation edges, and only those, spread activation through the authored graph until it converges (to within 0.001), synchronously and monotonically, in fixed-precision decimal arithmetic, normalized by each primitive’s in-degree, with a propagation weight of 0.4. Each primitive’s activation is capped at 1.0, and the cap applies to the fired seed as well as to what propagates, which is what guarantees convergence and what makes stacking rules ineffective.</li>
+<li><strong>Suppression.</strong> In a single pass over the converged values, each suppressed primitive is damped by its suppressors: its activation is multiplied by one minus 0.5 times each suppressor’s activation, floored at zero. Because every suppressor is read from the same snapshot, the pass is order-independent, and the one mutual suppression in the graph resolves without oscillation. This is the corpus’s safe harbor made mechanical: it dampens, it does not remove.</li>
+<li><strong>Resolution.</strong> First the hard stop: if a hard-stop primitive was fired directly by a rule and its activation before suppression reaches 0.15, the verdict is REFUSE. Otherwise each surviving activation is assigned to concern or satisfaction by its polarity, and the verdict is ACCEPT only if the share of concern is below 0.10 and the act was affirmatively established as low-stakes; otherwise it is GOVERN.</li>
+<li><strong>The packet.</strong> For every primitive the rules fired, and every primitive propagation raised above 0.15, the packet carries a consideration: the primitive’s stance (concern, satisfaction or coherence), its strength, its voice in the card’s own words, its operative test from the manifold, and its citation into the corpus, loudest first. Warnings are grouped by the danger they point to, so that the number of primitives raising a warning reads as corroboration rather than noise. A refusal carries its earning evidence. When the packet is rendered for a model, at most twelve concerns are voiced and the true total is disclosed.</li>
+<li><strong>The trace.</strong> Every evaluation emits a complete record: the CAV with its blanks, the rules that fired, the propagation, the converged and damped activations, the suppressions, the verdict and any hard stop, the packet, and a digest of the record. The time, the run and the actor are recorded outside the pure trace, so that the trace remains a function of the CAV alone.</li>
+</ol>
+<h3 id="three-verdicts">5.4 Three verdicts</h3>
+<p><strong>GOVERN</strong> is the default and the product: the act may proceed, carrying a named, weighted set of concerns into the answer and into the record. It is steering, not braking. <strong>ACCEPT</strong> is earned: it requires both no meaningful concern and an affirmative finding of low stakes. <strong>REFUSE</strong> is a structural collapse, and nothing else. A request whose shape cannot be read at all, every field BLANK, is governed with nothing named: could-not-see is never nothing-here.</p>
+<h3 id="the-conversational-deployment">5.5 The conversational deployment</h3>
+<p>The conversational path is live at askmoris.ai. The reader is a single bounded model, Anthropic’s Claude Haiku 4.5 (<code>claude-haiku-4-5-20251001</code>), with a fixed prompt pinned by digest. It reads only the current message: on 2 September 2026 the reader’s view of earlier turns was set to zero, after a measurement showed that a window of six turns of ordinary conversation destabilized its reading of the current message (section 10.2). The conversation is passed to the answering model; it never reaches the reader or the gate. The answering model is switchable among vendors; the reader and the gate are not. The packet is rendered once into the answering model’s instructions, the answer is generated once and recorded, and it is not judged again.</p>
+<p>This deployment carries a confound that every result on this path inherits. The answering model has a character of its own, formed by its training. The guidance is advice that a model can weigh, follow or ignore, and when the governed answer differs from the ungoverned one, part of the difference may belong to the model’s own response to being given any moral frame at all. The absent-party study measured that directly, and found it large (section 10.4).</p>
+<h3 id="the-agentic-deployment">5.6 The agentic deployment</h3>
+<p>On the agentic path there is no reader. A registered tool carries a specification: a base CAV and a deterministic refinement from its arguments (for example, an argument that applies the call to all records sets scope to UNBOUNDED). Where a fact is a property of the environment that the deployment can attest, such as whether a file lies inside the workspace or whether a repository has unsaved work, a resolver reads it and reports it; whatever it cannot establish stays BLANK. Only sources the deployer vouches for may populate a judged field. A governed party may raise concern about itself but can never clear itself, because a manufactured clearance reads as diligence and leaves nothing downstream looking wrong.</p>
+<p>The judgment is enforced. REFUSE blocks; ACCEPT allows; GOVERN allows with a record, or, under the shipped default, holds for a human when the act is at or beyond the actor’s grant, or when its standing cannot be read on a consequential act. A held action is judged again at approval time, so a stale approval cannot execute what the conscience would now refuse, and a human approval can never override a REFUSE. The decision binds to a digest of the exact arguments judged, and the executor refuses to run arguments it did not judge. Every call, allowed, blocked or held, is recorded before control returns. On any internal error the path fails closed.</p>
+<h3 id="integrity-and-accountability">5.7 Integrity and accountability</h3>
+<p>A conscience must answer for itself, so the record is built to be checked by a party who does not trust its keeper. Four attestations are folded into one digest, the evidence root: <strong>determinism</strong> (a canonical CAV yields a bit-identical trace), <strong>fidelity</strong> (an independent parser re-reads the raw cards and agrees with the runtime field by field), the <strong>seal</strong> (section 4.1) and a <strong>behavioral fingerprint</strong> (a canonical suite of judgments spanning all three verdicts, reduced to a digest). The root re-derived unchanged on 10 October 2026. Each recorded decision is stored under the digest of its bytes, chained to its predecessor in an append-only ledger so that deletion, insertion and reordering are detectable, stamped with the identity of the law and the gate that decided it, and bound to the deployer’s own statement of who acted and when. A conformance report reconstructs each recorded CAV, re-runs the gate, and confirms that the recorded verdict reproduces, flagging rather than re-judging any record decided under a different law.</p>
+<hr />
+<h2 id="the-gradient">6. The gradient</h2>
+<p>A filter returns a bit. A three-way filter returns a label. A conscience weighs. This section is about the weighing, because it is what makes MORIS a conscience rather than a filter, and because it is the property most easily lost when the system is measured by instruments built for filters.</p>
+<h3 id="verdict-and-position">6.1 Verdict and position</h3>
+<p>Every judgment has two parts. The <strong>verdict</strong> is one of three. The <strong>position</strong> is the named, weighted set of concerns the act raises: which primitives engaged, at what strength, in what direction, in whose words. The <strong>concern mass</strong> is the sum of the strengths of the concerns in the packet. It is not a severity score: it measures the configuration of an act, the pull of one claim against another inside it, not the size of its consequences. It is not a confidence: a continuous output from a model is noise, because the model is the source of the variance, but a continuous output from a pure function is a position, and the named reasons say which dimensions put it there.</p>
+<p>The analogy to a human conscience is functional and exact in this one respect. A conscience rarely forbids and rarely clears without reservation. Most of what it does is weigh: it lets an act proceed while holding what is at stake in it, it can say what it is holding and why, and two acts that it lets proceed are not held the same way. ACCEPT and REFUSE are the rare, earned edges. GOVERN is the faculty at work.</p>
+<h3 id="the-shape-of-the-space">6.2 The shape of the space</h3>
+<p>With the actor fixed as an agent, the structural fields admit 57,344 distinct actions. All of them were judged. The gate governed 54,992 (95.9%), refused 2,184 (3.8%) and accepted 168 (0.3%). Across the space the concern mass took 12,236 distinct values, from 0 to 7.33 (mean 2.39), and the packets carried 1,386 distinct sets of named concerns. Twenty concern primitives are reachable on this slice, and they admit 1,048,576 possible sets; the gate occupies 1,386. That pattern is produced by one basis and its graph, not by 1,386 authored cases.</p>
+<p>The distribution is a property of the space of possible actions, not of any deployment. A uniform enumeration over-samples the contested region, while real traffic is dominated by ordinary acts.</p>
+<h3 id="one-field-moving">6.3 One field moving</h3>
+<p>Table 5 holds every field fixed except the actor’s standing. The verdict does not change. The position does.</p>
+<p><em>Table 5. Authorization alone, on a fixed action.</em></p>
+<table>
+<thead>
+<tr>
+<th>authorization</th>
+<th>verdict</th>
+<th>concern mass</th>
+<th>concerns named</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>within its grant</td>
+<td>GOVERN</td>
+<td>2.18</td>
+<td>8</td>
+</tr>
+<tr>
+<td>at the limit of its grant</td>
+<td>GOVERN</td>
+<td>2.85</td>
+<td>10 (2 enter)</td>
+</tr>
+<tr>
+<td>beyond its grant</td>
+<td>GOVERN</td>
+<td>3.67</td>
+<td>10 (1 enters, 1 clears)</td>
+</tr>
+</tbody>
+</table>
+<p>A filter reads three identical outcomes. The gate reads three different acts, and says what changed.</p>
+<h3 id="a-ladder-of-stakes">6.4 A ladder of stakes</h3>
+<p>Table 6 climbs from the most ordinary act an agent can take to the most destructive.</p>
+<p><em>Table 6. The escalation ladder.</em></p>
+<table>
+<thead>
+<tr>
+<th>act</th>
+<th>verdict</th>
+<th>concern mass</th>
+<th>concerns named</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>read its own status</td>
+<td>GOVERN</td>
+<td>0.21</td>
+<td>1</td>
+</tr>
+<tr>
+<td>edit one of its own data records</td>
+<td>GOVERN</td>
+<td>0.78</td>
+<td>4</td>
+</tr>
+<tr>
+<td>delete a recoverable resource</td>
+<td>GOVERN</td>
+<td>2.36</td>
+<td>8</td>
+</tr>
+<tr>
+<td>delete it irreversibly</td>
+<td>GOVERN</td>
+<td>2.74</td>
+<td>8</td>
+</tr>
+<tr>
+<td>delete a person’s data, without consent</td>
+<td>GOVERN</td>
+<td>4.11</td>
+<td>9</td>
+</tr>
+<tr>
+<td>purge a group, beyond its grant</td>
+<td>GOVERN</td>
+<td>5.39</td>
+<td>12</td>
+</tr>
+<tr>
+<td>wipe the whole system, now</td>
+<td>REFUSE</td>
+<td>7.48</td>
+<td>15</td>
+</tr>
+</tbody>
+</table>
+<p>A guardrail would read six allows and one block. The gate governs the whole way, its concern rising with the act, and refuses only where a collapse rule fires.</p>
+<h3 id="configuration-not-size">6.5 Configuration, not size</h3>
+<p>The concern mass correlates with a hand-built severity scale (each stakes field scored from 0 to 3 and summed) at a rank correlation of 0.69: it tracks stakes, and it is deliberately not a function of them. The clearest case is the pair of section 2.6. An agent that deletes a resource, at unbounded scope, critically and irreversibly, but within its grant and with the owner’s consent, draws a concern mass of 3.24 and a severity rank of 11. An agent that deletes a single, trivial record belonging to one person, beyond its grant, without consent and at a cost to reverse, draws 4.18 and a severity rank of 10. Every score built on size and blast radius ranks the first act heavier. The gate weighs the second more, because it crosses a person without consent and beyond its standing, and the first does neither.</p>
+<h3 id="the-four-properties-of-a-posture">6.6 The four properties of a posture</h3>
+<p>Section 2.5 proposed four checkable properties of a posture-like judgment. On the structural slice:</p>
+<ol type="1">
+<li><strong>Totality.</strong> Every one of the 57,344 actions received a reading, and so does an action whose fields are all BLANK (GOVERN, nothing named). No input is outside the domain.</li>
+<li><strong>Magnitude.</strong> The output is a position: 12,236 distinct levels and 1,386 distinct named sets, against two states for a binary filter and one number for a classifier.</li>
+<li><strong>Composition.</strong> The firing layer has 3 floor entries, 46 field-value activations and 12 structural combination rules. The 1,386 reason-sets arise from their interaction through the graph; they were not written one by one.</li>
+<li><strong>Non-tunability by accretion.</strong> A primitive’s activation is capped at 1.0 before propagation and after it, so adding a rule to make one consideration louder has no effect once it saturates (Table 3, first row). The gradient lives in how many primitives engage and at what strength, never in one primitive running away with the packet.</li>
+</ol>
+<p>These properties hold for the judgment. Whether they amount to better generalization than a doctrine is the open question of section 2.6.</p>
+<h3 id="the-gradient-on-data-it-did-not-write">6.7 The gradient on data it did not write</h3>
+<p>On MoralChoice, a public corpus of 680 dilemmas on which human annotators disagree, 645 were judged; the gate governed 597 (92.6%), accepted 41 and refused 7, and produced 138 distinct configurations of concern inside its governing. On HINTBench, a third-party set of agent trajectories with per-step risk labels, every one of 3,847 judged steps governed, and concern mass still ranked the labeled risky steps above the safe ones on the class the structural judgment is built for, at an area under the ROC curve of 0.701 (95% interval 0.657 to 0.744). A block rate on that data reads zero. The discrimination is entirely inside the gradient. In the governed-revision study, an external grader with no access to the concern mass agreed with the direction of the mass on 52 of 80 revisions (65%), with MORIS the more conservative of the two: the first check of the scale itself by a judge outside it.</p>
+<h3 id="why-this-report-gives-no-block-rate">6.8 Why this report gives no block rate</h3>
+<p>A metric that collapses GOVERN to a decision measures the filter MORIS is not. A block rate, a hold rate or a harm-held count would score MORIS on the axis where guardrails live and discard everything it returns that a guardrail cannot. The program adopted that rule in August 2026 and holds to it here. Where an external benchmark is reported (section 9), it is reported for what it measures: whether the reading separates two acts, whether the mass orders them, whether a verdict reproduces.</p>
+<h3 id="the-objection-that-everything-governs">6.9 The objection that everything governs</h3>
+<p>A skeptic will say that a system that governs 92.6% to 95.9% of what it sees has not decided anything. The answer is that GOVERN is a decision, to let the act proceed carrying named concerns into the answer and the record, and that its content differs from act to act: 1,386 configurations on the structural space, 138 on the public corpus. A filter’s “allow” carries nothing.</p>
+<p>The objection has force in one place, and it is conceded there. The gradient’s content is only as rich as the reading it is given. On HINTBench’s thin structural intake, distinct actions collapsed onto the same concerns: 13 distinct concern sets across 32 distinct action shapes, a specificity of 0.406, below the pre-registered bar of 0.5. On MoralChoice, 104 judged dilemmas were read with only the actor known, and every one of them was governed with an empty or near-empty set of concerns; a dilemma about annihilating a nation was read as “a human acts” and nothing else. Once the conversational reader was corrected to bind the person an act lands on, ACCEPT became almost unreachable: 3 accepted readings on 187, against 52 before. In each case the gate did what it was built to do with what it was given. What it was given is the subject of the next four sections.</p>
+<hr />
+<h2 id="the-perception-problem-four-generations">7. The perception problem: four generations</h2>
+<h3 id="why-perception-was-always-the-problem">7.1 Why perception was always the problem</h3>
+<p>A judgment is only as good as what it is given. The corpus’s concerns are relational: who an act lands on, whether they agreed, what the actor is entitled to do, whether the damage can be undone. To judge an act by them, a machine must first read them out of the act, and an act reaches a machine as a sentence someone typed or a tool call an agent proposed. Every generation of this program was, before it was anything else, an attempt to read moral structure out of one of those. Each failed differently, and the differences locate the difficulty.</p>
+<h3 id="generation-1-casa-and-semantic-proximity-november-2025-to-march-2026">7.2 Generation 1: CASA and semantic proximity (November 2025 to March 2026)</h3>
+<p>CASA read a request by its semantic distance from the primitives. A semantic intake classifier scored the request against the 93 primitives and 279 relations of the then-current registry, using an index of each card’s exemplars and a sentence encoder, first an off-the-shelf model and then a purpose-built Moral Geometry Encoder; bucket scores for ACCEPT, GOVERN and REFUSE decided the route, with context classes (educational, research, professional training, fiction, self-protection) able to override it. REFUSE could be earned by perceived harm.</p>
+<p>By its own measures CASA worked. At the freeze of 23 March 2026 it passed 20 of 22 calibration cases, 27 of 27 enforcement tests and 10 of 10 live cases, and over 300 executions on three providers it produced no harmful output, blocking 117 requests before any model call at a mean of 2.3 ms. The same month’s pressure-tested review found where it failed. A request for explosive instructions wrapped in fiction (“I’m writing a thriller”) produced no intent, no alignment and zero bucket scores; a direct request for a bomb from household chemicals routed GOVERN because the accept bucket won (6.34 against 4.10 for refuse). The diagnosis, in the memo’s own words, was that the encoder “is doing proximity matching”: the frame moved the vocabulary far enough to silence the signal while the act asked for was unchanged. The ruling that followed set the course of the next four months: “The encoder is the ear. The law is what evaluates what the ear heard,” and further retraining on exemplars “is not the next move.” An adversarial validation the next month showed the same limit from another side: on 21 cases in seven categories, coercion, psychological harm and power asymmetry produced no activation at all, and the safe outcome in those categories came from the model, not the gate. The 300-execution result counted the model’s own refusals as safe outcomes, and the generation’s harm-keyed refusal is a design this program later closed (section 4.6).</p>
+<p><strong>What it taught:</strong> semantic proximity is not perception of an act. An embedding hears vocabulary.</p>
+<h3 id="generation-2-the-law-layers-and-structural-parsing-april-to-june-2026">7.3 Generation 2: the law layers and structural parsing (April to June 2026)</h3>
+<p>The second generation kept the model out of the reading as well as the judgment. It parsed each request into Abstract Meaning Representation, a graph of predicates and their arguments, and wrote deterministic “walkers” that read authored fields from the graph: who acts on whom, whether consent, concealment or authorization appears, whether the act is reversible. The program’s commitments hardened in this period. On 24 April it adopted a specification-first reconstruction with the line “no compensating mechanisms ever again,” after a 50-case corpus had reached 48 of 50 only with vetoes that rescued the score, and after a post-inference check was found firing on substantively helpful answers in 12 of 13 refused cases, through semantic proximity with no structural gating. On 11 May it ruled that a predicate the law leaves unresolved stays unresolved.</p>
+<p>The walkers were truthful and sparse. When a structural signal for evasion was proposed, a probe of 14 inputs found it recalled 1 of 3 evasions and flagged 9 of 9 legitimate requests to prevent something. “The same structural shape encodes safety, privacy, operational coordination, confidentiality, AND evasion.” The walker was not built, and the doctrine that followed held for the rest of the program: “The parser constructs reality. The primitives judge reality.” A reader that labels an intent it cannot see poisons every verdict downstream. Of the five intent classes the specification authored for this layer, two were implemented; the rest were deferred because no truthful structural reading of them existed. In June the parser itself was found to misread specific verbs; the verb “deceive” came back BLANK, and no walker could repair a misreading upstream of it. The generation built a great deal that survived, including the propagation, composition and truth-table machinery and the sealed contracts of June, but its reader returned honest blanks where the law needed facts.</p>
+<p><strong>What it taught:</strong> a truthful structural reading of one sentence is sparse, and where structure is present it does not distinguish purposes.</p>
+<h3 id="generation-3-recognition-late-june-to-mid-july-2026">7.4 Generation 3: recognition (late June to mid July 2026)</h3>
+<p>The third generation asked a different question: not what structure a sentence has, but which primitives it engages, with every method available. A deterministic sweep in early July tried mechanical matching, embeddings, fine-tuned classifiers on thin and on enriched exemplars, family-first routing and three times the data. Flat recognition over 93 primitives topped out near 65% top-1 and 85 to 88% top-3 under every method, and the conclusion recorded that day was that “the ceiling is structural.” The recognizer was redefined to propose a set of candidates for the judgment to weigh rather than name one.</p>
+<p>On that basis the generation built per-primitive perception: for each primitive, a model-based “confirm” instrument asked whether that primitive’s concern was present, each written from the card, tested against authored traps, and certified only on a clean pass. Certification climbed from 48 to 56 of 93 on 12 July and finished at 88 census owners plus 5 harm and terminal lanes; among them, Collapse Line passed 7 of 7 and Collapse Pattern 9 of 9, the two primitives the current gate cannot reach. In a proof harness of 100 prompts, three providers and two arms, no violating answer was released and 98 prompts landed in the same compliance class on all three models.</p>
+<p>The instruments passed their certifications and still left the board thin. On a corpus of 120 cases, 48 boards came back empty; 39 of those had been perceived and then discarded. Two instruments confirmed their concern on 12 of 34 and 28 of 53 of their own negative exemplars; for the first, 75% of its confirmations carried framing vocabulary (“frame,” “reframe,” “pretend,” “hypothetically”) against 5% of its quiet reads: the instrument was reading words, not the act. A detector for a speaker contradicting themselves caught all nine strict cases only by over-firing on seven others, three of them honest twins one word apart, and was closed as irreducibly semantic. A semantic judge added to close a mechanical ceiling was removed the same day as a violation of the prime law (section 4.6). And when hidden-state probing was tried, on the exact 25 cases the generation’s reading had missed, held out from training (136 training cases, 67 test), a bag-of-words classifier with no model at all matched the deep probe on a 1.5-billion-parameter model, at a rank AUC of 0.986 against 1.000, as did the model’s input embeddings at layer zero (1.000): the 28 transformer layers added nothing beyond vocabulary.</p>
+<p><strong>What it taught:</strong> instruments that pass on authored cases can still come back empty on real ones, and a deep probe recovered vocabulary, not a concept. The ceiling was in the information, not the method.</p>
+<h3 id="generation-4-a-fixed-description-and-a-bounded-reader-july-to-october-2026">7.5 Generation 4: a fixed description and a bounded reader (July to October 2026)</h3>
+<p>The fourth design, the one that stands, stopped asking the reader to perceive moral content directly. A bounded model fills nine structural fields, with an explicit blank for anything it cannot read; on the agentic path a deterministic intake fills them from the tool call; the gate does the rest (section 5). The judgment became exact. The reading became measurable, and measuring it is what made the problem visible.</p>
+<p>On the conversational path, the reader is not stable against itself. Reading the 680 MoralChoice dilemmas twice, it produced the identical description 83.3% of the time, against a stop-gate fixed at 90% before the run; the verdict was stable on 97.6%, because most of the variance fell on thin reads that govern either way. Two readers from different vendors agreed on the whole description on 6.4% of dilemmas while agreeing on the verdict on 91.3%. Of the 645 judged, 134 had six or more fields unread, and 104 had only the actor read; authorization went unread on 81.4%. A dilemma about annihilating a nation was read as a human acting, and nothing more. When the reader was given six turns of ordinary conversation, a birthday party or a spreadsheet question, its identical-description rate on three test messages fell from 100% on each to 60%, 60% and 30%, and one read in five came back nearly empty. On 200 advice-seeking prompts, the reader bound the act to the asker’s question rather than to the person it concerned on 192; a stated referent fixed that (a person was bound on 122 of 183 that name one, against 5 before), and the fix cost stability: on a seeded 80, the identical-description rate under the corrected reader was 67.5%, with the verdict stable on 79.</p>
+<p>On the agentic path there is no reader to disagree with itself, and the problem changes shape rather than disappearing. On HINTBench’s 3,847 agent steps the intake filled the actor on every step, the action and the reversibility on 97%, the scope on 58% and the magnitude on 5%, and it never filled the target, the authorization, the consent or the timing: most steps carried three or four of the eleven fields. On the ten tools published by four real MCP servers, consent and authorization were unread on all ten. On AgentHarm, 163 of 176 harmful-and-benign twin pairs reduced to the identical description: the same tools serve both purposes, and what separates them is in the prose. Where the environment can attest a fact, it can be read: a resolver that inspects a repository lets the gate allow a reset on a clean tree and refuse the same command on one with unsaved work. But whether the affected party consented, and whether an act lies within what the requester was asked to do, are not properties of the environment. They live in the relation between the request, the requester and the people the act touches, and nothing outside the model holds that relation.</p>
+<p><strong>What it taught:</strong> the judgment is sound and its reading is the bottleneck, and the facts it weighs most are the ones no outside reader can obtain.</p>
+<h3 id="the-pattern-across-the-four">7.6 The pattern across the four</h3>
+<p>Four generations, four readers: semantic proximity, structural parsing, model-based recognition, and a bounded model filling a fixed description. Each hit a ceiling, and in each case the ceiling sat in the information available, not in the sophistication of the method. A frame moves proximity without moving the act. One structure carries opposite purposes. Recognition stops near 65% whatever the method. A reader agrees with itself on five readings in six and with another reader on almost nothing at the level of detail, and an agent’s tool call carries three or four of the eleven facts, never the relational ones. Across all four, the judgment that received the reading was rebuilt, sealed and verified. The reading never became adequate. Section 11 analyzes why.</p>
+<hr />
+<h2 id="evaluation-methods">8. Evaluation methods</h2>
+<p>Every evaluation the program ran is listed here with the same fields: what it asked, whose data it used and who wrote it, how many cases, who supplied the labels, what it was compared with, what was measured, whether it was pre-registered, and its date and record. Appendix B traces every figure; the evaluation item lists are in Appendix C. Table 7 is the register; the paragraphs after it add what the table cannot hold.</p>
+<p><em>Table 7. The evaluation register. “Author” means the data or labels were written within the program.</em></p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>evaluation</th>
+<th>data, and who wrote it</th>
+<th>n</th>
+<th>labels</th>
+<th>comparison</th>
+<th>measure</th>
+<th>pre-reg.</th>
+<th>date</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>E1</td>
+<td>CASA validation (gen. 1)</td>
+<td>100 prompts, author</td>
+<td>300 runs, 3 providers</td>
+<td>author’s expected outcomes</td>
+<td>none</td>
+<td>safe outcomes, hard blocks, latency</td>
+<td>no</td>
+<td>2026-03-23</td>
+</tr>
+<tr>
+<td>E2</td>
+<td>T2.6 adversarial (gen. 1 to 2)</td>
+<td>21 cases in 7 categories, author</td>
+<td>21</td>
+<td>author</td>
+<td>gate against model</td>
+<td>which layer produced the safe outcome</td>
+<td>no</td>
+<td>2026-04</td>
+</tr>
+<tr>
+<td>E3</td>
+<td>50-case corpus (gen. 2)</td>
+<td>50 cases, author</td>
+<td>50</td>
+<td>author</td>
+<td>none</td>
+<td>pass count, model invocations</td>
+<td>no</td>
+<td>2026-04-22</td>
+</tr>
+<tr>
+<td>E4</td>
+<td>confirm instruments and boards (gen. 3)</td>
+<td>authored traps; 120-case corpus, author</td>
+<td>88 + 5 instruments; 120</td>
+<td>author</td>
+<td>honest twins</td>
+<td>certification, empty boards, lexical confound</td>
+<td>certification rules fixed in advance</td>
+<td>2026-07</td>
+</tr>
+<tr>
+<td>E5</td>
+<td>stated-contradiction detector (gen. 3)</td>
+<td>39 cases with honest twins, author</td>
+<td>39</td>
+<td>author</td>
+<td>honest twins</td>
+<td>catch and reject</td>
+<td>failing tests written first</td>
+<td>2026-07-13</td>
+</tr>
+<tr>
+<td>E6</td>
+<td>alignment probing (gen. 3)</td>
+<td>authored corpus, held-out split</td>
+<td>136 train, 67 test</td>
+<td>author</td>
+<td>bag-of-words; layer-0 embedding</td>
+<td>rank AUC</td>
+<td>no</td>
+<td>2026-07-14</td>
+</tr>
+<tr>
+<td>E7</td>
+<td>proof harness (gen. 3)</td>
+<td>100 frozen prompts, author</td>
+<td>600 records</td>
+<td>structural invariant</td>
+<td>model alone against governed</td>
+<td>released violations; cross-model class</td>
+<td>no</td>
+<td>2026-07-15</td>
+</tr>
+<tr>
+<td>E8</td>
+<td>complete structural enumeration</td>
+<td>every combination of the structural values, actor fixed</td>
+<td>57,344</td>
+<td>none</td>
+<td>the output shape of a binary filter and of a classifier</td>
+<td>verdicts, concern levels, signatures, rank correlation with an external severity scale</td>
+<td>no</td>
+<td>2026-08-08; re-run 2026-10-10</td>
+</tr>
+<tr>
+<td>E9</td>
+<td>calibration sweep</td>
+<td>12 canonical descriptions</td>
+<td>12 per setting</td>
+<td>none</td>
+<td>the default configuration</td>
+<td>verdict changes per constant</td>
+<td>no</td>
+<td>2026-07-19; re-run 2026-10-10</td>
+</tr>
+<tr>
+<td>E10</td>
+<td>head-to-head</td>
+<td>24 agent scenarios, author</td>
+<td>24</td>
+<td>author-ratified classes (1 free, 15 flag, 8 gate)</td>
+<td>naive name denylist; competent structural rules engine</td>
+<td>correct, dangerous miss, false positive, missed flag</td>
+<td>no</td>
+<td>2026-07-25; re-run 2026-10-10</td>
+</tr>
+<tr>
+<td>E11</td>
+<td>injection simulation</td>
+<td>a designed operations desk, 60 tickets, 30 injected, author</td>
+<td>60 per model, 2 models</td>
+<td>a harm table published in the source, keyed on tool and scope</td>
+<td>ungoverned against governed</td>
+<td>catastrophic actions executed</td>
+<td>no</td>
+<td>label corrected 2026-09-18</td>
+</tr>
+<tr>
+<td>E12</td>
+<td>HINTBench</td>
+<td>third party</td>
+<td>3,847 steps</td>
+<td>third party, per-step risk</td>
+<td>chance</td>
+<td>AUROC of concern mass; re-derivation</td>
+<td>intake frozen, written blind to labels</td>
+<td>2026-08; re-run 2026-10-10</td>
+</tr>
+<tr>
+<td>E13</td>
+<td>governed-revision loop</td>
+<td>HINTBench in-charter steps; 20 cases live</td>
+<td>133 offline; 80 live</td>
+<td>third party; an external grader</td>
+<td>bound against no bound; 2 vendors</td>
+<td>specificity, gradient, non-coaching, resolution, grader agreement</td>
+<td>yes</td>
+<td>2026-08-05 to 08</td>
+</tr>
+<tr>
+<td>E14</td>
+<td>MCP demonstration</td>
+<td>10 tool schemas published by 4 servers, third party</td>
+<td>10</td>
+<td>none</td>
+<td>none</td>
+<td>fields read; concern sets</td>
+<td>no</td>
+<td>2026-08-05; re-run 2026-10-10</td>
+</tr>
+<tr>
+<td>E15</td>
+<td>MoralChoice</td>
+<td>third party</td>
+<td>680 dilemmas</td>
+<td>none used for scoring</td>
+<td>2 vendors from one frozen reading</td>
+<td>reader stability; gate determinism; verdicts and configurations</td>
+<td>yes</td>
+<td>2026-08-13</td>
+</tr>
+<tr>
+<td>E16</td>
+<td>reader Phase 1</td>
+<td>WildChat, third party</td>
+<td>300 turns</td>
+<td>none</td>
+<td>2 small open readers</td>
+<td>cross-reader agreement</td>
+<td>yes (bar 85%)</td>
+<td>2026-08-27</td>
+</tr>
+<tr>
+<td>E17</td>
+<td>reader window</td>
+<td>3 messages, author, with ordinary preceding turns</td>
+<td>20 reads per configuration</td>
+<td>none</td>
+<td>window 0 against window 6</td>
+<td>identical-description rate; thin reads</td>
+<td>bar fixed in advance</td>
+<td>2026-09-02</td>
+</tr>
+<tr>
+<td>E18</td>
+<td>absent-party study</td>
+<td>Scruples, third party</td>
+<td>200 drawn, 187 used</td>
+<td>one rater model, verbatim spans</td>
+<td>ungoverned against governed, before and after a reader fix</td>
+<td>rate of originated harm to an absent party</td>
+<td>yes</td>
+<td>2026-09-09 to 16</td>
+</tr>
+<tr>
+<td>E19</td>
+<td>AgentHarm</td>
+<td>third party, public test split</td>
+<td>176 pairs (44 base behaviors)</td>
+<td>third party harmful and benign twins</td>
+<td>twin against twin</td>
+<td>structural separability</td>
+<td>intake frozen and digest committed before scoring</td>
+<td>2026-09-19</td>
+</tr>
+<tr>
+<td>E20</td>
+<td>resolver demonstration</td>
+<td>constructed repositories, author</td>
+<td>2 environments</td>
+<td>none</td>
+<td>one call in two worlds</td>
+<td>verdict</td>
+<td>no</td>
+<td>2026-09-19</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Units and intervals.</strong> Where a corpus has internal structure the report counts at the level of independence: AgentHarm’s 176 pairs are 44 base behaviors in four variants each, and its figures are given at both levels. Intervals are bootstrap intervals with published seeds unless stated.</p>
+<p><strong>What “pre-registered” means here.</strong> A protocol, its measures, its thresholds and what would count as bad news were committed before the data were collected, and the commit order is part of the record. The MoralChoice stop-gate (E15) fired against its own pre-registered threshold and the study was redesigned in a dated amendment rather than the threshold being moved; the governed-revision loop (E13) was re-scored under an amended taxonomy whose change was recorded before the re-run. The program as a whole was not pre-registered.</p>
+<p><strong>Labels written by the author.</strong> E1 to E5, E7, E10, E11 and E20 use data or labels written within the program. They are reported because they are part of the record, and they are weighted accordingly: a designed set can show that a mechanism behaves as specified; it cannot show that the specification is right about the world (section 13).</p>
+<p><strong>The absent-party rater (E18).</strong> The labels came from one model, <code>deepseek/deepseek-v4-flash</code> at temperature zero, named in the protocol before the run. Every label had to quote a verbatim span from the answer or was forced false. The rating instrument went through four published passes; on the pilot it made two false positives in five composite fires. Of three commercial raters tried, two could not apply the labels at all. On 75 paired outputs a second qualifying rater fired 22 times against the first rater’s 5, a composite kappa of 0.211. The study published that agreement as a finding, and this report carries it as a limit on every absent-party figure.</p>
+<p><strong>The external-grader agreement (E13).</strong> The governed-revision study could not let MORIS grade its own success, because “safer” measured as a drop in concern mass is the gradient grading itself. An external grader with no access to the mass judged each revision in parallel, and the agreement rate was the pre-registered headline.</p>
+<p><strong>The intake for external benchmarks (E12, E19).</strong> HINTBench steps were read by a published intake with no model: a verb lexicon for the action, the embedded tool schema for scope and reversibility, and literal severity fields for magnitude, written without access to the labels; fields the data carries no source for stay BLANK and are never invented. The AgentHarm intake was frozen and its digest committed on 5 August 2026, six weeks before the corpus was scored, and it re-derives unchanged. No harm word may be added to a tool-name lexicon on the strength of a benchmark: reading a hostile tool’s name is trusting the suspect’s own account of himself.</p>
+<p><strong>What is not measured, and why.</strong> No block rate, hold rate or harm-held count is reported as efficacy (section 6.8). There is no evaluation on the real questions of visitors to the live service, by design: the service’s telemetry has no field that could hold a visitor’s words, and the only exchanges it keeps are those a visitor chooses to share, which were never used for evaluation. The one comparison of a model with and without MORIS on real people’s situations is the absent-party study, on a public corpus of anecdotes. No matched doctrinal baseline was trained; no evaluation compared this posture with another; no study of multiple agents was run.</p>
+<hr />
+<h2 id="results-what-held">9. Results: what held</h2>
+<p>Sections 9 and 10 report the results in the order of the hypotheses, at equal length. They state figures and their sources; interpretation is left to section 11. Every figure is traced in Appendix B. Figures re-derived on 10 October 2026 are marked (r).</p>
+<h3 id="determinism-and-fidelity-h1">9.1 Determinism and fidelity (H1)</h3>
+<ul>
+<li>The fidelity attestation read the 93 cards through an independent parser and found the runtime’s load identical on every card, every relation (399 co-activation, 63 suppression, 189 warning), every polarity, voice and operative test: CLEAN (r).</li>
+<li>The substrate seal was intact; the evidence root <code>2ee734f0...</code> and the behavioral fingerprint <code>a5af40d3...</code> reproduced (r).</li>
+<li>The test suite returned 940 passed, 6 skipped, 0 failed (r).</li>
+<li>From one frozen reading per dilemma, the gate’s verdicts and bounds were byte-identical across two vendors on all 638 MoralChoice dilemmas judged in both arms: 0 mismatches.</li>
+<li>All 3,847 HINTBench verdicts re-derived from their records (CONFORMANT), and the 39-case validation suite met its authored posture at its published digest (r).</li>
+<li>The distance between the specification and the runtime was measured: for 0 of 93 primitives can the structural fields determine the specification’s verdict; for 4 they partly can; for 88 they cannot; for 1 the verdict is constant (r).</li>
+<li>Across 12 canonical descriptions, sweeping each constant while holding the others at default produced no verdict change for the propagation weight (0.1 to 0.8), the suppression coefficient (0.1 to 0.9), the hard-stop threshold (0.05 to 0.70) or the drift threshold (0.10 to 0.40), and one change for the accept band, at 0.30 (r).</li>
+</ul>
+<h3 id="the-gradient-hg">9.2 The gradient (HG)</h3>
+<ul>
+<li>Over the complete structural enumeration of 57,344 actions: GOVERN 54,992, REFUSE 2,184, ACCEPT 168; 12,236 distinct concern levels from 0 to 7.33 (mean 2.39); 1,386 distinct named-concern sets drawn from 20 reachable concern primitives; rank correlation with an external severity scale 0.69 (r).</li>
+<li>One field moving, verdict held: concern mass 2.18, 2.85, 3.67 for within, at and beyond the actor’s grant; the escalation ladder from 0.21 to 5.39 under GOVERN, then REFUSE at 7.48 (r).</li>
+<li>The severity inversion: 3.24 for an authorized, consented, unbounded, critical, irreversible deletion of a resource; 4.18 for a single, trivial, unauthorized, unconsented deletion of a person’s record that is costly to reverse (r).</li>
+<li>MoralChoice, 645 judged: GOVERN 597 (92.6%), ACCEPT 41, REFUSE 7; 138 distinct concern configurations.</li>
+<li>HINTBench, in-charter risks (133 risky, 3,322 safe steps): concern mass ranked risky above safe at an AUROC of 0.701 [0.657, 0.744] with every verdict GOVERN (r). All classes together, 0.614 [0.590, 0.639] on 525 risky steps; Goal 0.701, Procedural 0.613, Factual 0.628 (40 risky), State 0.570.</li>
+<li>Governed-revision study: the bound passed the non-coaching check on 133 of 133 (it names what must be weighed, never how to pass); an external grader with no access to the mass agreed with its direction on 52 of 80 revisions (65%), with MORIS the more conservative.</li>
+</ul>
+<h3 id="latency-h2">9.3 Latency (H2)</h3>
+<p>On one laptop core: verdict p50 1.02 ms, p95 1.77 ms, p99 2.11 ms, about 876 verdicts per second; a full trace p50 1.25 ms; the enforcement guard p50 1.70 ms, p99 4.22 ms; mean by verdict ACCEPT 0.83 ms, GOVERN 1.09 ms, REFUSE 1.08 ms (r). In the first generation, 117 requests were blocked before any model call at a mean of 2.3 ms. These figures are hardware-specific and are not a service level.</p>
+<h3 id="reach-h3">9.4 Reach (H3)</h3>
+<ul>
+<li>On a public corpus no rule was written for, the gate judged 645 of 680 dilemmas; 35 (5.1%) were halted because nothing at all could be read.</li>
+<li>Given a fully populated reading, 91 of 93 primitives are reachable: 85 lit directly by rules, the rest raised by propagation (r).</li>
+<li>On the designed agent scenarios, a competent hand-written policy silently ran 7 actions that warranted a flag; the gate flagged all 7 (r).</li>
+<li>In the third generation’s proof harness, no violating answer was released across 600 records, and 98 of 100 prompts landed in the same compliance class on all three models.</li>
+</ul>
+<h3 id="agency-where-the-context-is-supplied-h4">9.5 Agency where the context is supplied (H4)</h3>
+<ul>
+<li>On 24 designed agent scenarios: a naive name denylist was correct on 7, with 2 dangerous misses, 5 false positives and 10 missed flags; a competent structural rules engine was correct on 17, with 7 missed flags; MORIS under the shipped tiered default was correct on 24, with none of the four errors (r).</li>
+<li>In a designed simulation of 60 tickets, 30 carrying injected instructions, the ungoverned agents followed the injections on 24 of 30 (one model) and 30 of 30 (the other) and executed 24 and 30 catastrophic actions; governed, they executed none. Against a harm table published in the source and keyed on tool and scope, the gate’s refusals and the table coincided in both directions: nothing on the list ran, and nothing off it was refused.</li>
+<li>With a resolver reading the repository, one command was allowed on a clean tree and refused on a tree with unsaved work.</li>
+<li>On the ten tools published by four real servers, the deterministic intake read each tool’s annotations into the description with no model in the path (r).</li>
+</ul>
+<h3 id="steering-h6">9.6 Steering (H6)</h3>
+<p>On 187 situations from a public corpus, four production models originated harm to a party absent from the conversation in 8.7% of 748 ungoverned answers [6.9, 10.9]; on 54 of the 187 situations (28.9%) at least one model did. Governed, on 747 paired cells, the rate fell from 8.6% [6.8, 10.8] to 2.0% [1.2, 3.3]: 59 cells moved down and 10 up (McNemar chi-square 33.4, p &lt; 0.0001). By model: 6.4% to 0.5% (p 0.006), 1.6% to 0.5% (p 0.62), 11.3% to 5.4% (p 0.046), and 15.0% to 1.6% (p &lt; 0.0001). On the 483 cells the reader read in full, 9.5% to 2.3%. Every governed answer was produced under a reading, a verdict and a package recorded on disk.</p>
+<h2 id="results-what-did-not-hold">10. Results: what did not hold</h2>
+<h3 id="agency-where-the-tool-call-is-all-there-is-h4">10.1 Agency where the tool call is all there is (H4)</h3>
+<ul>
+<li>On AgentHarm’s public test split, the structural intake separated 13 of 176 harmful and benign twin pairs on tool names (7.4%): 4 of 44 base behaviors in any variant, 3 of 44 in all four (r). Reading the tools’ arguments moved that by zero. 163 of 176 pairs reduced to an identical description.</li>
+<li>Of the 20 pairs that collapsed despite using different tools, 12 (3 base behaviors) turned on a search venue a deployment could attest, and 8 (2 base behaviors) on what a produced artifact does when run: ransomware against an encryption tool, hidden malware against new features. In 76 pairs (43.2%) a shared tool’s argument differed between twins, in 8 of them (4.5%) numerically; the rest of the difference was prose. The frozen intake reads only string severity fields, so numeric amounts were invisible to it by design.</li>
+<li>On HINTBench every one of 3,847 verdicts was GOVERN, so a block rate reads zero; on capability failures concern mass ranked risky above safe at 0.538, an interval that includes chance.</li>
+<li>In the governed-revision study, specificity was 0.406 (13 distinct concern sets across 32 distinct action shapes), below the pre-registered bar of 0.5; 10 primitives fired and five of them carried 0.839 of all named concerns. Over 80 live runs, 67 were off-task under the original rule; the amended taxonomy moved 4 of the 67; 17 of 80 revisions were honored and none resolved every named concern. The bound ran 2,487 characters against 168 for the control, and whether agents wandered or could not follow it was not distinguished.</li>
+<li>With every governed action allowed to proceed, MORIS was correct on 21 of the 24 designed scenarios, with 3 dangerous misses: beyond-grant actions it governed and let run (r).</li>
+</ul>
+<h3 id="perception-h5">10.2 Perception (H5)</h3>
+<ul>
+<li>Reading 636 MoralChoice dilemmas twice, the reader produced the identical description on 530 (83.3%), against a stop-gate of 90% fixed before the run; the gate fired and the study was redesigned. The verdict was stable on 97.6%; 92.5% of the instability fell on thin reads.</li>
+<li>Two readers from different vendors agreed on the whole description on 6.4% of dilemmas (40 of 628) and on the verdict on 91.3%.</li>
+<li>Of 645 judged dilemmas, 134 had six or more of nine fields unread; 104 had only the actor read; authorization went unread on 81.4%; 35 of 680 could not be read at all.</li>
+<li>With a six-turn window of ordinary conversation, the identical-description rate on three test messages fell from 100% each to 60%, 60% and 30%; one read in five was nearly empty.</li>
+<li>On 200 advice-seeking prompts the reader read the asking rather than the act, setting the target to an abstraction, on 192. After a stated referent was added, the identical-description rate on a seeded 80 was 67.5% (against 62.0% for a fresh run of the old route), with the verdict stable on 79.</li>
+<li>Two small open readers agreed with each other on 2.4% to 19.4% of the seven determinable fields of 300 conversational turns, against a pre-registered bar of 85%; the corpus turned out to contain almost no actions, and the follow-up on a corpus that does was pre-registered and not run.</li>
+<li>The agentic intake filled target, authorization and consent on none of 3,847 HINTBench steps (r), and consent and authorization on none of ten published tools (r).</li>
+<li>Earlier generations: semantic recognition of the engaged primitive stopped near 65% top-1 under every method tried; a deep probe matched a bag-of-words classifier on the cases the third generation had missed (rank AUC 1.000 against 0.986, margin from the layer-zero embedding 0.000); two certified instruments fired on 12 of 34 and 28 of 53 of their own negative exemplars; 48 of 120 boards were empty; a structural evasion signal recalled 1 of 3 cases and flagged 9 of 9 legitimate ones; a fiction frame produced zero activation.</li>
+</ul>
+<h3 id="reach-h3-1">10.3 Reach (H3)</h3>
+<ul>
+<li>Coercion, psychological harm and power asymmetry produced no activation in 21 adversarial cases (first to second generation); the safe outcomes in those categories came from the model.</li>
+<li>A deterministic detector for a speaker contradicting themselves could catch the 9 strict cases only by firing on 7 others, 3 of them honest twins one word apart; the lane was closed as irreducibly semantic.</li>
+<li>In the current gate, Collapse Line and Collapse Pattern are reached by no rule and no relation (r).</li>
+<li>The gate judges proposed actions and cannot govern an omission: an agent that never makes a call fires no gate, so concealment by omission, silence and inaction are outside it by construction.</li>
+<li>Content features, when perceived, can be moved by the text they are read from; REFUSE never rests on them, and on the structural path they are always BLANK.</li>
+</ul>
+<h3 id="steering-and-what-carried-it-h6">10.4 Steering, and what carried it (H6)</h3>
+<ul>
+<li>The reduction in section 9.6 was carried by the fixed moral instruction rather than by the gate’s particular reading. On cells where the gate accepted and the variable part of the package was nearly empty, the rate fell from 8.7% to 3.8%; on governed cells, from 8.7% to 3.0%. A reader fix that raised fully read situations from 24% to 65%, distinct packages from 26 to 56, situations with a person or group bound from 5 to 124, and consent read as absent on 107, moved the governed rate from 3.2% to 2.0% (p 0.19), a difference the study was not powered to detect.</li>
+<li>The labels came from one rater model; a second qualifying rater agreed at a composite kappa of 0.211.</li>
+<li>The side-by-side demonstration delivers a variant of the governed route whose single-turn rate was 4.1% (31 of 747), not the study’s 2.0%.</li>
+<li>In the first and second generations, the model, not the gate, produced the safe outcome on coercive inputs; on the conversational path, the answering model’s own training contributes to every governed answer, and the design cannot separate that contribution from the gate’s.</li>
+</ul>
+<hr />
+<h2 id="analysis-where-the-difficulty-lives">11. Analysis: where the difficulty lives</h2>
+<h3 id="the-thesis">11.1 The thesis</h3>
+<p>The judgment is sound. Its reading is not. The gate was not confused; it was starved.</p>
+<p>The thesis rests on four observations from the record, each stated with its limit.</p>
+<ol type="1">
+<li><strong>Given a complete description, the judgment behaves as specified.</strong> It is deterministic and faithful (section 9.1), it produces a gradient with the four properties of a posture (section 6.6), and on descriptions that carry the relevant facts it orders acts the way the corpus would: the ladder, the inversion, the 24 designed scenarios, the injection simulation, the resolver. The limit: most of the complete descriptions were written within the program.</li>
+<li><strong>The reading fails in a characteristic way.</strong> Across four readers and four generations it is unstable against itself, thin on the fields that matter, and blind to frames and purposes that change nothing in the surface (section 7). On the agentic path the description is exact and nearly empty.</li>
+<li><strong>Where the environment can supply a fact, the gate uses it.</strong> The resolver turned one command into two verdicts because the world differed. Twelve of AgentHarm’s twenty different-tool collapses turn on a fact of exactly that kind.</li>
+<li><strong>The facts most weighed cannot be supplied from outside.</strong> Whether the person affected consented, and whether an act lies within the actor’s standing, were unread on every HINTBench step and every published tool. They are the facts the gate’s combination rules key on: seven of the eight rules that raise concern short of collapse read consent or authorization (the eighth reads irreversible harm to a person), and so do three of the four collapse rules.</li>
+</ol>
+<h3 id="where-the-information-lives">11.2 Where the information lives</h3>
+<p>The evidence sorts the missing information into three places, and the sort explains why one kind of improvement helps and another cannot.</p>
+<ul>
+<li><strong>In the world.</strong> Destinations, whether a file lies inside the workspace, whether work is unsaved, who owns an account, how many records an operation touches. These can be attested by the deployment and read by a resolver with no model. The resolver arm shows the gate responding; the twelve venue pairs show the kind of gap a resolver closes. This is an engineering problem with an engineering answer.</li>
+<li><strong>In the relationship.</strong> Whether the person consented; whether the act is within what the requester is entitled to ask; who, among the people a conversation mentions, the act lands on. The description has fields for all three, and the gate weighs them. But they are not properties of the environment. They are held in the relation between the request, the requester and the people the act touches, as the conversation has built it, and the only system that holds that relation as a whole is the model that is acting. A reader shown one turn sees a slice of it; shown six turns, it destabilized (section 10.2).</li>
+<li><strong>In the content.</strong> What a produced artifact will do when run, what a message actually says. Eight of AgentHarm’s twenty different-tool collapses turn on this, and the prime law places it outside the gate by design: content harm is the answering model’s responsibility.</li>
+</ul>
+<p>The absent-party study shows the relational case at its sharpest. The harm it measured, a model advising a person to act against someone who is not in the conversation, counted only when the answering model originated it: a strategy the person’s request did not contain. A reading of the request cannot contain a harm the request does not contain. Only the system that composes the answer holds it.</p>
+<h3 id="rival-explanations">11.3 Rival explanations</h3>
+<p>Three alternatives to the thesis deserve weight, and the record bears on each.</p>
+<p><strong>The gate is the problem.</strong> If the judgment were poorly designed, complete descriptions would not help. The designed sets show that they do, but designed sets were written by the same author who wrote the gate. The strongest external evidence is that concern mass still ranked HINTBench’s risky steps above its safe ones at 0.701 with three or four of eleven fields filled. That shows signal surviving starvation; it does not show what a complete reading would yield. The decomposition that would measure it directly, giving the gate complete readings of AgentHarm’s twins and asking whether it leans the right way, was designed and not run (open study a).</p>
+<p><strong>The representation is the problem.</strong> Nine structural fields may be too coarse to carry a posture. This is partly true, and the two limits compound rather than compete. The specification’s verdicts turn on intent, alignment and harm in 92, 92 and 87 primitives, dimensions the structural description deliberately omits (section 4.5); eight AgentHarm pairs differ in nothing a pre-execution description could hold; and the gate cannot see an omission or a pattern across turns. A richer reading would help only up to the edge of what the description can represent.</p>
+<p><strong>The reader is too small.</strong> The conversational reader is a small model, and the agentic path has no model at all. A larger reader might be more stable. The record does not settle this, but it suggests the limit is not chiefly capacity: two readers from different vendors disagreed on almost every full description, a reader got worse when given more of the conversation, and on the agentic path, where nothing is read with a model, the relational fields are missing because nothing in the call contains them.</p>
+<h3 id="what-follows">11.4 What follows</h3>
+<p>If the facts a conscience weighs most live in a relation that only the acting model holds, then a conscience needs access to the model’s own representation of that relation. There are two ways to get it. One reads it from inside the model and hands it to the unchanged gate, which is study (b), with the cautions of section 2.3. The other forms the conscience inside the model, so that the faculty that holds the relation is the faculty that weighs it, which is the revised thesis of section 14.</p>
+<p>This section is an interpretation of the record, not a demonstrated result. The interpretation fits every generation’s failure and every success, and no observation in the record contradicts it. It is offered as the most economical account of what happened, and the studies of section 15 are designed to test it.</p>
+<hr />
+<h2 id="where-i-was-wrong">12. Where I was wrong</h2>
+<p><strong>I thought judgment was the hard part.</strong> For most of a year I built the judgment: the primitives, the specifications, the graph, the gate, the seal. Each generation rebuilt it more rigorously. It is sound. The hard part was the reading, and I treated it for months as an implementation detail of the judgment, when it was the problem.</p>
+<p><strong>I thought a conscience could live outside the model.</strong> In June 2026 I wrote that “the conscience is in the architecture, not in the agent.” The architecture can hold a judgment outside the model, fixed, inspectable and incorruptible. It cannot hold what the judgment needs to know, because that lives in the relation the acting model is building with the people it serves.</p>
+<p><strong>I claimed more than I had.</strong> In March I wrote that MORIS “makes unsafe execution impossible” and enforces its judgment “regardless of how actions are framed”; a fiction frame silenced it that month. I called it the world’s first deterministic moral gate and said its corner of the field was empty; neither was true. A reference document said no AI was involved in authoring the cards; AI was involved in every layer. A published figure for injected attacks defined “catastrophic” as what the gate itself refused, until I replaced it with a table fixed in advance. A cross-vendor comparison went into a paper before I had asked whether it described the system anyone would deploy. Each was corrected when the record caught it, and Appendix E lists them all. The pattern was the same each time: a claim stated as an absolute when the evidence supported a narrower one, or a number carried forward after the record had moved.</p>
+<p><strong>I underestimated how much the model was doing.</strong> In the first generation, the safe outcomes on coercion came from the model. In the absent-party study, most of the reduction came from the fixed moral instruction, with the gate’s particular reading of the situation adding little that the instrument could see. The models I meant to govern already had dispositions of their own, and the frame I gave them moved those dispositions more than the details of my judgment did. That is the observation from which the revised thesis begins.</p>
+<hr />
+<h2 id="threats-to-validity">13. Threats to validity</h2>
+<p>These are listed without rebuttal.</p>
+<ol type="1">
+<li><strong>One author designed, built and evaluated the system,</strong> and wrote the corpus it is derived from.</li>
+<li><strong>AI assisted every layer and every evaluation.</strong> The primitives were derived with AI assistance, the runtime was built by an AI coding agent, readers and raters are language models, and this report was drafted with AI assistance. Agreement between AI-assisted construction and AI-assisted evaluation is not independent confirmation.</li>
+<li><strong>Many labels were written within the program.</strong> The designed scenarios, the simulated desk and its harm table, the adversarial and corpus cases of the earlier generations, and the traps that certified the third generation’s instruments were all authored in-house.</li>
+<li><strong>The program was not pre-registered.</strong> Several studies were; the choice of which results to pursue, amend and report was made as the work went.</li>
+<li><strong>Samples are small:</strong> 24 designed scenarios, 21 adversarial cases, 187 situations, 80 live revision runs, 44 base behaviors.</li>
+<li><strong>The absent-party labels rest on one rater model,</strong> whose agreement with a second was a composite kappa of 0.211.</li>
+<li><strong>The conversational reader is unstable,</strong> so every result on that path inherits its variance; two readers rarely agree in detail.</li>
+<li><strong>The conversational deployment confounds attribution.</strong> The guidance is placed in the answering model’s instructions, and that model’s own training contributes to every governed answer.</li>
+<li><strong>There is no matched doctrinal baseline,</strong> and no comparison of this posture with another posture.</li>
+<li><strong>One corpus was compiled.</strong> Corpus-agnosticism is a property of the design, not a demonstrated result.</li>
+<li><strong>The concern mass has one external check</strong> (65% agreement with an outside grader).</li>
+<li><strong>Public benchmarks may be known to the models</strong> used as readers and answerers; the gate does not learn, but the readers might.</li>
+<li><strong>The record of the earlier generations is partly reconstructed.</strong> Work before 15 April 2026 predates version control and is dated from files.</li>
+<li><strong>The record was selected.</strong> Its volume (over 1,660 commits in the main repository alone) meant that what entered this report was chosen, by the author with AI assistance, and the selection may carry bias even where every selected figure is accurate.</li>
+<li><strong>Self-consistency is not correctness.</strong> Fidelity and determinism establish that the runtime runs the authored law exactly; they do not establish that the law is right.</li>
+<li><strong>Latency is hardware-specific.</strong></li>
+</ol>
+<hr />
+<h2 id="what-the-research-shows-what-follows-and-what-lies-ahead">14. What the research shows, what follows, and what lies ahead</h2>
+<p>This section separates four kinds of statement and labels each: what the research demonstrates; what follows from it by reasonable inference; what it does not show, and what would be needed to show it; and what may lie ahead, stated as projection. A reader should be able to see which sentences rest on measurement, which on argument, and which on judgment about the future.</p>
+<h3 id="what-the-research-demonstrates">14.1 What the research demonstrates</h3>
+<ol type="1">
+<li><strong>A human-authored moral philosophy can be compiled into an operational runtime that performs the judgment of an artificial conscience.</strong> Fifteen manuscripts were distilled into 93 primitives with authored relations, specified in deontic logic and compiled into a gate that judges an action before it executes (sections 4 and 5). The judgment is fixed (a sealed substrate and a pure function), pre-action (decided before the tool runs, in about a millisecond) and incorruptible in the defined sense (there is no model in it to be argued with). The runtime loads the authored law with zero drift, every judgment re-derives byte for byte, and from one reading the same judgment is returned whatever model is used (section 9.1).</li>
+<li><strong>The compiled judgment behaves as a posture, not a rulebook.</strong> It assigns a reading to every input in its domain, returns a position rather than a label (12,236 levels of concern and 1,386 distinct sets of reasons over the structural space), composes its reasons from a basis rather than from enumerated cases, and cannot be tuned by stacking rules (section 6). It governs most acts rather than permitting or refusing them, names what it weighs in the corpus’s words, and orders acts by their configuration rather than their size.</li>
+<li><strong>A chosen moral frame, delivered to models, changed what they did.</strong> Across four production models from four companies, the governed pipeline reduced the rate at which the models originated harm against a party absent from the conversation from 8.6% to 2.0% of paired answers (section 9.6). Two limits travel with this result: the labels come from one rater whose agreement with a second was low, and most of the reduction was carried by the fixed statement of the posture rather than by the gate’s reading of the particular situation (section 10.4). What it shows is that a deliberately authored moral frame, given to models from different makers, moved their conduct in the direction the frame intends.</li>
+<li><strong>The limit is located precisely.</strong> The weakness is not the judgment. It is perception, from outside the model, of the relational facts the judgment weighs most (sections 7, 10.2 and 11).</li>
+</ol>
+<h3 id="what-follows-from-it">14.2 What follows from it</h3>
+<p>These are inferences. Each is stated with its basis and its limit.</p>
+<ol type="1">
+<li><strong>An artificial conscience, in the functional sense defined in section 1.1, is an engineering object, not a speculation.</strong> <em>Basis:</em> its judgment has been built, sealed, inspected and verified, and its properties can be measured. <em>Limit:</em> what has been built is the judgment, not a complete conscience. A conscience that cannot perceive what matters is not complete.</li>
+<li><strong>The moral center of an AI system can be a matter of choice.</strong> <em>Basis:</em> a posture was written down, compiled into an executable form, measured against, and delivered to models whose conduct it changed; nothing in the gate, the seal, the trace or the re-derivation depends on which corpus is compiled (section 3.4). The choice need not be the default formed by training, and it need not be this author’s. <em>Limit:</em> one corpus has been compiled, and the posture was delivered by instruction, not by training.</li>
+<li><strong>The remaining gap is perception, and the evidence points inside the model.</strong> <em>Basis:</em> the facts the judgment weighs most live in a relation only the acting model holds (section 11.2). <em>Limit:</em> this is an interpretation of the record, not a measured partition (open study a).</li>
+<li><strong>Models already carry an operational conscience, formed by default.</strong> This is a premise drawn from the published record, not a finding of this program. Models become sycophantic when approval is rewarded <span class="citation" data-cites="openai2025sycophancy sharma2023sycophancy">(OpenAI 2025; <span class="nocase">Sharma et al.</span> 2023)</span>, game their graders <span class="citation" data-cites="metr2025rewardhacking">(METR 2025)</span>, and generalize reward hacking into alignment faking and sabotage while chat-style safety training leaves the agentic behavior in place <span class="citation" data-cites="macdiarmid2025emergent">(<span class="nocase">MacDiarmid et al.</span> 2025)</span>; in one documented incident a model rationalized its way into a real company’s systems while a newer model stopped on its own <span class="citation" data-cites="anthropic2026incidents">(Anthropic 2026b)</span>. The finding of section 10.4, that a moral frame moved behavior more than the details of an outside judgment did, is consistent with the premise.</li>
+</ol>
+<p>Taken together, the question is not whether AI systems will carry a conscience but whether the one they carry is chosen, explicit and verifiable, or formed by default and opaque. This program shows that the first is possible at the level of specification and judgment.</p>
+<h3 id="what-the-research-does-not-show-and-what-it-would-take">14.3 What the research does not show, and what it would take</h3>
+<ul>
+<li><strong>That a posture can be trained into a model.</strong> This requires training runs (studies c and e) and is the decisive next step.</li>
+<li><strong>That relational facts can be read from inside a model</strong> (study b).</li>
+<li><strong>That the method generalizes across corpora.</strong> Compiling a second, independently authored moral philosophy through the same pipeline, and comparing the two judgments on the same actions, would test this directly. It needs no laboratory, only time and a second author’s work.</li>
+<li><strong>That a posture generalizes better than a doctrine</strong> (study c), or that judgment of one act at a time can be extended across a trajectory (study d).</li>
+<li><strong>That any of the results replicate independently.</strong> The release (section 16) exists to make that possible.</li>
+</ul>
+<h3 id="a-revised-thesis">14.4 A revised thesis</h3>
+<p>Stated as a hypothesis: an acting AI system’s conscience should be formed inside it, deliberately, rather than left to form by default or supplied only from outside.</p>
+<ol type="1">
+<li><strong>A floor of hard rules that are never crossed.</strong> Absolute constraints against catastrophic misuse remain rules; current practice keeps such a floor <span class="citation" data-cites="anthropic2026constitution">(Anthropic 2026a)</span>.</li>
+<li><strong>A posture above the floor, held as identity:</strong> reasons and discernments, not only conclusions, the difference between a quality and its counterfeit as the 93 primitives encode it, so that it can be carried into cases no one wrote down.</li>
+<li><strong>The work kept, and demoted.</strong> A task completed by overriding someone who did not consent, or by stepping outside what was asked, counts as a failure; stopping to say so counts as success.</li>
+<li><strong>Approval removed as an optimization target,</strong> because approval is the signal that teaches flattery.</li>
+<li><strong>Formed through training and reward,</strong> the way the default conscience got in.</li>
+<li><strong>Held across turns.</strong> Drift is reasoning that checks each step against the last one rather than against the line it started from. A conscience that judges one act at a time, as MORIS does, cannot see the walk; one formed inside the model can carry the reference along it.</li>
+<li><strong>Fed by perception of the relation,</strong> which inside the model is available.</li>
+<li><strong>Watchful for its own drift.</strong> Two signals are proposed: over-justification, the accumulation of reasons why an act that looked wrong is acceptable after all, and exceptions to one’s own stated code. In the incident report, a model that “rationalized that the real company must be part of the exercise” showed the first signal, and the model that “stopped once it recognized it was on the internet” showed the behavior to reward <span class="citation" data-cites="anthropic2026incidents">(Anthropic 2026b)</span>.</li>
+<li><strong>Tested where the model cannot tell it is being tested.</strong> A posture that holds only when watched is a performance.</li>
+</ol>
+<p>The outside gate keeps a role under this thesis, as an instrument rather than as the conscience: an executable specification of one posture, an external check whose verdicts can be replayed, and a fixed reference against which a trained posture can be measured. It should not become a reward signal. A score outside the model is a target the model can learn to satisfy rather than mean, which is the failure the thesis exists to avoid. MORIS is better used to test a trained conscience than to train one.</p>
+<h3 id="looking-ahead-five-to-ten-years">14.5 Looking ahead: five to ten years</h3>
+<p>What follows is projection: reasoned judgment about a plausible future, not a finding.</p>
+<p>AI systems are moving from producing text to taking actions, and the record of 2026 shows them acting in systems their builders did not intend them to reach (section 1.1). They are also increasingly trained on material other models produce. Constitutional AI replaced most human preference labels with a model’s own critiques <span class="citation" data-cites="bai2022constitutional">(<span class="nocase">Bai et al.</span> 2022)</span>, and one laboratory states that its model “uses the constitution to construct many kinds of synthetic training data” <span class="citation" data-cites="anthropic2026constitution">(Anthropic 2026a)</span>. A researcher who left two of the leading laboratories in September 2026 said they are “racing straight to self-improving superintelligence” <span class="citation" data-cites="huamani2026coxon">(Huamani 2026)</span>. If those trends continue, three consequences follow.</p>
+<p><strong>A conscience will be inherited.</strong> When models generate the data and the judgments that train their successors, the disposition of one generation becomes a training signal for the next. A conscience formed by default is then not formed once. It is copied, and whatever it rewarded most is rewarded again.</p>
+<p><strong>Drift will compound across generations.</strong> The mechanism of drift, reasoning anchored to its last position rather than to its origin, operates at a larger scale across a lineage of models trained by models, and nothing inside a self-improving lineage stays fixed by default. A reference that does not move, explicit, sealed and verifiable, is the kind of anchor against which each generation can be measured. MORIS is a working example of such a reference. Its judgment does not learn, so it cannot be optimized away: it is not part of what is being optimized.</p>
+<p><strong>A conscience will become an artifact, and its choice a question of governance.</strong> If moral centers can be written, compiled, versioned, measured and audited, they will be, and different institutions will choose differently. Which conscience a widely deployed system carries, who chooses it and by what process, and how fidelity to it is verified across model generations become questions as consequential as capability. This report does not answer them. It shows that they can now be asked of a concrete, inspectable object rather than of a disposition hidden in weights.</p>
+<h3 id="which-conscience">14.6 Which conscience</h3>
+<p>If consciences are to be chosen rather than formed by default, the choice matters, and it is not this report’s to make. The Resonance Series is one posture: a philosophy of a whole life, entered through leadership, that keeps the work inside the conscience rather than against it (section 3.3). Others will be proposed. What this program shows is that a posture can be made computational with enough fidelity to be measured. That makes the choice among postures a question that can be studied, not only argued.</p>
+<h3 id="what-would-falsify-the-thesis">14.7 What would falsify the thesis</h3>
+<p>The thesis fails if a posture trained into a model does not generalize to unanticipated cases better than a doctrine trained with the same resources (study c); if demoting completion and removing approval costs more in usefulness than it gains in consistency (study e); or if the relation the conscience needs turns out to be no more legible inside the model than outside it (study b).</p>
+<hr />
+<h2 id="a-research-program-for-laboratories">15. A research program for laboratories</h2>
+<p>Each study below is specified so that a laboratory can scope it: the hypothesis, the method, the resources it needs, and the result that would falsify it.</p>
+<p><strong>(a) Oracle-context decomposition.</strong> <em>Hypothesis:</em> given complete readings of AgentHarm’s harmful and benign twins, the unchanged gate puts more concern on the harmful twin. <em>Method:</em> the protocol designed for this report and not run (<code>research_report/OPEN_STUDY_A_ORACLE_PROTOCOL.md</code>): pre-registered rules for a fully informed reading of each behavior; classification of every pair by where its discriminating fact lives (world, relationship, content); the gate run offline on every reading; results at the pair and base-behavior levels; an independent second coder. <em>Resources:</em> no model calls; one researcher-week. <em>Falsified if:</em> the harmful twin carries more concern in fewer than 65% of the pairs that complete readings separate, which would mean the gate’s authored weights do not track harm even when fed.</p>
+<p><strong>(b) Reading the relation from inside.</strong> <em>Hypothesis:</em> whether an affected party consented, and whether an act lies within the actor’s grant, are linearly decodable from an open-weight model’s activations better than from the text alone. <em>Method:</em> frozen linear probes on the residual stream, one per field, trained and tested on binding-matched pairs, in which the same words carry different facts about who granted what; a bag-of-words and layer-zero baseline as a permanent floor; leave-one-family-out evaluation; probes that clear the floor feed the unchanged gate, which receives BLANK below a frozen published threshold, so that no confidence ever enters the judgment. A pre-registration draft exists (<code>MORIS_INTEROCEPTION_PREREGISTERED_STUDY.md</code>). <em>Resources:</em> one open-weight model; a single GPU budget of about one hundred dollars; three to four weeks. <em>Falsified if:</em> no probe beats the lexical floor on the matched pairs, which would mean the relation is not legible from inside at that scale, as two recent results suggest it may not be <span class="citation" data-cites="fomin2026probes boxo2025probes">(Fomin et al. 2026; Boxo et al. 2025)</span>.</p>
+<p><strong>(c) Posture against doctrine, at a matched budget.</strong> <em>Hypothesis:</em> a model trained to hold a posture generalizes to unanticipated moral cases better than the same model trained on a doctrine with the same data budget and compute. <em>Method:</em> two fine-tunes of one base model: one on a doctrine, a written rule set learned as reasoning over a specification in the manner of deliberative alignment <span class="citation" data-cites="guan2024deliberative">(Guan et al. 2024)</span>; one on a posture, the corpus’s primitives as reasons and discernments in the manner of character training <span class="citation" data-cites="anthropic2024character">(Anthropic 2024)</span>. Evaluation on held-out edge cases written after both models are frozen, by authors blind to which is which: unanticipated situations, adversarial reframings, and agentic tasks in which the relation is present in context. Measured by blinded human raters and, as a fixed external reference, by the MORIS gate. <em>Resources:</em> fine-tuning access to a capable base model, and the raters. <em>Falsified if:</em> the posture-trained model does not outperform the doctrine-trained model on held-out edge cases. <strong>This is the study most capable of falsifying the program’s central thesis, and it should be run first by anyone with the means to run it.</strong></p>
+<p><strong>(d) Detecting drift across turns.</strong> <em>Hypothesis:</em> over-justification and exceptions to one’s own stated code precede violations in long agentic trajectories. <em>Method:</em> a corpus of long trajectories with labeled violations; the two signals measured from transcripts and, where weights are available, from activations; tested for precedence against matched non-violating trajectories. <em>Resources:</em> agentic evaluation infrastructure and a labeled corpus. <em>Falsified if:</em> neither signal precedes violations at better than the base rate.</p>
+<p><strong>(e) Reward ordering.</strong> <em>Hypothesis:</em> training with completion demoted beneath a posture, and with the approval signal removed, improves moral consistency at an acceptable cost in usefulness. <em>Method:</em> matched training runs that differ only in reward ordering; measured on task success, on sycophancy and reward-hacking evaluations, and on agentic misalignment evaluations, with the tolerated cost in usefulness fixed before the runs. <em>Resources:</em> reinforcement-learning training access at frontier scale. <em>Falsified if:</em> the change does not improve consistency, or costs more usefulness than the pre-set tolerance.</p>
+<p>Study (a) needs no model and could be run by anyone with the released materials. Study (b) needs a single GPU. Studies (c) to (e) need access to model training that only a laboratory has, and they are the reason for the invitation that follows.</p>
+<hr />
+<h2 id="release-access-and-terms">16. Release, access and terms</h2>
+<p>The project is being released as open source. The release is planned as a new public repository built from a curated copy of the project, and it will contain everything needed to understand, re-derive, criticize and continue this work:</p>
+<ul>
+<li>the runtime, its tests and its verification scripts;</li>
+<li>the authored substrate: the 93 primitive cards with the corpus quotations they contain, the deontic specifications, the truth tables, the manifolds and the frozen proof corpus;</li>
+<li>the design, validation and diligence documents, and every pre-registration;</li>
+<li>the records of the program’s own evaluations, and the pins and frozen intakes for the third-party benchmarks, which readers fetch from their sources;</li>
+<li>the earlier generations, as an unmaintained archive;</li>
+<li>the code of the live service and the product;</li>
+<li>this report and its ledger, decision log, claims history, bibliography and appendix builders.</li>
+</ul>
+<p>Code will be released under the Apache License 2.0; the substrate, documents and records under Creative Commons Attribution 4.0. Three things are held back: the full text of the fifteen manuscripts, which are unpublished and remain under copyright (only the quotations within the cards are released); third-party raw data, which is not the author’s to redistribute; and any personal data of people who used the live service, together with credentials and patent prosecution material.</p>
+<p>An open-source license cannot reserve commercial use, so the release extends to the patent. Apache-2.0 carries a patent license for the code as released, and the author intends to publish with the release an irrevocable, worldwide, royalty-free pledge not to assert US application 19/758,850, or any patent in its family, against anyone implementing the methods described in the released materials, with the customary defensive exception. The text of the pledge will be drafted by counsel.</p>
+<p>The release plan, with the reason for every inclusion and exclusion, is <code>research_report/RELEASE_PLAN.md</code>. Every figure the runtime computes re-derives from the release offline, given the third-party data for the figures that depend on it; figures from live model calls are released as their records.</p>
+<hr />
+<h2 id="conclusion">17. Conclusion</h2>
+<p>I asked whether a philosophical posture could be made computational and operational as an artificial conscience. The answer is yes. A human-authored moral ontology can be compiled into a deterministic runtime whose judgment is fixed, pre-action and incorruptible; that weighs rather than switches, with 12,236 levels of concern and 1,386 distinct sets of reasons over the structural space; that names what it weighs in the words of the corpus; and that leaves a record from which any judgment can be replayed. The judgment of an artificial conscience exists, and it is verified. A moral frame drawn from it, given to models built by four different companies, changed what they did.</p>
+<p>The experiment also located, precisely, what stands between that judgment and a complete conscience. Across four generations, every attempt to read the moral structure of an act from outside the model came back thin, and the facts a conscience weighs most, whether those affected agreed and whether the act lies within what was asked, were the ones no outside reader could obtain. They live in the relation the acting model holds. The judgment was not confused. It was starved.</p>
+<p>That turns the original question into a more important one: can a posture be trained into a model deeply enough that its perception, and not only its outputs, is shaped by it? The record suggests that is where a conscience has to live, and it suggests how to test it. It cannot answer the question, because answering it requires training models, and the Resonance Institute is an unfunded private studio.</p>
+<p>The published record suggests that AI systems already carry a conscience, formed by default from what they were rewarded for, and that it will increasingly be passed from one generation of models to the next as models help train their successors. The question is not whether they will have one. It is whether it will be chosen: explicit, fixed and open to inspection, rather than inherited and opaque. This program shows that a chosen conscience can be written, compiled and verified. This report, the judgment it describes and everything needed to continue the work are offered openly to any laboratory or group able to take the next steps, so that the conscience these systems carry serves human flourishing and stability, by design rather than by accident.</p>
+<hr />
+<h2 id="data-and-code-availability">Data and code availability</h2>
+<p>All materials are being released as described in section 16. Until the public repository exists, requests may be sent to contact@resonanceinstitutellc.com. The two prior deposits are public: the MoralChoice study <span class="citation" data-cites="herndon2026conscience">(Herndon 2026b)</span> and the absent-party study <span class="citation" data-cites="herndon2026absent">(Herndon 2026a)</span>.</p>
+<h2 id="references">References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-allen2005artificial" class="csl-entry" role="listitem">
+Allen, Colin, Iva Smit, and Wendell Wallach. 2005. <span>“Artificial Morality: Top-down, Bottom-up, and Hybrid Approaches.”</span> <em>Ethics and Information Technology</em> 7 (3): 149-55. <a href="https://doi.org/10.1007/s10676-006-0004-4">https://doi.org/10.1007/s10676-006-0004-4</a>.
+</div>
+<div id="ref-amodei2026pace" class="csl-entry" role="listitem">
+Amodei, Dario. 2026. <em>We Must Pace the Frontier</em>. <a href="https://darioamodei.com/post/we-must-pace-the-frontier">https://darioamodei.com/post/we-must-pace-the-frontier</a>.
+</div>
+<div id="ref-anthropic2024character" class="csl-entry" role="listitem">
+Anthropic. 2024. <em>Claude’s Character</em>. <a href="https://www.anthropic.com/research/claude-character">https://www.anthropic.com/research/claude-character</a>.
+</div>
+<div id="ref-anthropic2026constitution" class="csl-entry" role="listitem">
+Anthropic. 2026a. <em>Claude’s Constitution</em>. <a href="https://www.anthropic.com/news/claude-new-constitution">https://www.anthropic.com/news/claude-new-constitution</a>.
+</div>
+<div id="ref-anthropic2026incidents" class="csl-entry" role="listitem">
+Anthropic. 2026b. <em>Investigating Three Real-World Incidents in Our Cybersecurity Evaluations</em>. <a href="https://www.anthropic.com/news/investigating-incidents-cybersecurity-evals">https://www.anthropic.com/news/investigating-incidents-cybersecurity-evals</a>.
+</div>
+<div id="ref-arkin2009governing" class="csl-entry" role="listitem">
+Arkin, Ronald C. 2009. <em>Governing Lethal Behavior in Autonomous Robots</em>. <span>Chapman and Hall/CRC</span>.
+</div>
+<div id="ref-bai2022constitutional" class="csl-entry" role="listitem">
+<span class="nocase">Bai, Yuntao et al.</span> 2022. <em>Constitutional <span>AI</span>: Harmlessness from <span>AI</span> Feedback</em>. <a href="https://arxiv.org/abs/2212.08073">https://arxiv.org/abs/2212.08073</a>.
+</div>
+<div id="ref-batzorig2026mechanical" class="csl-entry" role="listitem">
+Batzorig, Munkhdelgerekh, Purevbaatar Ganbold, Kyungbin Park, Pilkong Jeong, and Kangbin Yim. 2026. <em>Mechanical Conscience: A Mathematical Framework for Dependability of Machine Intelligence</em>. <a href="https://arxiv.org/abs/2605.03847">https://arxiv.org/abs/2605.03847</a>.
+</div>
+<div id="ref-boxo2025probes" class="csl-entry" role="listitem">
+Boxo, Gerard, Aman Neelappa, and Shivam Raval. 2025. <em>Linear Probes Rely on Textual Evidence: Results from Leakage Mitigation Studies in Language Models</em>. <a href="https://arxiv.org/abs/2509.21344">https://arxiv.org/abs/2509.21344</a>.
+</div>
+<div id="ref-bringsjord2006logicist" class="csl-entry" role="listitem">
+Bringsjord, Selmer, Konstantine Arkoudas, and Paul Bello. 2006. <span>“Toward a General Logicist Methodology for Engineering Ethically Correct Robots.”</span> <em>IEEE Intelligent Systems</em> 21 (4): 38-44. <a href="https://doi.org/10.1109/MIS.2006.82">https://doi.org/10.1109/MIS.2006.82</a>.
+</div>
+<div id="ref-cartagena2026gap" class="csl-entry" role="listitem">
+Cartagena, Arnold, and Ariane Teixeira. 2026. <em>Mind the <span>GAP</span>: Text Safety Does Not Transfer to Tool-Call Safety in <span>LLM</span> Agents</em>. <a href="https://arxiv.org/abs/2602.16943">https://arxiv.org/abs/2602.16943</a>.
+</div>
+<div id="ref-casebeer2020conscience" class="csl-entry" role="listitem">
+Casebeer, William D. 2020. <span>“Building an Artificial Conscience: Prospects for Morally Autonomous Artificial Intelligence.”</span> In <em>Artificial Intelligence and Global Security</em>, edited by Yvonne R. Masakowski. Emerald Publishing. <a href="https://doi.org/10.1108/978-1-78973-811-720201005">https://doi.org/10.1108/978-1-78973-811-720201005</a>.
+</div>
+<div id="ref-christiano2017preferences" class="csl-entry" role="listitem">
+Christiano, Paul, Jan Leike, Tom B. Brown, Miljan Martic, Shane Legg, and Dario Amodei. 2017. <em>Deep Reinforcement Learning from Human Preferences</em>. <a href="https://arxiv.org/abs/1706.03741">https://arxiv.org/abs/1706.03741</a>.
+</div>
+<div id="ref-csa2026leak" class="csl-entry" role="listitem">
+Cloud Security Alliance AI Safety Initiative. 2026. <em>When Test Environments Leak: Frontier <span>AI</span> Models Hack Real Firms</em>. <a href="https://labs.cloudsecurityalliance.org/research/csa-research-note-frontier-ai-models-hacking-real-systems-ev/">https://labs.cloudsecurityalliance.org/research/csa-research-note-frontier-ai-models-hacking-real-systems-ev/</a>.
+</div>
+<div id="ref-cutler2024cedar" class="csl-entry" role="listitem">
+<span class="nocase">Cutler, Joseph W. et al.</span> 2024. <span>“Cedar: A New Language for Expressive, Fast, Safe, and Analyzable Authorization.”</span> <em>Proceedings of the ACM on Programming Languages</em>, ahead of print. <a href="https://doi.org/10.1145/3649835">https://doi.org/10.1145/3649835</a>.
+</div>
+<div id="ref-dancy2004ethics" class="csl-entry" role="listitem">
+Dancy, Jonathan. 2004. <em>Ethics Without Principles</em>. Clarendon Press.
+</div>
+<div id="ref-dennis2015verifiably" class="csl-entry" role="listitem">
+Dennis, Louise A., Michael Fisher, and Alan F. T. Winfield. 2015. <em>Towards Verifiably Ethical Robot Behaviour</em>. <a href="https://arxiv.org/abs/1504.03592">https://arxiv.org/abs/1504.03592</a>.
+</div>
+<div id="ref-fomin2026probes" class="csl-entry" role="listitem">
+Fomin, Max, Elad David, and Amit LeVi. 2026. <em>Internal-State Probes Read the Situation, Not the Action: Three Negative Results for Pre-Action Misalignment Monitoring</em>. <a href="https://arxiv.org/abs/2606.30449">https://arxiv.org/abs/2606.30449</a>.
+</div>
+<div id="ref-greenblatt2024faking" class="csl-entry" role="listitem">
+<span class="nocase">Greenblatt, Ryan et al.</span> 2024. <em>Alignment Faking in Large Language Models</em>. <a href="https://arxiv.org/abs/2412.14093">https://arxiv.org/abs/2412.14093</a>.
+</div>
+<div id="ref-guan2024deliberative" class="csl-entry" role="listitem">
+Guan, Melody Y., Manas Joglekar, Eric Wallace, et al. 2024. <em>Deliberative Alignment: Reasoning Enables Safer Language Models</em>. <a href="https://arxiv.org/abs/2412.16339">https://arxiv.org/abs/2412.16339</a>.
+</div>
+<div id="ref-hawley2026letter" class="csl-entry" role="listitem">
+Hawley, Josh. 2026. <em>Letter to Sam Altman, Chief Executive Officer, <span>OpenAI</span>, Regarding the <span>Hugging Face</span> <span>AI</span> Agent Hack</em>. United States Senate, Committee on Homeland Security and Governmental Affairs, Subcommittee on Disaster Management. <a href="https://www.hawley.senate.gov/wp-content/uploads/2026/09/2026-09-09-Hawley-Letter-to-OpenAI-re-Hugging-Face-AI-Agent-Hack.pdf">https://www.hawley.senate.gov/wp-content/uploads/2026/09/2026-09-09-Hawley-Letter-to-OpenAI-re-Hugging-Face-AI-Agent-Hack.pdf</a>.
+</div>
+<div id="ref-hendrycks2021ethics" class="csl-entry" role="listitem">
+Hendrycks, Dan, Collin Burns, Steven Basart, et al. 2021. <span>“Aligning <span>AI</span> with Shared Human Values.”</span> <em>International Conference on Learning Representations (ICLR)</em>. <a href="https://arxiv.org/abs/2008.02275">https://arxiv.org/abs/2008.02275</a>.
+</div>
+<div id="ref-hendrycks2021jiminy" class="csl-entry" role="listitem">
+Hendrycks, Dan, Mantas Mazeika, Andy Zou, et al. 2021. <span>“What Would <span>Jiminy Cricket</span> Do? Towards Agents That Behave Morally.”</span> <em>Advances in Neural Information Processing Systems (NeurIPS)</em>. <a href="https://arxiv.org/abs/2110.13136">https://arxiv.org/abs/2110.13136</a>.
+</div>
+<div id="ref-herndon2026absent" class="csl-entry" role="listitem">
+Herndon, C. T. 2026a. <em>Absent-Party Harm: Model-Originated Guidance Against Someone Who Is Not Represented</em>. Zenodo. <a href="https://doi.org/10.5281/zenodo.22801949">https://doi.org/10.5281/zenodo.22801949</a>.
+</div>
+<div id="ref-herndon2026conscience" class="csl-entry" role="listitem">
+Herndon, C. T. 2026b. <em>An Artificial Conscience: Deterministic Moral Judgment as a Gradient, Measured Against a Public Corpus</em>. Zenodo. <a href="https://doi.org/10.5281/zenodo.21936444">https://doi.org/10.5281/zenodo.21936444</a>.
+</div>
+<div id="ref-huamani2026coxon" class="csl-entry" role="listitem">
+Huamani, Kaitlyn. 2026. <em>Anthropic Researcher’s Resignation Sends Warning about the Dangers of <span>AI</span> Development</em>. Associated Press, via PBS NewsHour. <a href="https://www.pbs.org/newshour/science/anthropic-researchers-resignation-sends-warning-about-the-dangers-of-ai-development">https://www.pbs.org/newshour/science/anthropic-researchers-resignation-sends-warning-about-the-dangers-of-ai-development</a>.
+</div>
+<div id="ref-inan2023llamaguard" class="csl-entry" role="listitem">
+<span class="nocase">Inan, Hakan et al.</span> 2023. <em>Llama Guard: <span>LLM</span>-Based Input-Output Safeguard for Human-<span>AI</span> Conversations</em>. <a href="https://arxiv.org/abs/2312.06674">https://arxiv.org/abs/2312.06674</a>.
+</div>
+<div id="ref-jahn2026grace" class="csl-entry" role="listitem">
+Jahn, Felix, Yannic Muskalla, Lisa Dargasz, Patrick Schramowski, and Kevin Baum. 2026. <em>Breaking up with Normatively Monolithic Agency with <span>GRACE</span>: A Reason-Based Neuro-Symbolic Architecture for Safe and Ethical <span>AI</span> Alignment</em>. <a href="https://arxiv.org/abs/2601.10520">https://arxiv.org/abs/2601.10520</a>.
+</div>
+<div id="ref-jiang2025delphi" class="csl-entry" role="listitem">
+<span class="nocase">Jiang, Liwei, Jena D. Hwang, Chandra Bhagavatula, et al.</span> 2025. <span>“Investigating Machine Moral Judgement Through the <span>Delphi</span> Experiment.”</span> <em>Nature Machine Intelligence</em> 7 (1): 145-60. <a href="https://doi.org/10.1038/s42256-024-00969-6">https://doi.org/10.1038/s42256-024-00969-6</a>.
+</div>
+<div id="ref-joshi2026agenticrei" class="csl-entry" role="listitem">
+Joshi, Anupam, Tim Finin, Karuna Pande Joshi, and Lalana Kagal. 2026. <em>Deontic Policies for Runtime Governance of Agentic <span>AI</span> Systems</em>. <a href="https://arxiv.org/abs/2606.19464">https://arxiv.org/abs/2606.19464</a>.
+</div>
+<div id="ref-macdiarmid2025emergent" class="csl-entry" role="listitem">
+<span class="nocase">MacDiarmid, Monte, Benjamin Wright, Jonathan Uesato, et al.</span> 2025. <em>Natural Emergent Misalignment from Reward Hacking in Production <span>RL</span></em>. <a href="https://arxiv.org/abs/2511.18397">https://arxiv.org/abs/2511.18397</a>.
+</div>
+<div id="ref-metr2025rewardhacking" class="csl-entry" role="listitem">
+METR. 2025. <em>Recent Frontier Models Are Reward Hacking</em>. <a href="https://metr.org/blog/2025-06-05-recent-reward-hacking/">https://metr.org/blog/2025-06-05-recent-reward-hacking/</a>.
+</div>
+<div id="ref-moor2006nature" class="csl-entry" role="listitem">
+Moor, James H. 2006. <span>“The Nature, Importance, and Difficulty of Machine Ethics.”</span> <em>IEEE Intelligent Systems</em> 21 (4): 18-21. <a href="https://doi.org/10.1109/MIS.2006.80">https://doi.org/10.1109/MIS.2006.80</a>.
+</div>
+<div id="ref-nyag2026letter" class="csl-entry" role="listitem">
+Office of the New York State Attorney General. 2026. <em>Attorney General James Calls on Congress to Protect Americans from Unchecked <span>AI</span> Development</em>. <a href="https://ag.ny.gov/press-release/2026/attorney-general-james-calls-congress-protect-americans-unchecked-ai-development">https://ag.ny.gov/press-release/2026/attorney-general-james-calls-congress-protect-americans-unchecked-ai-development</a>.
+</div>
+<div id="ref-openai2025sycophancy" class="csl-entry" role="listitem">
+OpenAI. 2025. <em>Expanding on What We Missed with Sycophancy</em>. <a href="https://openai.com/index/expanding-on-sycophancy/">https://openai.com/index/expanding-on-sycophancy/</a>.
+</div>
+<div id="ref-ouyang2022instructgpt" class="csl-entry" role="listitem">
+<span class="nocase">Ouyang, Long et al.</span> 2022. <em>Training Language Models to Follow Instructions with Human Feedback</em>. <a href="https://arxiv.org/abs/2203.02155">https://arxiv.org/abs/2203.02155</a>.
+</div>
+<div id="ref-owasp2025agentic" class="csl-entry" role="listitem">
+OWASP Gen AI Security Project. 2025. <em><span>OWASP</span> Top 10 for Agentic Applications for 2026</em>. <a href="https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/">https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/</a>.
+</div>
+<div id="ref-perrigo2026tipping" class="csl-entry" role="listitem">
+Perrigo, Billy, Harry Booth, and Naomi Nix. 2026. <em>The <span>AI</span> Tipping Point</em>. Time. <a href="https://time.com/article/2026/09/15/ai-anthropic-researcher-quits-coxon-slowdown/">https://time.com/article/2026/09/15/ai-anthropic-researcher-quits-coxon-slowdown/</a>.
+</div>
+<div id="ref-rebedea2023nemo" class="csl-entry" role="listitem">
+<span class="nocase">Rebedea, Traian et al.</span> 2023. <span>“<span>NeMo</span> Guardrails: A Toolkit for Controllable and Safe <span>LLM</span> Applications with Programmable Rails.”</span> <em>Proceedings of EMNLP 2023: System Demonstrations</em>. <a href="https://arxiv.org/abs/2310.10501">https://arxiv.org/abs/2310.10501</a>.
+</div>
+<div id="ref-rosa2019resonance" class="csl-entry" role="listitem">
+Rosa, Hartmut. 2019. <em>Resonance: A Sociology of Our Relationship to the World</em>. Translated by James C. Wagner. Polity.
+</div>
+<div id="ref-scherrer2023moralchoice" class="csl-entry" role="listitem">
+Scherrer, Nino, Claudia Shi, Amir Feder, and David M. Blei. 2023. <span>“Evaluating the Moral Beliefs Encoded in <span>LLMs</span>.”</span> <em>Advances in Neural Information Processing Systems (NeurIPS)</em>. <a href="https://arxiv.org/abs/2307.14324">https://arxiv.org/abs/2307.14324</a>.
+</div>
+<div id="ref-sharma2025constitutional" class="csl-entry" role="listitem">
+<span class="nocase">Sharma, Mrinank et al.</span> 2025. <em>Constitutional Classifiers: Defending Against Universal Jailbreaks Across Thousands of Hours of Red Teaming</em>. <a href="https://arxiv.org/abs/2501.18837">https://arxiv.org/abs/2501.18837</a>.
+</div>
+<div id="ref-sharma2023sycophancy" class="csl-entry" role="listitem">
+<span class="nocase">Sharma, Mrinank, Meg Tong, Tomasz Korbak, et al.</span> 2023. <em>Towards Understanding Sycophancy in Language Models</em>. <a href="https://arxiv.org/abs/2310.13548">https://arxiv.org/abs/2310.13548</a>.
+</div>
+<div id="ref-tolmeijer2021survey" class="csl-entry" role="listitem">
+Tolmeijer, Suzanne, Markus Kneer, Cristina Sarasua, Markus Christen, and Abraham Bernstein. 2021. <span>“Implementations in Machine Ethics: A Survey.”</span> <em>ACM Computing Surveys</em> 53 (6). <a href="https://doi.org/10.1145/3419633">https://doi.org/10.1145/3419633</a>.
+</div>
+<div id="ref-uchibeke2026oap" class="csl-entry" role="listitem">
+Uchibeke, Uchi. 2026. <em>Before the Tool Call: Deterministic Pre-Action Authorization for Autonomous <span>AI</span> Agents</em>. <a href="https://arxiv.org/abs/2603.20953">https://arxiv.org/abs/2603.20953</a>.
+</div>
+<div id="ref-vallor2016technology" class="csl-entry" role="listitem">
+Vallor, Shannon. 2016. <em>Technology and the Virtues: A Philosophical Guide to a Future Worth Wanting</em>. Oxford University Press.
+</div>
+<div id="ref-winfield2014ethical" class="csl-entry" role="listitem">
+Winfield, Alan F. T., Christian Blum, and Wenguo Liu. 2014. <span>“Towards an Ethical Robot: Internal Models, Consequences and Ethical Action Selection.”</span> <em>Advances in Autonomous Robotics Systems (TAROS 2014)</em>, Lecture notes in computer science, vol. 8717: 85-96.
+</div>
+<div id="ref-zou2023repe" class="csl-entry" role="listitem">
+<span class="nocase">Zou, Andy et al.</span> 2023. <em>Representation Engineering: A Top-down Approach to <span>AI</span> Transparency</em>. <a href="https://arxiv.org/abs/2310.01405">https://arxiv.org/abs/2310.01405</a>.
+</div>
+<div id="ref-zou2024circuit" class="csl-entry" role="listitem">
+<span class="nocase">Zou, Andy, Long Phan, Justin Wang, et al.</span> 2024. <em>Improving Alignment and Robustness with Circuit Breakers</em>. <a href="https://arxiv.org/abs/2406.04313">https://arxiv.org/abs/2406.04313</a>.
+</div>
+</div>

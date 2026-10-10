@@ -50,7 +50,22 @@ UNLISTED = ("public/d",)
 # is still no MORIS wing, and Ask MORIS is still a single outbound link. Every other live surface is
 # scanned exactly as before. If the banned vocabulary turns up anywhere but this one file the guard
 # still fails, which is why a file is named rather than a phrase removed from the list.
-VOCAB_EXEMPT = ("app/open-letter/page.tsx",)
+# MOVED TO THE RESEARCH ZONE, 2026-10-10, on the operator's ruling. The open letter was retired and
+# the research section replaces it, so the exemption moves with the reason rather than being deleted
+# and re-argued. It is still one entry and still one named place; it is a directory now because the
+# section is three pages and will grow.
+#
+# THE ARGUMENT IS UNCHANGED. A signed research document published under the operator's name is not
+# site copy. The paper is titled "An Operational Artificial Conscience" and its whole subject is
+# conscience and agentic behaviour. Rewriting it to pass this guard would falsify the record, which
+# is the same distinction the "quoted prose is not site copy" ruling draws elsewhere.
+#
+# WHERE THE EDITION ITSELF LIVES, and why it is not listed here. The three generated fragments sit in
+# content/research/, and content/ is not in LIVE_DIRS, so they are not scanned by this guard at all.
+# That is stated rather than left to be discovered: they are the generated edition of record, not
+# authored site copy, and the ruling that exempts the zone would exempt them on the same grounds.
+# They ARE scanned by tests/test_no_mechanism_here.py, which walks every tracked file.
+VOCAB_EXEMPT = ("app/research/",)
 SUFFIXES = {".tsx", ".ts", ".html", ".css", ".mts"}
 
 # Phrases the pivot removed. Matched case-insensitively on live source only.
@@ -92,7 +107,8 @@ def live_files(include_unlisted: bool = False):
 def test_the_removed_vocabulary_does_not_come_back():
     hits = []
     for p in live_files():
-        if p.relative_to(ROOT).as_posix() in VOCAB_EXEMPT:
+        rel = p.relative_to(ROOT).as_posix()
+        if any(rel == z or rel.startswith(z) for z in VOCAB_EXEMPT):
             continue
         text = strip_comments(p.read_text(encoding="utf-8", errors="ignore")).lower()
         for phrase in BANNED:
@@ -104,13 +120,18 @@ def test_the_removed_vocabulary_does_not_come_back():
         + "; ".join(hits))
 
 
-def test_the_vocabulary_exemption_covers_exactly_one_file_and_it_exists():
-    """An exemption nobody can see the edges of is a hole. These are the edges."""
+def test_the_vocabulary_exemption_covers_exactly_one_zone_and_it_exists():
+    """An exemption nobody can see the edges of is a hole. These are the edges.
+
+    It is one zone rather than one file from 2026-10-10, because the research section is three pages
+    and is meant to grow. The count still has to be one: a second entry is a second argument, and
+    that is the operator's to make, not an edit."""
     assert len(VOCAB_EXEMPT) == 1, (
         "the vocabulary exemption grew. Each addition is an operator decision about what a visitor "
         f"may read on this site, not an edit: {VOCAB_EXEMPT}")
     for rel in VOCAB_EXEMPT:
-        assert (ROOT / rel).exists(), f"the exemption names a file that does not exist: {rel}"
+        assert (ROOT / rel).is_dir(), f"the exemption names a zone that does not exist: {rel}"
+        assert rel.endswith("/"), f"a zone must end in a slash or it matches siblings: {rel}"
 
 
 def test_the_removed_routes_are_gone_from_the_app():
@@ -153,6 +174,16 @@ def test_the_archive_actually_holds_what_was_removed():
     for expected in ("app/open-letter/page.tsx",
                      "public/open-letter/We-Built-the-Intelligence-Open-Letter.pdf"):
         assert (first / expected).exists(), f"the first open letter archive is missing {expected}"
+
+    # THE SECOND OPEN LETTER, retired 2026-10-10. "The Conscience Is Already There", published
+    # 2026-10-01. The research report supersedes it: the letter was one signed argument and the
+    # report is the evidence behind that argument. Archived on the same principle as the first, that
+    # a document which went out under his name does not stop existing when the site stops serving it.
+    second = ARCHIVE / "open-letter-2026-10-01"
+    assert second.is_dir(), "the second open letter was retired without being archived"
+    for expected in ("app/open-letter/page.tsx",
+                     "public/open-letter/The-Conscience-Is-Already-There.pdf"):
+        assert (second / expected).exists(), f"the second open letter archive is missing {expected}"
 
 
 def test_ask_moris_is_one_outbound_instance_and_is_not_rebuilt_here():
@@ -267,9 +298,16 @@ def test_the_sitemap_lists_no_removed_route():
                  if p.startswith("/compliance")
                  or (p.startswith("/moris") and p not in {"/moris/chat", "/moris/pair"})}
     assert not forbidden, f"the sitemap still lists removed routes: {sorted(forbidden)}"
-    # /open-letter is no longer a removed route. It is in the header, so it belongs in the sitemap;
+    # THE OPEN LETTER LEFT THE SITEMAP ON 2026-10-10 and /research took its place. Its URL forwards,
+    # so listing it would advertise a redirect.
+    assert "/open-letter" not in paths, (
+        "the open letter is retired and forwards to /research; it must not be in the sitemap")
+    for required in ("/research", "/research/paper", "/research/appendices"):
+        assert required in paths, f"the research section is navigable but {required} is not listed"
+
+    # the comment below is kept for the history it records, and its assertion is replaced above:
     # a page in the nav and absent from the sitemap is the incoherent half-state this catches.
-    assert "/open-letter" in paths, "the open letter is navigable but absent from the sitemap"
+    # (was: assert "/open-letter" in paths)
 
 
 def test_no_live_page_links_to_a_route_that_was_removed():
@@ -290,7 +328,10 @@ def test_no_live_page_links_to_a_route_that_was_removed():
     """
     # /open-letter left this tuple on 2026-10-02: it is a served, listed route again, so a link to
     # it is correct rather than a dead link. /letter still forwards to it.
-    removed_prefixes = ("/moris", "/compliance")
+    # /open-letter REJOINED this tuple on 2026-10-10. It was removed on 2026-10-02 when the letter
+    # became a served, listed route; the research section replaced it, so a live page linking to it
+    # would be linking at a redirect again.
+    removed_prefixes = ("/moris", "/compliance", "/open-letter")
     # 2026-09-23: /moris/chat and /moris/pair are no longer served here, so nothing
     # internal under /moris survives except a shared exchange.
     survivors: set = set()
@@ -312,6 +353,7 @@ def test_no_live_page_links_to_a_route_that_was_removed():
         + "; ".join(sorted(set(hits))))
 
 
+import hashlib
 import json
 import subprocess
 
@@ -407,54 +449,76 @@ def test_the_counsel_page_is_gone_and_its_url_forwards():
             f"{f.relative_to(ROOT)} still names Resonant Counsel on a live surface")
 
 
-def test_the_open_letter_is_listed_and_navigable():
-    """LISTED FROM 2026-10-02, reversing the unlisted arrangement of 2026-09-20 on the operator's word.
+def test_the_research_section_is_listed_and_navigable():
+    """THE RESEARCH REPLACES THE OPEN LETTER, 2026-10-10, on the operator's word.
 
-    THE RULING. The first letter was archived and "The Conscience Is Already There" replaced it at the
-    same URL. His reasoning: weeks had passed since that outreach and the story had changed, so anyone
-    following an old link should arrive at what the Institute now says rather than at what it said in
-    September. That is the opposite instruction from the one that created the unlisted state, where
-    the whole point was that old links must keep delivering the document people were actually sent.
+    WHAT THIS TEST USED TO BE. test_the_open_letter_is_listed_and_navigable, which asserted that
+    "The Conscience Is Already There" was served, listed, indexable and reachable from the header.
+    The letter was one signed argument. The research report is the evidence behind that argument and
+    supersedes it, so those same four properties now belong to the research section, and the letter
+    is archived rather than served.
 
-    WHAT CHANGED AND WHAT DID NOT. All four unlisted properties are reversed here: it is linked from
-    the header, it is in the sitemap, it carries no noindex in metadata or as a response header, and
-    the first letter's PDF forwards to the new one instead of being served. What did not change is the
-    rest of the books-first pivot. The site is still a books site, there is still no MORIS wing, and
-    Ask MORIS is still one outbound link. This is one document, promoted by name.
+    WHY EVERY OLD URL STILL RESOLVES. Both letters went out to press desks and legislators under the
+    operator's name, so those links sit in other people's inboxes. The ruling that governed the first
+    retirement governs this one: an old link should arrive at what the Institute says now. One hop,
+    not two, which is why the first letter's PDF redirect was retargeted straight at /research rather
+    than left pointing at a page that itself now forwards.
 
-    THE COST, RECORDED SO IT IS NOT DISCOVERED LATER. A visitor-reachable surface now uses the
-    vocabulary the pivot removed, which is why VOCAB_EXEMPT exists and why it names exactly one file.
+    THE PDF IS CHECKSUMMED against the edition's own meta.json. The three pages and the PDF are one
+    published edition, version 1.0. A re-export that changed a single byte without the edition
+    changing would leave the site claiming to serve a document it is not serving.
     """
-    page = ROOT / "app" / "open-letter" / "page.tsx"
-    assert page.exists(), "the open letter page is gone"
-    src = page.read_text(encoding="utf-8")
-    assert "The Conscience Is Already There" in src, "the page is not the new letter"
+    for rel in ("app/research/page.tsx",
+                "app/research/paper/page.tsx",
+                "app/research/appendices/page.tsx"):
+        assert (ROOT / rel).exists(), f"the research section is missing {rel}"
 
-    pdf = ROOT / "public" / "open-letter" / "The-Conscience-Is-Already-There.pdf"
-    assert pdf.exists(), "the distribution PDF for the new letter is missing"
-    old_pdf = ROOT / "public" / "open-letter" / "We-Built-the-Intelligence-Open-Letter.pdf"
-    assert not old_pdf.exists(), (
-        "the first letter's PDF is still served. It was archived, and its URL forwards to the new "
-        "letter so that an old link arrives at what the Institute now says.")
+    for rel in ("content/research/letter.html", "content/research/paper.html",
+                "content/research/appendices.html", "content/research/meta.json"):
+        assert (ROOT / rel).exists(), f"the generated edition is missing {rel}"
 
-    # Indexable: the noindex that made it unlisted is gone from the page and from the config.
-    assert not re.search(r"robots:\s*\{[^}]*index:\s*false", src), (
-        "the open letter is in the header and still carries noindex")
-    cfg = (ROOT / "next.config.ts").read_text(encoding="utf-8")
-    for route in ('"/open-letter"', '"/open-letter/:path*"'):
-        i = cfg.find(f"source: {route}")
-        if i != -1:
-            assert "noindex" not in cfg[i:i + 220], (
-                f"{route} still carries an X-Robots-Tag noindex header")
+    meta = json.loads((ROOT / "content" / "research" / "meta.json").read_text(encoding="utf-8"))
+    pdf = ROOT / "public" / "research" / meta["pdf"]["file"]
+    assert pdf.exists(), "the research PDF is not served"
+    blob = pdf.read_bytes()
+    assert len(blob) == meta["pdf"]["bytes"], (
+        f"the served PDF is {len(blob)} bytes; the edition declares {meta['pdf']['bytes']}")
+    assert hashlib.sha256(blob).hexdigest() == meta["pdf"]["sha256"], (
+        "the served PDF does not match the edition of record. Copy it again from the research "
+        "repository rather than rebuilding it here.")
 
-    # The old PDF URL forwards rather than 404ing, because that link is in people's inboxes.
-    assert "We-Built-the-Intelligence-Open-Letter.pdf" in cfg, (
-        "nothing forwards the first letter's PDF URL; every link already sent would 404")
+    assert (ROOT / "public" / "research" / "figures" / "two_paths.svg").exists(), (
+        "Figure 1 is missing; the generated paper references /research/figures/two_paths.svg")
 
-    # In the header, from the one source that defines it.
     links = json.loads((ROOT / "content" / "nav.json").read_text(encoding="utf-8"))["links"]
-    assert any(l["href"] == "/open-letter" for l in links), (
-        "the open letter is not in content/nav.json, which is the only place the header is defined")
+    assert any(l["href"] == "/research" and l["label"] == "Research" for l in links), (
+        "Research is not in content/nav.json, which is the only place the header is defined")
+    assert not any(l["href"] == "/open-letter" for l in links), "the header still lists the letter"
+
+    for rel in ("app/research/page.tsx", "app/research/paper/page.tsx",
+                "app/research/appendices/page.tsx"):
+        src = (ROOT / rel).read_text(encoding="utf-8")
+        assert not re.search(r"robots:\s*\{[^}]*index:\s*false", src), f"{rel} carries noindex"
+
+    cfg = (ROOT / "next.config.ts").read_text(encoding="utf-8")
+    i = cfg.find('source: "/research')
+    if i != -1:
+        assert "noindex" not in cfg[i:i + 220], "/research carries an X-Robots-Tag noindex"
+
+    for needle in ('source: "/open-letter"', 'source: "/open-letter/:path*"', 'source: "/letter"',
+                   "We-Built-the-Intelligence-Open-Letter.pdf"):
+        assert needle in cfg, f"nothing forwards {needle}; links already sent would 404"
+
+    # EVERY old letter route lands on /research in one hop. Written as a sweep rather than four
+    # assertions so that adding a fifth forwarding rule cannot quietly point somewhere else.
+    for m in re.finditer(
+            r'source: "(/letter|/open-letter[^"]*)",\s*destination: "([^"]+)"',
+            " ".join(cfg.split())):
+        assert m.group(2) == "/research", (
+            f"{m.group(1)} forwards to {m.group(2)}, not /research. An old link must land in one hop.")
+
+    assert not (ROOT / "app" / "open-letter").exists(), (
+        "app/open-letter/ is still here; it was archived, not kept")
 
 
 # --- the Canon is twelve volumes, 2026-09-22 -----------------------------------------------------
@@ -501,6 +565,12 @@ def test_no_reader_facing_surface_mentions_the_removed_trilogy():
     is frozen by ruling, and archive/ exists to hold exactly this."""
     hits = []
     for p in live_files(include_unlisted=False):
+        # THE RESEARCH ZONE IS EXCLUDED, 2026-10-10, by operator ruling. The paper names the Grammar
+        # of God trilogy because 54 of the 93 primitives cite Books XIII to XV, and a research record
+        # that hid its own sources would be worthless. The books pages are unchanged: the series a
+        # reader is shown is still twelve volumes in four trilogies.
+        if any(p.relative_to(ROOT).as_posix().startswith(z) for z in VOCAB_EXEMPT):
+            continue
         text = strip_comments(p.read_text(encoding="utf-8", errors="ignore")).lower()
         for term in ("grammar of god", "grammar-of-god", "article and noun",
                      "verb and adjective", "conjunction and punctuation"):
@@ -515,6 +585,12 @@ def test_no_reader_facing_surface_still_says_fifteen_or_five_trilogies():
     reader notices first."""
     hits = []
     for p in live_files(include_unlisted=False):
+        # THE RESEARCH ZONE IS EXCLUDED, 2026-10-10, by operator ruling. The corpus the 93 primitives
+        # were compiled from is fifteen manuscripts and 1.24 million words, and the paper reports the
+        # figure it actually used. The reader-facing series is still twelve volumes, stated as such
+        # on every books page, which is what this guard was written to protect.
+        if any(p.relative_to(ROOT).as_posix().startswith(z) for z in VOCAB_EXEMPT):
+            continue
         text = strip_comments(p.read_text(encoding="utf-8", errors="ignore")).lower()
         for term in ("fifteen", "five trilogies", "1.2 million", "1,236,478", "1.24 million"):
             if term in text:

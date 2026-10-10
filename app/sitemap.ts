@@ -23,7 +23,12 @@ const staticRoutes: { path: string; priority: number }[] = [
   // invites a reader to be told when it lands. It is not under /resonance on purpose: it is
   // one trade book drawn from the first three volumes, not volume thirteen.
   { path: "/the-return", priority: 0.9 },
-  { path: "/open-letter", priority: 0.8 },
+  // THE RESEARCH SECTION, 2026-10-10, replacing /open-letter in the header and here. Three pages,
+  // all meant to be found: the letter that opens the research, the full paper, and the appendices.
+  // The PDF is not listed; it is linked from all three pages and a crawler reaches it from them.
+  { path: "/research", priority: 0.8 },
+  { path: "/research/paper", priority: 0.8 },
+  { path: "/research/appendices", priority: 0.6 },
   { path: "/resonance", priority: 0.9 },
   { path: "/about", priority: 0.6 },
   { path: "/contact", priority: 0.6 },

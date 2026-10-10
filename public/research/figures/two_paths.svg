@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 670" width="1000" height="670" font-family="Libertinus Serif, Georgia, 'Times New Roman', serif" font-size="15" fill="#111">
+  <title>The two paths of MORIS</title>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#222"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="1000" height="670" fill="#ffffff"/>
+  <g stroke="#222" stroke-width="1.2" fill="#ffffff">
+    <rect x="10" y="28" width="150" height="70" rx="4"/>
+    <rect x="190" y="28" width="240" height="70" rx="4"/>
+    <rect x="10" y="128" width="150" height="70" rx="4"/>
+    <rect x="190" y="128" width="240" height="70" rx="4"/>
+    <rect x="470" y="28" width="190" height="170" rx="4"/>
+    <rect x="690" y="28" width="300" height="170" rx="4" fill="#f4f4f4"/>
+    <rect x="10" y="240" width="980" height="120" rx="6" fill="#efefef"/>
+    <rect x="24" y="276" width="137" height="70" rx="4"/>
+    <rect x="187" y="276" width="137" height="70" rx="4"/>
+    <rect x="350" y="276" width="137" height="70" rx="4"/>
+    <rect x="513" y="276" width="137" height="70" rx="4"/>
+    <rect x="676" y="276" width="137" height="70" rx="4"/>
+    <rect x="839" y="276" width="137" height="70" rx="4"/>
+    <rect x="10" y="412" width="300" height="154" rx="4"/>
+    <rect x="345" y="412" width="300" height="66" rx="4"/>
+    <rect x="675" y="412" width="280" height="66" rx="4"/>
+    <rect x="345" y="500" width="300" height="66" rx="4"/>
+    <rect x="675" y="500" width="280" height="66" rx="4"/>
+    <rect x="10" y="600" width="980" height="60" rx="4" fill="#f4f4f4"/>
+  </g>
+  <g stroke="#222" stroke-width="1.3" fill="none" marker-end="url(#arrow)">
+    <line x1="160" y1="63" x2="188" y2="63"/>
+    <line x1="160" y1="163" x2="188" y2="163"/>
+    <line x1="430" y1="63" x2="468" y2="63"/>
+    <line x1="430" y1="163" x2="468" y2="163"/>
+    <path d="M565,198 V220 H92 V274"/>
+    <line x1="840" y1="198" x2="840" y2="238"/>
+    <line x1="161" y1="311" x2="185" y2="311"/>
+    <line x1="324" y1="311" x2="348" y2="311"/>
+    <line x1="487" y1="311" x2="511" y2="311"/>
+    <line x1="650" y1="311" x2="674" y2="311"/>
+    <line x1="813" y1="311" x2="837" y2="311"/>
+    <path d="M663,360 V384 H160 V410"/>
+    <line x1="310" y1="445" x2="343" y2="445"/>
+    <line x1="310" y1="533" x2="343" y2="533"/>
+    <line x1="645" y1="445" x2="673" y2="445"/>
+    <line x1="645" y1="533" x2="673" y2="533"/>
+    <line x1="975" y1="360" x2="975" y2="598"/>
+  </g>
+  <g font-style="italic" font-size="13" fill="#444">
+    <text x="12" y="20">conversational path</text>
+    <text x="12" y="120">agentic path</text>
+    <text x="347" y="406">conversational path</text>
+    <text x="347" y="494">agentic path</text>
+  </g>
+  <g text-anchor="middle">
+    <text x="85" y="58">A person's</text>
+    <text x="85" y="78">message</text>
+    <text x="85" y="158">A proposed</text>
+    <text x="85" y="178">tool call</text>
+    <text x="310" y="52" font-weight="bold">Bounded reader</text>
+    <text x="310" y="72">Claude Haiku 4.5, fixed prompt;</text>
+    <text x="310" y="90">reads the current message only</text>
+    <text x="310" y="152" font-weight="bold">Deterministic intake</text>
+    <text x="310" y="172">tool specification and arguments;</text>
+    <text x="310" y="190">deployer-attested resolvers</text>
+    <text x="565" y="68" font-weight="bold">Canonical Action</text>
+    <text x="565" y="88" font-weight="bold">Vector (CAV)</text>
+    <text x="565" y="122">nine structural fields,</text>
+    <text x="565" y="142">each a closed value set</text>
+    <text x="565" y="162">or BLANK, never coerced</text>
+    <text x="840" y="56" font-weight="bold">Sealed substrate</text>
+    <text x="840" y="84">93 primitive cards: relations,</text>
+    <text x="840" y="104">polarity, weights, hard stop,</text>
+    <text x="840" y="124">voice and citations;</text>
+    <text x="840" y="152">93 manifolds: operative tests</text>
+    <text x="840" y="180" font-size="13" font-style="italic" fill="#444">tampering changes the seal digest</text>
+    <text x="500" y="263" font-weight="bold">The gate: one pure function of the CAV, with no model, no clock and no randomness</text>
+    <text x="92" y="300" font-weight="bold">1. Firing</text>
+    <text x="92" y="320">rules light</text>
+    <text x="92" y="338">primitives</text>
+    <text x="255" y="300" font-weight="bold">2. Propagation</text>
+    <text x="255" y="320">co-activation</text>
+    <text x="255" y="338">edges spread it</text>
+    <text x="418" y="300" font-weight="bold">3. Suppression</text>
+    <text x="418" y="320">dampens,</text>
+    <text x="418" y="338">never removes</text>
+    <text x="581" y="300" font-weight="bold">4. Resolution</text>
+    <text x="581" y="320">hard stop first,</text>
+    <text x="581" y="338">then the verdict</text>
+    <text x="744" y="300" font-weight="bold">5. Packet</text>
+    <text x="744" y="320">named, weighted</text>
+    <text x="744" y="338">considerations</text>
+    <text x="907" y="300" font-weight="bold">6. Trace</text>
+    <text x="907" y="320">every value,</text>
+    <text x="907" y="338">one digest</text>
+  </g>
+  <g>
+    <text x="24" y="438" font-weight="bold">Verdict and position</text>
+    <text x="24" y="464"><tspan font-weight="bold">ACCEPT</tspan>: earned, rare</text>
+    <text x="24" y="488"><tspan font-weight="bold">GOVERN</tspan>: the default; the act</text>
+    <text x="24" y="508">proceeds carrying a named,</text>
+    <text x="24" y="528">weighted set of concerns</text>
+    <text x="24" y="552"><tspan font-weight="bold">REFUSE</tspan>: structural collapse only</text>
+    <text x="359" y="440">The packet is rendered once into</text>
+    <text x="359" y="460">the answering model's instructions</text>
+    <text x="689" y="440">The answering model, switchable</text>
+    <text x="689" y="460">among vendors, answers once</text>
+    <text x="359" y="520">Enforced before the tool runs:</text>
+    <text x="359" y="538">REFUSE blocks, ACCEPT allows,</text>
+    <text x="359" y="556">GOVERN records or holds for a human</text>
+    <text x="689" y="528">The tool runs only on the</text>
+    <text x="689" y="548">arguments that were judged</text>
+  </g>
+  <g text-anchor="middle">
+    <text x="500" y="625"><tspan font-weight="bold">The record.</tspan> Each trace is stored under the digest of its bytes, chained in an append-only ledger, and re-checked by conformance.</text>
+    <text x="500" y="647">Determinism, fidelity, the seal and a behavioral fingerprint fold into one evidence root.</text>
+  </g>
+</svg>

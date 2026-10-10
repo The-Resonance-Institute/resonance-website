@@ -39,6 +39,21 @@ def tracked() -> list:
 
 SELF = "tests/test_no_mechanism_here.py"
 
+# THE RESEARCH ZONE, 2026-10-10. The published research edition and the pages that render it.
+#
+# RULING (operator, 2026-10-10): the project is open source, the books excepted, and every earlier
+# disclosure ruling is void. The paper's Appendix A is the full index of all 93 primitives, so it
+# names them by id, and a research record that withheld its own subject would be worthless.
+#
+# WHAT THIS ZONE DOES NOT EXCUSE. The card-marker check below applies here exactly as everywhere
+# else, and the edition passes it: the markers identify authored card files, which is mechanism, and
+# no ruling has released those. The runtime, card-file and private-path checks are untouched.
+RESEARCH_ZONE = ("app/research/", "content/research/", "public/research/")
+
+
+def in_research_zone(rel: str) -> bool:
+    return any(rel.startswith(z) for z in RESEARCH_ZONE)
+
 
 def test_the_runtime_package_is_not_here():
     """A `moris` directory holding PYTHON. The site has a perfectly legitimate `app/moris/` route, and
@@ -62,10 +77,22 @@ def test_no_semantic_card_is_here():
 
 
 def test_nothing_reaches_into_the_research_repo():
-    """A relative path out of this tree is a build that works on one laptop and publishes on the next."""
+    """A relative path out of this tree is a build that works on one laptop and publishes on the next.
+
+    WIDENED 2026-10-10, on the operator's word, after a real escape. The research edition arrived
+    carrying four local folder paths inside Appendix D: a drive path and three home-folder prefixes,
+    written as provenance for the earliest chronology rows. The research repository's own build
+    screened only for dashes and repository names, so they went through it; this test did not catch
+    them either, because it read neither HTML nor drive letters. They were found by reading the
+    generated edition before it was rendered, which is not a control.
+
+    TWO CHANGES. HTML is scanned, because the edition this repository now serves is HTML. And any
+    absolute local path is refused, not merely the names of the two sibling repositories: the next
+    slip will not be called Moris_asset.
+    """
     bad = []
     for rel in tracked():
-        if rel == SELF or not re.search(r"\.(ts|tsx|js|jsx|mjs|cjs|json|py|yml|yaml)$", rel):
+        if rel == SELF or not re.search(r"\.(ts|tsx|js|jsx|mjs|cjs|json|py|yml|yaml|html|css|md)$", rel):
             continue
         p = ROOT / rel
         if not p.exists():
@@ -77,7 +104,20 @@ def test_nothing_reaches_into_the_research_repo():
         for pat in (r"Moris_Final", r"Moris_asset", r"resonance-api[/\\]", r"\.\./\.\./Moris"):
             if re.search(pat, text):
                 bad.append(f"{rel}: {pat}")
-    assert not bad, f"references into the research or API repo: {bad[:5]}"
+
+        # ANY absolute path on somebody's machine, whatever it is named. A drive letter followed by a
+        # separator, or a home, Downloads, Desktop, OneDrive or AppData folder. Matched case
+        # insensitively, because Windows paths arrive in every casing.
+        # The drive-letter pattern must not fire on a URL scheme: "https://" ends in "s:/" and would
+        # otherwise flag every outbound link on the site. A real drive letter is a single letter with
+        # no letter before it, so the lookbehind is what separates "C:\" from the tail of "https:".
+        for pat in (r"(?<![A-Za-z])[A-Za-z]:[\\/]",
+                    r"[/\\](?:Users|home)[/\\][A-Za-z0-9._-]+[/\\]",
+                    r"(?:OneDrive|AppData|[/\\]Downloads[/\\]|[/\\]Desktop[/\\])"):
+            m = re.search(pat, text, re.I)
+            if m:
+                bad.append(f"{rel}: local path {m.group(0)!r}")
+    assert not bad, f"references into the research or API repo, or local paths: {bad[:6]}"
 
 
 def test_no_card_or_primitive_text_is_pasted_anywhere():
@@ -93,7 +133,8 @@ def test_no_card_or_primitive_text_is_pasted_anywhere():
             text = p.read_text(encoding="utf-8", errors="strict")
         except (UnicodeDecodeError, OSError):
             continue
-        if re.search(r"\bCP\d{3}\b", text):
+        # RULING 3, 2026-10-10: primitive ids are released in the research zone and nowhere else.
+        if re.search(r"\bCP\d{3}\b", text) and not in_research_zone(rel):
             hits.append(f"{rel}: primitive id")
         for marker in ("canonical_test", "text_anchor", "activation_signature",
                        "MORIS CONSCIENCE :: CONSIDER"):

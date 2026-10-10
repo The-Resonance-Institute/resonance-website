@@ -1,0 +1,188 @@
+/* STYLES FOR THE GENERATED RESEARCH EDITION, 2026-10-10.
+ *
+ * The three fragments in content/research/ are produced by the research repository's build and
+ * rendered verbatim. They are plain semantic HTML with no classes of their own, so every rule here
+ * is a descendant of .research-prose and nothing here can reach the rest of the site.
+ *
+ * WHY A SEPARATE FILE rather than globals.css: globals.css is 31 lines of site-wide theme and this
+ * is 150 lines serving three routes. Keeping them apart means a future edit to the research
+ * typography cannot alter the books pages by accident.
+ *
+ * The colour tokens are the site's own, so the paper reads as part of the site rather than as a
+ * pasted document.
+ */
+
+.research-prose {
+  color: var(--color-ink);
+  font-size: 1.0625rem;
+  line-height: 1.75;
+}
+
+.research-prose > :first-child {
+  margin-top: 0;
+}
+
+/* Headings. The fragments run h1 to h4; ids are already on them, so a contents list can link in. */
+.research-prose h1,
+.research-prose h2,
+.research-prose h3,
+.research-prose h4 {
+  font-family: var(--font-serif), Georgia, serif;
+  font-weight: 400;
+  line-height: 1.25;
+  color: var(--color-ink);
+  scroll-margin-top: 2rem;
+}
+
+.research-prose h1 {
+  font-size: 2rem;
+  margin: 2.5rem 0 1rem;
+}
+
+.research-prose h2 {
+  font-size: 1.5rem;
+  margin: 2.75rem 0 0.75rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--color-line);
+}
+
+.research-prose h3 {
+  font-size: 1.1875rem;
+  margin: 2rem 0 0.5rem;
+}
+
+.research-prose h4 {
+  font-size: 1.0625rem;
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-weight: 600;
+  margin: 1.5rem 0 0.5rem;
+}
+
+.research-prose p {
+  margin: 1.1rem 0;
+}
+
+.research-prose a {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-decoration-color: var(--color-line);
+  text-underline-offset: 3px;
+}
+
+.research-prose a:hover {
+  text-decoration-color: var(--color-accent);
+}
+
+.research-prose ul,
+.research-prose ol {
+  margin: 1.1rem 0;
+  padding-left: 1.4rem;
+}
+
+.research-prose li {
+  margin: 0.4rem 0;
+}
+
+.research-prose ul {
+  list-style: disc;
+}
+
+.research-prose ol {
+  list-style: decimal;
+}
+
+.research-prose blockquote {
+  margin: 1.5rem 0;
+  padding-left: 1.1rem;
+  border-left: 2px solid var(--color-line);
+  color: var(--color-muted);
+}
+
+.research-prose code {
+  font-size: 0.875em;
+  background: var(--color-accent-soft);
+  padding: 0.1em 0.35em;
+  border-radius: 3px;
+}
+
+.research-prose pre {
+  margin: 1.4rem 0;
+  padding: 1rem;
+  overflow-x: auto;
+  background: #f4f2ec;
+  border: 1px solid var(--color-line);
+  border-radius: 8px;
+}
+
+.research-prose pre code {
+  background: none;
+  padding: 0;
+}
+
+/* TABLES SCROLL INSIDE THEIR OWN BOX, NEVER THE PAGE. Appendix A is fifteen columns wide and will
+ * not fit a phone at any font size, so the wrapper below takes the horizontal scroll and the
+ * document itself never moves sideways. The wrapper is added at render time by lib/research.ts;
+ * the fragment on disk is untouched. */
+.research-scroll {
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  border: 1px solid var(--color-line);
+  border-radius: 8px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.research-prose table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.research-prose th,
+.research-prose td {
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--color-line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.research-prose thead th {
+  font-weight: 600;
+  white-space: nowrap;
+  background: #f4f2ec;
+}
+
+.research-prose tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.research-prose figure {
+  margin: 1.75rem 0;
+}
+
+.research-prose img,
+.research-prose svg {
+  max-width: 100%;
+  height: auto;
+}
+
+.research-prose figcaption {
+  margin-top: 0.6rem;
+  font-size: 0.875rem;
+  color: var(--color-muted);
+}
+
+.research-prose hr {
+  margin: 2.5rem 0;
+  border: 0;
+  border-top: 1px solid var(--color-line);
+}
+
+/* The reference list the build emits at the end of the paper. */
+.research-prose #refs p {
+  margin: 0.6rem 0;
+  padding-left: 1.5rem;
+  text-indent: -1.5rem;
+  font-size: 0.9375rem;
+  color: var(--color-muted);
+}
