@@ -47,7 +47,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "The Resonance Institute",
   description:
-    "The Resonance Institute is the private studio of C. T. Herndon, where enduring questions meet modern technology. Philosophy as a posture rather than a method: the alignment of inner and outer, and how a person stands toward the world. Tuning, Transformation, Time and the Sacred, twelve volumes complete, a book for working leaders, and software held to the same standard.",
+    "The Resonance Institute is the private studio of C. T. Herndon, where enduring questions meet modern technology. Philosophy as a posture rather than a method: the alignment of inner and outer, and how a person stands toward the world. Tuning, Transformation, Time and the Sacred, twelve volumes complete, a book for working leaders, software held to the same standard, and the research behind it published in full.",
   openGraph: {
     type: "website",
     url: "https://www.resonanceinstitutellc.com",
@@ -113,15 +113,22 @@ export default function Home() {
         <p className="mt-6 max-w-3xl font-serif text-xl font-light leading-relaxed text-ink">
           Philosophy as a posture rather than a method: the alignment of inner
           and outer, and how a person stands toward the world. A book for
-          working leaders. And software held to the same standard.
+          working leaders. And software held to the same standard, with the
+          research that tested it published in full.
         </p>
       </section>
 
-      {/* THE THREE DESTINATIONS, in header order. The Return leads: it is the one object here that
-          is publishing, and the twelve volumes are complete and sitting behind it. */}
+      {/* THE FOUR DESTINATIONS, in header order. 2026-10-10: the research section was added to the
+          site and this grid still showed three, so the front door under-described the place. The
+          Return leads because it is the one object here that is publishing; the twelve volumes are
+          complete and sit behind it.
+
+          FOUR ACROSS WOULD BE FOUR THIN COLUMNS and none of these cards carries its sentence in
+          that width, so the grid is two by two from the small breakpoint up. On a phone it stacks,
+          as three did. */}
       <section className="border-t border-line py-12">
         <h2 className="font-serif text-2xl text-ink">What is here</h2>
-        <div className="mt-6 grid gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-3">
+        <div className="mt-6 grid gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-2">
           <Link
             href="/the-return"
             className="group flex flex-col bg-white p-6 transition-colors hover:bg-accent-soft"
@@ -162,6 +169,37 @@ export default function Home() {
             </p>
             <p className="mt-4 text-sm font-medium text-accent">
               Enter the philosophy <span aria-hidden>&rarr;</span>
+            </p>
+          </Link>
+
+          {/* THE RESEARCH, added 2026-10-10, and placed third to match the header rather than for
+              emphasis. It sits beside Ask MORIS on purpose: the demonstration is the thing you can
+              touch and the paper is the account of whether it holds, so a visitor who wants the
+              evidence rather than the toy has somewhere to go from the front door. */}
+          <Link
+            href="/research"
+            className="group flex flex-col bg-white p-6 transition-colors hover:bg-accent-soft"
+          >
+            {/* NOT THE DOCUMENTS' OWN TITLES, and the reason is the vocabulary guard rather than
+                taste. The letter is called "A Conscience Can Be Chosen" and the paper "An
+                Operational Artificial Conscience"; both contain phrases the books-first pivot
+                removed from site copy. The research zone is exempt from that guard, this page is
+                not, and widening the exemption to the front door to quote a title would be an
+                operator decision rather than an edit. Both titles are shown in full the moment a
+                visitor arrives at /research. */}
+            <p className="text-xs font-medium uppercase tracking-[0.18em] text-muted">
+              The paper
+            </p>
+            <h3 className="mt-2 font-serif text-xl text-ink transition-colors group-hover:text-accent">
+              The research behind MORIS
+            </h3>
+            <p className="mt-2 flex-1 text-sm leading-relaxed text-muted">
+              Can a moral philosophy written by a person be made into a working
+              conscience for AI? The full paper, every appendix, and the
+              evidence behind each figure.
+            </p>
+            <p className="mt-4 text-sm font-medium text-accent">
+              Read the research <span aria-hidden>&rarr;</span>
             </p>
           </Link>
 
