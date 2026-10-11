@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { fragment, meta, PDF_PATH } from "@/lib/research";
 import "../../research.css";
 
-// THE APPENDICES, 2026-10-10. Research report v1.1, source commit 7b5e62b. Version 1.0 was withdrawn the same day: it
+// THE APPENDICES, 2026-10-10. Research report v1.2, source commit 598afd6. Version 1.0 was withdrawn the same day: it
 // stated an intended royalty-free patent pledge and a code license carrying a patent grant, neither
 // of which the operator authorized. The patent stays proprietary; the information is open source.
 //

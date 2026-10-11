@@ -5,7 +5,7 @@ import "../research.css";
 
 // THE RESEARCH SECTION, 2026-10-10. Replaces the open letter in the header.
 //
-// Research report v1.1, source commit 7b5e62b. Version 1.0 was withdrawn the same day: it
+// Research report v1.2, source commit 598afd6. Version 1.0 was withdrawn the same day: it
 // stated an intended royalty-free patent pledge and a code license carrying a patent grant, neither
 // of which the operator authorized. The patent stays proprietary; the information is open source.
 //

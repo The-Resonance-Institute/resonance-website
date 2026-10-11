@@ -5,7 +5,7 @@ import path from "node:path";
 //
 // content/research/ holds four files copied byte-for-byte out of the research repository's build:
 // letter.html, paper.html, appendices.html and meta.json. They are the published edition of record,
-// version 1.1, source commit 7b5e62b.
+// version 1.2, source commit 598afd6.
 //
 // NOTHING IN THIS REPOSITORY MAY EDIT THEM. A wrong word is fixed in the source of record, the
 // edition is rebuilt there, and the files are copied again. Fixing a typo here would make the site
