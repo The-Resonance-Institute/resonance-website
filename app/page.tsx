@@ -186,7 +186,12 @@ export default function Home() {
                 removed from site copy. The research zone is exempt from that guard, this page is
                 not, and widening the exemption to the front door to quote a title would be an
                 operator decision rather than an edit. Both titles are shown in full the moment a
-                visitor arrives at /research. */}
+                visitor arrives at /research.
+
+                RULED 2026-10-10: the operator read this wording and accepted it. "I'm OK with
+                research behind moris." So this is the chosen line, not a workaround waiting to be
+                undone, and widening the vocabulary exemption to reach the front door is not the fix
+                for it. */}
             <p className="text-xs font-medium uppercase tracking-[0.18em] text-muted">
               The paper
             </p>
