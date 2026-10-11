@@ -2,10 +2,10 @@
   "title": "An Operational Artificial Conscience",
   "subtitle": "Compiling a Human-Authored Moral Ontology into a Deterministic Runtime: Results and Limits of MORIS",
   "author": "Christopher T. Herndon, The Resonance Institute LLC",
-  "date": "Research report, version 1.0, October 2026",
+  "date": "Research report, version 1.1, October 2026",
   "pdf": {
     "file": "MORIS_Research_Report.pdf",
-    "bytes": 1135114,
-    "sha256": "1dc2879a389605f8c58ea9fe50b8897d3c5ef5480808ca90257012724b4803fb"
+    "bytes": 1140733,
+    "sha256": "d2eb25eb9b409a53c2359168cacb975bbb995a43a6691bc84f72d4d10859de21"
   }
 }

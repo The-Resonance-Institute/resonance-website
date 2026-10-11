@@ -1079,3 +1079,31 @@ def test_the_contact_description_matches_the_paragraph():
     # the JSX wraps the same sentence across lines, so compare on collapsed whitespace
     assert desc in body.replace(desc, desc, 1) and body.count(desc) >= 2, (
         "the contact page description no longer matches its paragraph: " + desc)
+
+
+def test_the_research_pdf_page_count_matches_what_the_page_claims():
+    """THE ONE EDITION FIGURE THAT IS NOT IN meta.json, so it is the one that can go stale.
+
+    It did. The download block said 69 pages for the whole of version 1.0, and version 1.1 is 70.
+    The checksum guard would not have caught it, because the checksum was correct for the new PDF
+    while the sentence beside it described the old one.
+
+    The count is read out of the PDF's own page tree rather than from a parsing library, so this
+    adds no dependency: a PDF records it as /Count beside /Type /Pages, and the root node carries
+    the total.
+    """
+    pdf = ROOT / "public" / "research" / "MORIS_Research_Report.pdf"
+    blob = pdf.read_bytes()
+    counts = [int(m.group(1)) for m in
+              re.finditer(rb"/Type\s*/Pages.{0,400}?/Count\s+(\d+)", blob, re.S)]
+    assert counts, "no page tree found in the research PDF"
+    actual = max(counts)
+
+    lib = (ROOT / "lib" / "research.ts").read_text(encoding="utf-8")
+    m = re.search(r"PDF_PAGES\s*=\s*(\d+)", lib)
+    assert m, "lib/research.ts no longer exports PDF_PAGES"
+    claimed = int(m.group(1))
+
+    assert claimed == actual, (
+        f"the site says the report is {claimed} pages; the served PDF has {actual}. "
+        f"Update PDF_PAGES in lib/research.ts when the edition is replaced.")

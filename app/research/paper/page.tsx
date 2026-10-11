@@ -3,7 +3,9 @@ import type { Metadata } from "next";
 import { fragment, meta, PDF_PATH } from "@/lib/research";
 import "../../research.css";
 
-// THE PAPER, 2026-10-10. Research report v1.0, source commit 032735a.
+// THE PAPER, 2026-10-10. Research report v1.1, source commit 7b5e62b. Version 1.0 was withdrawn the same day: it
+// stated an intended royalty-free patent pledge and a code license carrying a patent grant, neither
+// of which the operator authorized. The patent stays proprietary; the information is open source.
 //
 // Rendered verbatim from content/research/paper.html. The title block above it is built from
 // meta.json rather than written here, so the page cannot drift from the edition it serves.
@@ -66,7 +68,7 @@ export default function Paper() {
         <h2 className="font-serif text-lg text-ink">How to cite</h2>
         <p className="mt-3 text-sm leading-relaxed text-muted">
           Herndon, Christopher T. 2026. <em>{m.title}: {m.subtitle}.</em>{" "}
-          Research report, version 1.0. The Resonance Institute LLC.
+          {m.date}. The Resonance Institute LLC.
         </p>
       </section>
     </div>

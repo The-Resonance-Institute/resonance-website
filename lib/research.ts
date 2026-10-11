@@ -5,11 +5,11 @@ import path from "node:path";
 //
 // content/research/ holds four files copied byte-for-byte out of the research repository's build:
 // letter.html, paper.html, appendices.html and meta.json. They are the published edition of record,
-// version 1.0, source commit 032735a.
+// version 1.1, source commit 7b5e62b.
 //
 // NOTHING IN THIS REPOSITORY MAY EDIT THEM. A wrong word is fixed in the source of record, the
 // edition is rebuilt there, and the files are copied again. Fixing a typo here would make the site
-// and the PDF disagree while both claimed to be version 1.0, and the PDF is checksummed.
+// and the PDF disagree while both claimed to be the same version, and the PDF is checksummed.
 //
 // The fragments carry no html, head or body wrapper and no classes of their own. They are rendered
 // inside .research-prose, whose styles live in app/research.css.
@@ -45,4 +45,9 @@ export function fragment(name: "letter" | "paper" | "appendices"): string {
 // The PDF is served from public/research/ and is byte-identical to the research repository's
 // committed edition. tests/test_books_first.py recomputes its sha256 against meta.json, so a
 // re-export that changed a single byte without the edition changing would fail the suite.
+// THE PAGE COUNT IS NOT IN meta.json, so it is stated here once and guarded. It went stale on the
+// 1.0 to 1.1 rebuild, when 69 pages became 70 and the download block on /research still said 69.
+// tests/test_books_first.py reads the count out of the PDF's own page tree and fails if this number
+// disagrees, so the next rebuild cannot leave it wrong quietly.
+export const PDF_PAGES = 70;
 export const PDF_PATH = "/research/MORIS_Research_Report.pdf";
