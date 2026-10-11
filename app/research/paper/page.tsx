@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { fragment, meta, PDF_PATH } from "@/lib/research";
+import { DOI_URL, fragment, meta, PDF_PATH } from "@/lib/research";
 import "../../research.css";
 
 // THE PAPER, 2026-10-10. Research report v1.2, source commit 598afd6. Version 1.0 was withdrawn the same day: it
@@ -14,8 +14,9 @@ import "../../research.css";
 // is served from public/research/figures/. The fragment's own href decides that path, which is why
 // the file sits where it does rather than anywhere more convenient.
 //
-// THE CITATION LINE carries no DOI. There is not one yet; it is added when the Zenodo deposit is
-// made, and it is added here only after it exists.
+// THE CITATION LINE CARRIES THE CONCEPT DOI, added 2026-10-11 once the deposit existed and not
+// before. It is the all-versions DOI, so a citation made today still reaches the paper after the
+// next version replaces this one. The version DOI is not used anywhere on this site.
 
 const m = meta();
 
@@ -68,7 +69,13 @@ export default function Paper() {
         <h2 className="font-serif text-lg text-ink">How to cite</h2>
         <p className="mt-3 text-sm leading-relaxed text-muted">
           Herndon, Christopher T. 2026. <em>{m.title}: {m.subtitle}.</em>{" "}
-          {m.date}. The Resonance Institute LLC.
+          {m.date}. The Resonance Institute LLC.{" "}
+          <a
+            href={DOI_URL}
+            className="text-accent underline decoration-line underline-offset-2 hover:decoration-accent"
+          >
+            {DOI_URL}
+          </a>
         </p>
       </section>
     </div>

@@ -49,5 +49,16 @@ export function fragment(name: "letter" | "paper" | "appendices"): string {
 // 1.0 to 1.1 rebuild, when 69 pages became 70 and the download block on /research still said 69.
 // tests/test_books_first.py reads the count out of the PDF's own page tree and fails if this number
 // disagrees, so the next rebuild cannot leave it wrong quietly.
+// THE CONCEPT DOI, deposited 2026-10-11. Zenodo issues two: one for the specific version and one
+// for all versions. This is the ALL-VERSIONS doi, which always resolves to the newest deposit, so a
+// citation made today still reaches the current paper after the next version replaces this one. The
+// version DOI, 10.5281/zenodo.23302504, is deliberately not used anywhere on the site: it goes stale
+// the moment a new version is deposited, and a stale citation is worse than none.
+//
+// Verified before it was published here: both DOIs resolve, and the file Zenodo serves is
+// byte-identical to the PDF in public/research/.
+export const DOI = "10.5281/zenodo.23302503";
+export const DOI_URL = "https://doi.org/10.5281/zenodo.23302503";
+
 export const PDF_PAGES = 70;
 export const PDF_PATH = "/research/MORIS_Research_Report.pdf";

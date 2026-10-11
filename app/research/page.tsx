@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { fragment, meta, PDF_PAGES, PDF_PATH } from "@/lib/research";
+import { DOI_URL, fragment, meta, PDF_PAGES, PDF_PATH } from "@/lib/research";
 import "../research.css";
 
 // THE RESEARCH SECTION, 2026-10-10. Replaces the open letter in the header.
@@ -80,6 +80,21 @@ export default function Research() {
             </p>
           </a>
         </div>
+
+        {/* ARCHIVED ON ZENODO, 2026-10-11. The deposit is what makes this citable and what keeps it
+            reachable if this site ever stops serving it, so it sits under the contents rather than
+            inside a card: it is not a fourth destination, it is where the three above are kept.
+            The link is the ALL-VERSIONS concept DOI, held once in lib/research.ts so this and the
+            citation line on the paper cannot drift apart. */}
+        <p className="mt-5 text-sm text-muted">
+          Archived on Zenodo:{" "}
+          <a
+            href={DOI_URL}
+            className="text-accent underline decoration-line underline-offset-2 hover:decoration-accent"
+          >
+            {DOI_URL}
+          </a>
+        </p>
       </section>
     </div>
   );
