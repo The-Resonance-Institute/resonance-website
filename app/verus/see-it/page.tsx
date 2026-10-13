@@ -1,0 +1,91 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import { VerusNav, VerusNext } from "@/components/verus-nav";
+
+// PROJECT VERUS, SEE IT, 2026-10-13. No VERUS runs on the web (agreed 2026-10-12): it is shown live, by request,
+// on the demonstration group or, under an agreement, on a copy of a company's own data inside its network. The
+// request is a prefilled mail to the one inbox, as The Return's notify buttons are, and for the reasons the
+// contact page records: no form, no vendor in between.
+
+export const metadata: Metadata = {
+  title: "See VERUS",
+  description:
+    "See VERUS run: a twenty-minute live demonstration on the demonstration group, or on a copy of your own data inside your own network.",
+};
+
+const EMAIL = "contact@resonanceinstitutellc.com";
+const ASK = `mailto:${EMAIL}?subject=${encodeURIComponent("Project VERUS demonstration")}`;
+const link = "text-accent underline decoration-line hover:decoration-accent";
+
+export default function SeeIt() {
+  return (
+    <>
+      <VerusNav current="/verus/see-it" />
+      <div className="mx-auto max-w-3xl px-6 pb-20">
+        <section className="pt-16 pb-10 sm:pt-24">
+          <p className="text-xs font-medium uppercase tracking-[0.18em] text-accent">Project VERUS</p>
+          <h1 className="mt-4 font-serif text-4xl leading-tight text-ink sm:text-5xl">See it</h1>
+          <p className="mt-5 text-lg leading-relaxed text-muted">
+            The best way to judge VERUS is to watch it run on a plant like yours.
+          </p>
+        </section>
+
+        <section className="space-y-5 border-t border-line pt-10 text-lg leading-relaxed text-ink">
+          <h2 className="font-serif text-2xl text-ink">A live demonstration</h2>
+          <p>
+            Twenty minutes, on the demonstration group: a system connected cold, the questions it asks, the data
+            findings, a dashboard, a question in plain words, a finding with its plan, an agent from a sentence, an
+            answer from the quality manual, and the morning brief. For an owner or a board, it starts from the
+            owner&rsquo;s view of both companies.
+          </p>
+          <p>
+            Once an agreement is in place, it can run on a copy of your own data, inside your own network.
+          </p>
+          <p>
+            <a
+              href={ASK}
+              className="inline-flex items-center gap-1.5 rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-[#0b5f58]"
+            >
+              Ask for a demonstration
+            </a>
+          </p>
+          <p className="text-base text-muted">
+            Or write to <span className="select-all text-ink">{EMAIL}</span>. It reaches me directly.
+          </p>
+        </section>
+
+        <section className="mt-14 border-t border-line pt-10 leading-relaxed text-ink">
+          <h2 className="font-serif text-2xl text-ink">Before you ask</h2>
+          <ul className="mt-4 space-y-3">
+            <li>
+              <strong>Your data does not leave your network.</strong> VERUS runs inside it, and it only reads.
+            </li>
+            <li>
+              <strong>No model is required to start.</strong> The data findings, dashboards and confirmed metrics work
+              without one.
+            </li>
+            <li>
+              <strong>It is in development.</strong>{" "}
+              <Link href="/verus/evidence" className={link}>
+                The evidence
+              </Link>{" "}
+              says exactly what has been measured, and when.
+            </li>
+          </ul>
+          <p className="mt-6">
+            <Link href="/verus/inside" className={link}>
+              Inside VERUS
+            </Link>{" "}
+            shows still pictures of the demonstration, and{" "}
+            <Link href="/verus/how-it-works" className={link}>
+              How it works
+            </Link>{" "}
+            walks through it step by step.
+          </p>
+        </section>
+
+        <VerusNext items={[{ href: "/verus", label: "What it is" }]} />
+      </div>
+    </>
+  );
+}

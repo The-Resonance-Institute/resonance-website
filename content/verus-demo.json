@@ -1,0 +1,661 @@
+{
+ "note": "Captured from the VERUS demonstration on 13 October 2026, running as of 29 September 2026. Synthetic data: two invented companies. Regenerate from a demonstration run; never edit a number by hand.",
+ "asOf": "Tuesday, September 29, 2026",
+ "owner": {
+  "title": "Owner: the companies",
+  "tiles": [
+   {
+    "title": "Sales shipped last month, by company",
+    "period": "last full month",
+    "unit": "currency",
+    "kind": "bar",
+    "caveat": "Amounts are in more than one currency, so they are shown by currency, not added together.",
+    "rows": [
+     {
+      "period": "2026-08-01",
+      "member": "A1",
+      "name": "Alpha Fabrication Inc",
+      "currency": "USD",
+      "value": 1789176.14043077
+     },
+     {
+      "period": "2026-08-01",
+      "member": "B2",
+      "name": "Beta Extrusions Ltd",
+      "currency": "CAD",
+      "value": 734986.95362682
+     }
+    ]
+   },
+   {
+    "title": "On time to the original promise, last month, by company",
+    "period": "last full month",
+    "unit": "percent",
+    "kind": "bar",
+    "caveat": "The first promise VERUS saw is used, and before it was connected some promises were already set to the ship date after shipping. 1,252 order lines had their promise date set to the ship date after shipping.",
+    "rows": [
+     {
+      "period": "2026-08-01",
+      "member": "A1",
+      "name": "Alpha Fabrication Inc",
+      "currency": null,
+      "value": 0.7043010752688172
+     },
+     {
+      "period": "2026-08-01",
+      "member": "B2",
+      "name": "Beta Extrusions Ltd",
+      "currency": null,
+      "value": 0.66
+     }
+    ]
+   },
+   {
+    "title": "Scrap rate last month, by company",
+    "period": "last full month",
+    "unit": "percent",
+    "kind": "bar",
+    "caveat": null,
+    "rows": [
+     {
+      "period": "2026-08-01",
+      "member": "A1",
+      "name": "Alpha Fabrication Inc",
+      "currency": null,
+      "value": 0.052891156462585034
+     },
+     {
+      "period": "2026-08-01",
+      "member": "B2",
+      "name": "Beta Extrusions Ltd",
+      "currency": null,
+      "value": 0.05305738476011289
+     }
+    ]
+   },
+   {
+    "title": "Downtime last month, by company",
+    "period": "last full month",
+    "unit": "minutes",
+    "kind": "bar",
+    "caveat": null,
+    "rows": [
+     {
+      "period": "2026-08-01",
+      "member": "A1",
+      "name": "Alpha Fabrication Inc",
+      "currency": null,
+      "value": 5796
+     },
+     {
+      "period": "2026-08-01",
+      "member": "B2",
+      "name": "Beta Extrusions Ltd",
+      "currency": null,
+      "value": 2962
+     }
+    ]
+   },
+   {
+    "title": "Headcount last month, by company",
+    "period": "last full month",
+    "unit": "count",
+    "kind": "bar",
+    "caveat": null,
+    "rows": [
+     {
+      "period": "2026-08-01",
+      "member": "A1",
+      "name": "Alpha Fabrication Inc",
+      "currency": null,
+      "value": 77.90322580645162
+     },
+     {
+      "period": "2026-08-01",
+      "member": "B2",
+      "name": "Beta Extrusions Ltd",
+      "currency": null,
+      "value": 42
+     }
+    ]
+   },
+   {
+    "title": "Sales shipped, the last 12 months, by company",
+    "period": "the last 12 full months",
+    "unit": "currency",
+    "kind": "line",
+    "caveat": "Amounts are in more than one currency, so they are shown by currency, not added together.",
+    "rows": [
+     {
+      "period": "2025-09-01",
+      "member": "A1",
+      "name": "Alpha Fabrication Inc",
+      "currency": "USD",
+      "value": 1774729.90429567
+     },
+     {
+      "period": "2025-09-01",
+      "member": "B2",
+      "name": "Beta Extrusions Ltd",
+      "currency": "CAD",
+      "value": 557015.78907888
+     },
+     {
+      "period": "2025-10-01",
+      "member": "A1",
+      "name": "Alpha Fabrication Inc",
+      "currency": "USD",
+      "value": 1600157.04844984
+     },
+     {
+      "period": "2025-10-01",
+      "member": "B2",
+      "name": "Beta Extrusions Ltd",
+      "currency": "CAD",
+      "value": 1052417.5614387
+     },
+     {
+      "period": "2025-11-01",
+      "member": "A1",
+      "name": "Alpha Fabrication Inc",
+      "currency": "USD",
+      "value": 1982182.82846566
+     },
+     {
+      "period": "2025-11-01",
+      "member": "B2",
+      "name": "Beta Extrusions Ltd",
+      "currency": "CAD",
+      "value": 1279421.97127443
+     },
+     {
+      "period": "2025-12-01",
+      "member": "A1",
+      "name": "Alpha Fabrication Inc",
+      "currency": "USD",
+      "value": 1802960.50506868
+     },
+     {
+      "period": "2025-12-01",
+      "member": "B2",
+      "name": "Beta Extrusions Ltd",
+      "currency": "CAD",
+      "value": 994675.05097413
+     },
+     {
+      "period": "2026-01-01",
+      "member": "A1",
+      "name": "Alpha Fabrication Inc",
+      "currency": "USD",
+      "value": 876922.22730176
+     },
+     {
+      "period": "2026-01-01",
+      "member": "B2",
+      "name": "Beta Extrusions Ltd",
+      "currency": "CAD",
+      "value": 833655.42929031
+     },
+     {
+      "period": "2026-02-01",
+      "member": "A1",
+      "name": "Alpha Fabrication Inc",
+      "currency": "USD",
+      "value": 1078884.93845209
+     },
+     {
+      "period": "2026-02-01",
+      "member": "B2",
+      "name": "Beta Extrusions Ltd",
+      "currency": "CAD",
+      "value": 357112.11537317
+     },
+     {
+      "period": "2026-03-01",
+      "member": "A1",
+      "name": "Alpha Fabrication Inc",
+      "currency": "USD",
+      "value": 1837970.16713708
+     },
+     {
+      "period": "2026-03-01",
+      "member": "B2",
+      "name": "Beta Extrusions Ltd",
+      "currency": "CAD",
+      "value": 899499.54232862
+     },
+     {
+      "period": "2026-04-01",
+      "member": "A1",
+      "name": "Alpha Fabrication Inc",
+      "currency": "USD",
+      "value": 1768739.89088958
+     },
+     {
+      "period": "2026-04-01",
+      "member": "B2",
+      "name": "Beta Extrusions Ltd",
+      "currency": "CAD",
+      "value": 1128873.71428458
+     },
+     {
+      "period": "2026-05-01",
+      "member": "A1",
+      "name": "Alpha Fabrication Inc",
+      "currency": "USD",
+      "value": 2410782.31863312
+     },
+     {
+      "period": "2026-05-01",
+      "member": "B2",
+      "name": "Beta Extrusions Ltd",
+      "currency": "CAD",
+      "value": 1352319.95230547
+     },
+     {
+      "period": "2026-06-01",
+      "member": "A1",
+      "name": "Alpha Fabrication Inc",
+      "currency": "USD",
+      "value": 2026394.83941988
+     },
+     {
+      "period": "2026-06-01",
+      "member": "B2",
+      "name": "Beta Extrusions Ltd",
+      "currency": "CAD",
+      "value": 944406.68139101
+     },
+     {
+      "period": "2026-07-01",
+      "member": "A1",
+      "name": "Alpha Fabrication Inc",
+      "currency": "USD",
+      "value": 1732855.78026329
+     },
+     {
+      "period": "2026-07-01",
+      "member": "B2",
+      "name": "Beta Extrusions Ltd",
+      "currency": "CAD",
+      "value": 1019126.52919142
+     },
+     {
+      "period": "2026-08-01",
+      "member": "A1",
+      "name": "Alpha Fabrication Inc",
+      "currency": "USD",
+      "value": 1789176.14043077
+     },
+     {
+      "period": "2026-08-01",
+      "member": "B2",
+      "name": "Beta Extrusions Ltd",
+      "currency": "CAD",
+      "value": 734986.95362682
+     }
+    ]
+   }
+  ]
+ },
+ "plant": {
+  "title": "Morning: the plant",
+  "tiles": [
+   {
+    "title": "Build completion yesterday, by department",
+    "period": "yesterday",
+    "unit": "percent",
+    "kind": "bar",
+    "caveat": null,
+    "rows": [
+     {
+      "period": "2026-09-28",
+      "member": "FAB",
+      "name": null,
+      "currency": null,
+      "value": 0.8571428571428571
+     }
+    ]
+   },
+   {
+    "title": "Labor efficiency yesterday, by line",
+    "period": "yesterday",
+    "unit": "percent",
+    "kind": "bar",
+    "caveat": null,
+    "rows": [
+     {
+      "period": "2026-09-28",
+      "member": "CUT",
+      "name": null,
+      "currency": null,
+      "value": 0.8559708295350957
+     },
+     {
+      "period": "2026-09-28",
+      "member": "FINISH",
+      "name": null,
+      "currency": null,
+      "value": 1.1322505800464038
+     }
+    ]
+   },
+   {
+    "title": "Scrap yesterday, by line",
+    "period": "yesterday",
+    "unit": "units",
+    "kind": "bar",
+    "caveat": "This adds quantities in more than one unit of measure (EA, FT); break it down by unit of measure to see each.",
+    "rows": [
+     {
+      "period": "2026-09-28",
+      "member": "CUT",
+      "name": null,
+      "currency": null,
+      "value": 14
+     },
+     {
+      "period": "2026-09-28",
+      "member": "FINISH",
+      "name": null,
+      "currency": null,
+      "value": 3
+     }
+    ]
+   },
+   {
+    "title": "Scrap cost yesterday, by department",
+    "period": "yesterday",
+    "unit": "currency",
+    "kind": "bar",
+    "caveat": null,
+    "rows": [
+     {
+      "period": "2026-09-28",
+      "member": "FAB",
+      "name": null,
+      "currency": null,
+      "value": 2400.88
+     },
+     {
+      "period": "2026-09-28",
+      "member": "PAINT",
+      "name": null,
+      "currency": null,
+      "value": 300.99
+     }
+    ]
+   },
+   {
+    "title": "Downtime yesterday, by reason",
+    "period": "yesterday",
+    "unit": "minutes",
+    "kind": "bar",
+    "caveat": "A breakdown by cause is only as good as the coding behind it, and one code covers most entries. One value, 99, is 56% of the reason code on downtime events from DWNLOG.",
+    "rows": [
+     {
+      "period": "2026-09-28",
+      "member": "20",
+      "name": null,
+      "currency": null,
+      "value": 78
+     },
+     {
+      "period": "2026-09-28",
+      "member": "99",
+      "name": null,
+      "currency": null,
+      "value": 87
+     }
+    ]
+   },
+   {
+    "title": "Setup hours yesterday, by line",
+    "period": "yesterday",
+    "unit": "hours",
+    "kind": "bar",
+    "caveat": null,
+    "rows": [
+     {
+      "period": "2026-09-28",
+      "member": "CUT",
+      "name": null,
+      "currency": null,
+      "value": 3.16
+     },
+     {
+      "period": "2026-09-28",
+      "member": "FINISH",
+      "name": null,
+      "currency": null,
+      "value": 0.86
+     }
+    ]
+   },
+   {
+    "title": "PMs completed against scheduled, last week, by department",
+    "period": "last full week",
+    "unit": "percent",
+    "kind": "bar",
+    "caveat": null,
+    "rows": [
+     {
+      "period": "2026-09-21",
+      "member": "FAB",
+      "name": null,
+      "currency": null,
+      "value": 1
+     }
+    ]
+   },
+   {
+    "title": "Overtime hours last week, by department",
+    "period": "last full week",
+    "unit": "hours",
+    "kind": "bar",
+    "caveat": null,
+    "rows": [
+     {
+      "period": "2026-09-21",
+      "member": "FAB",
+      "name": null,
+      "currency": null,
+      "value": 145.24
+     },
+     {
+      "period": "2026-09-21",
+      "member": "PAINT",
+      "name": null,
+      "currency": null,
+      "value": 13.47
+     }
+    ]
+   },
+   {
+    "title": "Parts below reorder point, by site",
+    "period": "yesterday",
+    "unit": "count",
+    "kind": "bar",
+    "caveat": null,
+    "rows": [
+     {
+      "period": "2026-09-28",
+      "member": "HB",
+      "name": null,
+      "currency": null,
+      "value": 18
+     }
+    ]
+   }
+  ]
+ },
+ "feed": [
+  {
+   "agent": "Key accounts gone quiet",
+   "title": "No customer activity in 107 days: Northern Doors 50 (company code A1, customer number C00050)",
+   "summary": "Number 1 of the 10 largest by Sales entered, at $807,396 from 2025-09-29 to 2026-09-28. Its last customer activity was on 2026-06-14, and the limit is 45 days.",
+   "confidence": 0.85
+  },
+  {
+   "agent": "Customers below 85% on time",
+   "title": "On-time delivery (line level) below its limit, customer number C00036",
+   "summary": "50% from 2026-09-21 to 2026-09-27; the limit is 85%.",
+   "confidence": 0.9
+  },
+  {
+   "agent": "Customers below 85% on time",
+   "title": "On-time delivery (line level) below its limit, customer number C00002",
+   "summary": "75% from 2026-09-21 to 2026-09-27; the limit is 85%.",
+   "confidence": 0.9
+  },
+  {
+   "agent": "Customers below 85% on time",
+   "title": "On-time delivery (line level) below its limit, customer number C00060",
+   "summary": "33.3% from 2026-09-21 to 2026-09-27; the limit is 85%.",
+   "confidence": 0.9
+  },
+  {
+   "agent": "Customers below 85% on time",
+   "title": "On-time delivery (line level) below its limit, customer number C00014",
+   "summary": "75% from 2026-09-21 to 2026-09-27; the limit is 85%.",
+   "confidence": 0.9
+  },
+  {
+   "agent": "Maintenance falling behind before breakdowns",
+   "title": "PM completion fell, work center code KC01: expect downtime minutes to follow",
+   "summary": "PM completion was 0% in the month starting 2026-08-01, against a usual 100%. It moves before downtime minutes by 1 month: expect downtime minutes work center code KC01 to worsen from 2026-09-01 to 2026-09-30.",
+   "confidence": 0.708
+  }
+ ],
+ "brief": {
+  "title": "Your brief for Tuesday 29 September 2026",
+  "period": "Monday 28 September",
+  "compared": "the same day a week before",
+  "summary": [
+   "On-time delivery dropped to 86% with four customers below the 85% limit (C00060 at 33%, C00036 at 50%, C00002 and C00014 at 75%); only C00002 has a plan",
+   "Overtime hours jumped from 7 to 62 hours, labor efficiency fell to 86% from 88%, and scrap nearly doubled from 9 to 17 units",
+   "Sales shipped rose 181% to $61,826 and downtime improved from 283 to 165 minutes",
+   "Steel producer prices up 2% and iron-steel up 1% in August; plastic resins down 1%"
+  ],
+  "metrics": [
+   {
+    "name": "Build completion",
+    "unit": "percent",
+    "value": 0.8571428571428571,
+    "before": 0.7777777777777778,
+    "trend": "better"
+   },
+   {
+    "name": "Labor efficiency",
+    "unit": "percent",
+    "value": 0.8618724290033206,
+    "before": 0.8763665811850453,
+    "trend": "worse"
+   },
+   {
+    "name": "Overtime hours",
+    "unit": "hours",
+    "value": 61.88,
+    "before": 6.72,
+    "trend": "worse"
+   },
+   {
+    "name": "Scrap quantity",
+    "unit": "units",
+    "value": 17,
+    "before": 9,
+    "trend": "worse"
+   },
+   {
+    "name": "Downtime minutes",
+    "unit": "minutes",
+    "value": 165,
+    "before": 283,
+    "trend": "better"
+   },
+   {
+    "name": "PM completion",
+    "unit": "percent",
+    "value": 1,
+    "before": 1,
+    "trend": null
+   },
+   {
+    "name": "On-time delivery against the original promise",
+    "unit": "percent",
+    "value": 0.8571428571428571,
+    "before": 1,
+    "trend": "worse"
+   },
+   {
+    "name": "Sales shipped",
+    "unit": "currency",
+    "value": 61826.12758805,
+    "before": 22027.25342776,
+    "trend": "better"
+   },
+   {
+    "name": "Orders entered",
+    "unit": "count",
+    "value": 1,
+    "before": 1,
+    "trend": null
+   },
+   {
+    "name": "Parts below their safety stock",
+    "unit": "count",
+    "value": 1,
+    "before": null,
+    "trend": null
+   }
+  ],
+  "findings": [
+   {
+    "title": "On-time delivery (line level) below its limit, customer number C00002",
+    "summary": "75% from 2026-09-21 to 2026-09-27; the limit is 85%.",
+    "plan": "accepted"
+   },
+   {
+    "title": "On-time delivery (line level) below its limit, customer number C00014",
+    "summary": "75% from 2026-09-21 to 2026-09-27; the limit is 85%.",
+    "plan": "no plan"
+   },
+   {
+    "title": "On-time delivery (line level) below its limit, customer number C00036",
+    "summary": "50% from 2026-09-21 to 2026-09-27; the limit is 85%.",
+    "plan": "no plan"
+   },
+   {
+    "title": "On-time delivery (line level) below its limit, customer number C00060",
+    "summary": "33.3% from 2026-09-21 to 2026-09-27; the limit is 85%.",
+    "plan": "no plan"
+   }
+  ],
+  "moves": [
+   {
+    "name": "Producer price index: steel mill products",
+    "change_pct": 1.7,
+    "date": "2026-08-01",
+    "reasons": [
+     "Mentions steel, a key material"
+    ]
+   },
+   {
+    "name": "Producer price index: plastic resins and materials",
+    "change_pct": -0.97,
+    "date": "2026-08-01",
+    "reasons": [
+     "Mentions resin, a key material"
+    ]
+   },
+   {
+    "name": "Producer price index: iron and steel",
+    "change_pct": 0.94,
+    "date": "2026-08-01",
+    "reasons": [
+     "Mentions steel, a key material"
+    ]
+   }
+  ]
+ }
+}

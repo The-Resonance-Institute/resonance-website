@@ -29,6 +29,12 @@ const staticRoutes: { path: string; priority: number }[] = [
   { path: "/research", priority: 0.8 },
   { path: "/research/paper", priority: 0.8 },
   { path: "/research/appendices", priority: 0.6 },
+  // PROJECT VERUS, 2026-10-13: the five pages of the section, all meant to be found.
+  { path: "/verus", priority: 0.8 },
+  { path: "/verus/how-it-works", priority: 0.7 },
+  { path: "/verus/inside", priority: 0.7 },
+  { path: "/verus/evidence", priority: 0.6 },
+  { path: "/verus/see-it", priority: 0.6 },
   { path: "/resonance", priority: 0.9 },
   { path: "/about", priority: 0.6 },
   { path: "/contact", priority: 0.6 },
