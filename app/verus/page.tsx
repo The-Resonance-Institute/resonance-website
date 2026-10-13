@@ -2,18 +2,61 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { VerusNav, VerusNext } from "@/components/verus-nav";
 
-// PROJECT VERUS, 2026-10-13, on the operator's word. Industrial operating intelligence from the Institute, written
-// for the people who run plants and the people who own them, not for the philosophy readers the rest of the site
-// serves. It keeps the Institute's standard: every number measured and dated, what is not finished said plainly.
-// The copy is drafted and reviewed in the VERUS repository (docs/site/project-verus) and carried here.
+// PROJECT VERUS, 2026-10-13, on the operator's word. Written in operator language (operator, the same day). VERUS is
+// Latin for true: the page leads with the truth about the operation, around the clock, and with what VERUS is to the
+// people who run it: an analyst, a data scientist and a project manager in one. "Around the clock", not "real time":
+// the fast-moving records are pulled all day and the rest overnight. Every number here was measured on the
+// demonstration and appears on the evidence page or in How it works. Copy drafted in the VERUS repository.
 
 export const metadata: Metadata = {
   title: "Project VERUS",
   description:
-    "VERUS reads the systems an industrial company already runs, the ERP, maintenance, HR and the CRM, and puts what matters in front of the plant manager, the company's leadership and its owner every morning.",
+    "The truth about your operation, around the clock. VERUS watches your ERP, maintenance, HR and CRM data all day, every day: an analyst, a data scientist and a project manager that never go home. Read-only, inside your network.",
 };
 
 const link = "text-accent underline decoration-line hover:decoration-accent";
+
+function Block({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <section className="mt-14 border-t border-line pt-10 leading-relaxed text-ink">
+      <h2 className="font-serif text-2xl text-ink">{title}</h2>
+      <div className="mt-6">{children}</div>
+    </section>
+  );
+}
+
+const ROLES = [
+  {
+    role: "The analyst",
+    line: "Does the daily reporting, so nobody has to build it.",
+    items: [
+      "Yesterday's numbers by line and department, against the same day last week, on one page by six in the morning.",
+      "Dashboards for each job: the plant manager's plant, the owner's companies side by side.",
+      "Plain answers to questions, with the number, how it was calculated and how current the data is.",
+      "Your own documents searched too: the quality manual answers, with the page it came from.",
+    ],
+  },
+  {
+    role: "The data scientist",
+    line: "Watches everything, all day, for what has changed.",
+    items: [
+      "Every line, machine, customer and supplier watched for spikes, slow drifts and early warnings.",
+      "Before a watch is switched on, it is tested against the past year, so you see what it would have caught.",
+      "Bad data called out: catch-all reason codes, promise dates changed after shipping.",
+      "Findings ranked by what they cost in dollars where that can be measured, with outside prices such as steel and resin brought in where they touch your costs.",
+    ],
+  },
+  {
+    role: "The project manager",
+    line: "Keeps the fixes on track until they are done.",
+    items: [
+      "A finding becomes a plan with steps, owners and due dates.",
+      "The plan carries the measure it will be judged by, taken when the plan is accepted.",
+      "On the review date it measures again and says whether the plan worked.",
+      "Open plans show up in the morning brief until they are closed.",
+    ],
+  },
+];
 
 export default function Verus() {
   return (
@@ -23,42 +66,93 @@ export default function Verus() {
         <section className="pt-16 pb-10 sm:pt-24">
           <p className="text-xs font-medium uppercase tracking-[0.18em] text-accent">Project VERUS</p>
           <h1 className="mt-4 font-serif text-4xl leading-tight text-ink sm:text-5xl">
-            Your companies already know what is going wrong.
+            The truth about your operation, around the clock.
           </h1>
           <p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted">
-            VERUS reads it back to the people who need to know, every morning.
+            VERUS watches your ERP, maintenance, HR and CRM data all day, every day. It does the analysis, flags
+            what&rsquo;s going wrong and where the money is, and keeps the fixes on track: an analyst, a data scientist
+            and a project manager that never go home. Read-only. Runs inside your network.
           </p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Link
+              href="/verus/inside"
+              className="inline-flex items-center gap-1.5 rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-[#0b5f58]"
+            >
+              See what it looks like <span aria-hidden>&rarr;</span>
+            </Link>
+            <Link
+              href="/verus/see-it"
+              className="inline-flex items-center gap-1.5 rounded-full border border-line px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:border-accent hover:text-accent"
+            >
+              Ask for a demonstration
+            </Link>
+          </div>
         </section>
 
-        <section className="space-y-5 border-t border-line pt-10 text-lg leading-relaxed text-ink">
-          <p>
-            Every industrial company runs on systems that hold the truth about it: the ERP, the maintenance system,
-            HR, the CRM. The answers are in there. Getting them out takes an analyst, a spreadsheet and a week. By the
-            time they reach the people further from the floor, they have passed through several hands and several
-            definitions.
-          </p>
-          <p>
-            VERUS connects to the systems a company already runs, works out what their records mean, and asks a person
-            only where it is not sure. From then on it answers in plain words, watches what matters, and shows each
-            person what their role needs: one plant, one company, or every company you own.
-          </p>
-        </section>
+        <Block title="Three jobs, done all day, every day">
+          <div className="grid gap-px overflow-hidden rounded-2xl border border-line bg-line">
+            {ROLES.map((r) => (
+              <div key={r.role} className="grid gap-3 bg-white p-6">
+                <div>
+                  <h3 className="font-serif text-xl text-ink">{r.role}</h3>
+                  <p className="mt-1 text-muted">{r.line}</p>
+                </div>
+                <ul className="list-disc space-y-1.5 pl-5 text-[15px]">
+                  {r.items.map((i) => (
+                    <li key={i}>{i}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </Block>
 
-        <section className="mt-14 border-t border-line pt-10">
-          <h2 className="font-serif text-2xl text-ink">Who it is for</h2>
-          <div className="mt-6 grid gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-3">
+        <Block title="What it catches">
+          <p>On the demonstration group, before anyone asked a question:</p>
+          <ul className="mt-4 list-disc space-y-2 pl-5">
+            <li>a scrap spike at work center HB03 in March, $24,421 against a usual $10,705;</li>
+            <li>four customers below 85% on time last week, one at 33%;</li>
+            <li>preventive maintenance falling behind on a work center, flagged as a warning that downtime would follow;</li>
+            <li>the largest customer at one company with no call, visit or email in 107 days;</li>
+            <li>
+              1,252 order lines whose promise date was changed to the ship date after shipping, which makes on-time
+              delivery look better than it was;
+            </li>
+            <li>half of all downtime booked to one catch-all reason code, so the breakdown by reason means little.</li>
+          </ul>
+          <p className="mt-4">
+            The last two are problems in the data itself. They sit under every report built on those numbers, and VERUS
+            calls them out first.
+          </p>
+        </Block>
+
+        <Block title="It shows its work">
+          <p>
+            Every number comes with where it came from, how it was calculated and how current it is. When the data
+            behind a number can&rsquo;t be trusted, the number says so. The everyday measures run on definitions your
+            people confirm, not on a guess: in our tests across five systems, 173 of 173 questions answered that way
+            came back right. Questions typed in your own words lean on an AI model and are not as reliable yet;{" "}
+            <Link href="/verus/evidence" className={link}>
+              the evidence page
+            </Link>{" "}
+            gives the numbers.
+          </p>
+        </Block>
+
+        <Block title="Who uses it">
+          <div className="grid gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-3">
             {[
               {
-                h: "The plant manager",
-                p: "One page at six in the morning: yesterday against the same day last week, what needs a decision, and the plans under way. Questions answered in plain words, without waiting for an analyst.",
+                h: "Plant managers",
+                p: "Their plant only. Yesterday's numbers, the problems that need a decision, and the plans under way, without waiting on an analyst.",
               },
               {
-                h: "The company's leadership",
-                p: "Every plant measured the same way, straight from the systems, with a warning wherever the data itself misleads.",
+                h: "Operations leadership",
+                p: "Every plant on the same definitions, straight from the systems, with a warning wherever the data can't be trusted.",
               },
               {
-                h: "The owner",
-                p: "A holding company, an investor or a board. Every company side by side on one definition, even when each runs a different ERP. Numbers read from the systems, not from a pack prepared for you, and agents watching every company at once.",
+                h: "Owners and boards",
+                p: "Every company side by side, read from the systems rather than from a monthly pack, with problems flagged the week they start.",
               },
             ].map((a) => (
               <div key={a.h} className="bg-white p-6">
@@ -67,100 +161,66 @@ export default function Verus() {
               </div>
             ))}
           </div>
-        </section>
+        </Block>
 
-        <section className="mt-14 border-t border-line pt-10">
-          <h2 className="font-serif text-2xl text-ink">What it does</h2>
-          <ul className="mt-6 space-y-4 leading-relaxed text-ink">
+        <Block title="Setting it up">
+          <ul className="space-y-4">
             <li>
-              <strong>Connects to what you have.</strong> Databases and web services, with prior knowledge of how
-              several common ERP, HR, CRM and maintenance products lay out their records. It reads; it has no way to
-              write anything back.
+              <strong>It connects to what you already run.</strong> Give it a system&rsquo;s address and a read-only
+              login. It knows how several common ERP, HR, CRM and maintenance products store their records.
             </li>
             <li>
-              <strong>Maps itself, and asks about the rest.</strong> It works out which table holds work orders and
-              which column is the scrap reason code. Where it is unsure it asks a short question: &ldquo;Does
-              &lsquo;Corrective&rsquo; mean corrective maintenance?&rdquo; A person confirms; nothing is assumed
-              silently.
+              <strong>It works out your tables and codes itself,</strong> and asks your people a handful of yes-or-no
+              questions where it isn&rsquo;t sure. A maintenance system took five.
             </li>
             <li>
-              <strong>Puts every company on one definition.</strong> On-time delivery means the same thing at a company
-              on one ERP as at a company on another, because both are mapped to the same definitions. Amounts in
-              different currencies are shown in their own currency, never silently added together.
+              <strong>It installs on one machine</strong> inside your network, in about six minutes once the software
+              is downloaded.
             </li>
             <li>
-              <strong>Tells you what is odd in the data before anyone asks.</strong> A reason code used as a catch-all.
-              Promise dates moved after the shipment, so on-time delivery looks better than it was. One shift coding
-              scrap differently from the others. These are the numbers an owner most needs to question, and the ones a
-              monthly report never shows.
-            </li>
-            <li>
-              <strong>Answers questions in plain words,</strong> with the number, how it was worked out, the query that
-              ran and how fresh the data is.
-            </li>
-            <li>
-              <strong>Watches with agents.</strong> Starter agents watch scrap, on-time delivery, maintenance, turnover,
-              pipeline and more. One watches each company&rsquo;s largest customers and speaks up when nobody has
-              called, visited or written to one in six weeks. Anyone can add their own in a sentence: &ldquo;Warn me
-              when scrap on any work center runs more than twice its usual in a month.&rdquo; It reads the sentence
-              back, shows what it would have caught over the past year, and only then starts watching.
-            </li>
-            <li>
-              <strong>Turns findings into plans</strong> with a measure that says whether the plan worked, judged on the
-              date the plan names.
-            </li>
-            <li>
-              <strong>Answers from your own documents,</strong> the quality manual and the work instructions, and cites
-              the page.
+              <strong>It keeps itself current.</strong> The records that change fast are pulled through the day, the
+              rest overnight, as fast as your systems allow.
             </li>
           </ul>
-        </section>
+        </Block>
 
-        <section className="mt-14 border-t border-line pt-10">
-          <h2 className="font-serif text-2xl text-ink">How it is built</h2>
-          <ul className="mt-6 space-y-4 leading-relaxed text-ink">
+        <Block title="Your data">
+          <ul className="space-y-4">
             <li>
-              <strong>Your data stays in your network.</strong> VERUS runs on a machine inside it. The only thing that
-              leaves is what you choose to send a language model, and you choose the provider. When it maps a system:
-              the names of tables and columns, counts, and masked samples. Numbers are rounded into ranges, text is
-              reduced to its shape, anything that looks like a person is removed, and short codes such as
-              &ldquo;PM&rdquo; are sent as they are. Sensitive columns, such as pay or national ids, send nothing.
-              When it puts an answer in words: the rows of that one answer. Turn the model off and nothing of yours
-              leaves at all.
+              <strong>It stays in your network.</strong> VERUS runs on your machine.
             </li>
             <li>
-              <strong>Read-only by design.</strong> The software has no write path to your systems. It is not a
-              setting.
+              <strong>Read-only.</strong> There is no way in the software to write back to your systems. It is not a
+              setting someone can turn on.
             </li>
             <li>
-              <strong>Each person sees what their role allows.</strong> A plant manager sees their plant. An owner sees
-              every company. Neither sees a named employee: people data shows as counts and rates.
+              <strong>The AI model is optional, and you choose the provider.</strong> It is used to map a new system,
+              to answer questions typed in your own words, and to set up a watch from a sentence. When mapping, it sees
+              table and column names, counts, and masked samples: numbers rounded into ranges, text reduced to its
+              shape, anything personal removed, and sensitive columns such as pay never sent. When answering, it sees
+              the rows of that one answer. Turn it off and nothing leaves; the dashboards, the watches and the morning
+              brief all keep working.
             </li>
             <li>
-              <strong>Stale data is never hidden.</strong> Every answer says how fresh it is.
-            </li>
-            <li>
-              <strong>It works without a model.</strong> Mapping by itself, questions in your own words and agents from
-              a sentence use one. Everything else (the data findings, the dashboards, the confirmed metrics, the agents
-              once made, the morning brief) runs without one.
+              <strong>People see what their job needs.</strong> A plant manager sees their plant; an owner sees every
+              company. Nobody sees a named employee: headcount, turnover and absence show as counts and rates.
             </li>
           </ul>
-        </section>
+        </Block>
 
-        <section className="mt-14 border-t border-line pt-10 leading-relaxed text-ink">
-          <h2 className="font-serif text-2xl text-ink">Where it stands</h2>
-          <p className="mt-6">
-            VERUS is in development at the Resonance Institute. It runs today on a demonstration group built to behave
-            like a real one: two manufacturing companies, one in the United States with two plants and one in Canada,
-            with three years of ERP records and an HR system, a CRM and a maintenance system beside them. Several
-            companies in one installation work today. A single view across companies that each run their own
-            installation is the next step, built with the first group that needs it.{" "}
+        <Block title="Where it stands">
+          <p>
+            VERUS is in development at the Resonance Institute. It runs today on a demonstration group: two
+            manufacturers, one in the United States with two plants and one in Canada, with three years of ERP records
+            and HR, CRM and maintenance systems alongside. Several companies in one installation work today. One view
+            across companies that each run their own installation is next, built with the first group that needs it.
+            Every result we have measured, including the ones not good enough yet, is on{" "}
             <Link href="/verus/evidence" className={link}>
-              The evidence
-            </Link>{" "}
-            shows what has been measured, and what has not been yet.
+              the evidence page
+            </Link>
+            .
           </p>
-        </section>
+        </Block>
 
         <VerusNext
           items={[

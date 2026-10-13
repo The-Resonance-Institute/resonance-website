@@ -31,7 +31,7 @@ const STEPS: Step[] = [
     shots: [{ src: "/verus/01-onboarding.png", alt: "Onboarding: each system read, profiled and mapped", w: 1280, h: 860 }],
   },
   {
-    title: "It maps itself, and asks only what it is not sure of",
+    title: "It works out your tables and codes, and asks only where it isn't sure",
     body: (
       <p>
         VERUS works out what each table and column means. Where it is not sure it asks one short question at a time:
@@ -42,10 +42,10 @@ const STEPS: Step[] = [
     shots: [{ src: "/verus/02-review.png", alt: "Review: one question at a time, with its evidence", w: 1280, h: 860 }],
   },
   {
-    title: "It shows what is odd in the data before anyone asks",
+    title: "It flags bad data before anyone asks",
     body: (
       <>
-        <p>Before a single question is asked, VERUS has looked for what makes numbers lie:</p>
+        <p>Before anyone asks a question, VERUS checks for what makes the numbers wrong:</p>
         <ul className="mt-3 list-disc space-y-1 pl-5">
           <li>a reason code used for more than half of all downtime, so totals by reason hide the cause;</li>
           <li>one shift recording scrap under the catch-all code and another never using it;</li>
@@ -59,7 +59,7 @@ const STEPS: Step[] = [
     shots: [{ src: "/verus/03-data-findings.png", alt: "Data findings", w: 1280, h: 860 }],
   },
   {
-    title: "The morning, as numbers",
+    title: "Yesterday's numbers",
     body: (
       <p>
         A plant manager&rsquo;s dashboard of yesterday: build completion, labor efficiency, scrap and downtime, by line
@@ -69,7 +69,7 @@ const STEPS: Step[] = [
     shots: [{ src: "/verus/04-dashboard.png", alt: "The morning dashboard for plant HB", w: 1280, h: 860 }],
   },
   {
-    title: "Ask in plain words",
+    title: "Ask a question, get the number",
     body: (
       <p>
         &ldquo;How much scrap did HB03 make on shift 2 in March 2026?&rdquo; The answer is 93, far above any month in
@@ -80,7 +80,7 @@ const STEPS: Step[] = [
     shots: [{ src: "/verus/05-ask.png", alt: "An answer, with how it was worked out", w: 1280, h: 860 }],
   },
   {
-    title: "A finding, and a plan to fix it",
+    title: "A problem flagged, and a plan to fix it",
     body: (
       <p>
         An agent watches on-time delivery by customer. Last week four customers were below 85%. The plant manager
@@ -91,7 +91,7 @@ const STEPS: Step[] = [
     shots: [{ src: "/verus/06-finding-plan.png", alt: "A finding with its plan", w: 1280, h: 860 }],
   },
   {
-    title: "An agent described in a sentence",
+    title: "Set up a watch in one sentence",
     body: (
       <p>
         &ldquo;Warn me when scrap on any work center runs more than twice its usual in a month.&rdquo; VERUS reads it
@@ -102,7 +102,7 @@ const STEPS: Step[] = [
     shots: [{ src: "/verus/07-agent.png", alt: "An agent drafted from a sentence, and its backtest", w: 1264, h: 332 }],
   },
   {
-    title: "An answer from your own documents",
+    title: "Search your own documents",
     body: (
       <p>
         &ldquo;What does the quality manual say about using scrap code 99?&rdquo; The answer quotes the manual and
@@ -163,11 +163,11 @@ export default function HowItWorks() {
           <p className="text-xs font-medium uppercase tracking-[0.18em] text-accent">Project VERUS</p>
           <h1 className="mt-4 font-serif text-4xl leading-tight text-ink sm:text-5xl">How it works</h1>
           <p className="mt-5 text-lg leading-relaxed text-muted">
-            Ten things: nine in the order a plant would meet them, and the tenth as an owner sees the whole group. Every
-            picture is from the demonstration group: two synthetic manufacturers, Alpha Fabrication in the United States
-            with plants HB and KC, and Beta Extrusions in Canada, whose records run to Monday 28 September 2026. VERUS
-            runs as of the next day, and every screen says so. Times such as &ldquo;raised Oct 13&rdquo; are the real
-            times the demonstration was run.
+            Ten steps, in the order you would meet them: nine as a plant manager, the last as an owner. Every picture is
+            from the demonstration group: two made-up manufacturers, Alpha Fabrication in the United States with plants
+            HB and KC, and Beta Extrusions in Canada, with records up to Monday 28 September 2026. VERUS runs as of the
+            next morning, and every screen says so. Times such as &ldquo;raised Oct 13&rdquo; are when the
+            demonstration was actually run.
           </p>
         </section>
 

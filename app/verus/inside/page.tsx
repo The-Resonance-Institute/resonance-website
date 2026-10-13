@@ -62,9 +62,9 @@ export default function Inside() {
           <p className="text-xs font-medium uppercase tracking-[0.18em] text-accent">Project VERUS</p>
           <h1 className="mt-4 font-serif text-4xl leading-tight text-ink sm:text-5xl">Inside VERUS</h1>
           <p className="mt-5 text-lg leading-relaxed text-muted">
-            Still pictures of VERUS on its demonstration group, drawn from the demonstration&rsquo;s own numbers. Two
-            invented companies: Alpha Fabrication in the United States, with plants HB and KC, and Beta Extrusions in
-            Canada. Nothing here is live and nothing is clickable. To see it run,{" "}
+            What the screens look like, with the demonstration&rsquo;s real numbers. Two made-up companies: Alpha
+            Fabrication in the United States, with plants HB and KC, and Beta Extrusions in Canada. These are pictures,
+            not the live product. To see it run,{" "}
             <Link href="/verus/see-it" className="text-accent underline decoration-line hover:decoration-accent">
               ask for a demonstration
             </Link>

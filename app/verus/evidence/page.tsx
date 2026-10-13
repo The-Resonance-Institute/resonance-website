@@ -31,9 +31,8 @@ export default function Evidence() {
           <p className="text-xs font-medium uppercase tracking-[0.18em] text-accent">Project VERUS</p>
           <h1 className="mt-4 font-serif text-4xl leading-tight text-ink sm:text-5xl">The evidence</h1>
           <p className="mt-5 text-lg leading-relaxed text-muted">
-            VERUS is tested the way the Institute tests everything it publishes: in full, with what is not finished said
-            as plainly as what is. Every figure below was measured on synthetic plants built to behave like real ones,
-            and each says when.
+            Every result we have measured, good and not good enough yet, with the date it was measured. All of it was
+            measured on made-up plants built to behave like real ones.
           </p>
         </section>
 
