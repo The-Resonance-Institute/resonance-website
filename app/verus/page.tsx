@@ -107,6 +107,37 @@ export default function Verus() {
           </div>
         </Block>
 
+        {/* LESS WORK, NOT MORE (operator, 2026-10-14). Written against the usual objection to this kind of system:
+            that it is one more thing to run before the hard work of fixing the business. VERUS adds no system for
+            people to feed; it takes over the reporting they build by hand, and its data findings point at the broken
+            processes themselves. */}
+        <Block title="Less work, not more">
+          <p>
+            VERUS doesn&rsquo;t add a system for your people to run. It does the reporting they build by hand today, and
+            it points at the processes that need fixing.
+          </p>
+          <ul className="mt-5 space-y-4">
+            <li>
+              <strong>Manage by exception, not by meeting.</strong> VERUS watches every number all day and brings you
+              only what crossed a line: a spike, a slip, a big customer gone quiet. Everything else needs no meeting to
+              review.
+            </li>
+            <li>
+              <strong>No data project.</strong> It reads the systems you already have, where they are. Nothing to move,
+              nothing new to feed, no data entry.
+            </li>
+            <li>
+              <strong>Your knowledge stays yours.</strong> Your definitions, codes and rules live on your machine, in
+              your network. Change AI providers, or use none, and they stay.
+            </li>
+            <li>
+              <strong>It finds the broken processes.</strong> Promise dates changed after shipping, a catch-all reason
+              code, one shift coding scrap its own way. VERUS shows where the process is broken, so you fix the process,
+              not the report.
+            </li>
+          </ul>
+        </Block>
+
         <Block title="What it catches">
           <p>On the demonstration group, before anyone asked a question:</p>
           <ul className="mt-4 list-disc space-y-2 pl-5">
