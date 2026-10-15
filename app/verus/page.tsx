@@ -157,6 +157,28 @@ export default function Verus() {
           </p>
         </Block>
 
+        {/* THE OUTSIDE WORLD (operator, 2026-10-15). Public government data and news, read daily: producer prices for
+            the company's key materials and its industry, industrial production, energy, rates and exchange rates, and
+            trade news scored against its own materials, customers and competitors. Not paid commodity feeds or
+            industry benchmarks; the page does not imply them. */}
+        <Block title="The outside world, every morning">
+          <p>
+            VERUS reads the economy and your industry every day: prices for your key materials, industrial
+            production, energy, interest rates and exchange rates, and the trade news that names your materials,
+            customers or competitors. It tells you what moved and what it means for your costs.
+          </p>
+          <p className="mt-4">
+            It can separate what the market did from what you did: a watch on one of your costs against published
+            prices stays quiet when the market explains the move, and speaks up when it doesn&rsquo;t.
+          </p>
+          <p className="mt-4 text-base text-muted">
+            From public sources: producer prices, Federal Reserve industrial production, energy and diesel prices,
+            employment, central bank decisions and exchange rates, and trade and government news. On the
+            demonstration, steel mill products rose 1.7% in August and plastic resins fell 1.0%, and both showed up in
+            the plant manager&rsquo;s brief.
+          </p>
+        </Block>
+
         <Block title="It shows its work">
           <p>
             Every number comes with where it came from, how it was calculated and how current it is. When the data
@@ -197,8 +219,10 @@ export default function Verus() {
         <Block title="Setting it up">
           <ul className="space-y-4">
             <li>
-              <strong>It connects to what you already run.</strong> Give it a system&rsquo;s address and a read-only
-              login. It knows how several common ERP, HR, CRM and maintenance products store their records.
+              <strong>It connects to what you already run:</strong> the ERP, MES, maintenance, quality, warehouse,
+              HR, CRM, your data warehouse, and the spreadsheets. If it has a database, an API or exports files, VERUS
+              can read it, read-only. Give it the address and a read-only login; it already knows how many common
+              products store their records.
             </li>
             <li>
               <strong>It works out your tables and codes itself,</strong> and asks your people a handful of yes-or-no
