@@ -11,6 +11,7 @@
 // With reduced motion the animations are off and the scenes show as a still strip, so nothing is lost.
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { Sound, type Sfx } from "./verus-explainer-sound";
 
 type Scene = {
   caption: string;
@@ -27,6 +28,7 @@ type Hold =
   | "pointer"
   | "wrench"
   | "pendant"
+  | "pencil"
   | "none";
 
 const INK = "#1f2937";
@@ -35,6 +37,9 @@ const SCREEN = "#16365f";
 const HAT = "#f2b705";
 const TEAL = "#0f766e";
 const SANS = "ui-sans-serif, system-ui, sans-serif";
+const MONO = "ui-monospace, SFMono-Regular, Menlo, monospace";
+const UP = "#22c55e";
+const DOWN = "#f87171";
 
 function cssVars(vars: Record<string, string>): React.CSSProperties {
   return vars as React.CSSProperties;
@@ -138,6 +143,15 @@ function Robot({
           strokeWidth={1.5}
           className="vx-lamp"
         />
+        <g className="vx-flash" style={{ transformOrigin: "0px -3px" }}>
+          <circle cx={0} cy={-3} r={11} fill="#fff7c2" opacity={0.85} />
+          <path
+            d="M0 -19 v-9 M-14 -11 l-7 -5 M14 -11 l7 -5"
+            stroke="#fde68a"
+            strokeWidth={2.5}
+            strokeLinecap="round"
+          />
+        </g>
         <g
           className={wave ? "vx-wave" : ""}
           style={{ transformOrigin: "-24px 24px" }}
@@ -156,12 +170,13 @@ function Robot({
         <rect
           x={22}
           y={20}
-          width={12}
+          width={14}
           height={7}
           rx={3.5}
           fill="#dfe3e8"
           stroke="#c9ced6"
         />
+        <circle cx={37} cy={23.5} r={4.5} fill="#dfe3e8" stroke="#c9ced6" />
         {hold === "clipboard" && (
           <g>
             <rect x={26} y={10} width={21} height={27} rx={2} fill="#c8925a" />
@@ -240,6 +255,14 @@ function Robot({
             />
             <circle cx={36} cy={17} r={2.6} fill="#22c55e" className="vx-led" />
             <circle cx={36} cy={26} r={2.6} fill="#ef4444" />
+          </g>
+        )}
+        {hold === "pencil" && (
+          <g transform="translate(38 22) rotate(22)">
+            <rect x={-3} y={-27} width={6} height={5} rx={1.5} fill="#f472b6" />
+            <rect x={-3} y={-22} width={6} height={20} fill="#fbbf24" />
+            <path d="M-3 -2 L0 6 L3 -2 Z" fill="#f5d0a9" />
+            <path d="M-1 3.4 L0 6 L1 3.4 Z" fill={INK} />
           </g>
         )}
         {hold === "newspaper" && (
@@ -520,7 +543,7 @@ function Person({
         </g>
       )}
       {pose === "thumb" && (
-        <g className="vx-pop" style={{ animationDelay: "2.6s" }}>
+        <g className="vx-raise" style={{ transformOrigin: "17px 60px" }}>
           <Arm from={[17, 60]} to={[29, 47]} sleeve={sleeve} skin={skin} />
           <rect x={27} y={36} width={4.5} height={10} rx={2.2} fill={skin} />
         </g>
@@ -1118,6 +1141,17 @@ function AgentChip({ x, y }: { x: number; y: number }) {
   );
 }
 
+const TICKER: [string, "up" | "down" | "watch"][] = [
+  ["\u25B2 STEEL MILL PRODUCTS +1.7%", "up"],
+  ["\u25B2 IRON AND STEEL +1%", "up"],
+  ["\u25BC PLASTIC RESINS -1.0%", "down"],
+  ["\u25CF INDUSTRIAL PRODUCTION", "watch"],
+  ["\u25CF DIESEL", "watch"],
+  ["\u25CF INTEREST RATES", "watch"],
+  ["\u25CF USD/CAD", "watch"],
+  ["\u25CF TRADE NEWS ON YOUR MATERIALS", "watch"],
+];
+
 const SCENES: Scene[] = [
   {
     caption: "Meet VERUS.",
@@ -1293,7 +1327,7 @@ const SCENES: Scene[] = [
   },
   {
     caption: "It watches everything, all night.",
-    seconds: 5.5,
+    seconds: 5,
     dark: true,
     draw: () => (
       <>
@@ -1365,73 +1399,121 @@ const SCENES: Scene[] = [
   },
   {
     caption: "It reads the market, too.",
-    seconds: 4,
-    dark: false,
+    seconds: 4.5,
+    dark: true,
     draw: () => (
       <>
-        <rect width={640} height={360} fill="url(#vx-dawn)" />
-        <rect
-          x={430}
-          y={44}
-          width={150}
-          height={104}
-          rx={6}
-          fill="#fbd9a6"
-          stroke="#c9a06a"
-          strokeWidth={4}
-        />
-        <rect x={438} y={52} width={63} height={88} rx={2} fill="#ffe9c7" />
-        <rect x={509} y={52} width={63} height={88} rx={2} fill="#ffe9c7" />
-        <line
-          x1={505}
-          y1={44}
-          x2={505}
-          y2={148}
-          stroke="#c9a06a"
-          strokeWidth={4}
-        />
-        <rect x={0} y={300} width={640} height={60} fill="#e7dccb" />
-        <g className="vx-pop" style={{ animationDelay: "0.2s" }}>
-          <Robot x={250} y={156} s={2.2} face="eyes" hold="newspaper" />
+        <defs>
+          <clipPath id="vx-ticker-clip">
+            <rect x={0} y={8} width={640} height={30} />
+          </clipPath>
+        </defs>
+        <rect width={640} height={360} fill="#0d1526" />
+        <rect x={0} y={232} width={640} height={128} fill="#0a1120" />
+        <rect x={0} y={8} width={640} height={30} fill="#020617" />
+        <g clipPath="url(#vx-ticker-clip)">
+          <g className="vx-ticker">
+            <text
+              x={12}
+              y={28}
+              fontSize={13}
+              fontWeight={700}
+              fontFamily={MONO}
+            >
+              {TICKER.map(([label, tone], i) => (
+                <tspan
+                  key={i}
+                  fill={tone === "up" ? UP : tone === "down" ? DOWN : "#94a3b8"}
+                >
+                  {label}
+                  {"     "}
+                </tspan>
+              ))}
+            </text>
+          </g>
         </g>
-        <g className="vx-pop" style={{ animationDelay: "1.4s" }}>
-          <rect
-            x={420}
-            y={190}
-            width={170}
-            height={58}
-            rx={8}
-            fill="#fff"
-            stroke="#d6dbe1"
-            strokeWidth={2}
-          />
-          <text
-            x={434}
-            y={213}
-            fontSize={12}
-            fontWeight={700}
-            fill={INK}
-            fontFamily={SANS}
+        <rect
+          x={292}
+          y={50}
+          width={330}
+          height={176}
+          rx={10}
+          fill="#060b16"
+          stroke="#24324d"
+          strokeWidth={3}
+        />
+        <text
+          x={308}
+          y={74}
+          fontSize={11}
+          fontWeight={800}
+          fill="#94a3b8"
+          fontFamily={MONO}
+          letterSpacing={2}
+        >
+          PRODUCER PRICES, AUGUST
+        </text>
+        {(
+          [
+            ["STEEL MILL PRODUCTS", "+1.7%", true],
+            ["IRON AND STEEL", "+1%", true],
+            ["PLASTIC RESINS", "-1.0%", false],
+          ] as [string, string, boolean][]
+        ).map(([name, pct, up], i) => (
+          <g
+            key={name}
+            className="vx-pop"
+            style={{ animationDelay: `${0.5 + i * 0.35}s` }}
           >
-            Steel mill products +1.7%
-          </text>
-          <text
-            x={434}
-            y={234}
-            fontSize={12}
-            fontWeight={700}
-            fill={INK}
-            fontFamily={SANS}
-          >
-            Plastic resins -1.0%
-          </text>
+            <text
+              x={308}
+              y={102 + i * 28}
+              fontSize={13}
+              fontWeight={700}
+              fill="#e2e8f0"
+              fontFamily={MONO}
+            >
+              {name}
+            </text>
+            <path
+              d={
+                up
+                  ? `M532 ${100 + i * 28} l6 -9 l6 9 Z`
+                  : `M532 ${91 + i * 28} l6 9 l6 -9 Z`
+              }
+              fill={up ? UP : DOWN}
+            />
+            <text
+              x={604}
+              y={102 + i * 28}
+              textAnchor="end"
+              fontSize={14}
+              fontWeight={800}
+              fill={up ? UP : DOWN}
+              fontFamily={MONO}
+            >
+              {pct}
+            </text>
+          </g>
+        ))}
+        <path d="M308 212 H606" stroke="#1e293b" strokeWidth={1} />
+        <path
+          d="M308 202 L338 204 L368 201 L398 203 L428 200 L458 202 L488 201 L518 202 L548 200 L578 199 L606 184"
+          stroke={UP}
+          strokeWidth={2.5}
+          fill="none"
+          strokeLinejoin="round"
+          className="vx-chart"
+        />
+        <g className="vx-pop" style={{ animationDelay: "0.2s" }}>
+          <Robot x={150} y={118} s={1.9} face="chart" hold="newspaper" />
         </g>
       </>
     ),
   },
   {
     caption: "Your one-page brief, every morning.",
-    seconds: 6,
+    seconds: 5.5,
     dark: false,
     draw: () => (
       <>
@@ -1975,8 +2057,169 @@ const SCENES: Scene[] = [
           delay={2.5}
         />
         <g className="vx-bob">
-          <Robot x={530} y={180} s={1.3} face="happy" hold="none" wave />
+          <Robot x={530} y={180} s={1.3} face="happy" hold="pencil" />
         </g>
+      </>
+    ),
+  },
+  {
+    caption: "It lights the path. Your team moves faster.",
+    seconds: 5.5,
+    dark: false,
+    draw: () => (
+      <>
+        <rect width={640} height={360} fill="url(#vx-sunrise)" />
+        <path d="M0 290 Q150 240 320 270 T640 220 V360 H0 Z" fill="#cfe8c6" />
+        <path d="M0 318 Q200 286 400 306 T640 290 V360 H0 Z" fill="#b7dcae" />
+        <g transform="translate(30 0)">
+          <rect x={-3} y={240} width={6} height={56} fill="#8a5a3b" />
+          <rect
+            x={-26}
+            y={236}
+            width={52}
+            height={20}
+            rx={3}
+            fill="#fff"
+            stroke="#8a5a3b"
+            strokeWidth={2}
+          />
+          <text
+            x={0}
+            y={250}
+            textAnchor="middle"
+            fontSize={10}
+            fontWeight={800}
+            fill={INK}
+            fontFamily={SANS}
+          >
+            TODAY
+          </text>
+        </g>
+        {Array.from({ length: 12 }, (_, i) => {
+          const cx = 70 + 42 * i;
+          return (
+            <g
+              key={i}
+              transform={`translate(${cx} ${290 - 0.2308 * (cx - 40)}) rotate(-13)`}
+            >
+              <g
+                className="vx-pop"
+                style={{
+                  animationDelay: `${Math.max(0.15, 0.12 + 0.347 * i)}s`,
+                }}
+              >
+                <rect
+                  x={-21}
+                  y={-7}
+                  width={42}
+                  height={14}
+                  rx={2}
+                  fill={HAT}
+                  stroke="#b45309"
+                  strokeWidth={1.5}
+                />
+              </g>
+            </g>
+          );
+        })}
+        <g transform="translate(588 0)">
+          <rect x={-2} y={92} width={4} height={72} fill="#475569" />
+          <g className="vx-pop" style={{ animationDelay: "4s" }}>
+            <rect x={2} y={92} width={46} height={30} rx={3} fill={TEAL} />
+            <text
+              x={25}
+              y={107}
+              textAnchor="middle"
+              fontSize={13}
+              fontWeight={800}
+              fill="#fff"
+              fontFamily={SANS}
+            >
+              85%
+            </text>
+            <text
+              x={25}
+              y={118}
+              textAnchor="middle"
+              fontSize={7.5}
+              fontWeight={700}
+              fill="#ccfbf1"
+              fontFamily={SANS}
+            >
+              ON TIME
+            </text>
+          </g>
+        </g>
+        {(
+          [
+            [400, 120, 70, 1.6],
+            [500, 170, 80, 2.4],
+            [560, 100, 60, 2.9],
+            [450, 220, 60, 2.0],
+          ] as [number, number, number, number][]
+        ).map(([fx, fy, r, d]) => (
+          <g key={fx} className="vx-clear" style={{ animationDelay: `${d}s` }}>
+            <ellipse
+              cx={fx}
+              cy={fy}
+              rx={r}
+              ry={r * 0.55}
+              fill="#e2e8f0"
+              opacity={0.95}
+            />
+            <ellipse
+              cx={fx - r * 0.5}
+              cy={fy + 6}
+              rx={r * 0.6}
+              ry={r * 0.4}
+              fill="#e2e8f0"
+              opacity={0.95}
+            />
+            <text
+              x={fx}
+              y={fy + 8}
+              textAnchor="middle"
+              fontSize={22}
+              fontWeight={800}
+              fill="#94a3b8"
+              fontFamily={SANS}
+            >
+              ?
+            </text>
+          </g>
+        ))}
+        <g className="vx-follow">
+          <g className="vx-march">
+            <PlantManager x={210} y={195} s={0.55} />
+          </g>
+          <g className="vx-march" style={{ animationDelay: "0.2s" }}>
+            <PlantManager
+              x={270}
+              y={181}
+              s={0.55}
+              skin="#a8714a"
+              hair="#1f1f1f"
+              ponytail
+              hat={HAT}
+              mood="glad"
+              pose="wave"
+            />
+          </g>
+          <g className="vx-march" style={{ animationDelay: "0.1s" }}>
+            <Executive x={330} y={167} s={0.55} />
+          </g>
+        </g>
+        <g className="vx-lead">
+          <Robot x={540} y={124} s={0.85} face="happy" hold="flashlight" />
+        </g>
+        <Sparkles
+          pts={[
+            [566, 84],
+            [632, 136],
+            [540, 60],
+          ]}
+          delay={4.2}
+        />
       </>
     ),
   },
@@ -2017,7 +2260,7 @@ const SCENES: Scene[] = [
           className="vx-fade"
         />
         <g className="vx-bob">
-          <Robot x={100} y={150} s={1.5} face="happy" hold="none" wave />
+          <Robot x={100} y={150} s={1.5} face="happy" hold="clipboard" wave />
         </g>
         <Sparkles
           pts={[
@@ -2039,6 +2282,112 @@ const STARTS = SCENES.reduce<number[]>(
   [],
 );
 export const EXPLAINER_SECONDS = Math.round(TOTAL);
+
+const typing = Array.from({ length: 26 }, (_, i): [number, Sfx] => [
+  0.5 + i * 0.075,
+  "tick",
+]);
+const SFX: Record<string, [number, Sfx, number?][]> = {
+  "Meet VERUS.": [
+    [0.62, "boing"],
+    [1.3, "chime"],
+  ],
+  "Your plant never stops. Neither does VERUS.": [
+    ...Array.from({ length: 8 }, (_, i): [number, Sfx] => [
+      0.3 + i * 0.4,
+      "step",
+    ]),
+    [3.3, "clunk"],
+  ],
+  "It reads every system you run. Read-only.": [
+    [0.4, "whoosh"],
+    [1.0, "pop"],
+    ...Array.from({ length: 5 }, (_, i): [number, Sfx] => [
+      1.2 + i * 0.35,
+      "paper",
+    ]),
+  ],
+  "It watches everything, all night.": [
+    [0.05, "motor", 4.8],
+    [1.0, "pop"],
+    [2.2, "pop"],
+    [2.7, "honk"],
+    [3.4, "pop"],
+    [4.4, "pop"],
+  ],
+  "It finds what's wrong, and where the money is.": [
+    [0.4, "pop"],
+    [0.6, "rise"],
+    [0.9, "alert"],
+    [1.4, "pop"],
+  ],
+  "It reads the market, too.": [
+    [0.2, "pop"],
+    [0.5, "blip"],
+    [0.85, "blip"],
+    [1.2, "blip"],
+    [1.3, "rise"],
+  ],
+  "Your one-page brief, every morning.": [
+    [0.2, "motor", 1.1],
+    [1.3, "winch", 2.2],
+    [3.5, "thump"],
+    [3.6, "ding"],
+  ],
+  "Dashboards that stay current, all day.": [
+    [0.4, "blip"],
+    [0.7, "blip"],
+    [1.0, "blip"],
+    [1.3, "blip"],
+  ],
+  "Need to dig in? Describe an agent in one sentence.": [
+    ...typing,
+    [2.6, "whoosh"],
+    [3.0, "pop"],
+    [3.2, "ding"],
+  ],
+  "Run it once or on a schedule. Share it with your team.": [
+    [0.6, "pop"],
+    [1.3, "pop"],
+    [1.9, "whoosh"],
+    [2.2, "whoosh"],
+    [2.5, "whoosh"],
+    [3.0, "pop"],
+    [3.3, "pop"],
+    [3.6, "pop"],
+  ],
+  "Every plant. Every company. One version of the truth.": [
+    [0.5, "blip"],
+    [0.9, "blip"],
+  ],
+  "And it checks the fix worked.": [
+    [0.6, "clack"],
+    [1.0, "clack"],
+    [1.4, "clack"],
+    [2.2, "thump"],
+    [2.3, "ding"],
+    [2.7, "chime"],
+  ],
+  "It lights the path. Your team moves faster.": [
+    ...Array.from({ length: 12 }, (_, i): [number, Sfx] => [
+      Math.max(0.15, 0.12 + 0.347 * i),
+      "clack",
+    ]),
+    [1.4, "whoosh"],
+    [4.0, "fanfare"],
+  ],
+  "The truth about your operation, around the clock.": [
+    [0.3, "chime"],
+    [1.0, "ding"],
+  ],
+};
+const CUES = SCENES.flatMap((scene, i) =>
+  (SFX[scene.caption] ?? []).map(([at, kind, dur]) => ({
+    at: STARTS[i] + at,
+    kind,
+    dur,
+  })),
+);
 
 function Defs() {
   return (
@@ -2067,7 +2416,7 @@ const CSS = `
 @keyframes vx-fade{from{opacity:0}to{opacity:1}}
 .vx-enter{animation:vx-enter 3.4s cubic-bezier(.25,.6,.35,1)}
 @keyframes vx-enter{from{transform:translateX(-420px)}to{transform:translateX(0)}}
-.vx-walk{animation:vx-walk 5.5s linear;transform:translateX(560px)}
+.vx-walk{animation:vx-walk 5s linear;transform:translateX(560px)}
 @keyframes vx-walk{from{transform:translateX(-60px)}to{transform:translateX(560px)}}
 .vx-fly{animation:vx-fly 1.1s ease-in;opacity:0}
 @keyframes vx-fly{0%{opacity:1;transform:translate(0,0) rotate(0)}85%{opacity:1}100%{opacity:0;transform:translate(var(--dx),var(--dy)) rotate(30deg) scale(.4)}}
@@ -2109,6 +2458,22 @@ const CSS = `
 @keyframes vx-sparkle{0%,100%{opacity:.3;transform:scale(.4) rotate(0)}50%{opacity:1;transform:scale(1.15) rotate(45deg)}}
 .vx-hello{animation:vx-hello .45s ease-in-out infinite alternate}
 @keyframes vx-hello{from{transform:rotate(-12deg)}to{transform:rotate(14deg)}}
+.vx-flash{animation:vx-flash 3.6s ease-out infinite;opacity:0}
+@keyframes vx-flash{0%,78%,100%{opacity:0;transform:scale(.4)}85%{opacity:1;transform:scale(1.15)}94%{opacity:0;transform:scale(1.5)}}
+.vx-raise{animation:vx-raise .55s cubic-bezier(.3,1.5,.5,1) 2.6s}
+@keyframes vx-raise{from{transform:rotate(115deg)}to{transform:none}}
+.vx-ticker{animation:vx-ticker 4.5s linear;transform:translateX(-560px)}
+@keyframes vx-ticker{from{transform:none}to{transform:translateX(-560px)}}
+.vx-chart{stroke-dasharray:320;animation:vx-chart 1.6s ease-out 1.3s}
+@keyframes vx-chart{from{stroke-dashoffset:320}to{stroke-dashoffset:0}}
+.vx-lead{animation:vx-lead 3.8s linear .2s}
+@keyframes vx-lead{from{transform:translate(-460px,106px)}to{transform:none}}
+.vx-follow{animation:vx-follow 3.4s ease-out 1.1s}
+@keyframes vx-follow{from{transform:translate(-200px,46px)}to{transform:none}}
+.vx-march{animation:vx-march .32s ease-in-out infinite alternate}
+@keyframes vx-march{from{transform:none}to{transform:translateY(-3px)}}
+.vx-clear{animation:vx-clear 1.1s ease-out;opacity:0}
+@keyframes vx-clear{from{opacity:1}to{opacity:0}}
 .vx-wave{animation:vx-wave .5s ease-in-out 6 alternate}
 @keyframes vx-wave{from{transform:rotate(0)}to{transform:rotate(-55deg)}}
 .vx-twinkle{animation:vx-twinkle 1.8s ease-in-out infinite alternate}
@@ -2160,6 +2525,34 @@ export function VerusExplainer() {
   const [started, setStarted] = useState(false);
   const box = useRef<HTMLDivElement>(null);
   const last = useRef<number | null>(null);
+  const [sound, setSound] = useState(false);
+  const engine = useRef<Sound | null>(null);
+  const heard = useRef(0);
+
+  useEffect(() => () => engine.current?.close(), []);
+
+  // the music runs while it plays with sound on
+  useEffect(() => {
+    if (sound && playing) engine.current?.musicOn();
+    else engine.current?.musicOff();
+  }, [sound, playing]);
+
+  // each effect sounds as the film passes its moment
+  useEffect(() => {
+    const from = heard.current;
+    heard.current = t;
+    if (!sound || !playing || t <= from) return;
+    for (const c of CUES)
+      if (c.at > from && c.at <= t) engine.current?.play(c.kind, c.dur);
+  }, [t, sound, playing]);
+
+  function toggleSound() {
+    if (!sound) {
+      engine.current ??= new Sound();
+      engine.current.start();
+    }
+    setSound(!sound);
+  }
 
   useEffect(() => {
     const m = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -2249,6 +2642,14 @@ export function VerusExplainer() {
           className="inline-flex min-w-[5.5rem] items-center justify-center rounded-full border border-line px-4 py-2 text-sm font-medium text-ink transition-colors hover:border-accent hover:text-accent"
         >
           {ended ? "Replay" : playing ? "Pause" : "Play"}
+        </button>
+        <button
+          type="button"
+          onClick={toggleSound}
+          aria-pressed={sound}
+          className="inline-flex items-center justify-center rounded-full border border-line px-4 py-2 text-sm font-medium text-ink transition-colors hover:border-accent hover:text-accent"
+        >
+          {sound ? "Sound off" : "Sound on"}
         </button>
         <div className="flex flex-1 gap-1" aria-hidden="true">
           {SCENES.map((s, i) => {
