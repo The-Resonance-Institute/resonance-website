@@ -184,8 +184,9 @@ export default function Verus() {
             customers or competitors. It tells you what moved and what it means for your costs.
           </p>
           <p className="mt-4">
-            It can separate what the market did from what you did: a watch on one of your costs against published
-            prices stays quiet when the market explains the move, and speaks up when it doesn&rsquo;t.
+            It separates what the market did from what you did. A starter agent watches scrap cost on every work center
+            against steel prices: it stays quiet when the market explains the move, and speaks up when it
+            doesn&rsquo;t. On the demonstration it raised one month in a year, the scrap spike at HB03 in March.
           </p>
           <p className="mt-4 text-base text-muted">
             From public sources: producer prices, Federal Reserve industrial production, energy and diesel prices,
