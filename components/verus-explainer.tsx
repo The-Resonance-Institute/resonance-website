@@ -1379,7 +1379,7 @@ const SCENES: Scene[] = [
     ),
   },
   {
-    caption: "It watches everything, all night.",
+    caption: "It watches everything, all day and all night.",
     seconds: 5,
     dark: true,
     draw: () => (
@@ -2335,7 +2335,7 @@ const SFX: Record<string, [number, Sfx, number?][]> = {
       "paper",
     ]),
   ],
-  "It watches everything, all night.": [
+  "It watches everything, all day and all night.": [
     [0.05, "motor", 4.8],
     [1.0, "pop"],
     [2.2, "pop"],
