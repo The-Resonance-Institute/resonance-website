@@ -31,7 +31,7 @@ const ROLES = [
     role: "The analyst",
     line: "Does the daily reporting, so nobody has to build it.",
     items: [
-      "Yesterday's numbers by line and department, against the same day last week, on one page by six in the morning.",
+      "Yesterday's numbers by line and department, against the same day last week, on one page every morning.",
       "Dashboards for each job: the plant manager's plant, the owner's companies side by side.",
       "Plain answers to questions, with the number, how it was calculated and how current the data is.",
       "Your own documents searched too: the quality manual answers, with the page it came from.",
@@ -39,10 +39,11 @@ const ROLES = [
   },
   {
     role: "The data scientist",
-    line: "Watches everything, all day, for what has changed.",
+    line: "Watches everything, all day and all night, for what has changed.",
     items: [
       "Every line, machine, customer and supplier watched for spikes, slow drifts and early warnings.",
       "Before a watch is switched on, it is tested against the past year, so you see what it would have caught.",
+      "Need to dig deeper? Build your own agent in one sentence, run it once or on a schedule, and share it with your team.",
       "Bad data called out: catch-all reason codes, promise dates changed after shipping.",
       "Findings ranked by what they cost in dollars where that can be measured, with outside prices such as steel and resin brought in where they touch your costs.",
     ],
@@ -268,7 +269,7 @@ export default function Verus() {
             </li>
             <li>
               <strong>The AI model is optional, and you choose the provider.</strong> It is used to map a new system,
-              to answer questions typed in your own words, and to set up a watch from a sentence. When mapping, it sees
+              to answer questions typed in your own words, and to build an agent from a sentence. When mapping, it sees
               table and column names, counts, and masked samples: numbers rounded into ranges, text reduced to its
               shape, anything personal removed, and sensitive columns such as pay never sent. When answering, it sees
               the rows of that one answer. Turn it off and nothing leaves; the dashboards, the watches and the morning

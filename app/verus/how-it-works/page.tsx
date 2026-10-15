@@ -91,13 +91,19 @@ const STEPS: Step[] = [
     shots: [{ src: "/verus/06-finding-plan.png", alt: "A finding with its plan", w: 1280, h: 860 }],
   },
   {
-    title: "Set up a watch in one sentence",
+    title: "Build an agent in one sentence",
     body: (
-      <p>
-        &ldquo;Warn me when scrap on any work center runs more than twice its usual in a month.&rdquo; VERUS reads it
-        back in plain words, and before it watches anything it shows what it would have raised over the past year: one
-        finding, HB03 in March, $24,421 of scrap against a usual $10,705.
-      </p>
+      <>
+        <p>
+          &ldquo;Warn me when scrap on any work center runs more than twice its usual in a month.&rdquo; VERUS reads it
+          back in plain words, and before it watches anything it shows what it would have raised over the past year:
+          one finding, HB03 in March, $24,421 of scrap against a usual $10,705.
+        </p>
+        <p className="mt-4">
+          Run it once, every day, or on your own schedule. Share it with your team: each teammate gets a copy of their
+          own, which sees only what they may see.
+        </p>
+      </>
     ),
     shots: [{ src: "/verus/07-agent.png", alt: "An agent drafted from a sentence, and its backtest", w: 1264, h: 332 }],
   },
