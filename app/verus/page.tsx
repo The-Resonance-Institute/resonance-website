@@ -101,7 +101,7 @@ export default function Verus() {
           </div>
           <p className="mt-5 text-sm">
             <Link href="/verus/see-it#watch" className={link}>
-              Meet VERUS in 45 seconds
+              Meet VERUS in one minute
             </Link>
           </p>
         </section>
