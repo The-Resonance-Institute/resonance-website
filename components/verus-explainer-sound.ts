@@ -24,18 +24,50 @@ export type Sfx =
 
 const midi = (n: number) => 440 * Math.pow(2, (n - 69) / 12);
 
-// Light background, an acoustic guitar fingerpicked softly (operator's word, 2026-10-15): open chords C, G,
-// A minor, F; the bass string, then up and back down the strings, eighth notes at 84 a minute. No drums, no bells,
-// nothing sharp. Each string is a plucked-string model (Karplus-Strong), made once per pitch and kept.
-const CHORDS: number[][] = [
-  [48, 55, 60, 64, 67],
-  [43, 55, 59, 62, 67],
-  [45, 57, 60, 64, 69],
-  [41, 53, 57, 60, 65],
+// Light background, an acoustic guitar fingerpicked softly, played once through and never looped (operator's word,
+// 2026-10-15: "a long quiet riff, not repeating"). Eighteen bars at 72 a minute: sparse at the start, a little
+// fuller in the middle, thinning again, then one soft chord that rings out as the logo comes up at sixty seconds.
+// Each string is a plucked-string model (Karplus-Strong), made once per pitch and kept.
+const VOICING: Record<string, number[]> = {
+  C: [48, 55, 60, 64, 67],
+  "G/B": [47, 55, 59, 62, 67],
+  Am: [45, 57, 60, 64, 69],
+  F: [41, 53, 57, 60, 65],
+  G: [43, 55, 59, 62, 67],
+  Em: [40, 52, 55, 59, 64],
+  "C/E": [40, 55, 60, 64, 67],
+  Dm: [50, 57, 62, 65, 69],
+};
+// the string picked on each eighth of a bar; -1 lets it ring
+const PATTERN: Record<string, number[]> = {
+  sparse: [0, -1, 2, -1, 3, -1, 2, -1],
+  full: [0, 2, 3, 4, 3, 2, 3, 1],
+  down: [0, 4, 3, 2, 1, 3, 2, 3],
+  up: [0, 1, 2, 3, 4, 3, 2, 1],
+  thin: [0, -1, 3, -1, 2, -1, -1, -1],
+};
+const BARS: [string, string][] = [
+  ["C", "sparse"],
+  ["G/B", "sparse"],
+  ["Am", "sparse"],
+  ["F", "sparse"],
+  ["C", "full"],
+  ["G", "full"],
+  ["F", "full"],
+  ["C", "full"],
+  ["Am", "down"],
+  ["Em", "down"],
+  ["F", "down"],
+  ["G", "down"],
+  ["F", "up"],
+  ["C/E", "up"],
+  ["Dm", "up"],
+  ["G", "up"],
+  ["F", "thin"],
+  ["G", "thin"],
 ];
-const PICK = [0, 2, 3, 4, 3, 2, 3, 1]; // the string picked on each eighth of a bar
-const STEPS = 32;
-const EIGHTH = 60 / 84 / 2;
+const EIGHTH = 60 / 72 / 2;
+const STEPS = BARS.length * 8; // then the last chord
 
 export class Sound {
   private ctx: AudioContext | null = null;
@@ -73,14 +105,17 @@ export class Sound {
     void this.ctx.resume();
   }
 
-  musicOn(): void {
+  /** From `at` seconds into the film, so the piece keeps its place through a pause. */
+  musicOn(at = 0): void {
     const ctx = this.ctx;
     if (!ctx || !this.music || this.timer !== null) return;
     this.music.gain.cancelScheduledValues(ctx.currentTime);
     this.music.gain.setTargetAtTime(0.005, ctx.currentTime, 0.5); // barely there: "if it is a 10 now it needs to be a 2" (operator, 2026-10-15)
     this.next = ctx.currentTime + 0.05;
-    this.step = 0;
-    CHORDS.flat().forEach((n) => this.string(n));
+    this.step = Math.max(0, Math.round(at / EIGHTH));
+    Object.values(VOICING)
+      .flat()
+      .forEach((n) => this.string(n));
     this.timer = window.setInterval(() => this.schedule(), 25);
   }
 
@@ -104,13 +139,20 @@ export class Sound {
     if (!ctx || !out) return;
     while (this.next < ctx.currentTime + 0.15) {
       const t = this.next + Math.random() * 0.012; // a person plays it, not a clock
-      const chord = CHORDS[Math.floor(this.step / 8)];
-      const beat = this.step % 8;
-      const pick = PICK[beat];
-      this.pluck(out, chord[pick], t, pick === 0 ? 0.55 : 0.32);
-      if (beat === 0) this.pluck(out, chord[3], t + 0.01, 0.22);
+      if (this.step === STEPS) {
+        VOICING.C.forEach((n, i) => this.pluck(out, n, t + i * 0.035, 0.4));
+      }
+      if (this.step >= STEPS) {
+        if (this.timer !== null) window.clearInterval(this.timer);
+        this.timer = null;
+        return;
+      }
+      const [chord, pattern] = BARS[Math.floor(this.step / 8)];
+      const string = PATTERN[pattern][this.step % 8];
+      if (string >= 0)
+        this.pluck(out, VOICING[chord][string], t, string === 0 ? 0.55 : 0.32);
       this.next += EIGHTH;
-      this.step = (this.step + 1) % STEPS;
+      this.step += 1;
     }
   }
 

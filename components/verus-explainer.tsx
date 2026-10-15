@@ -2567,12 +2567,6 @@ export function VerusExplainer() {
 
   useEffect(() => () => engine.current?.close(), []);
 
-  // the music runs while it plays with sound on
-  useEffect(() => {
-    if (sound && playing) engine.current?.musicOn();
-    else engine.current?.musicOff();
-  }, [sound, playing]);
-
   // each effect sounds as the film passes its moment
   useEffect(() => {
     const from = heard.current;
@@ -2581,6 +2575,12 @@ export function VerusExplainer() {
     for (const c of CUES)
       if (c.at > from && c.at <= t) engine.current?.play(c.kind, c.dur);
   }, [t, sound, playing]);
+
+  // the music runs while it plays with sound on
+  useEffect(() => {
+    if (sound && playing) engine.current?.musicOn(heard.current);
+    else engine.current?.musicOff();
+  }, [sound, playing]);
 
   function toggleSound() {
     if (!sound) {
