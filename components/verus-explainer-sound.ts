@@ -13,7 +13,7 @@ export type Sfx =
   | "ding"
   | "chime"
   | "fanfare"
-  | "honk"
+  | "beep"
   | "motor"
   | "winch"
   | "alert"
@@ -24,31 +24,18 @@ export type Sfx =
 
 const midi = (n: number) => 440 * Math.pow(2, (n - 69) / 12);
 
-// Warm and easy, not bouncy (operator's word, 2026-10-15): soft electric-piano chords on F major 7, G6, E minor 7,
-// A minor 7, a round bass, a soft kick like a heartbeat, a quiet rim, and a few bell notes after the first time
-// round. Eighth notes at 92 a minute; each chord: the bass root, the fifth, and the voicing.
-const CHORDS: { root: number; fifth: number; voicing: number[] }[] = [
-  { root: 41, fifth: 48, voicing: [53, 57, 60, 64] },
-  { root: 43, fifth: 50, voicing: [55, 59, 62, 64] },
-  { root: 40, fifth: 47, voicing: [52, 55, 59, 62] },
-  { root: 45, fifth: 52, voicing: [57, 60, 64, 67] },
+// Light background, an acoustic guitar fingerpicked softly (operator's word, 2026-10-15): open chords C, G,
+// A minor, F; the bass string, then up and back down the strings, eighth notes at 84 a minute. No drums, no bells,
+// nothing sharp. Each string is a plucked-string model (Karplus-Strong), made once per pitch and kept.
+const CHORDS: number[][] = [
+  [48, 55, 60, 64, 67],
+  [43, 55, 59, 62, 67],
+  [45, 57, 60, 64, 69],
+  [41, 53, 57, 60, 65],
 ];
-// bell notes by step in the four bars (eight steps a bar)
-const BELLS: Record<number, number> = {
-  2: 81,
-  5: 79,
-  6: 76,
-  10: 74,
-  13: 76,
-  18: 79,
-  21: 83,
-  22: 81,
-  26: 76,
-  29: 74,
-  30: 72,
-};
+const PICK = [0, 2, 3, 4, 3, 2, 3, 1]; // the string picked on each eighth of a bar
 const STEPS = 32;
-const EIGHTH = 60 / 92 / 2;
+const EIGHTH = 60 / 84 / 2;
 
 export class Sound {
   private ctx: AudioContext | null = null;
@@ -58,7 +45,7 @@ export class Sound {
   private timer: number | null = null;
   private next = 0;
   private step = 0;
-  private round = 0;
+  private strings = new Map<number, AudioBuffer>();
 
   /** Call from a click: a browser only lets sound start from one. */
   start(): void {
@@ -90,10 +77,10 @@ export class Sound {
     const ctx = this.ctx;
     if (!ctx || !this.music || this.timer !== null) return;
     this.music.gain.cancelScheduledValues(ctx.currentTime);
-    this.music.gain.setTargetAtTime(0.2, ctx.currentTime, 0.4);
+    this.music.gain.setTargetAtTime(0.12, ctx.currentTime, 0.5);
     this.next = ctx.currentTime + 0.05;
     this.step = 0;
-    this.round = 0;
+    CHORDS.flat().forEach((n) => this.string(n));
     this.timer = window.setInterval(() => this.schedule(), 25);
   }
 
@@ -116,40 +103,55 @@ export class Sound {
     const out = this.music;
     if (!ctx || !out) return;
     while (this.next < ctx.currentTime + 0.15) {
-      const t = this.next;
+      const t = this.next + Math.random() * 0.012; // a person plays it, not a clock
       const chord = CHORDS[Math.floor(this.step / 8)];
       const beat = this.step % 8;
-      if (beat === 0) {
-        chord.voicing.forEach((n) => this.keys(out, midi(n), t, 0.07));
-        this.tone(out, "sine", midi(chord.root), t, 0.4, 0.01, 0.7);
-        this.tone(out, "sine", 110, t, 0.35, 0.003, 0.22, 45);
-      }
-      if (beat === 3)
-        chord.voicing
-          .slice(1)
-          .forEach((n) => this.keys(out, midi(n), t, 0.035));
-      if (beat === 4) {
-        this.tone(out, "sine", midi(chord.fifth), t, 0.3, 0.01, 0.5);
-        this.tone(out, "sine", 110, t, 0.22, 0.003, 0.2, 45);
-      }
-      if (beat === 2 || beat === 6)
-        this.hiss(out, t, 0.05, 0.035, "bandpass", 1900, undefined, 2);
-      const bell = BELLS[this.step];
-      if (bell && this.round > 0) {
-        this.tone(out, "sine", midi(bell), t, 0.11, 0.004, 1.1);
-        this.tone(out, "sine", midi(bell) * 3, t, 0.012, 0.002, 0.4);
-      }
+      const pick = PICK[beat];
+      this.pluck(out, chord[pick], t, pick === 0 ? 0.55 : 0.32);
+      if (beat === 0) this.pluck(out, chord[3], t + 0.01, 0.22);
       this.next += EIGHTH;
       this.step = (this.step + 1) % STEPS;
-      if (this.step === 0) this.round += 1;
     }
   }
 
-  /** A soft electric piano: two sines a hair apart and a little second harmonic. */
-  private keys(out: AudioNode, freq: number, t: number, vol: number): void {
-    this.tone(out, "sine", freq, t, vol, 0.012, 1.6);
-    this.tone(out, "sine", freq * 1.0035, t, vol * 0.6, 0.012, 1.4);
-    this.tone(out, "sine", freq * 2, t, vol * 0.12, 0.008, 0.5);
+  /** One plucked string: smoothed noise, as a thumb rather than a pick, round a loop that loses a little each time. */
+  private string(note: number): AudioBuffer {
+    const ctx = this.ctx!;
+    const kept = this.strings.get(note);
+    if (kept) return kept;
+    const sr = ctx.sampleRate;
+    const buf = ctx.createBuffer(1, Math.floor(sr * 3), sr);
+    const y = buf.getChannelData(0);
+    const n = Math.max(2, Math.round(sr / midi(note) - 0.5));
+    let soft = 0;
+    let mean = 0;
+    for (let i = 0; i < n; i++) {
+      soft = soft * 0.55 + (Math.random() * 2 - 1) * 0.45;
+      y[i] = soft;
+      mean += soft / n;
+    }
+    for (let i = 0; i < n; i++) y[i] -= mean;
+    y[n] = y[0] * 0.996;
+    for (let i = n + 1; i < y.length; i++)
+      y[i] = 0.996 * 0.5 * (y[i - n] + y[i - n - 1]);
+    this.strings.set(note, buf);
+    return buf;
+  }
+
+  private pluck(out: AudioNode, note: number, t: number, vol: number): void {
+    const ctx = this.ctx!;
+    const src = ctx.createBufferSource();
+    src.buffer = this.string(note);
+    const g = ctx.createGain();
+    g.gain.setValueAtTime(vol, t);
+    g.gain.setValueAtTime(vol, t + 2.4);
+    g.gain.linearRampToValueAtTime(0, t + 2.9);
+    const f = ctx.createBiquadFilter();
+    f.type = "lowpass";
+    f.frequency.value = 1700;
+    src.connect(f).connect(g).connect(out);
+    src.start(t);
+    src.stop(t + 3);
   }
 
   private tone(
@@ -284,15 +286,14 @@ export class Sound {
         );
         this.tone(out, "triangle", 1046.5, t + 0.33, 0.3, 0.005, 0.9);
         return this.tone(out, "sine", 1568, t + 0.33, 0.1, 0.005, 0.9);
-      case "honk":
-        [0, 0.28].forEach((d) => {
-          this.drone("sawtooth", 392, 392, t + d, 0.2, 0.09, 1400);
-          this.drone("sawtooth", 494, 494, t + d, 0.2, 0.07, 1400);
-        });
+      case "beep": // an electric forklift's polite beep
+        [0, 0.22].forEach((d) =>
+          this.tone(out, "sine", 1046.5, t + d, 0.12, 0.005, 0.12),
+        );
         return;
-      case "motor":
-        this.drone("sawtooth", 52, 60, t, dur, 0.16, 380);
-        return this.drone("square", 104, 118, t, dur, 0.03, 300);
+      case "motor": // an electric motor's soft hum, rising as it goes
+        this.drone("triangle", 180, 290, t, dur, 0.045, 900);
+        return this.drone("sine", 360, 580, t, dur, 0.015, 900);
       case "winch":
         return this.drone("sawtooth", 140, 330, t, dur, 0.09, 900);
       case "alert":

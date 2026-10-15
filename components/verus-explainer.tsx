@@ -2116,7 +2116,7 @@ const SCENES: Scene[] = [
     ),
   },
   {
-    caption: "It lights the path. Your team moves faster.",
+    caption: "VERUS lights the path. Your team moves faster.",
     seconds: 5.5,
     dark: false,
     draw: () => (
@@ -2339,7 +2339,7 @@ const SFX: Record<string, [number, Sfx, number?][]> = {
     [0.05, "motor", 4.8],
     [1.0, "pop"],
     [2.2, "pop"],
-    [2.7, "honk"],
+    [2.7, "beep"],
     [3.4, "pop"],
     [4.4, "pop"],
   ],
@@ -2396,7 +2396,7 @@ const SFX: Record<string, [number, Sfx, number?][]> = {
     [2.3, "ding"],
     [2.7, "chime"],
   ],
-  "It lights the path. Your team moves faster.": [
+  "VERUS lights the path. Your team moves faster.": [
     ...Array.from({ length: 12 }, (_, i): [number, Sfx] => [
       Math.max(0.15, 0.12 + 0.347 * i),
       "clack",
