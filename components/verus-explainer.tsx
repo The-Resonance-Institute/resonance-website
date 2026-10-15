@@ -2116,7 +2116,7 @@ const SCENES: Scene[] = [
     ),
   },
   {
-    caption: "VERUS lights the path. Your team moves faster.",
+    caption: "VERUS lights the path so your team can move faster.",
     seconds: 5.5,
     dark: false,
     draw: () => (
@@ -2396,7 +2396,7 @@ const SFX: Record<string, [number, Sfx, number?][]> = {
     [2.3, "ding"],
     [2.7, "chime"],
   ],
-  "VERUS lights the path. Your team moves faster.": [
+  "VERUS lights the path so your team can move faster.": [
     ...Array.from({ length: 12 }, (_, i): [number, Sfx] => [
       Math.max(0.15, 0.12 + 0.347 * i),
       "clack",
