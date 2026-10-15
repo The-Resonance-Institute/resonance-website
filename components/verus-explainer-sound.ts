@@ -24,18 +24,31 @@ export type Sfx =
 
 const midi = (n: number) => 440 * Math.pow(2, (n - 69) / 12);
 
-// four bars in C major pentatonic, eighth notes, -1 a rest; chords C, A minor, F, G
-const MELODY = [
-  76, 79, 81, 79, 76, -1, 74, -1, 72, 76, 81, -1, 79, 76, -1, -1, 69, 72, 77,
-  76, 74, -1, 72, -1, 74, 79, 81, 79, 74, -1, 76, -1,
+// Warm and easy, not bouncy (operator's word, 2026-10-15): soft electric-piano chords on F major 7, G6, E minor 7,
+// A minor 7, a round bass, a soft kick like a heartbeat, a quiet rim, and a few bell notes after the first time
+// round. Eighth notes at 92 a minute; each chord: the bass root, the fifth, and the voicing.
+const CHORDS: { root: number; fifth: number; voicing: number[] }[] = [
+  { root: 41, fifth: 48, voicing: [53, 57, 60, 64] },
+  { root: 43, fifth: 50, voicing: [55, 59, 62, 64] },
+  { root: 40, fifth: 47, voicing: [52, 55, 59, 62] },
+  { root: 45, fifth: 52, voicing: [57, 60, 64, 67] },
 ];
-const CHORDS = [
-  [48, 60, 64, 67],
-  [45, 57, 60, 64],
-  [41, 57, 60, 65],
-  [43, 55, 59, 62],
-];
-const EIGHTH = 60 / 104 / 2;
+// bell notes by step in the four bars (eight steps a bar)
+const BELLS: Record<number, number> = {
+  2: 81,
+  5: 79,
+  6: 76,
+  10: 74,
+  13: 76,
+  18: 79,
+  21: 83,
+  22: 81,
+  26: 76,
+  29: 74,
+  30: 72,
+};
+const STEPS = 32;
+const EIGHTH = 60 / 92 / 2;
 
 export class Sound {
   private ctx: AudioContext | null = null;
@@ -45,6 +58,7 @@ export class Sound {
   private timer: number | null = null;
   private next = 0;
   private step = 0;
+  private round = 0;
 
   /** Call from a click: a browser only lets sound start from one. */
   start(): void {
@@ -53,9 +67,13 @@ export class Sound {
       const master = ctx.createGain();
       master.gain.value = 0.7;
       master.connect(ctx.destination);
+      const warm = ctx.createBiquadFilter();
+      warm.type = "lowpass";
+      warm.frequency.value = 2600;
+      warm.connect(master);
       this.music = ctx.createGain();
       this.music.gain.value = 0;
-      this.music.connect(master);
+      this.music.connect(warm);
       this.sfx = ctx.createGain();
       this.sfx.gain.value = 0.55;
       this.sfx.connect(master);
@@ -72,8 +90,10 @@ export class Sound {
     const ctx = this.ctx;
     if (!ctx || !this.music || this.timer !== null) return;
     this.music.gain.cancelScheduledValues(ctx.currentTime);
-    this.music.gain.setTargetAtTime(0.28, ctx.currentTime, 0.3);
+    this.music.gain.setTargetAtTime(0.2, ctx.currentTime, 0.4);
     this.next = ctx.currentTime + 0.05;
+    this.step = 0;
+    this.round = 0;
     this.timer = window.setInterval(() => this.schedule(), 25);
   }
 
@@ -93,30 +113,43 @@ export class Sound {
 
   private schedule(): void {
     const ctx = this.ctx;
-    if (!ctx || !this.music) return;
+    const out = this.music;
+    if (!ctx || !out) return;
     while (this.next < ctx.currentTime + 0.15) {
       const t = this.next;
-      const bar = Math.floor(this.step / 8);
-      const inBar = this.step % 8;
-      const chord = CHORDS[bar];
-      if (inBar === 0)
-        chord
-          .slice(1)
-          .forEach((n) =>
-            this.tone(this.music!, "triangle", midi(n), t, 0.035, 0.08, 2.2),
-          );
-      if (inBar === 0 || inBar === 4)
-        this.tone(this.music, "triangle", midi(chord[0]), t, 0.32, 0.005, 0.45);
-      const note = MELODY[this.step];
-      if (note > 0) {
-        this.tone(this.music, "sine", midi(note), t, 0.22, 0.004, 0.5);
-        this.tone(this.music, "sine", midi(note) * 4, t, 0.025, 0.002, 0.12);
+      const chord = CHORDS[Math.floor(this.step / 8)];
+      const beat = this.step % 8;
+      if (beat === 0) {
+        chord.voicing.forEach((n) => this.keys(out, midi(n), t, 0.07));
+        this.tone(out, "sine", midi(chord.root), t, 0.4, 0.01, 0.7);
+        this.tone(out, "sine", 110, t, 0.35, 0.003, 0.22, 45);
       }
-      if (inBar % 2 === 1)
-        this.hiss(this.music, t, 0.035, 0.04, "highpass", 7000);
+      if (beat === 3)
+        chord.voicing
+          .slice(1)
+          .forEach((n) => this.keys(out, midi(n), t, 0.035));
+      if (beat === 4) {
+        this.tone(out, "sine", midi(chord.fifth), t, 0.3, 0.01, 0.5);
+        this.tone(out, "sine", 110, t, 0.22, 0.003, 0.2, 45);
+      }
+      if (beat === 2 || beat === 6)
+        this.hiss(out, t, 0.05, 0.035, "bandpass", 1900, undefined, 2);
+      const bell = BELLS[this.step];
+      if (bell && this.round > 0) {
+        this.tone(out, "sine", midi(bell), t, 0.11, 0.004, 1.1);
+        this.tone(out, "sine", midi(bell) * 3, t, 0.012, 0.002, 0.4);
+      }
       this.next += EIGHTH;
-      this.step = (this.step + 1) % MELODY.length;
+      this.step = (this.step + 1) % STEPS;
+      if (this.step === 0) this.round += 1;
     }
+  }
+
+  /** A soft electric piano: two sines a hair apart and a little second harmonic. */
+  private keys(out: AudioNode, freq: number, t: number, vol: number): void {
+    this.tone(out, "sine", freq, t, vol, 0.012, 1.6);
+    this.tone(out, "sine", freq * 1.0035, t, vol * 0.6, 0.012, 1.4);
+    this.tone(out, "sine", freq * 2, t, vol * 0.12, 0.008, 0.5);
   }
 
   private tone(

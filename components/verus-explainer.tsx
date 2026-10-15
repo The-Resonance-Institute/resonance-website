@@ -1152,6 +1152,59 @@ const TICKER: [string, "up" | "down" | "watch"][] = [
   ["\u25CF TRADE NEWS ON YOUR MATERIALS", "watch"],
 ];
 
+// A fog bank of guesswork: fluffy puffs that drift apart and let the light through when VERUS's headlamp reaches them.
+const PUFFS: [number, number, number][] = [
+  [-46, 10, 22],
+  [-22, -4, 28],
+  [6, -14, 32],
+  [34, -2, 26],
+  [56, 10, 20],
+  [-4, 14, 26],
+  [24, 16, 22],
+];
+// where each bank sits, its size, and when his light reaches it
+const CLOUDS: [number, number, number, number][] = [
+  [420, 150, 1, 1.8],
+  [470, 215, 0.8, 2.15],
+  [515, 118, 1.05, 2.45],
+  [575, 175, 0.9, 2.95],
+  [615, 105, 0.85, 3.35],
+];
+
+function Cloud({
+  x,
+  y,
+  s = 1,
+  clear,
+}: {
+  x: number;
+  y: number;
+  s?: number;
+  clear: number;
+}) {
+  return (
+    <g transform={`translate(${x} ${y}) scale(${s})`}>
+      <g className="vx-drift">
+        {PUFFS.map(([px, py, r], i) => (
+          <g
+            key={i}
+            className="vx-puff"
+            style={{
+              ...cssVars({
+                "--px": `${px * 0.9}px`,
+                "--py": `${py * 0.9 - 10}px`,
+              }),
+              animationDelay: `${clear + (i % 3) * 0.08}s`,
+            }}
+          >
+            <circle cx={px} cy={py} r={r} fill="url(#vx-cloud)" />
+          </g>
+        ))}
+      </g>
+    </g>
+  );
+}
+
 const SCENES: Scene[] = [
   {
     caption: "Meet VERUS.",
@@ -2135,7 +2188,7 @@ const SCENES: Scene[] = [
               fill="#fff"
               fontFamily={SANS}
             >
-              85%
+              99%
             </text>
             <text
               x={25}
@@ -2150,43 +2203,18 @@ const SCENES: Scene[] = [
             </text>
           </g>
         </g>
-        {(
-          [
-            [400, 120, 70, 1.6],
-            [500, 170, 80, 2.4],
-            [560, 100, 60, 2.9],
-            [450, 220, 60, 2.0],
-          ] as [number, number, number, number][]
-        ).map(([fx, fy, r, d]) => (
-          <g key={fx} className="vx-clear" style={{ animationDelay: `${d}s` }}>
-            <ellipse
-              cx={fx}
-              cy={fy}
-              rx={r}
-              ry={r * 0.55}
-              fill="#e2e8f0"
-              opacity={0.95}
-            />
-            <ellipse
-              cx={fx - r * 0.5}
-              cy={fy + 6}
-              rx={r * 0.6}
-              ry={r * 0.4}
-              fill="#e2e8f0"
-              opacity={0.95}
-            />
-            <text
-              x={fx}
-              y={fy + 8}
-              textAnchor="middle"
-              fontSize={22}
-              fontWeight={800}
-              fill="#94a3b8"
-              fontFamily={SANS}
-            >
-              ?
-            </text>
-          </g>
+        {CLOUDS.map(([cx, cy, , d]) => (
+          <Sparkles
+            key={cx}
+            pts={[
+              [cx - 14, cy + 4],
+              [cx + 18, cy - 10],
+            ]}
+            delay={d}
+          />
+        ))}
+        {CLOUDS.map(([cx, cy, cs, d]) => (
+          <Cloud key={cx} x={cx} y={cy} s={cs} clear={d} />
         ))}
         <g className="vx-follow">
           <g className="vx-march">
@@ -2373,7 +2401,8 @@ const SFX: Record<string, [number, Sfx, number?][]> = {
       Math.max(0.15, 0.12 + 0.347 * i),
       "clack",
     ]),
-    [1.4, "whoosh"],
+    [1.8, "whoosh"],
+    [2.95, "whoosh"],
     [4.0, "fanfare"],
   ],
   "The truth about your operation, around the clock.": [
@@ -2400,6 +2429,11 @@ function Defs() {
         <stop offset="0" stopColor="#dfe8f5" />
         <stop offset="1" stopColor="#f6efe4" />
       </linearGradient>
+      <radialGradient id="vx-cloud" cx="0.4" cy="0.35" r="0.7">
+        <stop offset="0" stopColor="#ffffff" />
+        <stop offset="0.6" stopColor="#f1f5f9" />
+        <stop offset="1" stopColor="#cdd6e2" />
+      </radialGradient>
       <linearGradient id="vx-sunrise" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0" stopColor="#a9cdf2" />
         <stop offset="1" stopColor="#ffe3b8" />
@@ -2468,12 +2502,14 @@ const CSS = `
 @keyframes vx-chart{from{stroke-dashoffset:320}to{stroke-dashoffset:0}}
 .vx-lead{animation:vx-lead 3.8s linear .2s}
 @keyframes vx-lead{from{transform:translate(-460px,106px)}to{transform:none}}
-.vx-follow{animation:vx-follow 3.4s ease-out 1.1s}
-@keyframes vx-follow{from{transform:translate(-200px,46px)}to{transform:none}}
+.vx-follow{animation:vx-follow 3.6s ease-out .7s}
+@keyframes vx-follow{from{transform:translate(-380px,88px)}to{transform:none}}
 .vx-march{animation:vx-march .32s ease-in-out infinite alternate}
 @keyframes vx-march{from{transform:none}to{transform:translateY(-3px)}}
-.vx-clear{animation:vx-clear 1.1s ease-out;opacity:0}
-@keyframes vx-clear{from{opacity:1}to{opacity:0}}
+.vx-puff{animation:vx-puff 1.3s ease-out;opacity:0}
+@keyframes vx-puff{from{opacity:.97;transform:none}to{opacity:0;transform:translate(var(--px),var(--py)) scale(1.35)}}
+.vx-drift{animation:vx-drift 3s ease-in-out infinite alternate}
+@keyframes vx-drift{from{transform:translateX(-5px)}to{transform:translateX(5px)}}
 .vx-wave{animation:vx-wave .5s ease-in-out 6 alternate}
 @keyframes vx-wave{from{transform:rotate(0)}to{transform:rotate(-55deg)}}
 .vx-twinkle{animation:vx-twinkle 1.8s ease-in-out infinite alternate}
