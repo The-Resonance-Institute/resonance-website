@@ -1121,22 +1121,63 @@ function Tile({
   );
 }
 
-// A small copy of an agent, the card that flies to each teammate.
-function AgentChip({ x, y }: { x: number; y: number }) {
+// A custom agent, drawn as VERUS's little helper with a magnifier on its screen: what you build, it sends to dig.
+// Origin at its middle; about seventy tall at scale one.
+function AgentBot({
+  x,
+  y,
+  s = 1,
+  scan = false,
+}: {
+  x: number;
+  y: number;
+  s?: number;
+  scan?: boolean;
+}) {
   return (
-    <g transform={`translate(${x} ${y})`}>
-      <rect
-        x={-16}
-        y={-11}
-        width={32}
-        height={22}
-        rx={4}
-        fill="#fff"
-        stroke={TEAL}
-        strokeWidth={2}
-      />
-      <circle cx={-7} cy={0} r={3.5} fill={TEAL} />
-      <path d="M-1 -3 h12 M-1 3 h9" stroke="#9aa2ad" strokeWidth={1.6} />
+    <g transform={`translate(${x} ${y}) scale(${s})`}>
+      {scan && (
+        <path
+          d="M10 -11 L84 -34 L84 22 Z"
+          fill="#5eead4"
+          opacity={0.35}
+          className="vx-beam"
+        />
+      )}
+      <ellipse cx={0} cy={30} rx={16} ry={3.5} fill="#000" opacity={0.15} />
+      <g className="vx-breathe" style={{ transformOrigin: "0px 30px" }}>
+        <line
+          x1={0}
+          y1={-22}
+          x2={0}
+          y2={-30}
+          stroke="#0f766e"
+          strokeWidth={2.5}
+        />
+        <circle cx={0} cy={-32} r={3.6} fill="#fbbf24" className="vx-led" />
+        <rect x={-14} y={-22} width={28} height={24} rx={8} fill={TEAL} />
+        <rect x={-10} y={-18} width={20} height={15} rx={4} fill="#ccfbf1" />
+        <circle
+          cx={-1.5}
+          cy={-11.5}
+          r={4.2}
+          fill="none"
+          stroke={TEAL}
+          strokeWidth={2}
+        />
+        <path
+          d="M1.6 -8.4 l3.6 3.6"
+          stroke={TEAL}
+          strokeWidth={2.4}
+          strokeLinecap="round"
+        />
+        <rect x={-10} y={3} width={20} height={20} rx={6} fill="#14b8a6" />
+        <rect x={-6} y={9} width={12} height={3} rx={1.5} fill="#ccfbf1" />
+        <rect x={-7} y={22} width={5} height={7} rx={2} fill="#0f766e" />
+        <rect x={2} y={22} width={5} height={7} rx={2} fill="#0f766e" />
+        <rect x={-18} y={7} width={8} height={5} rx={2.5} fill="#14b8a6" />
+        <rect x={10} y={7} width={8} height={5} rx={2.5} fill="#14b8a6" />
+      </g>
     </g>
   );
 }
@@ -1705,23 +1746,23 @@ const SCENES: Scene[] = [
     ),
   },
   {
-    caption: "Need to dig in? Describe an agent in one sentence.",
+    caption: "Need to dig deeper? Build an agent in one sentence.",
     seconds: 5,
     dark: false,
     draw: () => (
       <>
         <defs>
           <clipPath id="vx-type-clip">
-            <rect x={186} y={64} width={296} height={46} />
+            <rect x={160} y={56} width={268} height={50} />
           </clipPath>
         </defs>
         <rect width={640} height={360} fill="#eaf3fb" />
-        <rect x={0} y={292} width={640} height={68} fill="#dbe7f3" />
-        <PlantManager x={92} y={150} s={1.15} pose="tablet" />
+        <rect x={0} y={288} width={640} height={72} fill="#dbe7f3" />
+        <PlantManager x={84} y={150} s={1.15} pose="tablet" />
         <rect
-          x={176}
-          y={34}
-          width={316}
+          x={148}
+          y={28}
+          width={286}
           height={84}
           rx={10}
           fill="#fff"
@@ -1729,8 +1770,8 @@ const SCENES: Scene[] = [
           strokeWidth={2}
         />
         <text
-          x={190}
-          y={54}
+          x={162}
+          y={48}
           fontSize={10.5}
           fontWeight={700}
           fill="#5b6472"
@@ -1739,151 +1780,271 @@ const SCENES: Scene[] = [
           Describe a new agent
         </text>
         <g clipPath="url(#vx-type-clip)">
-          <text x={190} y={80} fontSize={12.5} fill={INK} fontFamily={SANS}>
+          <text x={162} y={74} fontSize={12.5} fill={INK} fontFamily={SANS}>
             Tell me every Monday if any customer&apos;s
           </text>
-          <text x={190} y={100} fontSize={12.5} fill={INK} fontFamily={SANS}>
+          <text x={162} y={94} fontSize={12.5} fill={INK} fontFamily={SANS}>
             on-time delivery drops below 85%.
           </text>
           <g className="vx-type">
-            <rect x={186} y={64} width={300} height={46} fill="#fff" />
+            <rect x={160} y={56} width={272} height={50} fill="#fff" />
           </g>
         </g>
         <path
-          d="M334 122 v26"
+          d="M290 116 V168"
           stroke="#94a3b8"
           strokeWidth={3}
+          strokeDasharray="5 5"
           className="vx-draw"
-          style={{ animationDelay: "2.6s" }}
+          style={{ animationDelay: "2.3s" }}
         />
-        <g className="vx-pop" style={{ animationDelay: "3s" }}>
+        <rect x={228} y={240} width={124} height={10} rx={2} fill="#8a5a3b" />
+        <rect x={238} y={250} width={8} height={40} fill="#7a4d31" />
+        <rect x={334} y={250} width={8} height={40} fill="#7a4d31" />
+        <Sparkles
+          pts={[
+            [256, 214],
+            [326, 200],
+            [300, 176],
+          ]}
+          delay={2.4}
+        />
+        <g className="vx-hop" style={{ animationDelay: "2.7s" }}>
+          <AgentBot x={290} y={205} s={1.3} />
+        </g>
+        <g className="vx-pop" style={{ animationDelay: "3.3s" }}>
           <rect
-            x={214}
-            y={152}
-            width={240}
-            height={104}
+            x={448}
+            y={30}
+            width={180}
+            height={88}
             rx={10}
             fill="#fff"
             stroke={TEAL}
             strokeWidth={2.5}
           />
-          <rect x={228} y={164} width={70} height={18} rx={9} fill="#ccfbf1" />
+          <rect x={460} y={41} width={92} height={18} rx={9} fill="#ccfbf1" />
           <text
-            x={263}
-            y={177}
+            x={506}
+            y={54}
             textAnchor="middle"
             fontSize={10}
             fontWeight={700}
             fill={TEAL}
             fontFamily={SANS}
           >
-            New agent
+            Your new agent
           </text>
           <text
-            x={228}
-            y={202}
-            fontSize={13}
+            x={460}
+            y={78}
+            fontSize={12}
             fontWeight={800}
             fill={INK}
             fontFamily={SANS}
           >
-            On time below 85%, by customer
+            On time below 85%,
           </text>
           <text
-            x={228}
-            y={222}
-            fontSize={10.5}
-            fill="#5b6472"
+            x={460}
+            y={93}
+            fontSize={12}
+            fontWeight={800}
+            fill={INK}
             fontFamily={SANS}
           >
-            Every Monday. Tested on the last 90 days first.
+            by customer
           </text>
-          <text
-            x={228}
-            y={242}
-            fontSize={10.5}
-            fill="#5b6472"
-            fontFamily={SANS}
-          >
-            Sees only what you may see.
+          <text x={460} y={109} fontSize={9.5} fill="#5b6472" fontFamily={SANS}>
+            Tested on the last 90 days first.
           </text>
         </g>
-        <Robot x={560} y={186} s={1.3} face="happy" hold="wrench" />
+        <Robot x={432} y={196} s={1.2} face="happy" hold="wrench" />
       </>
     ),
   },
   {
-    caption: "Run it once or on a schedule. Share it with your team.",
-    seconds: 5,
+    caption: "Run it once, every day, or on your own schedule.",
+    seconds: 4.5,
     dark: false,
     draw: () => (
       <>
         <rect width={640} height={360} fill="#eef2f7" />
-        <rect x={0} y={282} width={640} height={78} fill="#d9e0ea" />
+        <rect x={0} y={284} width={640} height={76} fill="#d9e0ea" />
+        {(
+          [
+            ["Once", 176, 52, 0.3],
+            ["Every day", 236, 82, 1.0],
+            ["Every Monday", 326, 108, 1.7],
+          ] as [string, number, number, number][]
+        ).map(([label, cx, w, d], i) => (
+          <g key={label}>
+            <rect
+              x={cx}
+              y={20}
+              width={w}
+              height={28}
+              rx={14}
+              fill="#fff"
+              stroke="#cbd5e1"
+              strokeWidth={1.5}
+            />
+            {i < 2 ? (
+              <g className="vx-flicker" style={{ animationDelay: `${d}s` }}>
+                <rect
+                  x={cx}
+                  y={20}
+                  width={w}
+                  height={28}
+                  rx={14}
+                  fill="#99f6e4"
+                />
+              </g>
+            ) : (
+              <g className="vx-pop" style={{ animationDelay: `${d}s` }}>
+                <rect x={cx} y={20} width={w} height={28} rx={14} fill={TEAL} />
+              </g>
+            )}
+            <text
+              x={cx + w / 2}
+              y={39}
+              textAnchor="middle"
+              fontSize={12}
+              fontWeight={700}
+              fill={i === 2 ? "#fff" : INK}
+              fontFamily={SANS}
+              className={i === 2 ? "vx-fade" : ""}
+              style={i === 2 ? { animationDelay: `${d}s` } : undefined}
+            >
+              {label}
+            </text>
+          </g>
+        ))}
         <rect
-          x={170}
-          y={20}
-          width={300}
-          height={112}
+          x={40}
+          y={66}
+          width={214}
+          height={196}
           rx={10}
           fill="#fff"
           stroke="#cbd5e1"
           strokeWidth={2}
         />
         <text
-          x={186}
-          y={44}
-          fontSize={13}
+          x={54}
+          y={88}
+          fontSize={12}
           fontWeight={800}
           fill={INK}
           fontFamily={SANS}
         >
-          On time below 85%, by customer
+          This month
         </text>
-        {(
-          [
-            ["Once", 186, 46],
-            ["Every day", 240, 70],
-            ["Every Monday", 318, 92],
-          ] as [string, number, number][]
-        ).map(([label, x, w], i) => (
-          <g key={label}>
-            <rect
-              x={x}
-              y={56}
-              width={w}
-              height={24}
-              rx={12}
-              fill="#fff"
-              stroke="#cbd5e1"
-            />
-            {i === 2 && (
-              <g className="vx-pop" style={{ animationDelay: "0.6s" }}>
-                <rect x={x} y={56} width={w} height={24} rx={12} fill={TEAL} />
-              </g>
-            )}
-            <text
-              x={x + w / 2}
-              y={72}
-              textAnchor="middle"
-              fontSize={11}
-              fontWeight={600}
-              fill={i === 2 ? "#fff" : INK}
-              fontFamily={SANS}
-              className={i === 2 ? "vx-fade" : ""}
-              style={i === 2 ? { animationDelay: "0.6s" } : undefined}
-            >
-              {label}
-            </text>
-          </g>
-        ))}
-        <g className="vx-pop" style={{ animationDelay: "1.3s" }}>
-          <rect x={186} y={92} width={136} height={26} rx={6} fill={BLUE} />
+        {["M", "T", "W", "T", "F", "S", "S"].map((d, i) => (
           <text
-            x={254}
-            y={109}
+            key={i}
+            x={66 + i * 28}
+            y={110}
             textAnchor="middle"
-            fontSize={11}
+            fontSize={10}
+            fontWeight={700}
+            fill={i ? "#94a3b8" : TEAL}
+            fontFamily={SANS}
+          >
+            {d}
+          </text>
+        ))}
+        {Array.from({ length: 4 }, (_, r) =>
+          Array.from({ length: 7 }, (_, c) => (
+            <g key={`${r}-${c}`}>
+              <rect
+                x={54 + c * 28}
+                y={118 + r * 34}
+                width={24}
+                height={28}
+                rx={5}
+                fill={c ? "#f1f5f9" : "#e6fffa"}
+              />
+              {c === 0 && (
+                <g transform={`translate(${66} ${132 + r * 34})`}>
+                  <g
+                    className="vx-pop"
+                    style={{ animationDelay: `${2.0 + r * 0.25}s` }}
+                  >
+                    <circle r={9} fill={TEAL} />
+                    <path
+                      d="M-4 0 l3 3 l5 -6"
+                      stroke="#fff"
+                      strokeWidth={2.4}
+                      fill="none"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </g>
+                </g>
+              )}
+            </g>
+          )),
+        )}
+        {[0, 1, 2, 3, 4, 5].map((i) => (
+          <rect
+            key={i}
+            x={392}
+            y={176 + i * 13}
+            width={70 - (i % 3) * 12}
+            height={7}
+            rx={3}
+            fill="#cbd5e1"
+          />
+        ))}
+        <AgentBot x={330} y={208} s={1.5} scan />
+        <g className="vx-pop" style={{ animationDelay: "2.9s" }}>
+          <rect
+            x={392}
+            y={70}
+            width={208}
+            height={64}
+            rx={10}
+            fill="#fff"
+            stroke="#f59e0b"
+            strokeWidth={2.5}
+          />
+          <circle cx={410} cy={92} r={5} fill="#f59e0b" />
+          <text
+            x={422}
+            y={96}
+            fontSize={12.5}
+            fontWeight={800}
+            fill={INK}
+            fontFamily={SANS}
+          >
+            Found: 4 customers
+          </text>
+          <text x={422} y={116} fontSize={11.5} fill={INK} fontFamily={SANS}>
+            below 85% on time
+          </text>
+        </g>
+        <Robot x={580} y={204} s={1.0} face="happy" hold="clipboard" />
+      </>
+    ),
+  },
+  {
+    caption: "Share agents and what they find across your team.",
+    seconds: 4.5,
+    dark: false,
+    draw: () => (
+      <>
+        <rect width={640} height={360} fill="#eef2f7" />
+        <rect x={0} y={282} width={640} height={78} fill="#d9e0ea" />
+        <rect x={286} y={100} width={68} height={10} rx={3} fill="#cbd5e1" />
+        <AgentBot x={320} y={68} s={1.3} />
+        <g className="vx-press" style={{ transformOrigin: "320px 127px" }}>
+          <rect x={250} y={114} width={140} height={28} rx={7} fill={BLUE} />
+          <text
+            x={320}
+            y={132}
+            textAnchor="middle"
+            fontSize={11.5}
             fontWeight={700}
             fill="#fff"
             fontFamily={SANS}
@@ -1891,30 +2052,61 @@ const SCENES: Scene[] = [
             Share with the team
           </text>
         </g>
-        {[
-          [140, 196],
-          [300, 196],
-          [460, 196],
-        ].map(([px, py], i) => (
-          <g key={px} transform="translate(320 150)">
+        <path
+          d="M168 214 H292 M348 214 H472"
+          stroke={TEAL}
+          strokeWidth={2.5}
+          strokeDasharray="6 5"
+          className="vx-draw"
+          style={{ animationDelay: "2.5s" }}
+        />
+        <path
+          d="M150 192 Q320 130 490 192"
+          stroke={TEAL}
+          strokeWidth={2.5}
+          strokeDasharray="6 5"
+          fill="none"
+          className="vx-draw"
+          style={{ animationDelay: "2.7s" }}
+        />
+        {(
+          [
+            [178, 214, 110, 0, 2.9],
+            [358, 214, 110, 0, 3.2],
+            [470, 164, -300, 0, 3.4],
+          ] as [number, number, number, number, number][]
+        ).map(([fx, fy, dx, dy, d]) => (
+          <g key={`${fx}-${d}`} transform={`translate(${fx} ${fy})`}>
             <g
-              className="vx-fly"
+              className="vx-travel"
               style={{
-                ...cssVars({
-                  "--dx": `${px - 320}px`,
-                  "--dy": `${py - 150}px`,
-                }),
-                animationDelay: `${1.9 + i * 0.3}s`,
+                ...cssVars({ "--dx": `${dx}px`, "--dy": `${dy}px` }),
+                animationDelay: `${d}s`,
               }}
             >
-              <AgentChip x={0} y={0} />
+              <rect
+                x={-9}
+                y={-6.5}
+                width={18}
+                height={13}
+                rx={2.5}
+                fill="#fff"
+                stroke="#f59e0b"
+                strokeWidth={2}
+              />
+              <path
+                d="M-9 -6 L0 1 L9 -6"
+                stroke="#f59e0b"
+                strokeWidth={1.6}
+                fill="none"
+              />
             </g>
           </g>
         ))}
-        <PlantManager x={140} y={190} s={0.8} pose="wave" />
+        <PlantManager x={128} y={180} s={0.8} pose="wave" />
         <PlantManager
-          x={300}
-          y={190}
+          x={320}
+          y={180}
           s={0.8}
           skin="#a8714a"
           hair="#1f1f1f"
@@ -1922,15 +2114,34 @@ const SCENES: Scene[] = [
           hat={HAT}
           mood="glad"
         />
-        <Executive x={460} y={190} s={0.8} pose="tablet" />
-        {[140, 300, 460].map((px, i) => (
-          <g key={px} transform={`translate(${px + 26} 196)`}>
-            <g className="vx-pop" style={{ animationDelay: `${3 + i * 0.3}s` }}>
-              <AgentChip x={0} y={0} />
+        <Executive x={510} y={180} s={0.8} pose="tablet" />
+        {[128, 320, 510].map((px, i) => (
+          <g key={px} transform="translate(320 80)">
+            <g
+              className="vx-fly"
+              style={{
+                ...cssVars({
+                  "--dx": `${px + 38 - 320}px`,
+                  "--dy": `${160}px`,
+                }),
+                animationDelay: `${1.0 + i * 0.3}s`,
+              }}
+            >
+              <AgentBot x={0} y={0} s={0.55} />
             </g>
           </g>
         ))}
-        <Robot x={580} y={202} s={1.05} face="happy" hold="none" />
+        {[128, 320, 510].map((px, i) => (
+          <g key={px} transform={`translate(${px + 38} 244)`}>
+            <g
+              className="vx-pop"
+              style={{ animationDelay: `${2.0 + i * 0.3}s` }}
+            >
+              <AgentBot x={0} y={0} s={0.55} />
+            </g>
+          </g>
+        ))}
+        <Robot x={604} y={210} s={0.9} face="happy" hold="none" wave />
       </>
     ),
   },
@@ -2368,21 +2579,38 @@ const SFX: Record<string, [number, Sfx, number?][]> = {
     [1.0, "blip"],
     [1.3, "blip"],
   ],
-  "Need to dig in? Describe an agent in one sentence.": [
+  "Need to dig deeper? Build an agent in one sentence.": [
     ...typing,
-    [2.6, "whoosh"],
-    [3.0, "pop"],
-    [3.2, "ding"],
-  ],
-  "Run it once or on a schedule. Share it with your team.": [
-    [0.6, "pop"],
-    [1.3, "pop"],
-    [1.9, "whoosh"],
-    [2.2, "whoosh"],
-    [2.5, "whoosh"],
-    [3.0, "pop"],
+    [2.3, "whoosh"],
+    [2.5, "clack"],
+    [2.62, "clack"],
+    [2.75, "boing"],
     [3.3, "pop"],
-    [3.6, "pop"],
+    [3.45, "ding"],
+  ],
+  "Run it once, every day, or on your own schedule.": [
+    [0.3, "pop"],
+    [0.5, "rise"],
+    [1.0, "pop"],
+    [1.7, "pop"],
+    [2.0, "blip"],
+    [2.25, "blip"],
+    [2.5, "blip"],
+    [2.75, "blip"],
+    [2.9, "ding"],
+  ],
+  "Share agents and what they find across your team.": [
+    [0.5, "clack"],
+    [1.0, "whoosh"],
+    [1.3, "whoosh"],
+    [1.6, "whoosh"],
+    [2.0, "pop"],
+    [2.3, "pop"],
+    [2.6, "pop"],
+    [2.9, "blip"],
+    [3.2, "blip"],
+    [3.4, "blip"],
+    [3.8, "chime"],
   ],
   "Every plant. Every company. One version of the truth.": [
     [0.5, "blip"],
@@ -2510,6 +2738,12 @@ const CSS = `
 @keyframes vx-puff{from{opacity:.97;transform:none}to{opacity:0;transform:translate(var(--px),var(--py)) scale(1.35)}}
 .vx-drift{animation:vx-drift 3s ease-in-out infinite alternate}
 @keyframes vx-drift{from{transform:translateX(-5px)}to{transform:translateX(5px)}}
+.vx-flicker{animation:vx-flicker .8s ease-in-out;opacity:0}
+@keyframes vx-flicker{0%{opacity:0}25%,70%{opacity:1}100%{opacity:0}}
+.vx-press{animation:vx-press .35s ease-in-out .5s}
+@keyframes vx-press{0%,100%{transform:none}45%{transform:scale(.9)}}
+.vx-travel{animation:vx-travel .9s ease-in-out;opacity:0}
+@keyframes vx-travel{0%{opacity:0;transform:none}15%,85%{opacity:1}100%{opacity:0;transform:translate(var(--dx),var(--dy))}}
 .vx-wave{animation:vx-wave .5s ease-in-out 6 alternate}
 @keyframes vx-wave{from{transform:rotate(0)}to{transform:rotate(-55deg)}}
 .vx-twinkle{animation:vx-twinkle 1.8s ease-in-out infinite alternate}
