@@ -755,36 +755,32 @@ const SCENES: Scene[] = [
   {
     caption: "The truth about your operation, around the clock.",
     seconds: 4,
-    dark: false,
+    dark: true,
+    // the logo, Chris's own design (2026-10-15); its navy ground is the scene's, so it sits in it without a frame
     draw: () => (
       <>
-        <rect width={640} height={360} fill="url(#vx-day)" />
+        <rect width={640} height={360} fill="#111a2b" />
+        <defs>
+          <radialGradient id="vx-logo-fade" cx="0.5" cy="0.5" r="0.62">
+            <stop offset="0.6" stopColor="#fff" />
+            <stop offset="1" stopColor="#000" />
+          </radialGradient>
+          <mask id="vx-logo-mask">
+            <rect x={150} y={34} width={420} height={235} fill="url(#vx-logo-fade)" />
+          </mask>
+        </defs>
+        <image
+          href="/verus/verus-logo.jpg"
+          x={150}
+          y={34}
+          width={420}
+          height={235}
+          mask="url(#vx-logo-mask)"
+          className="vx-fade"
+        />
         <g className="vx-bob">
-          <Robot x={320} y={44} s={1.6} wave />
+          <Robot x={92} y={176} s={1.25} wave />
         </g>
-        <text
-          x={320}
-          y={200}
-          textAnchor="middle"
-          fontSize={56}
-          fill={INK}
-          fontFamily="var(--font-newsreader), Georgia, serif"
-          className="vx-fade"
-        >
-          VERUS
-        </text>
-        <text
-          x={320}
-          y={226}
-          textAnchor="middle"
-          fontSize={13}
-          fill="#5b6472"
-          fontFamily="ui-sans-serif, system-ui"
-          className="vx-fade"
-          style={{ animationDelay: "0.4s" }}
-        >
-          Project VERUS · The Resonance Institute
-        </text>
       </>
     ),
   },
