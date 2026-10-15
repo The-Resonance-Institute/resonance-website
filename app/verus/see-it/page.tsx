@@ -32,7 +32,7 @@ export default function SeeIt() {
         </section>
 
         <section id="watch" className="scroll-mt-6 border-t border-line pt-10">
-          <h2 className="font-serif text-2xl text-ink">The 35-second version</h2>
+          <h2 className="font-serif text-2xl text-ink">Meet VERUS, in 45 seconds</h2>
           <div className="mt-6">
             <VerusExplainer />
           </div>

@@ -65,15 +65,16 @@ export default function Verus() {
       <VerusNav current="/verus" />
       <div className="mx-auto max-w-3xl px-6 pb-20">
         <section className="pt-12 pb-10 sm:pt-16">
-          {/* THE LOGO, Chris's own design (2026-10-15). Its navy ground is part of the file, so it sits as a banner. */}
+          {/* THE LOGO, Chris's own design, the blue version (2026-10-15). Its navy ground is part of the file, so it sits as a
+              banner across the column; his upscale is 1,200 pixels wide here, sharp at that width on any screen. */}
           <Image
             src="/verus/verus-logo.jpg"
             alt="VERUS, operational intelligence"
-            width={1500}
-            height={838}
+            width={1200}
+            height={670}
             priority
-            sizes="(max-width: 640px) 100vw, 576px"
-            className="mb-10 h-auto w-full max-w-xl rounded-2xl"
+            sizes="(max-width: 800px) 100vw, 720px"
+            className="mb-10 h-auto w-full rounded-2xl"
           />
           <p className="text-xs font-medium uppercase tracking-[0.18em] text-accent">Project VERUS</p>
           <h1 className="mt-4 font-serif text-4xl leading-tight text-ink sm:text-5xl">
@@ -100,7 +101,7 @@ export default function Verus() {
           </div>
           <p className="mt-5 text-sm">
             <Link href="/verus/see-it#watch" className={link}>
-              Watch the 35-second version
+              Meet VERUS in 45 seconds
             </Link>
           </p>
         </section>
