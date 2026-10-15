@@ -77,7 +77,7 @@ export class Sound {
     const ctx = this.ctx;
     if (!ctx || !this.music || this.timer !== null) return;
     this.music.gain.cancelScheduledValues(ctx.currentTime);
-    this.music.gain.setTargetAtTime(0.035, ctx.currentTime, 0.5); // very light background (operator, 2026-10-15)
+    this.music.gain.setTargetAtTime(0.005, ctx.currentTime, 0.5); // barely there: "if it is a 10 now it needs to be a 2" (operator, 2026-10-15)
     this.next = ctx.currentTime + 0.05;
     this.step = 0;
     CHORDS.flat().forEach((n) => this.string(n));
