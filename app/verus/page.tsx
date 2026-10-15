@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { VerusNav, VerusNext } from "@/components/verus-nav";
 
@@ -63,7 +64,17 @@ export default function Verus() {
     <>
       <VerusNav current="/verus" />
       <div className="mx-auto max-w-3xl px-6 pb-20">
-        <section className="pt-16 pb-10 sm:pt-24">
+        <section className="pt-12 pb-10 sm:pt-16">
+          {/* THE LOGO, Chris's own design (2026-10-15). Its navy ground is part of the file, so it sits as a banner. */}
+          <Image
+            src="/verus/verus-logo.jpg"
+            alt="VERUS, operational intelligence"
+            width={1500}
+            height={838}
+            priority
+            sizes="(max-width: 640px) 100vw, 576px"
+            className="mb-10 h-auto w-full max-w-xl rounded-2xl"
+          />
           <p className="text-xs font-medium uppercase tracking-[0.18em] text-accent">Project VERUS</p>
           <h1 className="mt-4 font-serif text-4xl leading-tight text-ink sm:text-5xl">
             The truth about your operation, around the clock.
