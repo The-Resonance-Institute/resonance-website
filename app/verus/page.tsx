@@ -98,6 +98,11 @@ export default function Verus() {
               Ask for a demonstration
             </Link>
           </div>
+          <p className="mt-5 text-sm">
+            <Link href="/verus/see-it#watch" className={link}>
+              Watch the 35-second version
+            </Link>
+          </p>
         </section>
 
         <Block title="Three jobs, done all day, every day">

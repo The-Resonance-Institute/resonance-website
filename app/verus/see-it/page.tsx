@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { VerusExplainer } from "@/components/verus-explainer";
 import { VerusNav, VerusNext } from "@/components/verus-nav";
 
 // PROJECT VERUS, SEE IT, 2026-10-13. No VERUS runs on the web (agreed 2026-10-12): it is shown live, by request,
@@ -30,7 +31,14 @@ export default function SeeIt() {
           </p>
         </section>
 
-        <section className="space-y-5 border-t border-line pt-10 text-lg leading-relaxed text-ink">
+        <section id="watch" className="scroll-mt-6 border-t border-line pt-10">
+          <h2 className="font-serif text-2xl text-ink">The 35-second version</h2>
+          <div className="mt-6">
+            <VerusExplainer />
+          </div>
+        </section>
+
+        <section className="mt-14 space-y-5 border-t border-line pt-10 text-lg leading-relaxed text-ink">
           <h2 className="font-serif text-2xl text-ink">A live demonstration</h2>
           <p>
             Twenty minutes, on the demonstration group: a system connected cold, the questions it asks, the data
