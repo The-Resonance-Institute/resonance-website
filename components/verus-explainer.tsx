@@ -12,9 +12,22 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 
-type Scene = { caption: string; seconds: number; dark: boolean; draw: () => React.ReactNode };
+type Scene = {
+  caption: string;
+  seconds: number;
+  dark: boolean;
+  draw: () => React.ReactNode;
+};
 type Face = "eyes" | "happy" | "chart";
-type Hold = "clipboard" | "flashlight" | "newspaper" | "magnifier" | "pointer" | "wrench" | "none";
+type Hold =
+  | "clipboard"
+  | "flashlight"
+  | "newspaper"
+  | "magnifier"
+  | "pointer"
+  | "wrench"
+  | "pendant"
+  | "none";
 
 const INK = "#1f2937";
 const BLUE = "#2a78d6";
@@ -27,7 +40,8 @@ function cssVars(vars: Record<string, string>): React.CSSProperties {
   return vars as React.CSSProperties;
 }
 
-// VERUS himself: a friendly computer in a hard hat. Origin at the middle of his body's top edge.
+// VERUS himself: a friendly computer in a hard hat with a headlamp. He breathes, looks about and blinks. Origin at
+// the middle of his body's top edge.
 function Robot({
   x,
   y,
@@ -36,6 +50,7 @@ function Robot({
   hold = "clipboard",
   wave = false,
   name = false,
+  alert = false,
 }: {
   x: number;
   y: number;
@@ -44,73 +59,249 @@ function Robot({
   hold?: Hold;
   wave?: boolean;
   name?: boolean;
+  alert?: boolean;
 }) {
   return (
     <g transform={`translate(${x} ${y}) scale(${s})`}>
-      {hold === "flashlight" && <path d="M36 30 L170 -6 L170 86 Z" fill="#fff6c8" opacity={0.5} className="vx-beam" />}
+      {hold === "flashlight" && (
+        <path
+          d="M36 30 L170 -6 L170 86 Z"
+          fill="#fff6c8"
+          opacity={0.5}
+          className="vx-beam"
+        />
+      )}
       <ellipse cx={0} cy={62} rx={27} ry={5} fill="#000" opacity={0.18} />
-      <rect x={-15} y={50} width={11} height={10} rx={3} fill="#4b5563" />
-      <rect x={4} y={50} width={11} height={10} rx={3} fill="#4b5563" />
-      <rect x={-22} y={4} width={44} height={48} rx={10} fill="#f4f5f7" stroke="#c9ced6" strokeWidth={2} />
-      <rect x={-16} y={10} width={32} height={23} rx={5} fill={SCREEN} />
-      {face === "eyes" && (
-        <g>
-          <rect x={-9} y={16} width={5} height={9} rx={2} fill="#7fc0ff" className="vx-eye" />
-          <rect x={4} y={16} width={5} height={9} rx={2} fill="#7fc0ff" className="vx-eye" />
+      <g className="vx-breathe" style={{ transformOrigin: "0px 60px" }}>
+        <rect x={-15} y={50} width={11} height={10} rx={3} fill="#4b5563" />
+        <rect x={4} y={50} width={11} height={10} rx={3} fill="#4b5563" />
+        <rect
+          x={-22}
+          y={4}
+          width={44}
+          height={48}
+          rx={10}
+          fill="#f4f5f7"
+          stroke="#c9ced6"
+          strokeWidth={2}
+        />
+        <rect x={-16} y={10} width={32} height={23} rx={5} fill={SCREEN} />
+        {face === "eyes" && (
+          <g className="vx-look">
+            <g className="vx-eye">
+              <rect x={-9} y={16} width={5} height={9} rx={2} fill="#7fc0ff" />
+              <rect x={4} y={16} width={5} height={9} rx={2} fill="#7fc0ff" />
+            </g>
+          </g>
+        )}
+        {face === "happy" && (
+          <g>
+            <path
+              d="M-11 23 l4 -5 l4 5 M3 23 l4 -5 l4 5"
+              stroke="#7fc0ff"
+              strokeWidth={2.4}
+              fill="none"
+              strokeLinecap="round"
+            />
+            <circle cx={-11} cy={28} r={2.2} fill="#f9a8d4" opacity={0.75} />
+            <circle cx={11} cy={28} r={2.2} fill="#f9a8d4" opacity={0.75} />
+          </g>
+        )}
+        {face === "chart" && (
+          <g>
+            <path d="M-13 29 H13" stroke="#3d5f8f" strokeWidth={1} />
+            <path
+              d="M-13 27 L-7 25 L-2 26 L3 13 L8 25 L13 24"
+              stroke="#ffcf5c"
+              strokeWidth={2.2}
+              fill="none"
+              strokeLinejoin="round"
+              className="vx-trace"
+            />
+          </g>
+        )}
+        <rect x={-8} y={39} width={16} height={3} rx={1.5} fill={BLUE} />
+        <path
+          d="M-24 4 Q0 -22 24 4 Z"
+          fill={HAT}
+          stroke="#d39e00"
+          strokeWidth={2}
+        />
+        <rect x={-28} y={2} width={56} height={5} rx={2.5} fill="#e0a800" />
+        <rect x={-3} y={-14} width={6} height={8} rx={2} fill="#e0a800" />
+        <circle
+          cx={0}
+          cy={-3}
+          r={4.2}
+          fill="#fff7c2"
+          stroke="#d39e00"
+          strokeWidth={1.5}
+          className="vx-lamp"
+        />
+        <g
+          className={wave ? "vx-wave" : ""}
+          style={{ transformOrigin: "-24px 24px" }}
+        >
+          <rect
+            x={-36}
+            y={20}
+            width={14}
+            height={7}
+            rx={3.5}
+            fill="#dfe3e8"
+            stroke="#c9ced6"
+          />
+          <circle cx={-37} cy={23.5} r={4.5} fill="#dfe3e8" stroke="#c9ced6" />
         </g>
-      )}
-      {face === "happy" && (
-        <path d="M-11 24 l4 -5 l4 5 M3 24 l4 -5 l4 5" stroke="#7fc0ff" strokeWidth={2.4} fill="none" strokeLinecap="round" />
-      )}
-      {face === "chart" && (
-        <g>
-          <path d="M-13 29 H13" stroke="#3d5f8f" strokeWidth={1} />
-          <path d="M-13 27 L-7 25 L-2 26 L3 13 L8 25 L13 24" stroke="#ffcf5c" strokeWidth={2.2} fill="none" strokeLinejoin="round" className="vx-trace" />
-        </g>
-      )}
-      <rect x={-8} y={39} width={16} height={3} rx={1.5} fill={BLUE} />
-      <path d="M-24 4 Q0 -22 24 4 Z" fill={HAT} stroke="#d39e00" strokeWidth={2} />
-      <rect x={-28} y={2} width={56} height={5} rx={2.5} fill="#e0a800" />
-      <rect x={-3} y={-14} width={6} height={10} rx={2} fill="#e0a800" />
-      <g className={wave ? "vx-wave" : ""} style={{ transformOrigin: "-24px 24px" }}>
-        <rect x={-36} y={20} width={14} height={7} rx={3.5} fill="#dfe3e8" stroke="#c9ced6" />
+        <rect
+          x={22}
+          y={20}
+          width={12}
+          height={7}
+          rx={3.5}
+          fill="#dfe3e8"
+          stroke="#c9ced6"
+        />
+        {hold === "clipboard" && (
+          <g>
+            <rect x={26} y={10} width={21} height={27} rx={2} fill="#c8925a" />
+            <rect x={29} y={14} width={15} height={19} rx={1} fill="#fff" />
+            <path
+              d="M31 18 h11 M31 22 h8 M31 26 h11 M31 30 h7"
+              stroke="#9aa2ad"
+              strokeWidth={1.4}
+            />
+          </g>
+        )}
+        {hold === "flashlight" && (
+          <rect x={28} y={26} width={14} height={9} rx={2} fill="#4b5563" />
+        )}
+        {hold === "magnifier" && (
+          <g>
+            <path
+              d="M33 26 L44 15"
+              stroke="#6b4f2a"
+              strokeWidth={4}
+              strokeLinecap="round"
+            />
+            <circle
+              cx={50}
+              cy={9}
+              r={10}
+              fill="#dff3ff"
+              fillOpacity={0.55}
+              stroke="#4b5563"
+              strokeWidth={3}
+            />
+          </g>
+        )}
+        {hold === "pointer" && (
+          <path
+            d="M-32 23 L-74 -20"
+            stroke="#8a5a3b"
+            strokeWidth={3}
+            strokeLinecap="round"
+          />
+        )}
+        {hold === "wrench" && (
+          <g className="vx-turn" style={{ transformOrigin: "30px 26px" }}>
+            <path
+              d="M30 26 L47 9"
+              stroke="#8b95a3"
+              strokeWidth={5}
+              strokeLinecap="round"
+            />
+            <path
+              d="M43 4 a8 8 0 1 0 11 -1"
+              stroke="#8b95a3"
+              strokeWidth={5}
+              fill="none"
+              strokeLinecap="round"
+            />
+          </g>
+        )}
+        {hold === "pendant" && (
+          <g>
+            <path
+              d="M36 12 Q44 -40 -56 -112"
+              stroke="#374151"
+              strokeWidth={2}
+              fill="none"
+            />
+            <rect
+              x={29}
+              y={10}
+              width={14}
+              height={24}
+              rx={3}
+              fill={HAT}
+              stroke="#d39e00"
+              strokeWidth={1.5}
+            />
+            <circle cx={36} cy={17} r={2.6} fill="#22c55e" className="vx-led" />
+            <circle cx={36} cy={26} r={2.6} fill="#ef4444" />
+          </g>
+        )}
+        {hold === "newspaper" && (
+          <g>
+            <rect
+              x={-34}
+              y={34}
+              width={68}
+              height={30}
+              rx={2}
+              fill="#f8f6ef"
+              stroke="#cfcab8"
+            />
+            <text
+              x={0}
+              y={44}
+              textAnchor="middle"
+              fontSize={7}
+              fontWeight={800}
+              fill={INK}
+              fontFamily={SANS}
+            >
+              STEEL UP 1.7%
+            </text>
+            <path
+              d="M-29 50 h26 M-29 54 h22 M-29 58 h26 M4 50 h25 M4 54 h20 M4 58 h25"
+              stroke="#b9b4a3"
+              strokeWidth={1.4}
+            />
+          </g>
+        )}
       </g>
-      <rect x={22} y={20} width={12} height={7} rx={3.5} fill="#dfe3e8" stroke="#c9ced6" />
-      {hold === "clipboard" && (
-        <g>
-          <rect x={26} y={10} width={21} height={27} rx={2} fill="#c8925a" />
-          <rect x={29} y={14} width={15} height={19} rx={1} fill="#fff" />
-          <path d="M31 18 h11 M31 22 h8 M31 26 h11 M31 30 h7" stroke="#9aa2ad" strokeWidth={1.4} />
-        </g>
-      )}
-      {hold === "flashlight" && <rect x={28} y={26} width={14} height={9} rx={2} fill="#4b5563" />}
-      {hold === "magnifier" && (
-        <g>
-          <path d="M33 26 L44 15" stroke="#6b4f2a" strokeWidth={4} strokeLinecap="round" />
-          <circle cx={50} cy={9} r={10} fill="#dff3ff" fillOpacity={0.55} stroke="#4b5563" strokeWidth={3} />
-        </g>
-      )}
-      {hold === "pointer" && <path d="M-32 23 L-74 -20" stroke="#8a5a3b" strokeWidth={3} strokeLinecap="round" />}
-      {hold === "wrench" && (
-        <g className="vx-turn" style={{ transformOrigin: "30px 26px" }}>
-          <path d="M30 26 L47 9" stroke="#8b95a3" strokeWidth={5} strokeLinecap="round" />
-          <path d="M43 4 a8 8 0 1 0 11 -1" stroke="#8b95a3" strokeWidth={5} fill="none" strokeLinecap="round" />
-        </g>
-      )}
-      {hold === "newspaper" && (
-        <g>
-          <rect x={-34} y={34} width={68} height={30} rx={2} fill="#f8f6ef" stroke="#cfcab8" />
-          <text x={0} y={44} textAnchor="middle" fontSize={7} fontWeight={800} fill={INK} fontFamily={SANS}>
-            STEEL UP 1.7%
-          </text>
-          <path d="M-29 50 h26 M-29 54 h22 M-29 58 h26 M4 50 h25 M4 54 h20 M4 58 h25" stroke="#b9b4a3" strokeWidth={1.4} />
-        </g>
-      )}
       {name && (
         <g>
           <rect x={-22} y={66} width={44} height={14} rx={3} fill="#2b3a4f" />
-          <text x={0} y={76.5} textAnchor="middle" fontSize={9} fontWeight={800} fill="#fff" fontFamily={SANS} letterSpacing={1.5}>
+          <text
+            x={0}
+            y={76.5}
+            textAnchor="middle"
+            fontSize={9}
+            fontWeight={800}
+            fill="#fff"
+            fontFamily={SANS}
+            letterSpacing={1.5}
+          >
             VERUS
+          </text>
+        </g>
+      )}
+      {alert && (
+        <g className="vx-pop" style={{ animationDelay: "0.9s" }}>
+          <circle cx={30} cy={-26} r={11} fill="#f59e0b" />
+          <text
+            x={30}
+            y={-20.5}
+            textAnchor="middle"
+            fontSize={16}
+            fontWeight={900}
+            fill="#fff"
+            fontFamily={SANS}
+          >
+            !
           </text>
         </g>
       )}
@@ -118,77 +309,427 @@ function Robot({
   );
 }
 
-// The plant manager: hard hat, hi-vis vest, coffee. Origin at the top of the head.
+// VERUS at the wheel of a forklift, beacon flashing, headlights on. Origin on the ground under it, facing right.
+function Forklift({ x, y, s = 1 }: { x: number; y: number; s?: number }) {
+  return (
+    <g transform={`translate(${x} ${y}) scale(${s})`}>
+      <path
+        d="M12 -66 L200 -104 L200 -6 Z"
+        fill="#fff6c8"
+        opacity={0.4}
+        className="vx-beam"
+      />
+      <ellipse cx={0} cy={0} rx={58} ry={5} fill="#000" opacity={0.22} />
+      <Robot x={-18} y={-92} s={0.78} face="happy" hold="none" />
+      <rect x={34} y={-104} width={4} height={92} fill="#4b5563" />
+      <rect x={42} y={-104} width={4} height={92} fill="#4b5563" />
+      <rect x={45} y={-46} width={5} height={32} rx={1} fill="#374151" />
+      <rect x={46} y={-17} width={36} height={4} rx={1} fill="#374151" />
+      <path
+        d="M-46 -12 L-46 -40 Q-46 -48 -38 -48 L-10 -48 L-2 -32 L30 -32 L34 -12 Z"
+        fill={HAT}
+        stroke="#d39e00"
+        strokeWidth={2}
+      />
+      <rect x={-54} y={-42} width={11} height={30} rx={3} fill="#a16207" />
+      <text
+        x={-30}
+        y={-21}
+        fontSize={9}
+        fontWeight={800}
+        fill="#7c5a00"
+        fontFamily={SANS}
+        letterSpacing={1}
+      >
+        VERUS
+      </text>
+      <path
+        d="M-40 -48 V-114 H10 V-32"
+        stroke="#374151"
+        strokeWidth={3.5}
+        fill="none"
+        strokeLinejoin="round"
+      />
+      <rect
+        x={-22}
+        y={-123}
+        width={9}
+        height={8}
+        rx={3}
+        fill="#f59e0b"
+        className="vx-beacon"
+      />
+      <rect x={8} y={-71} width={8} height={7} rx={2} fill="#fff7c2" />
+      {(
+        [
+          [-28, 11],
+          [24, 12],
+        ] as [number, number][]
+      ).map(([cx, r]) => (
+        <g key={cx} transform={`translate(${cx} ${-r})`}>
+          <g className="vx-spin">
+            <circle r={r} fill="#1f2937" />
+            <circle r={r * 0.45} fill="#9ca3af" />
+            <rect
+              x={-1.5}
+              y={-r * 0.45}
+              width={3}
+              height={r * 0.9}
+              fill="#4b5563"
+            />
+          </g>
+        </g>
+      ))}
+    </g>
+  );
+}
+
+type Pose = "idle" | "wave" | "coffee" | "thumb" | "tablet";
+type Mood = "happy" | "glad" | "tired";
+
+function Arm({
+  to,
+  from,
+  sleeve,
+  skin,
+}: {
+  to: [number, number];
+  from: [number, number];
+  sleeve: string;
+  skin: string;
+}) {
+  return (
+    <g>
+      <line
+        x1={from[0]}
+        y1={from[1]}
+        x2={to[0]}
+        y2={to[1]}
+        stroke={sleeve}
+        strokeWidth={8}
+        strokeLinecap="round"
+      />
+      <circle cx={to[0]} cy={to[1]} r={4.8} fill={skin} />
+    </g>
+  );
+}
+
+// The people, drawn in VERUS's own style: big heads, shiny eyes that blink, real arms. Origin at the top of the head;
+// about a hundred tall at scale one.
+function Person({
+  x,
+  y,
+  s = 1,
+  exec = false,
+  skin = "#f1c8a5",
+  hair = "#5a3b2a",
+  ponytail = false,
+  hat = "#ffffff",
+  mood = "happy",
+  pose = "idle",
+}: {
+  x: number;
+  y: number;
+  s?: number;
+  exec?: boolean;
+  skin?: string;
+  hair?: string;
+  ponytail?: boolean;
+  hat?: string;
+  mood?: Mood;
+  pose?: Pose;
+}) {
+  const sleeve = exec ? "#1e293b" : "#2c4a74";
+  const shoe = exec ? "#111827" : "#6b4423";
+  const leg = exec ? "#334155" : "#1e3a5f";
+  return (
+    <g transform={`translate(${x} ${y}) scale(${s})`}>
+      {ponytail && <ellipse cx={-21} cy={46} rx={6} ry={12} fill={hair} />}
+      <rect x={-13} y={86} width={10} height={11} fill={leg} />
+      <rect x={3} y={86} width={10} height={11} fill={leg} />
+      <rect x={-16} y={95} width={14} height={6} rx={3} fill={shoe} />
+      <rect x={2} y={95} width={14} height={6} rx={3} fill={shoe} />
+      <path
+        d="M-19 62 Q-19 55 -11 55 L11 55 Q19 55 19 62 L20 89 L-20 89 Z"
+        fill={sleeve}
+      />
+      {exec ? (
+        <g>
+          <path d="M-8 55 L0 72 L8 55 Z" fill="#fff" />
+          <path d="M-2.5 57 L2.5 57 L4.5 74 L0 79 L-4.5 74 Z" fill="#c0392b" />
+          <path
+            d="M-9 55 L-3 70 L-12 67 Z M9 55 L3 70 L12 67 Z"
+            fill="#334155"
+          />
+          <path d="M10 64 l7 0 l-3.5 4 Z" fill="#fff" />
+        </g>
+      ) : (
+        <g>
+          <path
+            d="M-19 62 Q-19 56 -10 55 L-5 89 L-20 89 Z M19 62 Q19 56 10 55 L5 89 L20 89 Z"
+            fill="#f97316"
+          />
+          <path
+            d="M-20 71 h14 M6 71 h14 M-20 80 h14.5 M5.5 80 h14.5"
+            stroke="#fde68a"
+            strokeWidth={3.5}
+          />
+          <rect x={9} y={58} width={6} height={9} rx={1.5} fill="#111827" />
+          <path d="M13.5 58 v-6" stroke="#111827" strokeWidth={1.5} />
+        </g>
+      )}
+      <Arm
+        from={[-17, 60]}
+        to={pose === "tablet" ? [-15, 75] : [-24, 84]}
+        sleeve={sleeve}
+        skin={skin}
+      />
+      {pose === "idle" && (
+        <Arm from={[17, 60]} to={[24, 84]} sleeve={sleeve} skin={skin} />
+      )}
+      {pose === "coffee" && (
+        <g>
+          <Arm from={[17, 60]} to={[25, 73]} sleeve={sleeve} skin={skin} />
+          <rect
+            x={25}
+            y={62}
+            width={13}
+            height={15}
+            rx={3}
+            fill="#fff"
+            stroke="#cbd5e1"
+          />
+          <path
+            d="M38 66 q6 3.5 0 7"
+            stroke="#cbd5e1"
+            strokeWidth={2}
+            fill="none"
+          />
+          <path
+            d="M30 58 q3 -5 0 -10 M35 58 q3 -5 0 -10"
+            stroke="#cbd5e1"
+            strokeWidth={1.8}
+            fill="none"
+            className="vx-steam"
+          />
+        </g>
+      )}
+      {pose === "wave" && (
+        <g className="vx-hello" style={{ transformOrigin: "17px 60px" }}>
+          <Arm from={[17, 60]} to={[30, 38]} sleeve={sleeve} skin={skin} />
+        </g>
+      )}
+      {pose === "thumb" && (
+        <g className="vx-pop" style={{ animationDelay: "2.6s" }}>
+          <Arm from={[17, 60]} to={[29, 47]} sleeve={sleeve} skin={skin} />
+          <rect x={27} y={36} width={4.5} height={10} rx={2.2} fill={skin} />
+        </g>
+      )}
+      {pose === "tablet" && (
+        <g>
+          <Arm from={[17, 60]} to={[15, 75]} sleeve={sleeve} skin={skin} />
+          <rect x={-17} y={64} width={34} height={23} rx={3} fill="#0f172a" />
+          <rect
+            x={-14}
+            y={67}
+            width={28}
+            height={17}
+            rx={1.5}
+            fill="#38bdf8"
+            opacity={0.55}
+          />
+          <circle cx={-17} cy={76} r={4.8} fill={skin} />
+          <circle cx={17} cy={76} r={4.8} fill={skin} />
+        </g>
+      )}
+      <rect x={-5} y={49} width={10} height={8} fill={skin} />
+      <circle cx={-21} cy={36} r={4.2} fill={skin} />
+      <circle cx={21} cy={36} r={4.2} fill={skin} />
+      <circle cx={0} cy={33} r={21} fill={skin} />
+      {exec ? (
+        <path
+          d="M-21 32 Q-23 10 0 11 Q23 10 21 32 Q19 20 8 18 Q-2 23 -14 19 Q-19 23 -21 32 Z"
+          fill={hair}
+        />
+      ) : (
+        <path
+          d="M-21 25 Q-22 34 -18 39 L-16 27 Z M21 25 Q22 34 18 39 L16 27 Z"
+          fill={hair}
+        />
+      )}
+      <path
+        d="M-12 27 q4 -3 8 0 M4 27 q4 -3 8 0"
+        stroke={exec ? "#6b7280" : hair}
+        strokeWidth={2}
+        fill="none"
+        strokeLinecap="round"
+      />
+      {mood === "tired" ? (
+        <path
+          d="M-11 35 h6 M5 35 h6"
+          stroke={INK}
+          strokeWidth={2}
+          strokeLinecap="round"
+        />
+      ) : (
+        <g className="vx-eye">
+          <ellipse cx={-8} cy={35} rx={2.9} ry={3.7} fill={INK} />
+          <ellipse cx={8} cy={35} rx={2.9} ry={3.7} fill={INK} />
+          <circle cx={-7} cy={33.6} r={1.1} fill="#fff" />
+          <circle cx={9} cy={33.6} r={1.1} fill="#fff" />
+        </g>
+      )}
+      {exec && (
+        <g fill="none" stroke={INK} strokeWidth={1.7}>
+          <circle cx={-8} cy={35} r={6.2} />
+          <circle cx={8} cy={35} r={6.2} />
+          <path d="M-1.8 35 h3.6" />
+        </g>
+      )}
+      <path
+        d="M0 37 q2.6 2 0 4.2"
+        stroke="#c98f6a"
+        strokeWidth={1.6}
+        fill="none"
+        strokeLinecap="round"
+      />
+      <circle cx={-13.5} cy={42} r={3.6} fill="#f4a3a3" opacity={0.5} />
+      <circle cx={13.5} cy={42} r={3.6} fill="#f4a3a3" opacity={0.5} />
+      {exec && (
+        <path
+          d="M-7 43.5 q3.5 -3 7 0 q3.5 -3 7 0 q-3.5 2.6 -7 1 q-3.5 1.6 -7 -1 Z"
+          fill={hair}
+        />
+      )}
+      {mood === "glad" ? (
+        <path d="M-7 45 Q0 54 7 45 Z" fill="#8b2c2c" />
+      ) : mood === "tired" ? (
+        <path
+          d="M-5 47 Q0 44 5 47"
+          stroke={INK}
+          strokeWidth={2}
+          fill="none"
+          strokeLinecap="round"
+        />
+      ) : (
+        <path
+          d="M-6 46 Q0 51 6 46"
+          stroke={INK}
+          strokeWidth={2.2}
+          fill="none"
+          strokeLinecap="round"
+        />
+      )}
+      {!exec && (
+        <g>
+          <path
+            d="M-23 24 Q-23 2 0 2 Q23 2 23 24 Z"
+            fill={hat}
+            stroke="#cbd5e1"
+            strokeWidth={1.5}
+          />
+          <rect
+            x={-27}
+            y={20}
+            width={54}
+            height={6}
+            rx={3}
+            fill={hat}
+            stroke="#cbd5e1"
+            strokeWidth={1.5}
+          />
+          <rect
+            x={-2.5}
+            y={1}
+            width={5}
+            height={14}
+            rx={2}
+            fill="#000"
+            opacity={0.08}
+          />
+          <circle cx={11} cy={13} r={3.4} fill="#22c55e" />
+          <path d="M11 11 v4 M9 13 h4" stroke="#fff" strokeWidth={1.3} />
+        </g>
+      )}
+    </g>
+  );
+}
+
 function PlantManager({
   x,
   y,
   s = 1,
   mood = "happy",
-  coffee = true,
-  hair = "#5a3b2a",
+  pose = "idle",
+  skin,
+  hair,
+  ponytail,
+  hat,
 }: {
   x: number;
   y: number;
   s?: number;
-  mood?: "happy" | "tired" | "glad";
-  coffee?: boolean;
+  mood?: Mood;
+  pose?: Pose;
+  skin?: string;
   hair?: string;
+  ponytail?: boolean;
+  hat?: string;
 }) {
   return (
-    <g transform={`translate(${x} ${y}) scale(${s})`}>
-      <path d="M-30 96 Q-30 52 0 50 Q30 52 30 96 Z" fill="#2c4a74" />
-      <path d="M-24 96 L-20 56 Q-10 51 -6 52 L-6 96 Z M24 96 L20 56 Q10 51 6 52 L6 96 Z" fill="#f97316" />
-      <path d="M-23 70 h17 M-23 80 h17 M6 70 h17 M6 80 h17" stroke="#e5e7eb" strokeWidth={3} />
-      <rect x={-6} y={50} width={12} height={8} fill="#f1c8a5" />
-      <circle cx={0} cy={30} r={20} fill="#f1c8a5" />
-      <path d="M-20 30 Q-21 12 0 11 Q21 12 20 30 Q17 20 0 19 Q-17 20 -20 30 Z" fill={hair} />
-      <path d="M-23 21 Q0 -6 23 21 Z" fill="#ffffff" stroke="#cbd5e1" strokeWidth={1.5} />
-      <rect x={-27} y={19} width={54} height={5} rx={2.5} fill="#f1f5f9" stroke="#cbd5e1" />
-      <rect x={-3} y={4} width={6} height={9} rx={2} fill="#e2e8f0" />
-      {mood === "tired" ? (
-        <g stroke={INK} strokeWidth={2} strokeLinecap="round" fill="none">
-          <path d="M-10 32 h6 M4 32 h6" />
-          <path d="M-5 43 Q0 40 5 43" />
-        </g>
-      ) : (
-        <g>
-          <circle cx={-7} cy={32} r={2.4} fill={INK} />
-          <circle cx={7} cy={32} r={2.4} fill={INK} />
-          <path d={mood === "glad" ? "M-8 39 Q0 48 8 39" : "M-6 40 Q0 45 6 40"} stroke={INK} strokeWidth={2.2} fill={mood === "glad" ? "#fff" : "none"} strokeLinecap="round" />
-          <circle cx={-12} cy={38} r={3} fill="#f4a3a3" opacity={0.5} />
-          <circle cx={12} cy={38} r={3} fill="#f4a3a3" opacity={0.5} />
-        </g>
-      )}
-      {coffee && (
-        <g>
-          <rect x={22} y={66} width={14} height={16} rx={3} fill="#fff" stroke="#cbd5e1" />
-          <path d="M36 70 q6 4 0 8" stroke="#cbd5e1" strokeWidth={2} fill="none" />
-          <path d="M27 62 q3 -5 0 -10" stroke="#cbd5e1" strokeWidth={2} fill="none" className="vx-steam" />
-        </g>
-      )}
-    </g>
+    <Person
+      x={x}
+      y={y}
+      s={s}
+      mood={mood}
+      pose={pose}
+      skin={skin}
+      hair={hair}
+      ponytail={ponytail}
+      hat={hat}
+    />
   );
 }
 
-// The executive: suit, tie, glasses. Origin at the top of the head.
-function Executive({ x, y, s = 1 }: { x: number; y: number; s?: number }) {
+function Executive({
+  x,
+  y,
+  s = 1,
+  pose = "idle",
+}: {
+  x: number;
+  y: number;
+  s?: number;
+  pose?: Pose;
+}) {
   return (
-    <g transform={`translate(${x} ${y}) scale(${s})`}>
-      <path d="M-32 96 Q-32 52 0 50 Q32 52 32 96 Z" fill="#1e293b" />
-      <path d="M-11 51 L0 74 L11 51 Z" fill="#ffffff" />
-      <path d="M-3 56 L3 56 L5 80 L0 86 L-5 80 Z" fill="#c0392b" />
-      <path d="M-11 51 L-4 64 L-13 62 Z M11 51 L4 64 L13 62 Z" fill="#334155" />
-      <rect x={-6} y={45} width={12} height={8} fill="#e8b996" />
-      <circle cx={0} cy={28} r={19} fill="#e8b996" />
-      <path d="M-19 26 Q-19 8 0 8 Q19 8 19 26 Q15 15 0 15 Q-15 15 -19 26 Z" fill="#9ca3af" />
-      <g fill="none" stroke={INK} strokeWidth={1.8}>
-        <circle cx={-7} cy={29} r={5} />
-        <circle cx={7} cy={29} r={5} />
-        <path d="M-2 29 h4" />
-      </g>
-      <circle cx={-7} cy={29} r={1.8} fill={INK} />
-      <circle cx={7} cy={29} r={1.8} fill={INK} />
-      <path d="M-6 38 Q0 43 6 38" stroke={INK} strokeWidth={2} fill="none" strokeLinecap="round" />
+    <Person x={x} y={y} s={s} exec skin="#e8b996" hair="#9ca3af" pose={pose} />
+  );
+}
+
+// Little gold sparkles that twinkle where something went right.
+function Sparkles({
+  pts,
+  delay = 0,
+}: {
+  pts: [number, number][];
+  delay?: number;
+}) {
+  return (
+    <g>
+      {pts.map(([sx, sy], i) => (
+        <g key={i} transform={`translate(${sx} ${sy})`}>
+          <g
+            className="vx-sparkle"
+            style={{ animationDelay: `${delay + i * 0.3}s` }}
+          >
+            <path
+              d="M0 -8 L2 -2 L8 0 L2 2 L0 8 L-2 2 L-8 0 L-2 -2 Z"
+              fill="#fcd34d"
+            />
+          </g>
+        </g>
+      ))}
     </g>
   );
 }
@@ -209,17 +750,51 @@ function Stars() {
   return (
     <g>
       {pts.map(([x, y], i) => (
-        <circle key={i} cx={x} cy={y} r={1.6} fill="#fff" className="vx-twinkle" style={{ animationDelay: `${i * 0.3}s` }} />
+        <circle
+          key={i}
+          cx={x}
+          cy={y}
+          r={1.6}
+          fill="#fff"
+          className="vx-twinkle"
+          style={{ animationDelay: `${i * 0.3}s` }}
+        />
       ))}
     </g>
   );
 }
 
-function Clock({ x, y, text, light }: { x: number; y: number; text: string; light: boolean }) {
+function Clock({
+  x,
+  y,
+  text,
+  light,
+}: {
+  x: number;
+  y: number;
+  text: string;
+  light: boolean;
+}) {
   return (
     <g transform={`translate(${x} ${y})`}>
-      <rect x={-46} y={-16} width={92} height={32} rx={8} fill={light ? "#fff" : "#0b1830"} stroke={light ? "#d6dbe1" : "#2b4570"} />
-      <text x={0} y={6} textAnchor="middle" fontSize={17} fontWeight={700} fill={light ? INK : "#9fd0ff"} fontFamily="ui-monospace, monospace">
+      <rect
+        x={-46}
+        y={-16}
+        width={92}
+        height={32}
+        rx={8}
+        fill={light ? "#fff" : "#0b1830"}
+        stroke={light ? "#d6dbe1" : "#2b4570"}
+      />
+      <text
+        x={0}
+        y={6}
+        textAnchor="middle"
+        fontSize={17}
+        fontWeight={700}
+        fill={light ? INK : "#9fd0ff"}
+        fontFamily="ui-monospace, monospace"
+      >
         {text}
       </text>
     </g>
@@ -230,30 +805,86 @@ function Plant() {
   return (
     <g>
       <rect x={60} y={190} width={380} height={110} fill="#1d2b44" />
-      <path d="M60 190 L110 160 L110 190 L160 160 L160 190 L210 160 L210 190 L260 160 L260 190 Z" fill="#1d2b44" />
+      <path
+        d="M60 190 L110 160 L110 190 L160 160 L160 190 L210 160 L210 190 L260 160 L260 190 Z"
+        fill="#1d2b44"
+      />
       <rect x={370} y={120} width={22} height={70} fill="#1d2b44" />
       {[0, 1, 2].map((i) => (
-        <circle key={i} cx={381} cy={110} r={10} fill="#5b6b86" opacity={0.6} className="vx-smoke" style={{ animationDelay: `${i * 0.9}s` }} />
+        <circle
+          key={i}
+          cx={381}
+          cy={110}
+          r={10}
+          fill="#5b6b86"
+          opacity={0.6}
+          className="vx-smoke"
+          style={{ animationDelay: `${i * 0.9}s` }}
+        />
       ))}
       {[90, 140, 190, 240, 290, 340, 390].map((x, i) => (
-        <rect key={x} x={x} y={220} width={26} height={20} rx={2} fill="#ffd75e" className="vx-window" style={{ animationDelay: `${(i % 3) * 0.7}s` }} />
+        <rect
+          key={x}
+          x={x}
+          y={220}
+          width={26}
+          height={20}
+          rx={2}
+          fill="#ffd75e"
+          className="vx-window"
+          style={{ animationDelay: `${(i % 3) * 0.7}s` }}
+        />
       ))}
     </g>
   );
 }
 
-function Cabinet({ x, y = 70, label, delay }: { x: number; y?: number; label: string; delay: number }) {
+function Cabinet({
+  x,
+  y = 70,
+  label,
+  delay,
+}: {
+  x: number;
+  y?: number;
+  label: string;
+  delay: number;
+}) {
   return (
     <g transform={`translate(${x} ${y})`}>
       <g className="vx-pop" style={{ animationDelay: `${delay}s` }}>
-        <rect x={0} y={0} width={64} height={110} rx={6} fill="#2a3a55" stroke="#3f5478" strokeWidth={2} />
+        <rect
+          x={0}
+          y={0}
+          width={64}
+          height={110}
+          rx={6}
+          fill="#2a3a55"
+          stroke="#3f5478"
+          strokeWidth={2}
+        />
         {[16, 34, 52, 70].map((yy, i) => (
           <g key={yy}>
             <rect x={8} y={yy} width={48} height={11} rx={2} fill="#1b2840" />
-            <circle cx={49} cy={yy + 5.5} r={2.5} fill={i % 2 ? "#4ade80" : "#60a5fa"} className="vx-led" style={{ animationDelay: `${((i + x) % 5) * 0.2}s` }} />
+            <circle
+              cx={49}
+              cy={yy + 5.5}
+              r={2.5}
+              fill={i % 2 ? "#4ade80" : "#60a5fa"}
+              className="vx-led"
+              style={{ animationDelay: `${((i + x) % 5) * 0.2}s` }}
+            />
           </g>
         ))}
-        <text x={32} y={100} textAnchor="middle" fontSize={11} fontWeight={700} fill="#cbd5e1" fontFamily={SANS}>
+        <text
+          x={32}
+          y={100}
+          textAnchor="middle"
+          fontSize={11}
+          fontWeight={700}
+          fill="#cbd5e1"
+          fontFamily={SANS}
+        >
           {label}
         </text>
       </g>
@@ -261,15 +892,41 @@ function Cabinet({ x, y = 70, label, delay }: { x: number; y?: number; label: st
   );
 }
 
-function Flag({ x, y, text, delay }: { x: number; y: number; text: string; delay: number }) {
+function Flag({
+  x,
+  y,
+  text,
+  delay,
+}: {
+  x: number;
+  y: number;
+  text: string;
+  delay: number;
+}) {
   const w = text.length * 6.6 + 22;
   return (
     <g transform={`translate(${x} ${y})`}>
       <g className="vx-pop" style={{ animationDelay: `${delay}s` }}>
         <line x1={0} y1={0} x2={0} y2={34} stroke="#f8fafc" strokeWidth={2} />
-        <rect x={0} y={-2} width={w} height={22} rx={5} fill="#fff" stroke="#f59e0b" strokeWidth={2} />
+        <rect
+          x={0}
+          y={-2}
+          width={w}
+          height={22}
+          rx={5}
+          fill="#fff"
+          stroke="#f59e0b"
+          strokeWidth={2}
+        />
         <circle cx={10} cy={9} r={4} fill="#f59e0b" />
-        <text x={19} y={13.5} fontSize={11.5} fontWeight={600} fill={INK} fontFamily={SANS}>
+        <text
+          x={19}
+          y={13.5}
+          fontSize={11.5}
+          fontWeight={600}
+          fill={INK}
+          fontFamily={SANS}
+        >
           {text}
         </text>
       </g>
@@ -285,7 +942,15 @@ function Machine({ x, label }: { x: number; label?: string }) {
       <circle cx={52} cy={16} r={8} fill="#3d5580" />
       <rect x={-4} y={50} width={78} height={8} fill="#22314c" />
       {label && (
-        <text x={35} y={42} textAnchor="middle" fontSize={11} fontWeight={800} fill="#cbd5e1" fontFamily={SANS}>
+        <text
+          x={35}
+          y={42}
+          textAnchor="middle"
+          fontSize={11}
+          fontWeight={800}
+          fill="#cbd5e1"
+          fontFamily={SANS}
+        >
           {label}
         </text>
       )}
@@ -293,7 +958,15 @@ function Machine({ x, label }: { x: number; label?: string }) {
   );
 }
 
-function Desk({ x = 140, w = 360, children }: { x?: number; w?: number; children?: React.ReactNode }) {
+function Desk({
+  x = 140,
+  w = 360,
+  children,
+}: {
+  x?: number;
+  w?: number;
+  children?: React.ReactNode;
+}) {
   return (
     <g>
       <rect x={x} y={250} width={w} height={14} rx={3} fill="#8a5a3b" />
@@ -307,14 +980,46 @@ function Desk({ x = 140, w = 360, children }: { x?: number; w?: number; children
 function Brief({ x, y }: { x: number; y: number }) {
   return (
     <g transform={`translate(${x} ${y})`}>
-      <rect x={0} y={0} width={170} height={118} rx={6} fill="#fff" stroke="#d6dbe1" strokeWidth={2} />
-      <text x={12} y={20} fontSize={11.5} fontWeight={800} fill={INK} fontFamily={SANS}>
+      <rect
+        x={0}
+        y={0}
+        width={170}
+        height={118}
+        rx={6}
+        fill="#fff"
+        stroke="#d6dbe1"
+        strokeWidth={2}
+      />
+      <text
+        x={12}
+        y={20}
+        fontSize={11.5}
+        fontWeight={800}
+        fill={INK}
+        fontFamily={SANS}
+      >
         Your brief for Tuesday
       </text>
-      {["4 customers below 85% on time", "Overtime up: 7 to 62 hours", "Scrap up: 9 to 17 units", "Steel up 1.7% in August"].map((t, i) => (
+      {[
+        "4 customers below 85% on time",
+        "Overtime up: 7 to 62 hours",
+        "Scrap up: 9 to 17 units",
+        "Steel up 1.7% in August",
+      ].map((t, i) => (
         <g key={t}>
-          <circle cx={15} cy={39 + i * 20} r={2.6} fill={i === 3 ? TEAL : BLUE} />
-          <text x={23} y={42.5 + i * 20} fontSize={9.6} fill={INK} fontFamily={SANS}>
+          <circle
+            cx={15}
+            cy={39 + i * 20}
+            r={2.6}
+            fill={i === 3 ? TEAL : BLUE}
+          />
+          <text
+            x={23}
+            y={42.5 + i * 20}
+            fontSize={9.6}
+            fill={INK}
+            fontFamily={SANS}
+          >
             {t}
           </text>
         </g>
@@ -324,12 +1029,39 @@ function Brief({ x, y }: { x: number; y: number }) {
 }
 
 // One tile of the plant's morning dashboard, its bars drawn from the demonstration's numbers.
-function Tile({ x, y, title, rows, delay }: { x: number; y: number; title: string; rows: [string, number, string][]; delay: number }) {
+function Tile({
+  x,
+  y,
+  title,
+  rows,
+  delay,
+}: {
+  x: number;
+  y: number;
+  title: string;
+  rows: [string, number, string][];
+  delay: number;
+}) {
   const top = Math.max(...rows.map((r) => r[1]));
   return (
     <g transform={`translate(${x} ${y})`}>
-      <rect x={0} y={0} width={196} height={80} rx={6} fill="#fff" stroke="#dbe1e8" />
-      <text x={10} y={18} fontSize={10.5} fontWeight={700} fill={INK} fontFamily={SANS}>
+      <rect
+        x={0}
+        y={0}
+        width={196}
+        height={80}
+        rx={6}
+        fill="#fff"
+        stroke="#dbe1e8"
+      />
+      <text
+        x={10}
+        y={18}
+        fontSize={10.5}
+        fontWeight={700}
+        fill={INK}
+        fontFamily={SANS}
+      >
         {title}
       </text>
       {rows.map(([label, v, shown], i) => (
@@ -337,10 +1069,27 @@ function Tile({ x, y, title, rows, delay }: { x: number; y: number; title: strin
           <text x={10} y={9} fontSize={9.5} fill="#5b6472" fontFamily={SANS}>
             {label}
           </text>
-          <g className="vx-grow" style={{ animationDelay: `${delay + i * 0.25}s` }}>
-            <rect x={56} y={0} width={(v / top) * 90} height={11} rx={3} fill={i ? "#eb6834" : BLUE} />
+          <g
+            className="vx-grow"
+            style={{ animationDelay: `${delay + i * 0.25}s` }}
+          >
+            <rect
+              x={56}
+              y={0}
+              width={(v / top) * 90}
+              height={11}
+              rx={3}
+              fill={i ? "#eb6834" : BLUE}
+            />
           </g>
-          <text x={56 + (v / top) * 90 + 5} y={9.5} fontSize={9.5} fontWeight={700} fill={INK} fontFamily={SANS}>
+          <text
+            x={56 + (v / top) * 90 + 5}
+            y={9.5}
+            fontSize={9.5}
+            fontWeight={700}
+            fill={INK}
+            fontFamily={SANS}
+          >
             {shown}
           </text>
         </g>
@@ -353,7 +1102,16 @@ function Tile({ x, y, title, rows, delay }: { x: number; y: number; title: strin
 function AgentChip({ x, y }: { x: number; y: number }) {
   return (
     <g transform={`translate(${x} ${y})`}>
-      <rect x={-16} y={-11} width={32} height={22} rx={4} fill="#fff" stroke={TEAL} strokeWidth={2} />
+      <rect
+        x={-16}
+        y={-11}
+        width={32}
+        height={22}
+        rx={4}
+        fill="#fff"
+        stroke={TEAL}
+        strokeWidth={2}
+      />
       <circle cx={-7} cy={0} r={3.5} fill={TEAL} />
       <path d="M-1 -3 h12 M-1 3 h9" stroke="#9aa2ad" strokeWidth={1.6} />
     </g>
@@ -370,12 +1128,32 @@ const SCENES: Scene[] = [
         <rect width={640} height={360} fill="url(#vx-night)" />
         <Stars />
         <g className="vx-fade">
-          <path d="M262 0 L378 0 L440 250 L200 250 Z" fill="#fff6c8" opacity={0.12} />
+          <path
+            d="M262 0 L378 0 L440 250 L200 250 Z"
+            fill="#fff6c8"
+            opacity={0.12}
+          />
         </g>
-        <ellipse cx={320} cy={238} rx={110} ry={12} fill="#fff6c8" opacity={0.15} />
-        <g className="vx-pop" style={{ animationDelay: "0.2s" }}>
+        <ellipse
+          cx={320}
+          cy={238}
+          rx={110}
+          ry={12}
+          fill="#fff6c8"
+          opacity={0.15}
+        />
+        <g className="vx-hop">
           <Robot x={320} y={86} s={2.4} face="happy" wave name />
         </g>
+        <Sparkles
+          pts={[
+            [214, 96],
+            [430, 120],
+            [236, 226],
+            [410, 40],
+          ]}
+          delay={1.3}
+        />
       </>
     ),
   },
@@ -392,17 +1170,49 @@ const SCENES: Scene[] = [
         <Plant />
         <rect x={0} y={300} width={640} height={60} fill="#0b1426" />
         <g transform="translate(512 206)">
-          <rect x={0} y={0} width={46} height={64} rx={5} fill="#64748b" stroke="#94a3b8" />
+          <rect
+            x={0}
+            y={0}
+            width={46}
+            height={64}
+            rx={5}
+            fill="#64748b"
+            stroke="#94a3b8"
+          />
           <rect x={8} y={8} width={30} height={14} rx={2} fill="#0f172a" />
-          <text x={23} y={19} textAnchor="middle" fontSize={9} fontWeight={700} fill="#4ade80" fontFamily="ui-monospace, monospace">
+          <text
+            x={23}
+            y={19}
+            textAnchor="middle"
+            fontSize={9}
+            fontWeight={700}
+            fill="#4ade80"
+            fontFamily="ui-monospace, monospace"
+          >
             2:00
           </text>
           <rect x={14} y={30} width={18} height={4} rx={1} fill="#0f172a" />
           <rect x={20} y={64} width={6} height={30} fill="#475569" />
         </g>
         <g className="vx-pop" style={{ animationDelay: "3.3s" }}>
-          <rect x={526} y={168} width={22} height={30} rx={2} fill="#fef3c7" stroke="#d6b35a" />
-          <text x={537} y={188} textAnchor="middle" fontSize={10} fontWeight={800} fill={INK} fontFamily={SANS}>
+          <rect
+            x={526}
+            y={168}
+            width={22}
+            height={30}
+            rx={2}
+            fill="#fef3c7"
+            stroke="#d6b35a"
+          />
+          <text
+            x={537}
+            y={188}
+            textAnchor="middle"
+            fontSize={10}
+            fontWeight={800}
+            fill={INK}
+            fontFamily={SANS}
+          >
             IN
           </text>
         </g>
@@ -423,19 +1233,56 @@ const SCENES: Scene[] = [
         {["ERP", "MES", "QUALITY", "HR", "CRM"].map((l, i) => (
           <Cabinet key={l} x={28 + i * 78} label={l} delay={i * 0.12} />
         ))}
-        <path d="M400 150 C 440 150 460 200 500 214" stroke="#94a3b8" strokeWidth={4} fill="none" className="vx-draw" />
+        <path
+          d="M400 150 C 440 150 460 200 500 214"
+          stroke="#94a3b8"
+          strokeWidth={4}
+          fill="none"
+          className="vx-draw"
+        />
         <g className="vx-pop" style={{ animationDelay: "1s" }}>
           <rect x={433} y={164} width={22} height={18} rx={4} fill={HAT} />
-          <path d="M437 164 v-6 a7 7 0 0 1 14 0 v6" stroke={HAT} strokeWidth={3.5} fill="none" />
-          <text x={444} y={200} textAnchor="middle" fontSize={10.5} fontWeight={700} fill="#fde68a" fontFamily={SANS}>
+          <path
+            d="M437 164 v-6 a7 7 0 0 1 14 0 v6"
+            stroke={HAT}
+            strokeWidth={3.5}
+            fill="none"
+          />
+          <text
+            x={444}
+            y={200}
+            textAnchor="middle"
+            fontSize={10.5}
+            fontWeight={700}
+            fill="#fde68a"
+            fontFamily={SANS}
+          >
             read-only
           </text>
         </g>
         {[60, 138, 216, 294, 372].map((sx, i) => (
           <g key={sx} transform={`translate(${sx} 120)`}>
-            <g className="vx-fly" style={{ ...cssVars({ "--dx": `${520 - sx}px`, "--dy": "100px" }), animationDelay: `${1.2 + i * 0.35}s` }}>
-              <rect x={-9} y={-11} width={18} height={22} rx={2} fill="#fff" stroke="#cbd2da" />
-              <path d="M-5 -5 h10 M-5 0 h8 M-5 5 h10" stroke="#b6bec8" strokeWidth={1.4} />
+            <g
+              className="vx-fly"
+              style={{
+                ...cssVars({ "--dx": `${520 - sx}px`, "--dy": "100px" }),
+                animationDelay: `${1.2 + i * 0.35}s`,
+              }}
+            >
+              <rect
+                x={-9}
+                y={-11}
+                width={18}
+                height={22}
+                rx={2}
+                fill="#fff"
+                stroke="#cbd2da"
+              />
+              <path
+                d="M-5 -5 h10 M-5 0 h8 M-5 5 h10"
+                stroke="#b6bec8"
+                strokeWidth={1.4}
+              />
             </g>
           </g>
         ))}
@@ -457,12 +1304,22 @@ const SCENES: Scene[] = [
         ))}
         <rect x={0} y={280} width={640} height={80} fill="#0b1426" />
         <g className="vx-walk">
-          <Robot x={0} y={206} s={1.05} hold="flashlight" />
+          <Forklift x={0} y={284} s={1.05} />
         </g>
-        <Flag x={60} y={150} text="Scrap spike at HB03" delay={1.0} />
-        <Flag x={300} y={110} text="Promise dates moved after shipping" delay={2.2} />
-        <Flag x={150} y={60} text="Top customer: no call in 107 days" delay={3.4} />
-        <Flag x={420} y={168} text="PMs falling behind" delay={4.4} />
+        <Flag x={60} y={118} text="Scrap spike at HB03" delay={1.0} />
+        <Flag
+          x={300}
+          y={70}
+          text="Promise dates moved after shipping"
+          delay={2.2}
+        />
+        <Flag
+          x={150}
+          y={26}
+          text="Top customer: no call in 107 days"
+          delay={3.4}
+        />
+        <Flag x={440} y={122} text="PMs falling behind" delay={4.4} />
       </>
     ),
   },
@@ -476,11 +1333,27 @@ const SCENES: Scene[] = [
         <rect x={0} y={280} width={640} height={80} fill="#0b1426" />
         <Machine x={150} label="HB03" />
         <g className="vx-pop" style={{ animationDelay: "0.4s" }}>
-          <Robot x={330} y={150} s={1.9} face="chart" hold="magnifier" />
+          <Robot x={330} y={150} s={1.9} face="chart" hold="magnifier" alert />
         </g>
         <g className="vx-pop" style={{ animationDelay: "1.4s" }}>
-          <rect x={400} y={60} width={210} height={64} rx={8} fill="#fff" stroke="#f59e0b" strokeWidth={2.5} />
-          <text x={414} y={84} fontSize={12.5} fontWeight={800} fill={INK} fontFamily={SANS}>
+          <rect
+            x={400}
+            y={60}
+            width={210}
+            height={64}
+            rx={8}
+            fill="#fff"
+            stroke="#f59e0b"
+            strokeWidth={2.5}
+          />
+          <text
+            x={414}
+            y={84}
+            fontSize={12.5}
+            fontWeight={800}
+            fill={INK}
+            fontFamily={SANS}
+          >
             HB03 scrap, March
           </text>
           <text x={414} y={106} fontSize={12} fill={INK} fontFamily={SANS}>
@@ -497,20 +1370,59 @@ const SCENES: Scene[] = [
     draw: () => (
       <>
         <rect width={640} height={360} fill="url(#vx-dawn)" />
-        <rect x={430} y={44} width={150} height={104} rx={6} fill="#fbd9a6" stroke="#c9a06a" strokeWidth={4} />
+        <rect
+          x={430}
+          y={44}
+          width={150}
+          height={104}
+          rx={6}
+          fill="#fbd9a6"
+          stroke="#c9a06a"
+          strokeWidth={4}
+        />
         <rect x={438} y={52} width={63} height={88} rx={2} fill="#ffe9c7" />
         <rect x={509} y={52} width={63} height={88} rx={2} fill="#ffe9c7" />
-        <line x1={505} y1={44} x2={505} y2={148} stroke="#c9a06a" strokeWidth={4} />
+        <line
+          x1={505}
+          y1={44}
+          x2={505}
+          y2={148}
+          stroke="#c9a06a"
+          strokeWidth={4}
+        />
         <rect x={0} y={300} width={640} height={60} fill="#e7dccb" />
         <g className="vx-pop" style={{ animationDelay: "0.2s" }}>
           <Robot x={250} y={156} s={2.2} face="eyes" hold="newspaper" />
         </g>
         <g className="vx-pop" style={{ animationDelay: "1.4s" }}>
-          <rect x={420} y={190} width={170} height={58} rx={8} fill="#fff" stroke="#d6dbe1" strokeWidth={2} />
-          <text x={434} y={213} fontSize={12} fontWeight={700} fill={INK} fontFamily={SANS}>
+          <rect
+            x={420}
+            y={190}
+            width={170}
+            height={58}
+            rx={8}
+            fill="#fff"
+            stroke="#d6dbe1"
+            strokeWidth={2}
+          />
+          <text
+            x={434}
+            y={213}
+            fontSize={12}
+            fontWeight={700}
+            fill={INK}
+            fontFamily={SANS}
+          >
             Steel mill products +1.7%
           </text>
-          <text x={434} y={234} fontSize={12} fontWeight={700} fill={INK} fontFamily={SANS}>
+          <text
+            x={434}
+            y={234}
+            fontSize={12}
+            fontWeight={700}
+            fill={INK}
+            fontFamily={SANS}
+          >
             Plastic resins -1.0%
           </text>
         </g>
@@ -525,34 +1437,68 @@ const SCENES: Scene[] = [
       <>
         <defs>
           <clipPath id="vx-crane-clip">
-            <rect x={0} y={44} width={640} height={320} />
+            <rect x={0} y={66} width={640} height={300} />
           </clipPath>
         </defs>
         <rect width={640} height={360} fill="url(#vx-sunrise)" />
-        <circle cx={590} cy={300} r={56} fill="#ffd27a" opacity={0.9} className="vx-rise" />
-        <rect x={150} y={30} width={14} height={222} fill="#f2b705" />
-        <rect x={430} y={30} width={14} height={222} fill="#f2b705" />
-        <rect x={140} y={26} width={314} height={18} rx={3} fill="#e0a800" />
-        <path d="M150 44 l12 -18 M176 44 l12 -18 M202 44 l12 -18 M228 44 l12 -18 M254 44 l12 -18 M280 44 l12 -18 M306 44 l12 -18 M332 44 l12 -18 M358 44 l12 -18 M384 44 l12 -18 M410 44 l12 -18" stroke="#1f2937" strokeWidth={2} opacity={0.35} />
-        <rect x={282} y={40} width={38} height={14} rx={3} fill="#4b5563" />
+        <circle
+          cx={590}
+          cy={300}
+          r={56}
+          fill="#ffd27a"
+          opacity={0.9}
+          className="vx-rise"
+        />
+        <rect
+          x={470}
+          y={34}
+          width={16}
+          height={258}
+          rx={2}
+          fill={HAT}
+          stroke="#d39e00"
+          strokeWidth={2}
+        />
+        <rect x={454} y={288} width={48} height={10} rx={2} fill="#4b5563" />
+        <g className="vx-jib" style={{ transformOrigin: "478px 47px" }}>
+          <rect
+            x={196}
+            y={40}
+            width={290}
+            height={14}
+            rx={3}
+            fill={HAT}
+            stroke="#d39e00"
+            strokeWidth={2}
+          />
+          <path
+            d="M478 118 L404 54"
+            stroke="#d39e00"
+            strokeWidth={6}
+            strokeLinecap="round"
+          />
+          <rect x={286} y={54} width={30} height={12} rx={3} fill="#4b5563" />
+        </g>
+        <circle cx={478} cy={44} r={9} fill="#d39e00" />
         <g clipPath="url(#vx-crane-clip)">
           <g className="vx-crane">
-            <line x1={301} y1={-300} x2={301} y2={118} stroke="#374151" strokeWidth={2} />
+            <line
+              x1={301}
+              y1={-300}
+              x2={301}
+              y2={118}
+              stroke="#374151"
+              strokeWidth={2}
+            />
             <path d="M293 118 h16 l-3 8 h-10 Z" fill="#6b7280" />
             <Brief x={216} y={126} />
           </g>
         </g>
         <Desk x={180} w={250} />
-        <g className="vx-fade" style={{ animationDelay: "2.6s" }}>
-          <PlantManager x={110} y={150} s={1.15} mood="glad" />
+        <g className="vx-fade" style={{ animationDelay: "3.2s" }}>
+          <PlantManager x={104} y={150} s={1.15} mood="glad" pose="coffee" />
         </g>
-        <g transform="translate(500 214)">
-          <rect x={0} y={0} width={34} height={44} rx={4} fill="#475569" />
-          <rect x={6} y={8} width={22} height={8} rx={2} fill="#4ade80" opacity={0.85} />
-          <path d="M17 0 L22 -16" stroke="#1f2937" strokeWidth={3} strokeLinecap="round" />
-          <circle cx={22} cy={-17} r={4} fill="#dc2626" />
-        </g>
-        <Robot x={575} y={196} s={1.1} face="happy" hold="none" />
+        <Robot x={552} y={192} s={1.15} face="happy" hold="pendant" />
       </>
     ),
   },
@@ -568,17 +1514,57 @@ const SCENES: Scene[] = [
         <rect x={50} y={36} width={424} height={216} rx={4} fill="#f4f6f9" />
         <rect x={244} y={270} width={36} height={18} fill="#374151" />
         <rect x={214} y={286} width={96} height={6} rx={3} fill="#374151" />
-        <text x={62} y={56} fontSize={12.5} fontWeight={800} fill={INK} fontFamily={SANS}>
+        <text
+          x={62}
+          y={56}
+          fontSize={12.5}
+          fontWeight={800}
+          fill={INK}
+          fontFamily={SANS}
+        >
           Morning: the plant
         </text>
         <circle cx={392} cy={52} r={3.5} fill="#16a34a" className="vx-led" />
         <text x={400} y={56} fontSize={9.5} fill="#16a34a" fontFamily={SANS}>
           up to date
         </text>
-        <Tile x={58} y={66} title="Build completion, yesterday" rows={[["FAB", 0.857, "85.7%"]]} delay={0.4} />
-        <Tile x={266} y={66} title="Labor efficiency, yesterday" rows={[["CUT", 0.856, "85.6%"], ["FINISH", 1.132, "113.2%"]]} delay={0.7} />
-        <Tile x={58} y={158} title="On time, last month" rows={[["Alpha", 0.704, "70.4%"], ["Beta", 0.66, "66.0%"]]} delay={1.0} />
-        <Tile x={266} y={158} title="Downtime, last month" rows={[["Alpha", 5796, "5,796 min"], ["Beta", 2962, "2,962 min"]]} delay={1.3} />
+        <Tile
+          x={58}
+          y={66}
+          title="Build completion, yesterday"
+          rows={[["FAB", 0.857, "85.7%"]]}
+          delay={0.4}
+        />
+        <Tile
+          x={266}
+          y={66}
+          title="Labor efficiency, yesterday"
+          rows={[
+            ["CUT", 0.856, "85.6%"],
+            ["FINISH", 1.132, "113.2%"],
+          ]}
+          delay={0.7}
+        />
+        <Tile
+          x={58}
+          y={158}
+          title="On time, last month"
+          rows={[
+            ["Alpha", 0.704, "70.4%"],
+            ["Beta", 0.66, "66.0%"],
+          ]}
+          delay={1.0}
+        />
+        <Tile
+          x={266}
+          y={158}
+          title="Downtime, last month"
+          rows={[
+            ["Alpha", 5796, "5,796 min"],
+            ["Beta", 2962, "2,962 min"],
+          ]}
+          delay={1.3}
+        />
         <Robot x={566} y={190} s={1.25} face="eyes" hold="pointer" />
       </>
     ),
@@ -596,9 +1582,25 @@ const SCENES: Scene[] = [
         </defs>
         <rect width={640} height={360} fill="#eaf3fb" />
         <rect x={0} y={292} width={640} height={68} fill="#dbe7f3" />
-        <PlantManager x={92} y={150} s={1.15} coffee={false} />
-        <rect x={176} y={34} width={316} height={84} rx={10} fill="#fff" stroke="#cbd5e1" strokeWidth={2} />
-        <text x={190} y={54} fontSize={10.5} fontWeight={700} fill="#5b6472" fontFamily={SANS}>
+        <PlantManager x={92} y={150} s={1.15} pose="tablet" />
+        <rect
+          x={176}
+          y={34}
+          width={316}
+          height={84}
+          rx={10}
+          fill="#fff"
+          stroke="#cbd5e1"
+          strokeWidth={2}
+        />
+        <text
+          x={190}
+          y={54}
+          fontSize={10.5}
+          fontWeight={700}
+          fill="#5b6472"
+          fontFamily={SANS}
+        >
           Describe a new agent
         </text>
         <g clipPath="url(#vx-type-clip)">
@@ -612,20 +1614,62 @@ const SCENES: Scene[] = [
             <rect x={186} y={64} width={300} height={46} fill="#fff" />
           </g>
         </g>
-        <path d="M334 122 v26" stroke="#94a3b8" strokeWidth={3} className="vx-draw" style={{ animationDelay: "2.6s" }} />
+        <path
+          d="M334 122 v26"
+          stroke="#94a3b8"
+          strokeWidth={3}
+          className="vx-draw"
+          style={{ animationDelay: "2.6s" }}
+        />
         <g className="vx-pop" style={{ animationDelay: "3s" }}>
-          <rect x={214} y={152} width={240} height={104} rx={10} fill="#fff" stroke={TEAL} strokeWidth={2.5} />
+          <rect
+            x={214}
+            y={152}
+            width={240}
+            height={104}
+            rx={10}
+            fill="#fff"
+            stroke={TEAL}
+            strokeWidth={2.5}
+          />
           <rect x={228} y={164} width={70} height={18} rx={9} fill="#ccfbf1" />
-          <text x={263} y={177} textAnchor="middle" fontSize={10} fontWeight={700} fill={TEAL} fontFamily={SANS}>
+          <text
+            x={263}
+            y={177}
+            textAnchor="middle"
+            fontSize={10}
+            fontWeight={700}
+            fill={TEAL}
+            fontFamily={SANS}
+          >
             New agent
           </text>
-          <text x={228} y={202} fontSize={13} fontWeight={800} fill={INK} fontFamily={SANS}>
+          <text
+            x={228}
+            y={202}
+            fontSize={13}
+            fontWeight={800}
+            fill={INK}
+            fontFamily={SANS}
+          >
             On time below 85%, by customer
           </text>
-          <text x={228} y={222} fontSize={10.5} fill="#5b6472" fontFamily={SANS}>
+          <text
+            x={228}
+            y={222}
+            fontSize={10.5}
+            fill="#5b6472"
+            fontFamily={SANS}
+          >
             Every Monday. Tested on the last 90 days first.
           </text>
-          <text x={228} y={242} fontSize={10.5} fill="#5b6472" fontFamily={SANS}>
+          <text
+            x={228}
+            y={242}
+            fontSize={10.5}
+            fill="#5b6472"
+            fontFamily={SANS}
+          >
             Sees only what you may see.
           </text>
         </g>
@@ -641,8 +1685,24 @@ const SCENES: Scene[] = [
       <>
         <rect width={640} height={360} fill="#eef2f7" />
         <rect x={0} y={282} width={640} height={78} fill="#d9e0ea" />
-        <rect x={170} y={20} width={300} height={112} rx={10} fill="#fff" stroke="#cbd5e1" strokeWidth={2} />
-        <text x={186} y={44} fontSize={13} fontWeight={800} fill={INK} fontFamily={SANS}>
+        <rect
+          x={170}
+          y={20}
+          width={300}
+          height={112}
+          rx={10}
+          fill="#fff"
+          stroke="#cbd5e1"
+          strokeWidth={2}
+        />
+        <text
+          x={186}
+          y={44}
+          fontSize={13}
+          fontWeight={800}
+          fill={INK}
+          fontFamily={SANS}
+        >
           On time below 85%, by customer
         </text>
         {(
@@ -653,20 +1713,46 @@ const SCENES: Scene[] = [
           ] as [string, number, number][]
         ).map(([label, x, w], i) => (
           <g key={label}>
-            <rect x={x} y={56} width={w} height={24} rx={12} fill="#fff" stroke="#cbd5e1" />
+            <rect
+              x={x}
+              y={56}
+              width={w}
+              height={24}
+              rx={12}
+              fill="#fff"
+              stroke="#cbd5e1"
+            />
             {i === 2 && (
               <g className="vx-pop" style={{ animationDelay: "0.6s" }}>
                 <rect x={x} y={56} width={w} height={24} rx={12} fill={TEAL} />
               </g>
             )}
-            <text x={x + w / 2} y={72} textAnchor="middle" fontSize={11} fontWeight={600} fill={i === 2 ? "#fff" : INK} fontFamily={SANS} className={i === 2 ? "vx-fade" : ""} style={i === 2 ? { animationDelay: "0.6s" } : undefined}>
+            <text
+              x={x + w / 2}
+              y={72}
+              textAnchor="middle"
+              fontSize={11}
+              fontWeight={600}
+              fill={i === 2 ? "#fff" : INK}
+              fontFamily={SANS}
+              className={i === 2 ? "vx-fade" : ""}
+              style={i === 2 ? { animationDelay: "0.6s" } : undefined}
+            >
               {label}
             </text>
           </g>
         ))}
         <g className="vx-pop" style={{ animationDelay: "1.3s" }}>
           <rect x={186} y={92} width={136} height={26} rx={6} fill={BLUE} />
-          <text x={254} y={109} textAnchor="middle" fontSize={11} fontWeight={700} fill="#fff" fontFamily={SANS}>
+          <text
+            x={254}
+            y={109}
+            textAnchor="middle"
+            fontSize={11}
+            fontWeight={700}
+            fill="#fff"
+            fontFamily={SANS}
+          >
             Share with the team
           </text>
         </g>
@@ -676,14 +1762,32 @@ const SCENES: Scene[] = [
           [460, 196],
         ].map(([px, py], i) => (
           <g key={px} transform="translate(320 150)">
-            <g className="vx-fly" style={{ ...cssVars({ "--dx": `${px - 320}px`, "--dy": `${py - 150}px` }), animationDelay: `${1.9 + i * 0.3}s` }}>
+            <g
+              className="vx-fly"
+              style={{
+                ...cssVars({
+                  "--dx": `${px - 320}px`,
+                  "--dy": `${py - 150}px`,
+                }),
+                animationDelay: `${1.9 + i * 0.3}s`,
+              }}
+            >
               <AgentChip x={0} y={0} />
             </g>
           </g>
         ))}
-        <PlantManager x={140} y={190} s={0.8} coffee={false} />
-        <PlantManager x={300} y={190} s={0.8} coffee={false} hair="#2b2b2b" mood="glad" />
-        <Executive x={460} y={192} s={0.8} />
+        <PlantManager x={140} y={190} s={0.8} pose="wave" />
+        <PlantManager
+          x={300}
+          y={190}
+          s={0.8}
+          skin="#a8714a"
+          hair="#1f1f1f"
+          ponytail
+          hat={HAT}
+          mood="glad"
+        />
+        <Executive x={460} y={190} s={0.8} pose="tablet" />
         {[140, 300, 460].map((px, i) => (
           <g key={px} transform={`translate(${px + 26} 196)`}>
             <g className="vx-pop" style={{ animationDelay: `${3 + i * 0.3}s` }}>
@@ -703,8 +1807,24 @@ const SCENES: Scene[] = [
       <>
         <rect width={640} height={360} fill="#eef2f7" />
         <rect x={0} y={280} width={640} height={80} fill="#d9e0ea" />
-        <rect x={230} y={40} width={300} height={170} rx={8} fill="#fff" stroke="#cbd5e1" strokeWidth={2} />
-        <text x={250} y={66} fontSize={13} fontWeight={800} fill={INK} fontFamily={SANS}>
+        <rect
+          x={230}
+          y={40}
+          width={300}
+          height={170}
+          rx={8}
+          fill="#fff"
+          stroke="#cbd5e1"
+          strokeWidth={2}
+        />
+        <text
+          x={250}
+          y={66}
+          fontSize={13}
+          fontWeight={800}
+          fill={INK}
+          fontFamily={SANS}
+        >
           On time, last month
         </text>
         {[
@@ -712,23 +1832,52 @@ const SCENES: Scene[] = [
           { label: "Beta (Canada)", v: 0.66, c: "#eb6834" },
         ].map((b, i) => (
           <g key={b.label}>
-            <text x={250} y={100 + i * 50} fontSize={11.5} fill={INK} fontFamily={SANS}>
+            <text
+              x={250}
+              y={100 + i * 50}
+              fontSize={11.5}
+              fill={INK}
+              fontFamily={SANS}
+            >
               {b.label}
             </text>
-            <rect x={345} y={88 + i * 50} width={150} height={16} rx={4} fill="#eef2f7" />
-            <g className="vx-grow" style={{ animationDelay: `${0.5 + i * 0.4}s` }}>
-              <rect x={345} y={88 + i * 50} width={150 * b.v} height={16} rx={4} fill={b.c} />
+            <rect
+              x={345}
+              y={88 + i * 50}
+              width={150}
+              height={16}
+              rx={4}
+              fill="#eef2f7"
+            />
+            <g
+              className="vx-grow"
+              style={{ animationDelay: `${0.5 + i * 0.4}s` }}
+            >
+              <rect
+                x={345}
+                y={88 + i * 50}
+                width={150 * b.v}
+                height={16}
+                rx={4}
+                fill={b.c}
+              />
             </g>
-            <text x={345 + 150 * b.v + 6} y={101 + i * 50} fontSize={11.5} fontWeight={700} fill={INK} fontFamily={SANS}>
+            <text
+              x={345 + 150 * b.v + 6}
+              y={101 + i * 50}
+              fontSize={11.5}
+              fontWeight={700}
+              fill={INK}
+              fontFamily={SANS}
+            >
               {(b.v * 100).toFixed(1)}%
             </text>
           </g>
         ))}
+        <Executive x={160} y={92} s={1.3} pose="tablet" />
         <rect x={60} y={206} width={210} height={14} rx={3} fill="#8a5a3b" />
         <rect x={76} y={220} width={10} height={60} fill="#7a4d31" />
         <rect x={244} y={220} width={10} height={60} fill="#7a4d31" />
-        <Executive x={160} y={108} s={1.1} />
-        <rect x={112} y={196} width={60} height={12} rx={2} fill="#334155" />
         <Robot x={590} y={190} s={1.25} face="eyes" hold="pointer" />
       </>
     ),
@@ -740,8 +1889,24 @@ const SCENES: Scene[] = [
     draw: () => (
       <>
         <rect width={640} height={360} fill="#eaf3fb" />
-        <rect x={200} y={44} width={250} height={220} rx={10} fill="#fff" stroke="#d6dbe1" strokeWidth={2} />
-        <text x={220} y={74} fontSize={13.5} fontWeight={800} fill={INK} fontFamily={SANS}>
+        <rect
+          x={200}
+          y={44}
+          width={250}
+          height={220}
+          rx={10}
+          fill="#fff"
+          stroke="#d6dbe1"
+          strokeWidth={2}
+        />
+        <text
+          x={220}
+          y={74}
+          fontSize={13.5}
+          fontWeight={800}
+          fill={INK}
+          fontFamily={SANS}
+        >
           Plan: recover on-time delivery
         </text>
         {[
@@ -750,21 +1915,65 @@ const SCENES: Scene[] = [
           ["Judged on its review date", "Back to 85%?"],
         ].map(([a, b], i) => (
           <g key={a}>
-            <rect x={220} y={92 + i * 46} width={18} height={18} rx={4} fill="#fff" stroke="#9aa2ad" strokeWidth={2} />
-            <path d={`M224 ${102 + i * 46} l4 4 l8 -9`} stroke={TEAL} strokeWidth={3} fill="none" className="vx-tick" style={{ animationDelay: `${0.6 + i * 0.4}s` }} />
-            <text x={248} y={105 + i * 46} fontSize={12.5} fontWeight={600} fill={INK} fontFamily={SANS}>
+            <rect
+              x={220}
+              y={92 + i * 46}
+              width={18}
+              height={18}
+              rx={4}
+              fill="#fff"
+              stroke="#9aa2ad"
+              strokeWidth={2}
+            />
+            <path
+              d={`M224 ${102 + i * 46} l4 4 l8 -9`}
+              stroke={TEAL}
+              strokeWidth={3}
+              fill="none"
+              className="vx-tick"
+              style={{ animationDelay: `${0.6 + i * 0.4}s` }}
+            />
+            <text
+              x={248}
+              y={105 + i * 46}
+              fontSize={12.5}
+              fontWeight={600}
+              fill={INK}
+              fontFamily={SANS}
+            >
               {a}
             </text>
-            <text x={248} y={121 + i * 46} fontSize={11} fill="#5b6472" fontFamily={SANS}>
+            <text
+              x={248}
+              y={121 + i * 46}
+              fontSize={11}
+              fill="#5b6472"
+              fontFamily={SANS}
+            >
               {b}
             </text>
           </g>
         ))}
         <g className="vx-stamp">
           <circle cx={410} cy={232} r={30} fill={TEAL} />
-          <path d="M396 232 l9 9 l18 -20" stroke="#fff" strokeWidth={5.5} fill="none" strokeLinecap="round" strokeLinejoin="round" />
+          <path
+            d="M396 232 l9 9 l18 -20"
+            stroke="#fff"
+            strokeWidth={5.5}
+            fill="none"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
         </g>
-        <PlantManager x={110} y={150} s={1.15} mood="glad" coffee={false} />
+        <PlantManager x={110} y={150} s={1.15} mood="glad" pose="thumb" />
+        <Sparkles
+          pts={[
+            [372, 196],
+            [452, 210],
+            [440, 262],
+          ]}
+          delay={2.5}
+        />
         <g className="vx-bob">
           <Robot x={530} y={180} s={1.3} face="happy" hold="none" wave />
         </g>
@@ -788,21 +1997,47 @@ const SCENES: Scene[] = [
             <stop offset="1" stopColor="#000" />
           </radialGradient>
           <mask id="vx-logo-mask">
-            <rect x={170} y={30} width={420} height={235} fill="url(#vx-logo-fade)" />
+            <rect
+              x={170}
+              y={30}
+              width={420}
+              height={235}
+              fill="url(#vx-logo-fade)"
+            />
           </mask>
         </defs>
         <rect width={640} height={360} fill="url(#vx-logo-ground)" />
-        <image href="/verus/verus-logo.jpg" x={170} y={30} width={420} height={235} mask="url(#vx-logo-mask)" className="vx-fade" />
+        <image
+          href="/verus/verus-logo.jpg"
+          x={170}
+          y={30}
+          width={420}
+          height={235}
+          mask="url(#vx-logo-mask)"
+          className="vx-fade"
+        />
         <g className="vx-bob">
           <Robot x={100} y={150} s={1.5} face="happy" hold="none" wave />
         </g>
+        <Sparkles
+          pts={[
+            [52, 126],
+            [158, 112],
+            [600, 60],
+            [190, 250],
+          ]}
+          delay={0.8}
+        />
       </>
     ),
   },
 ];
 
 const TOTAL = SCENES.reduce((a, s) => a + s.seconds, 0);
-const STARTS = SCENES.reduce<number[]>((acc, s, i) => [...acc, i ? acc[i - 1] + SCENES[i - 1].seconds : 0], []);
+const STARTS = SCENES.reduce<number[]>(
+  (acc, s, i) => [...acc, i ? acc[i - 1] + SCENES[i - 1].seconds : 0],
+  [],
+);
 export const EXPLAINER_SECONDS = Math.round(TOTAL);
 
 function Defs() {
@@ -836,7 +2071,7 @@ const CSS = `
 @keyframes vx-walk{from{transform:translateX(-60px)}to{transform:translateX(560px)}}
 .vx-fly{animation:vx-fly 1.1s ease-in;opacity:0}
 @keyframes vx-fly{0%{opacity:1;transform:translate(0,0) rotate(0)}85%{opacity:1}100%{opacity:0;transform:translate(var(--dx),var(--dy)) rotate(30deg) scale(.4)}}
-.vx-crane{animation:vx-crane 2.4s cubic-bezier(.3,.7,.3,1) .5s}
+.vx-crane{animation:vx-crane 2.2s cubic-bezier(.3,.7,.3,1) 1.3s}
 @keyframes vx-crane{from{transform:translateY(-170px)}to{transform:none}}
 .vx-grow{animation:vx-grow .9s ease-out;transform-box:fill-box;transform-origin:left center}
 @keyframes vx-grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
@@ -856,6 +2091,24 @@ const CSS = `
 @keyframes vx-turn{from{transform:rotate(-18deg)}to{transform:rotate(12deg)}}
 .vx-type{animation:vx-type 2s steps(28) .5s;transform:translateX(300px)}
 @keyframes vx-type{from{transform:translateX(0)}to{transform:translateX(300px)}}
+.vx-breathe{animation:vx-breathe 2.2s ease-in-out infinite}
+@keyframes vx-breathe{0%,100%{transform:none}50%{transform:scale(1.03,.97)}}
+.vx-look{animation:vx-look 4.2s ease-in-out infinite}
+@keyframes vx-look{0%,30%,100%{transform:none}40%,55%{transform:translateX(-2.5px)}65%,85%{transform:translateX(2.5px)}}
+.vx-lamp{animation:vx-lamp 1.4s ease-in-out infinite alternate}
+@keyframes vx-lamp{from{opacity:.55}to{opacity:1}}
+.vx-spin{animation:vx-spin .7s linear infinite;transform-box:fill-box;transform-origin:center}
+@keyframes vx-spin{to{transform:rotate(360deg)}}
+.vx-beacon{animation:vx-beacon .7s steps(2) infinite}
+@keyframes vx-beacon{0%{opacity:1}50%{opacity:.2}}
+.vx-jib{animation:vx-jib 1.1s cubic-bezier(.3,.8,.3,1) .2s}
+@keyframes vx-jib{from{transform:scaleX(.1)}to{transform:none}}
+.vx-hop{animation:vx-hop 1.2s ease-out .2s;transform-box:fill-box;transform-origin:50% 100%}
+@keyframes vx-hop{0%{opacity:0;transform:translateY(-160px)}45%{opacity:1;transform:translateY(0) scale(1.1,.86)}63%{transform:translateY(-16px) scale(.95,1.06)}80%{transform:translateY(0) scale(1.04,.96)}100%{transform:none}}
+.vx-sparkle{animation:vx-sparkle 1.4s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+@keyframes vx-sparkle{0%,100%{opacity:.3;transform:scale(.4) rotate(0)}50%{opacity:1;transform:scale(1.15) rotate(45deg)}}
+.vx-hello{animation:vx-hello .45s ease-in-out infinite alternate}
+@keyframes vx-hello{from{transform:rotate(-12deg)}to{transform:rotate(14deg)}}
 .vx-wave{animation:vx-wave .5s ease-in-out 6 alternate}
 @keyframes vx-wave{from{transform:rotate(0)}to{transform:rotate(-55deg)}}
 .vx-twinkle{animation:vx-twinkle 1.8s ease-in-out infinite alternate}
@@ -878,8 +2131,14 @@ const CSS = `
 
 function Frame({ scene, still = false }: { scene: Scene; still?: boolean }) {
   return (
-    <div className={`vx-stage relative overflow-hidden ${still ? "rounded-lg border border-line" : ""}`}>
-      <svg viewBox="0 0 640 360" className="block h-auto w-full" aria-hidden="true">
+    <div
+      className={`vx-stage relative overflow-hidden ${still ? "rounded-lg border border-line" : ""}`}
+    >
+      <svg
+        viewBox="0 0 640 360"
+        className="block h-auto w-full"
+        aria-hidden="true"
+      >
         <Defs />
         {scene.draw()}
       </svg>
@@ -978,7 +2237,10 @@ export function VerusExplainer() {
     <div ref={box} className="grid gap-3">
       <style>{CSS}</style>
       <div className="overflow-hidden rounded-2xl border border-line bg-[#0b1a36] shadow-sm">
-        <Frame key={`${index}-${started ? "on" : "off"}-${t < 0.05 ? "r" : ""}`} scene={SCENES[index]} />
+        <Frame
+          key={`${index}-${started ? "on" : "off"}-${t < 0.05 ? "r" : ""}`}
+          scene={SCENES[index]}
+        />
       </div>
       <div className="flex items-center gap-3">
         <button
@@ -990,15 +2252,29 @@ export function VerusExplainer() {
         </button>
         <div className="flex flex-1 gap-1" aria-hidden="true">
           {SCENES.map((s, i) => {
-            const done = i < index ? 1 : i > index ? 0 : Math.min(1, (t - STARTS[i]) / s.seconds);
+            const done =
+              i < index
+                ? 1
+                : i > index
+                  ? 0
+                  : Math.min(1, (t - STARTS[i]) / s.seconds);
             return (
-              <div key={s.caption} className="h-1.5 flex-1 overflow-hidden rounded-full bg-line" style={{ flexGrow: s.seconds }}>
-                <div className="h-full rounded-full bg-accent" style={{ width: `${done * 100}%` }} />
+              <div
+                key={s.caption}
+                className="h-1.5 flex-1 overflow-hidden rounded-full bg-line"
+                style={{ flexGrow: s.seconds }}
+              >
+                <div
+                  className="h-full rounded-full bg-accent"
+                  style={{ width: `${done * 100}%` }}
+                />
               </div>
             );
           })}
         </div>
-        <span className="w-10 text-right text-xs tabular-nums text-muted">{Math.round(TOTAL - t)}s</span>
+        <span className="w-10 text-right text-xs tabular-nums text-muted">
+          {Math.round(TOTAL - t)}s
+        </span>
       </div>
       <details className="text-sm text-muted">
         <summary className="cursor-pointer py-1">Read it as text</summary>
