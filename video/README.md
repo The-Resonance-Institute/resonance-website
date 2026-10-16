@@ -12,7 +12,8 @@ Remotion is free for a company of up to three people; past that it needs Remotio
 
 ## Make the videos
 
-From this folder, on a machine with Chrome installed:
+From this folder. To draw the frames with the Chrome already installed, set `REMOTION_CHROME` to its location first;
+without it, Remotion downloads a browser of its own.
 
 ```bash
 npm install
