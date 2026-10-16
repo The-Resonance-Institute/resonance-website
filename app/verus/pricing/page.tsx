@@ -7,7 +7,8 @@ import { VerusNav, VerusNext } from "@/components/verus-nav";
 // worth more the more people read the same truth, and a seat price makes a company ration it. Setup is a fixed fee
 // stated up front, because the software installs in minutes but learning a company's messy data is real work. Thirty
 // days free once it is working, not on signing. Honest about where it stands: no real company has run it yet, so the
-// first are design partners, and the page claims no return it has not measured. Private equity diligence is not
+// first are design partners (60% of setup and of the first year's license, 2026-10-16: the operator's word, "we
+// don't want to undersell the value"), and the page claims no return it has not measured. Private equity diligence is not
 // priced here: it is a later product and does not exist yet.
 export const metadata: Metadata = share("/verus/pricing", {
   title: "VERUS pricing",
@@ -130,8 +131,8 @@ export default function Pricing() {
             says exactly what has been measured. Its first companies are design partners:
           </p>
           <ul className="mt-4 list-disc space-y-1.5 pl-6">
-            <li>half the setup fee;</li>
-            <li>40% off the license for its first two years;</li>
+            <li>60% of the setup fee;</li>
+            <li>60% of the license for the first year, then the list price;</li>
             <li>in return: your feedback, a reference if it earns one, and permission to publish what it found without
               your name.</li>
           </ul>
