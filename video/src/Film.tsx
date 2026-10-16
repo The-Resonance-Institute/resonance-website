@@ -28,7 +28,7 @@ const SERIF = "Newsreader, Georgia, serif";
 const NAVY = "#0b1426";
 
 // The captions' face is the site's, Newsreader; the frame waits for it so no caption is drawn in a fallback.
-function useSerif() {
+export function useSerif() {
   const [handle] = useState(() => delayRender("Newsreader"));
   useEffect(() => {
     const link = document.createElement("link");

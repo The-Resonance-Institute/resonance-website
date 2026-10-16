@@ -36,3 +36,20 @@ opens a preview to scrub through the film.
 Remotion freezes the page's clock while it draws, so the site's CSS animations cannot run. Each frame pauses every
 animation and moves its delay back by the scene's elapsed time, which makes the browser draw exactly that moment
 (`SceneAt` in `src/Film.tsx`). Change a scene on the site and the video follows on its next render.
+
+## The walkthrough: the real product
+
+`Walkthrough` and `WalkthroughSquare` (src/Walkthrough.tsx) show the real VERUS on its demonstration company: twelve
+screens of a plant manager's morning and the owner's view, each easing in toward the part that matters, outlined in
+the logo's blue, with a caption. The screens are captured from a running demonstration:
+
+```bash
+uv run --with playwright python scripts/capture_walkthrough.py
+npx remotion render src/index.ts Walkthrough out/verus-walkthrough-1080p.mp4
+npx remotion render src/index.ts WalkthroughSquare out/verus-walkthrough-square.mp4
+```
+
+Start the demonstration first in replay mode, so the capture spends nothing (in the VERUS repository:
+`VERUS_DEMO_LLM_MODE=replay make demo`). A question whose model answer is not recorded yet shows "Could not answer"
+in replay mode; record it once in fill mode, then capture again.
+

@@ -39,6 +39,27 @@ export default function SeeIt() {
           </div>
         </section>
 
+        {/* THE REAL PRODUCT (2026-10-16, on the operator's word). The film above is drawn; this is VERUS itself,
+            captured from the demonstration and made in the video project (video/, Walkthrough). Muted, with its
+            captions on screen, so it needs no sound; it loads only when played. */}
+        <section id="walkthrough" className="mt-14 scroll-mt-6 border-t border-line pt-10">
+          <h2 className="font-serif text-2xl text-ink">Inside the real product</h2>
+          <p className="mt-3 text-lg leading-relaxed text-muted">
+            Eighty seconds of VERUS itself on its demonstration company: a plant manager&rsquo;s morning, an agent
+            described in one sentence, and the owner&rsquo;s view.
+          </p>
+          <video
+            className="mt-6 w-full rounded-2xl border border-line bg-[#0b1426] shadow-sm"
+            controls
+            playsInline
+            preload="none"
+            poster="/verus/verus-walkthrough-poster.jpg"
+            aria-label="A walk through VERUS on its demonstration company"
+          >
+            <source src="/verus/verus-walkthrough.mp4" type="video/mp4" />
+          </video>
+        </section>
+
         <section className="mt-14 space-y-5 border-t border-line pt-10 text-lg leading-relaxed text-ink">
           <h2 className="font-serif text-2xl text-ink">A live demonstration</h2>
           <p>
