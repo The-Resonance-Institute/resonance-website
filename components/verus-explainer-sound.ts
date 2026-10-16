@@ -69,8 +69,11 @@ const BARS: [string, string][] = [
 const EIGHTH = 60 / 72 / 2;
 const STEPS = BARS.length * 8; // then the last chord
 
+// barely there: "if it is a 10 now it needs to be a 2" (operator, 2026-10-15)
+const MUSIC_LEVEL = 0.005;
+
 export class Sound {
-  private ctx: AudioContext | null = null;
+  private ctx: BaseAudioContext | null = null;
   private music: GainNode | null = null;
   private sfx: GainNode | null = null;
   private noise: AudioBuffer | null = null;
@@ -79,30 +82,55 @@ export class Sound {
   private step = 0;
   private strings = new Map<number, AudioBuffer>();
 
+  /** The mix, the same live and in the video file: music through a warm filter, effects beside it. */
+  private wire(ctx: BaseAudioContext): void {
+    const master = ctx.createGain();
+    master.gain.value = 0.7;
+    master.connect(ctx.destination);
+    const warm = ctx.createBiquadFilter();
+    warm.type = "lowpass";
+    warm.frequency.value = 2600;
+    warm.connect(master);
+    this.music = ctx.createGain();
+    this.music.gain.value = 0;
+    this.music.connect(warm);
+    this.sfx = ctx.createGain();
+    this.sfx.gain.value = 0.55;
+    this.sfx.connect(master);
+    const buf = ctx.createBuffer(1, ctx.sampleRate, ctx.sampleRate);
+    const data = buf.getChannelData(0);
+    for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
+    this.noise = buf;
+    this.ctx = ctx;
+  }
+
   /** Call from a click: a browser only lets sound start from one. */
   start(): void {
-    if (!this.ctx) {
-      const ctx = new AudioContext();
-      const master = ctx.createGain();
-      master.gain.value = 0.7;
-      master.connect(ctx.destination);
-      const warm = ctx.createBiquadFilter();
-      warm.type = "lowpass";
-      warm.frequency.value = 2600;
-      warm.connect(master);
-      this.music = ctx.createGain();
-      this.music.gain.value = 0;
-      this.music.connect(warm);
-      this.sfx = ctx.createGain();
-      this.sfx.gain.value = 0.55;
-      this.sfx.connect(master);
-      const buf = ctx.createBuffer(1, ctx.sampleRate, ctx.sampleRate);
-      const data = buf.getChannelData(0);
-      for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
-      this.noise = buf;
-      this.ctx = ctx;
-    }
-    void this.ctx.resume();
+    if (!this.ctx) this.wire(new AudioContext());
+    if (this.ctx instanceof AudioContext) void this.ctx.resume();
+  }
+
+  /**
+   * The whole film's sound at once, for the video file (video/, Remotion): the music played through and every
+   * effect at its moment, rendered offline rather than played.
+   */
+  static async soundtrack(
+    seconds: number,
+    cues: { at: number; kind: Sfx; dur?: number }[],
+    sampleRate = 48000,
+  ): Promise<AudioBuffer> {
+    const ctx = new OfflineAudioContext(
+      2,
+      Math.ceil(seconds * sampleRate),
+      sampleRate,
+    );
+    const s = new Sound();
+    s.wire(ctx);
+    s.music!.gain.value = MUSIC_LEVEL;
+    for (let step = 0; step <= STEPS; step++)
+      s.eighth(s.music!, step, step * EIGHTH + Math.random() * 0.012);
+    cues.forEach((c) => s.play(c.kind, c.dur ?? 1.5, c.at));
+    return ctx.startRendering();
   }
 
   /** From `at` seconds into the film, so the piece keeps its place through a pause. */
@@ -110,7 +138,7 @@ export class Sound {
     const ctx = this.ctx;
     if (!ctx || !this.music || this.timer !== null) return;
     this.music.gain.cancelScheduledValues(ctx.currentTime);
-    this.music.gain.setTargetAtTime(0.005, ctx.currentTime, 0.5); // barely there: "if it is a 10 now it needs to be a 2" (operator, 2026-10-15)
+    this.music.gain.setTargetAtTime(MUSIC_LEVEL, ctx.currentTime, 0.5);
     this.next = ctx.currentTime + 0.05;
     this.step = Math.max(0, Math.round(at / EIGHTH));
     Object.values(VOICING)
@@ -129,7 +157,7 @@ export class Sound {
 
   close(): void {
     this.musicOff();
-    void this.ctx?.close();
+    if (this.ctx instanceof AudioContext) void this.ctx.close();
     this.ctx = null;
   }
 
@@ -138,22 +166,28 @@ export class Sound {
     const out = this.music;
     if (!ctx || !out) return;
     while (this.next < ctx.currentTime + 0.15) {
-      const t = this.next + Math.random() * 0.012; // a person plays it, not a clock
-      if (this.step === STEPS) {
-        VOICING.C.forEach((n, i) => this.pluck(out, n, t + i * 0.035, 0.4));
-      }
-      if (this.step >= STEPS) {
+      if (this.step > STEPS) {
         if (this.timer !== null) window.clearInterval(this.timer);
         this.timer = null;
         return;
       }
-      const [chord, pattern] = BARS[Math.floor(this.step / 8)];
-      const string = PATTERN[pattern][this.step % 8];
-      if (string >= 0)
-        this.pluck(out, VOICING[chord][string], t, string === 0 ? 0.55 : 0.32);
+      this.eighth(out, this.step, this.next + Math.random() * 0.012); // a person plays it, not a clock
       this.next += EIGHTH;
       this.step += 1;
     }
+  }
+
+  /** One eighth of the piece: the string its bar picks, or at the very end the last chord, let ring. */
+  private eighth(out: AudioNode, step: number, t: number): void {
+    if (step === STEPS) {
+      VOICING.C.forEach((n, i) => this.pluck(out, n, t + i * 0.035, 0.4));
+      return;
+    }
+    if (step > STEPS) return;
+    const [chord, pattern] = BARS[Math.floor(step / 8)];
+    const string = PATTERN[pattern][step % 8];
+    if (string >= 0)
+      this.pluck(out, VOICING[chord][string], t, string === 0 ? 0.55 : 0.32);
   }
 
   /** One plucked string: smoothed noise, as a thumb rather than a pick, round a loop that loses a little each time. */
@@ -274,11 +308,13 @@ export class Sound {
     o.stop(t + dur + 0.05);
   }
 
-  play(kind: Sfx, dur = 1.5): void {
+  /** An effect now, live; or, for the soundtrack, at `at` seconds. */
+  play(kind: Sfx, dur = 1.5, at?: number): void {
     const ctx = this.ctx;
     const out = this.sfx;
-    if (!ctx || !out || ctx.state !== "running") return;
-    const t = ctx.currentTime + 0.01;
+    if (!ctx || !out) return;
+    if (at === undefined && ctx.state !== "running") return;
+    const t = at ?? ctx.currentTime + 0.01;
     switch (kind) {
       case "pop":
         return this.tone(out, "sine", 520, t, 0.45, 0.004, 0.12, 1040);

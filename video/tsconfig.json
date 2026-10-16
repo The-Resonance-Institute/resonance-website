@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    "strict": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "lib": ["dom", "dom.iterable", "esnext"]
+  },
+  "include": ["src", "remotion.config.ts", "../components/verus-explainer.tsx", "../components/verus-explainer-sound.ts"]
+}

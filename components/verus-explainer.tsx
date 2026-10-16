@@ -13,7 +13,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Sound, type Sfx } from "./verus-explainer-sound";
 
-type Scene = {
+export type Scene = {
   caption: string;
   seconds: number;
   dark: boolean;
@@ -1246,7 +1246,11 @@ function Cloud({
   );
 }
 
-const SCENES: Scene[] = [
+// Where the logo is served from. The video project (video/, Remotion) serves its files from another root and sets this
+// before it draws a frame; the website leaves it as it is.
+export const ASSETS = { logo: "/verus/verus-logo.jpg" };
+
+export const SCENES: Scene[] = [
   {
     caption: "Meet VERUS.",
     seconds: 3.5,
@@ -2490,7 +2494,7 @@ const SCENES: Scene[] = [
         </defs>
         <rect width={640} height={360} fill="url(#vx-logo-ground)" />
         <image
-          href="/verus/verus-logo.jpg"
+          href={ASSETS.logo}
           x={170}
           y={30}
           width={420}
@@ -2515,8 +2519,8 @@ const SCENES: Scene[] = [
   },
 ];
 
-const TOTAL = SCENES.reduce((a, s) => a + s.seconds, 0);
-const STARTS = SCENES.reduce<number[]>(
+export const TOTAL = SCENES.reduce((a, s) => a + s.seconds, 0);
+export const STARTS = SCENES.reduce<number[]>(
   (acc, s, i) => [...acc, i ? acc[i - 1] + SCENES[i - 1].seconds : 0],
   [],
 );
@@ -2638,7 +2642,7 @@ const SFX: Record<string, [number, Sfx, number?][]> = {
     [1.0, "ding"],
   ],
 };
-const CUES = SCENES.flatMap((scene, i) =>
+export const CUES = SCENES.flatMap((scene, i) =>
   (SFX[scene.caption] ?? []).map(([at, kind, dur]) => ({
     at: STARTS[i] + at,
     kind,
@@ -2646,7 +2650,7 @@ const CUES = SCENES.flatMap((scene, i) =>
   })),
 );
 
-function Defs() {
+export function Defs() {
   return (
     <defs>
       <linearGradient id="vx-night" x1="0" y1="0" x2="0" y2="1">
@@ -2670,7 +2674,7 @@ function Defs() {
   );
 }
 
-const CSS = `
+export const CSS = `
 .vx-stage *{animation-fill-mode:both!important}
 .vx-pop{animation:vx-pop .5s cubic-bezier(.2,1.4,.4,1);transform-box:fill-box;transform-origin:center}
 @keyframes vx-pop{from{opacity:0;transform:scale(.4)}to{opacity:1;transform:scale(1)}}
