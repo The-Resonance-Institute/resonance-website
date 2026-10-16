@@ -130,6 +130,20 @@ export default function WhatItsFor() {
           ))}
         </ol>
 
+        {/* ONE INDUSTRY AT A TIME, 2026-10-16, the operator's strategy in his words: target an industry, find a design
+            partner, prove it on real data, then open it up, and repeat. The core is not tied to manufacturing; the
+            knowledge on top of it (vocabulary, measures, systems, typical problems) is, and each industry earns its
+            own before VERUS is offered there. */}
+        <section className="mt-12">
+          <h2 className="font-serif text-2xl text-ink">One industry at a time</h2>
+          <p className="mt-4 text-lg leading-relaxed text-ink">
+            VERUS starts with manufacturing and industrial facilities. The core is not tied to them: reading the
+            systems, one set of definitions, agents, the brief. What each industry needs is its own knowledge on top:
+            its words, its measures, its systems and its usual problems. So each new industry comes the same way: built
+            with a design partner on real data, proven, and only then opened up. Then the next.
+          </p>
+        </section>
+
         <section className="mt-12 rounded-2xl border border-line bg-white p-6 sm:p-8">
           <p className="text-xs font-medium uppercase tracking-[0.18em] text-accent">Next</p>
           <h2 className="mt-2 font-serif text-2xl text-ink">Diligence before you buy</h2>
