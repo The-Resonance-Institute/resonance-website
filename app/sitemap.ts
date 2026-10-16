@@ -34,6 +34,7 @@ const staticRoutes: { path: string; priority: number }[] = [
   { path: "/verus/how-it-works", priority: 0.7 },
   { path: "/verus/inside", priority: 0.7 },
   { path: "/verus/evidence", priority: 0.6 },
+  { path: "/verus/pricing", priority: 0.6 },
   { path: "/verus/see-it", priority: 0.6 },
   { path: "/resonance", priority: 0.9 },
   { path: "/about", priority: 0.6 },

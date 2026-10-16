@@ -1,4 +1,4 @@
-"""Project VERUS, 2026-10-13, on the operator's word: five pages under /verus, in the header after Research.
+"""Project VERUS, 2026-10-13, on the operator's word: five pages under /verus (six since 2026-10-16, with Pricing), in the header after Research.
 
 WHAT THIS HOLDS. The section is listed, ordered and in the sitemap, so it is a decision rather than a page that
 happens to exist. Every picture a page names is served. The still pictures on Inside VERUS are drawn from one
@@ -12,10 +12,10 @@ import pathlib
 import re
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
-PAGES = ("", "/how-it-works", "/inside", "/evidence", "/see-it")
+PAGES = ("", "/how-it-works", "/inside", "/evidence", "/pricing", "/see-it")
 
 
-def test_the_five_pages_exist():
+def test_the_six_pages_exist():
     for p in PAGES:
         assert (ROOT / "app" / "verus" / p.lstrip("/") / "page.tsx").exists(), f"/verus{p} has no page"
 
