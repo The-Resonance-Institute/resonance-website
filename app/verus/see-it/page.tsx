@@ -45,8 +45,8 @@ export default function SeeIt() {
         <section id="walkthrough" className="mt-14 scroll-mt-6 border-t border-line pt-10">
           <h2 className="font-serif text-2xl text-ink">Inside the real product</h2>
           <p className="mt-3 text-lg leading-relaxed text-muted">
-            Eighty seconds of VERUS itself on its demonstration company: a plant manager&rsquo;s morning, an agent
-            described in one sentence, and the owner&rsquo;s view.
+            A minute and a half of VERUS itself on its demonstration company: a plant manager&rsquo;s morning, the
+            robot showing the way, an agent described in one sentence, and the owner&rsquo;s view.
           </p>
           <video
             className="mt-6 w-full rounded-2xl border border-line bg-[#0b1426] shadow-sm"

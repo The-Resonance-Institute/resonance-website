@@ -55,6 +55,22 @@ def shot(pg, name, caption, target=None):
     print(name, box)
 
 
+def shot_as_is(pg, name, caption, parts):
+    """A screenshot where it stands (the robot has already scrolled it), boxed round several parts at once."""
+    pg.mouse.move(1, 899)  # out of the way: no chart tooltip left showing
+    pg.wait_for_timeout(300)
+    boxes = [b for b in (part.bounding_box() for part in parts) if b]
+    box = None
+    if boxes:
+        x0, y0 = max(0, min(b["x"] for b in boxes)), max(0, min(b["y"] for b in boxes))
+        x1 = min(1600, max(b["x"] + b["width"] for b in boxes))
+        y1 = min(900, max(b["y"] + b["height"] for b in boxes))
+        box = [round(v * SCALE) for v in (x0, y0, x1 - x0, y1 - y0)]
+    pg.screenshot(path=str(OUT / f"{name}.png"))
+    shots.append({"file": f"walk/{name}.png", "caption": caption, "box": box})
+    print(name, box)
+
+
 def sign_in(ctx, who):
     pg = ctx.new_page()
     pg.goto(BASE + "/", wait_until="networkidle")
@@ -63,6 +79,13 @@ def sign_in(ctx, who):
     pg.get_by_role("button", name="Sign in").click()
     pg.wait_for_url("**/feed")
     pg.wait_for_load_state("networkidle")
+    # the robot offers a walk the first time each screen is opened; the walkthrough asks for one only where it wants it
+    pg.evaluate("""async () => {
+        const me = await (await fetch('/api/auth/me')).json();
+        for (const s of ['/feed','/dashboards','/ask','/agents','/documents','/market','/briefs','/saved','/metrics'])
+            localStorage.setItem(`verus.robot.walked.${me.id}.${s}`, '1');
+    }""")
+    pg.reload(wait_until="networkidle")
     pg.wait_for_timeout(1500)
     return pg
 
@@ -80,6 +103,15 @@ with sync_playwright() as p:
     brief = card_of(pg.locator("main h2", has_text="Your brief for").first)
     shot(pg, "02-brief", "Every morning, the plant manager's brief: what changed, and what needs a decision.",
          brief.locator("ul").first)
+    # "Show me": the robot flies to the numbers the overtime line stands on
+    line = pg.locator("main li", has_text="Overtime spiked").first
+    line.evaluate("el => el.scrollIntoView({block: 'start'})")
+    pg.evaluate("window.scrollBy(0, -170)")
+    line.get_by_role("button", name="Show me").click()
+    pg.wait_for_timeout(1900)
+    shot_as_is(pg, "02b-show-me", "Press Show me on any line, and the robot lights the numbers behind it.",
+               [line, pg.locator(".vr-lit").last, pg.locator(".vr-flier").first])
+    pg.wait_for_timeout(5500)  # he leaves
     finding = card_of(pg.locator("main h2", has_text="Harbor Windows").first)
     shot(pg, "03-finding", "Each problem names the customer and the number: 75% on time, against an 85% limit.",
          finding)
@@ -91,11 +123,25 @@ with sync_playwright() as p:
     pg.goto(BASE + "/dashboards", wait_until="networkidle")
     pg.wait_for_timeout(2500)
     shot(pg, "05-dashboard", "Yesterday's numbers by line and department, with a caution where the data can't be trusted.")
+    # the robot shows you round: on any screen, click him in the bar
+    pg.locator("header button[title^='Show me around']").click()
+    pg.wait_for_timeout(1400)
+    pg.get_by_role("button", name="Next").click()
+    pg.wait_for_timeout(1800)
+    shot_as_is(pg, "05b-robot-tour", "Lost? Click the robot on any screen and he shows you around.",
+               [pg.locator(".vr-lit").first, pg.locator("[role=dialog]").first])
+    pg.keyboard.press("Escape")
+    pg.wait_for_timeout(1000)
 
     pg.goto(BASE + "/ask", wait_until="networkidle")
     pg.get_by_role("button", name="Ask in your own words").click()
     pg.locator("main textarea").first.fill("How much scrap did HB03 make on shift 2 in March 2026?")
     pg.get_by_role("button", name="Ask", exact=True).click()
+    pg.wait_for_timeout(600)
+    working = pg.locator("main [role=status]", has_text="Working:").first
+    if working.count():  # a recorded answer can come back before there is anything to see
+        shot_as_is(pg, "06a-working", "While it works, the robot goes through the steps with you.",
+                   [pg.locator("main textarea").first, working])
     pg.get_by_text("Working:", exact=False).first.wait_for(state="detached", timeout=90000)
     pg.wait_for_load_state("networkidle")
     pg.wait_for_timeout(1500)
