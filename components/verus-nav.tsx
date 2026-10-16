@@ -1,10 +1,11 @@
 import Link from "next/link";
 
 // PROJECT VERUS, 2026-10-13, on the operator's word. The section's own small menu, under the site header: five
-// pages a reader moves between (six since 2026-10-16, with Pricing before See it). The section is "Project VERUS" until its first customer is live; then the word
+// pages a reader moves between (seven since 2026-10-16: What it's for after What it is, Pricing before See it). The section is "Project VERUS" until its first customer is live; then the word
 // Project comes off, and the URLs under /verus stay as they are.
 export const VERUS_PAGES = [
   { href: "/verus", label: "What it is" },
+  { href: "/verus/what-its-for", label: "What it's for" },
   { href: "/verus/how-it-works", label: "How it works" },
   { href: "/verus/inside", label: "Inside VERUS" },
   { href: "/verus/evidence", label: "The evidence" },

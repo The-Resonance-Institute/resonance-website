@@ -234,6 +234,12 @@ export default function Verus() {
               </div>
             ))}
           </div>
+          <p className="mt-5 text-sm">
+            <Link href="/verus/what-its-for" className={link}>
+              What it&rsquo;s for, situation by situation: the first 100 days after an acquisition, folding in an
+              add-on, a new leader&rsquo;s first weeks, and more
+            </Link>
+          </p>
         </Block>
 
         <Block title="Setting it up">

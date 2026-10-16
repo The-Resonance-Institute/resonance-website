@@ -31,6 +31,7 @@ const staticRoutes: { path: string; priority: number }[] = [
   { path: "/research/appendices", priority: 0.6 },
   // PROJECT VERUS, 2026-10-13: the five pages of the section, all meant to be found.
   { path: "/verus", priority: 0.8 },
+  { path: "/verus/what-its-for", priority: 0.7 },
   { path: "/verus/how-it-works", priority: 0.7 },
   { path: "/verus/inside", priority: 0.7 },
   { path: "/verus/evidence", priority: 0.6 },
