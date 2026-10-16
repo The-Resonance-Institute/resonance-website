@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { share } from "@/lib/share";
 import Image from "next/image";
 import Link from "next/link";
 import { VerusNav, VerusNext } from "@/components/verus-nav";
@@ -9,11 +10,11 @@ import { VerusNav, VerusNext } from "@/components/verus-nav";
 // the fast-moving records are pulled all day and the rest overnight. Every number here was measured on the
 // demonstration and appears on the evidence page or in How it works. Copy drafted in the VERUS repository.
 
-export const metadata: Metadata = {
+export const metadata: Metadata = share("/verus", {
   title: "Project VERUS",
   description:
     "The truth about your operation, around the clock. VERUS watches your ERP, maintenance, HR and CRM data all day, every day: an analyst, a data scientist and a project manager that never go home. Read-only, inside your network.",
-};
+});
 
 const link = "text-accent underline decoration-line hover:decoration-accent";
 

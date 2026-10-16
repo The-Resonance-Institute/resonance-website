@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { share } from "@/lib/share";
 import { DOI_URL, fragment, meta, PDF_PAGES, PDF_PATH } from "@/lib/research";
 import "../research.css";
 
@@ -20,11 +21,11 @@ import "../research.css";
 // evidence behind that argument, and it supersedes it. Every old letter URL forwards here, so the
 // outreach already sent lands on the fuller thing rather than on a redirect to nothing.
 
-export const metadata: Metadata = {
+export const metadata: Metadata = share("/research", {
   title: "Research",
   description:
     "A Conscience Can Be Chosen: the research behind MORIS from The Resonance Institute, with the full paper and every appendix.",
-};
+});
 
 export default function Research() {
   const m = meta();

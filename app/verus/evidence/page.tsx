@@ -1,15 +1,16 @@
 import type { Metadata } from "next";
+import { share } from "@/lib/share";
 import { VerusNav, VerusNext } from "@/components/verus-nav";
 
 // PROJECT VERUS, THE EVIDENCE, 2026-10-13. Every number on this page was measured, and says when. Nothing is
 // rounded up, and the low numbers stay (operator, 2026-10-12): the Institute publishes its research in full. A
 // number changes here only when it has been measured again in the VERUS repository.
 
-export const metadata: Metadata = {
+export const metadata: Metadata = share("/verus/evidence", {
   title: "VERUS: the evidence",
   description:
     "What has been measured about VERUS, and when: answers on the confirmed path, mapping a system unaided, questions in plain words, document search, install time and cost. Including what is not yet good enough.",
-};
+});
 
 const MAPPING = [
   { system: "Maintenance (CMMS)", unaided: "100%", reviewed: "100%", when: "10 October 2026" },

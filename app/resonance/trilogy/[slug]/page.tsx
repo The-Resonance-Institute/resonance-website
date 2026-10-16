@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
+import { share } from "@/lib/share";
 import { notFound } from "next/navigation";
 import { trilogies, getTrilogy, booksInTrilogy } from "@/lib/canon";
 import { SeriesNote } from "@/components/series-note";
@@ -17,10 +18,10 @@ export async function generateMetadata({
   const { slug } = await params;
   const trilogy = getTrilogy(slug);
   if (!trilogy) return { title: "Not found" };
-  return {
+  return share(`/resonance/trilogy/${slug}`, {
     title: `${trilogy.name} Trilogy`,
     description: trilogy.summary[0] ?? trilogy.governingQuestion,
-  };
+  });
 }
 
 export default async function TrilogyPage({

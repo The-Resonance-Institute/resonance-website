@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { share } from "@/lib/share";
 import Link from "next/link";
 import demo from "@/content/verus-demo.json";
 import { AppFrame, DemoTileCard, value, type DemoTile } from "@/components/verus-charts";
@@ -9,11 +10,11 @@ import { VerusNav, VerusNext } from "@/components/verus-nav";
 // demonstration's own numbers in content/verus-demo.json, so they read at any width where a screenshot would not.
 // Every number on this page comes from that file. Synthetic data, two invented companies; never a customer.
 
-export const metadata: Metadata = {
+export const metadata: Metadata = share("/verus/inside", {
   title: "Inside VERUS",
   description:
     "Still pictures of VERUS on its demonstration group: the owner's view of two companies on one definition, what the agents found, a plant manager's morning dashboard and the morning brief.",
-};
+});
 
 type Finding = { agent: string; title: string; summary: string; confidence: number };
 type BriefMetric = { name: string; unit: string | null; value: number | null; before: number | null; trend: string | null };

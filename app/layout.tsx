@@ -16,6 +16,15 @@ const newsreader = Newsreader({
   style: ["normal", "italic"],
 });
 
+// THE DEFAULT PREVIEW DESCRIBES THE STUDIO, 2026-10-16, from a reader's review of the site. It said
+// only "Home of the Resonance series ... Complete", the description from before the Institute became
+// the landing page, and every page without its own pair (Research and the VERUS pages among them)
+// inherited it. Every page now sets its own pair through lib/share.ts; this is the fallback, and it
+// is the home page's own sentence. THE SERIES LINE STAYS in this file, verbatim, in the organisation
+// record below, where it describes what the Institute holds; tests/test_books_first.py counts it.
+const STUDIO =
+  "A private studio where enduring questions meet modern technology. Philosophy as a posture rather than a method, a book for working leaders, and software held to the same standard.";
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.resonanceinstitutellc.com"),
   title: {
@@ -23,7 +32,7 @@ export const metadata: Metadata = {
     template: "%s · The Resonance Institute",
   },
   description:
-    "A private studio where enduring questions meet modern technology. Home of the Resonance series by C. T. Herndon. A Living Philosophy. Four trilogies, twelve volumes, approximately one million words. Complete.",
+    STUDIO,
   applicationName: "The Resonance Institute",
   keywords: [
     "The Resonance Institute",
@@ -32,6 +41,7 @@ export const metadata: Metadata = {
     "philosophy",
     "books",
     "trilogy",
+    "operational intelligence",
   ],
   openGraph: {
     type: "website",
@@ -39,13 +49,13 @@ export const metadata: Metadata = {
     siteName: "The Resonance Institute",
     title: "The Resonance Institute",
     description:
-      "A private studio where enduring questions meet modern technology. Home of the Resonance series by C. T. Herndon. A Living Philosophy. Four trilogies, twelve volumes, approximately one million words. Complete.",
+      STUDIO,
   },
   twitter: {
     card: "summary_large_image",
     title: "The Resonance Institute",
     description:
-      "A private studio where enduring questions meet modern technology. Home of the Resonance series by C. T. Herndon. A Living Philosophy. Four trilogies, twelve volumes, approximately one million words. Complete.",
+      STUDIO,
   },
   robots: { index: true, follow: true },
 };

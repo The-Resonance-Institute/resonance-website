@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { share } from "@/lib/share";
 
 // ONE CONTACT, 2026-09-25. This page offered two cards, "Two bodies of work, two ways in", and a
 // MORIS path described as "diligence conversations, the technical package, and the NDA that opens
@@ -25,14 +26,14 @@ import type { Metadata } from "next";
 // words to a form vendor contradicts that on the same domain. A mailto goes from their mail client
 // to one inbox and touches nobody in between.
 
-export const metadata: Metadata = {
+export const metadata: Metadata = share("/contact", {
   title: "Contact",
   // KEEP THIS IN STEP WITH THE PARAGRAPH BELOW. Editing visible copy and leaving the description
   // behind has now happened twice in one day on this site, here and on the home page, because the
   // two read alike and only one of them is on screen while you work.
   description:
     "Questions about the books, about The Return, about MORIS, or about anything here are welcome. It reaches me directly.",
-};
+});
 
 const email = "contact@resonanceinstitutellc.com";
 

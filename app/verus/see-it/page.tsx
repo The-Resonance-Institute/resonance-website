@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { share } from "@/lib/share";
 import Link from "next/link";
 import { VerusExplainer } from "@/components/verus-explainer";
 import { VerusNav, VerusNext } from "@/components/verus-nav";
@@ -8,11 +9,11 @@ import { VerusNav, VerusNext } from "@/components/verus-nav";
 // request is a prefilled mail to the one inbox, as The Return's notify buttons are, and for the reasons the
 // contact page records: no form, no vendor in between.
 
-export const metadata: Metadata = {
+export const metadata: Metadata = share("/verus/see-it", {
   title: "See VERUS",
   description:
-    "See VERUS run: a twenty-minute live demonstration on the demonstration group, or on a copy of your own data inside your own network.",
-};
+    "Meet VERUS in one minute, then see it run: a live demonstration on the demonstration group, or on a copy of your own data inside your own network.",
+});
 
 const EMAIL = "contact@resonanceinstitutellc.com";
 const ASK = `mailto:${EMAIL}?subject=${encodeURIComponent("Project VERUS demonstration")}`;

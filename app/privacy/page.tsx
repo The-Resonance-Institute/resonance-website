@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
+import { share } from "@/lib/share";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = share("/privacy", {
   title: "Privacy Policy",
   description:
     "What this site collects, which is almost nothing: no analytics, no cookies, no tracking, no forms, no accounts. Server access logs are kept by the host, Vercel. Nothing is sold or shared.",
-};
+});
 
 export default function Privacy() {
   return (

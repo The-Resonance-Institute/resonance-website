@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { share } from "@/lib/share";
 import Image from "next/image";
 import { VerusNav, VerusNext } from "@/components/verus-nav";
 
@@ -6,11 +7,11 @@ import { VerusNav, VerusNext } from "@/components/verus-nav";
 // Every picture is of the synthetic demonstration group, never of a customer. The pictures live in public/verus/,
 // copied from the VERUS repository where they were taken; retake them there, never edit them here.
 
-export const metadata: Metadata = {
+export const metadata: Metadata = share("/verus/how-it-works", {
   title: "How VERUS works",
   description:
     "Ten steps of the VERUS demonstration, each with a picture: a system connected cold, the few questions it asks, what is odd in the data, dashboards, plain-word answers, agents, documents, the morning brief and the owner's view.",
-};
+});
 
 type Step = {
   title: string;

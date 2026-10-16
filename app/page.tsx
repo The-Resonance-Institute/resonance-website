@@ -26,6 +26,10 @@ import type { Metadata } from "next";
 // mentioned now. The framing here is deliberately written from the body of work already public, so
 // that it keeps being true when that lands and needs no rewrite to admit it.
 //
+// IT LANDED: Project VERUS went public on 2026-10-13, on the operator's word, with its own pages and
+// a place in the header, and on 2026-10-16 it took its card in the grid below. The hero needed no
+// rewrite, as intended: "software held to the same standard" already held it.
+//
 // THE GUARDED SERIES LINE IS NOT ON THIS PAGE, and that is worth stating plainly because it used
 // to be. It is matched as a whole string by tests/test_books_first.py, with a floor of three files,
 // and the three that carry it are app/layout.tsx, app/about/page.tsx and app/resonance/page.tsx.
@@ -118,7 +122,7 @@ export default function Home() {
         </p>
       </section>
 
-      {/* THE FOUR DESTINATIONS, in header order. 2026-10-10: the research section was added to the
+      {/* THE DESTINATIONS, in header order (five since 2026-10-16, with Project VERUS). 2026-10-10: the research section was added to the
           site and this grid still showed three, so the front door under-described the place. The
           Return leads because it is the one object here that is publishing; the twelve volumes are
           complete and sit behind it.
@@ -208,13 +212,38 @@ export default function Home() {
             </p>
           </Link>
 
+          {/* PROJECT VERUS, 2026-10-16, in header order after Research. A reader's review found the
+              one live commercial product in the header but not on the front door. It is the
+              software held to the same standard: it shows its work, it only reads, and its evidence
+              page publishes the misses. */}
+          <Link
+            href="/verus"
+            className="group flex flex-col bg-white p-6 transition-colors hover:bg-accent-soft"
+          >
+            <p className="text-xs font-medium uppercase tracking-[0.18em] text-muted">
+              Software for operations
+            </p>
+            <h3 className="mt-2 font-serif text-xl text-ink transition-colors group-hover:text-accent">
+              Project VERUS
+            </h3>
+            <p className="mt-2 flex-1 text-sm leading-relaxed text-muted">
+              Watches an industrial company&rsquo;s systems all day and all
+              night, read-only, and tells you the truth about the operation:
+              what&rsquo;s wrong, where the money is, and whether the fix worked.
+            </p>
+            <p className="mt-4 text-sm font-medium text-accent">
+              Meet VERUS <span aria-hidden>&rarr;</span>
+            </p>
+          </Link>
+
           {/* Ask MORIS is a link OUT. It runs at askmoris.ai and there is deliberately no second
-              instance of it in this repository; a guard enforces that. */}
+              instance of it in this repository; a guard enforces that. With VERUS in the grid it is
+              the fifth card, so it takes the full width rather than leaving a hole beside it. */}
           <a
             href="https://askmoris.ai"
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex flex-col bg-white p-6 transition-colors hover:bg-accent-soft"
+            className="group flex flex-col bg-white p-6 transition-colors hover:bg-accent-soft sm:col-span-2"
           >
             <p className="text-xs font-medium uppercase tracking-[0.18em] text-muted">
               A demonstration

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
+import { share } from "@/lib/share";
 import { notFound } from "next/navigation";
 import { books, getBook, trilogyOfBook, booksInTrilogy } from "@/lib/canon";
 import { SeriesNote } from "@/components/series-note";
@@ -18,10 +19,10 @@ export async function generateMetadata({
   const book = getBook(slug);
   if (!book) return { title: "Not found" };
   const desc = book.description[0] ?? book.pullQuote;
-  return {
+  return share(`/resonance/book/${slug}`, {
     title: `${book.title} · Book ${book.n}`,
     description: desc,
-  };
+  });
 }
 
 export default async function BookPage({

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { share } from "@/lib/share";
 import { DOI_URL, fragment, meta, PDF_PATH } from "@/lib/research";
 import "../../research.css";
 
@@ -20,11 +21,11 @@ import "../../research.css";
 
 const m = meta();
 
-export const metadata: Metadata = {
+export const metadata: Metadata = share("/research/paper", {
   title: "An Operational Artificial Conscience",
   description:
     "A research report from The Resonance Institute showing that a human-authored moral philosophy can be compiled into a deterministic runtime that performs the judgment of an artificial conscience, and locating what stands between that judgment and a complete one.",
-};
+});
 
 export default function Paper() {
   return (

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { share } from "@/lib/share";
 import { fragment, meta, PDF_PATH } from "@/lib/research";
 import "../../research.css";
 
@@ -29,11 +30,11 @@ import "../../research.css";
 
 const m = meta();
 
-export const metadata: Metadata = {
+export const metadata: Metadata = share("/research/appendices", {
   title: "Appendices: An Operational Artificial Conscience",
   description:
     "Appendices to the MORIS research report from The Resonance Institute: the full primitive index, the evidence ledger, the evaluation item sets, the chronology and decision log, and the history of claims.",
-};
+});
 
 export default function Appendices() {
   return (

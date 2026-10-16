@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
+import { share } from "@/lib/share";
 import { books as canonBooks, trilogies as canonTrilogies } from "@/lib/canon";
 
 // ONE PAGE, 2026-10-07. This was two: /resonance stated the series line, listed the four trilogies
@@ -16,11 +17,11 @@ import { books as canonBooks, trilogies as canonTrilogies } from "@/lib/canon";
 //
 // /resonance/series forwards here rather than going dark; it was indexed and in the sitemap.
 
-export const metadata: Metadata = {
+export const metadata: Metadata = share("/resonance", {
   title: "The Philosophy",
   description:
     "The Resonance series. A Living Philosophy. Four trilogies, twelve volumes, approximately one million words. Complete. Each theme is carried from the self to the community to the world.",
-};
+});
 
 const bookSlug = (n: number) => canonBooks.find((b) => b.n === n)?.slug;
 const trilogySlug = (name: string) =>
