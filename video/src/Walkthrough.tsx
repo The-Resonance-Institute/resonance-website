@@ -1,5 +1,6 @@
-import { AbsoluteFill, Img, interpolate, staticFile, useCurrentFrame, Easing } from "remotion";
+import { AbsoluteFill, Audio, Img, interpolate, Sequence, staticFile, useCurrentFrame, Easing } from "remotion";
 import shots from "../public/walk/shots.json";
+import voice from "../public/voice/voice.json";
 import { useSerif } from "./Film";
 
 // THE WALKTHROUGH (2026-10-16, on the operator's word): the real product, not drawings. scripts/capture_walkthrough.py
@@ -10,11 +11,38 @@ import { useSerif } from "./Film";
 type Shot = { file: string; caption: string; box: number[] | null };
 const SHOTS = shots as Shot[];
 
+// NARRATED (2026-10-17, on the operator's word): VERUS reads a line over each screen (narration.json, voiced by
+// scripts/narrate.py into public/voice). Each screen stays as long as its line needs, and never less than it did.
+const SPOKEN = voice as Record<string, number>;
+const key = (file: string) => file.replace(/^walk\//, "").replace(/\.png$/, "");
+const LEAD = 0.5; // the line starts just after the screen does
+const TAIL = 0.9; // and a breath after it ends
+const lasting = (k: string, least: number) => Math.max(least, LEAD + (SPOKEN[k] ?? 0) + TAIL);
+
 export const WALK_FPS = 30;
-const INTRO = 3.5;
-const EACH = 6;
-const OUTRO = 4;
-export const WALK_FRAMES = Math.round((INTRO + SHOTS.length * EACH + OUTRO) * WALK_FPS);
+const INTRO = lasting("intro", 3.5);
+const EACHS = SHOTS.map((s) => lasting(key(s.file), 6));
+const STARTS = EACHS.reduce<number[]>((at, d, i) => [...at, (at[i] ?? INTRO) + d], [INTRO]);
+const OUTRO = lasting("outro", 4);
+const BODY = EACHS.reduce((a, b) => a + b, 0);
+export const WALK_FRAMES = Math.round((INTRO + BODY + OUTRO) * WALK_FPS);
+
+// every line, at its screen's start
+function Voice() {
+  const at = (k: string, t: number) =>
+    SPOKEN[k] ? (
+      <Sequence key={k} from={Math.round((t + LEAD) * WALK_FPS)}>
+        <Audio src={staticFile(`voice/${k}.wav`)} />
+      </Sequence>
+    ) : null;
+  return (
+    <>
+      {at("intro", 0)}
+      {SHOTS.map((s, i) => at(key(s.file), STARTS[i]))}
+      {at("outro", INTRO + BODY)}
+    </>
+  );
+}
 
 const SERIF = "Newsreader, Georgia, serif";
 const NAVY = "#0b1426";
@@ -122,6 +150,15 @@ function Card({ local, title, line, small }: { local: number; title: string; lin
 
 export function Walkthrough({ square }: { square: boolean }) {
   useSerif();
+  return (
+    <>
+      <Frame square={square} />
+      <Voice />
+    </>
+  );
+}
+
+function Frame({ square }: { square: boolean }) {
   const frame = useCurrentFrame();
   const t = frame / WALK_FPS;
   const vw = square ? 1080 : 1920;
@@ -135,18 +172,18 @@ export function Walkthrough({ square }: { square: boolean }) {
         small="Two manufacturers, three plants. The data is made up; the software is not."
       />
     );
-  const i = Math.floor((t - INTRO) / EACH);
+  const i = STARTS.findIndex((start, n) => n === SHOTS.length || t < start + EACHS[n]);
   if (i >= SHOTS.length)
     return (
       <Card
-        local={t - INTRO - SHOTS.length * EACH}
+        local={t - INTRO - BODY}
         title="See it on your own data."
         line="Read-only, inside your network."
         small="resonanceinstitutellc.com/verus"
       />
     );
   const shot = SHOTS[i];
-  const local = t - INTRO - i * EACH;
+  const local = t - STARTS[i];
   if (!square)
     return (
       <AbsoluteFill style={{ background: NAVY }}>

@@ -1,0 +1,18 @@
+{
+  "intro": "This is VERUS, running on a demonstration company: two manufacturers, three plants. The data is made up. The software is real.",
+  "01-sign-in": "VERUS runs inside your network, and it only reads. It never changes a thing in your systems.",
+  "02-brief": "Every morning, the plant manager gets a brief: what changed yesterday, and what needs a decision.",
+  "02b-show-me": "Press Show me on any line, and VERUS lights up the numbers behind it.",
+  "03-finding": "Each problem names the customer and the number: on-time delivery at seventy-five percent, against an eighty-five percent limit.",
+  "04-plan": "VERUS proposes a plan, with the steps, who owns them, and the date it gets judged.",
+  "05-dashboard": "Yesterday's numbers by line and department, with a caution wherever the data can't be trusted.",
+  "05b-verus-tour": "New to a screen? Click VERUS, and he shows you around.",
+  "06-ask": "Ask a question in plain words. VERUS answers, and shows exactly how it worked it out.",
+  "07a-sentence": "Need something watched? Describe an agent in one sentence.",
+  "07b-agent": "VERUS reads it back in plain words. Nothing runs until you switch it on.",
+  "08-backtest": "First, it shows what the agent would have caught last year: here, the scrap spike on H B zero three in March.",
+  "09-documents": "Your own documents answer too, with the page each answer came from.",
+  "10-owner": "The owner sees every company side by side, on one set of definitions.",
+  "11-quiet": "And hears when a key customer goes quiet: no contact in a hundred and seven days.",
+  "outro": "VERUS. See it on your own data, read-only, inside your network."
+}

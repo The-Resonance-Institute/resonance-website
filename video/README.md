@@ -45,6 +45,7 @@ the logo's blue, with a caption. The screens are captured from a running demonst
 
 ```bash
 uv run --with playwright python scripts/capture_walkthrough.py
+uv run python scripts/narrate.py
 npx remotion render src/index.ts Walkthrough out/verus-walkthrough-1080p.mp4
 npx remotion render src/index.ts WalkthroughSquare out/verus-walkthrough-square.mp4
 ```
@@ -52,4 +53,9 @@ npx remotion render src/index.ts WalkthroughSquare out/verus-walkthrough-square.
 Start the demonstration first in replay mode, so the capture spends nothing (in the VERUS repository:
 `VERUS_DEMO_LLM_MODE=replay make demo`). A question whose model answer is not recorded yet shows "Could not answer"
 in replay mode; record it once in fill mode, then capture again.
+
+VERUS narrates it: `narration.json` holds one line per screen (and the opening and closing cards), and
+`scripts/narrate.py` voices them on Windows with George, the British voice Windows adds with English (United Kingdom)
+text-to-speech, a little slow and raised about a seventh in pitch (chosen by ear on 2026-10-17; nothing paid for). Each screen stays as long as its line
+needs. Change a line, run the script again, render again.
 
