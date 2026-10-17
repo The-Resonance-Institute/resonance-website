@@ -332,6 +332,21 @@ function Verus({
   );
 }
 
+// The V of the logo alone: the steel back stroke, the sky-blue front stroke, and the rising arrow, as a small decal
+// on its own navy plate so it reads on any colour. Centred on (x, y); `size` is the plate's width.
+function LogoV({ x, y, size }: { x: number; y: number; size: number }) {
+  const k = size / 32;
+  return (
+    <g transform={`translate(${x} ${y}) scale(${k}) translate(-16 -14)`}>
+      <rect x={0} y={0} width={32} height={28} rx={5} fill="#0f1827" />
+      <path d="M5 6 L14 24" stroke="#4b5d73" strokeWidth={4.5} strokeLinecap="square" />
+      <path d="M9.5 6 L15.5 21" stroke="#7fb0e0" strokeWidth={3.4} strokeLinecap="square" />
+      <path d="M15.5 21 L24 8.5" stroke="#9cc8f0" strokeWidth={3.4} strokeLinecap="square" />
+      <path d="M21 6.5 L28 3.5 L26.6 11 Z" fill="#9cc8f0" />
+    </g>
+  );
+}
+
 // VERUS at the wheel of a forklift, beacon flashing, headlights on. Origin on the ground under it, facing right.
 function Forklift({ x, y, s = 1 }: { x: number; y: number; s?: number }) {
   return (
@@ -355,17 +370,9 @@ function Forklift({ x, y, s = 1 }: { x: number; y: number; s?: number }) {
         strokeWidth={2}
       />
       <rect x={-54} y={-42} width={11} height={30} rx={3} fill="#a16207" />
-      <text
-        x={-30}
-        y={-21}
-        fontSize={9}
-        fontWeight={800}
-        fill="#7c5a00"
-        fontFamily={SANS}
-        letterSpacing={1}
-      >
-        VERUS
-      </text>
+      {/* the V from the logo on the cab's side, centred above the wheels (2026-10-17, on the operator's word: the
+          printed name ran into the wheel well) */}
+      <LogoV x={-26.5} y={-35.5} size={17} />
       <path
         d="M-40 -48 V-114 H10 V-32"
         stroke="#374151"
