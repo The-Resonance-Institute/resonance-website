@@ -24,9 +24,10 @@ export function SiteFooter() {
           <Link href="/resonance" className="py-3 transition-colors hover:text-accent">
             The Philosophy
           </Link>
-          <Link href="/verus" className="py-3 transition-colors hover:text-accent">
+          {/* VERUS has its own site since 2026-10-17. A plain anchor: a Next Link would route inside this site. */}
+          <a href="https://www.verusops.com" className="py-3 transition-colors hover:text-accent">
             VERUS
-          </Link>
+          </a>
           <Link href="/about" className="py-3 transition-colors hover:text-accent">
             About
           </Link>

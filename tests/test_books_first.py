@@ -218,9 +218,11 @@ def test_ask_moris_is_one_outbound_instance_and_is_not_rebuilt_here():
         assert "noopener" in tag, f"{where}: outbound Ask MORIS link is missing rel=noopener"
 
     nav = json.loads((ROOT / "content" / "nav.json").read_text(encoding="utf-8"))["links"]
+    # Two outbound entries since 2026-10-17, both deliberate: VERUS moved to its own site, www.verusops.com
+    # (guarded in test_verus_section.py), and Ask MORIS, last.
     ext = [l["href"] for l in nav if l["href"].startswith("http")]
-    assert ext == ["https://askmoris.ai"], (
-        f"the nav's outbound entries are not exactly the one Ask MORIS link: {ext}")
+    assert ext == ["https://www.verusops.com", "https://askmoris.ai"], (
+        f"the nav's outbound entries are not exactly VERUS's site and the one Ask MORIS link: {ext}")
     src = (ROOT / "components" / "site-nav.tsx").read_text(encoding="utf-8")
     assert 'startsWith("http")' in src, (
         "site-nav.tsx no longer distinguishes an outbound href, so the Ask MORIS entry renders as "

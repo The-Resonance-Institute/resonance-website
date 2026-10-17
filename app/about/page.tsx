@@ -64,9 +64,9 @@ export default function About() {
             is its demonstration.
           </li>
           <li>
-            <Link href="/verus" className="text-accent underline decoration-line hover:decoration-accent">
+            <a href="https://www.verusops.com" className="text-accent underline decoration-line hover:decoration-accent">
               VERUS
-            </Link>
+            </a>
             , software that watches an industrial company&rsquo;s systems all day and all night,
             read-only, and tells its leaders the truth about the operation. Its evidence page
             publishes what is not yet good enough.
@@ -95,7 +95,7 @@ export default function About() {
           ["/the-return", "The Return"],
           ["/resonance", "The Philosophy"],
           ["/research", "MORIS Research"],
-          ["/verus", "VERUS"],
+          ["https://www.verusops.com", "VERUS"],
         ].map(([href, label]) => (
           <Link
             key={href}

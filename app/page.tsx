@@ -179,9 +179,10 @@ export default function Home() {
           {/* VERUS, 2026-10-16; third since 2026-10-17, after the books, matching the header. A reader's review found the
               one live commercial product in the header but not on the front door. It is the
               software held to the same standard: it shows its work, it only reads, and its evidence
-              page publishes the misses. */}
-          <Link
-            href="/verus"
+              page publishes the misses. Since 2026-10-17 it links to VERUS's own site, www.verusops.com, in
+              the same tab: a plain anchor, because a Next Link would route inside this site. */}
+          <a
+            href="https://www.verusops.com"
             className="group flex flex-col bg-white p-6 transition-colors hover:bg-accent-soft"
           >
             <p className="text-xs font-medium uppercase tracking-[0.18em] text-muted">
@@ -198,7 +199,7 @@ export default function Home() {
             <p className="mt-4 text-sm font-medium text-accent">
               Meet VERUS <span aria-hidden>&rarr;</span>
             </p>
-          </Link>
+          </a>
 
           {/* THE RESEARCH, added 2026-10-10; fourth since 2026-10-17, beside Ask MORIS as in the header, not for
               emphasis. It sits beside Ask MORIS on purpose: the demonstration is the thing you can
