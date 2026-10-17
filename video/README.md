@@ -40,7 +40,7 @@ animation and moves its delay back by the scene's elapsed time, which makes the 
 ## The walkthrough: the real product
 
 `Walkthrough` and `WalkthroughSquare` (src/Walkthrough.tsx) show the real VERUS on its demonstration company: fourteen
-screens of a plant manager's morning (the robot's Show me and its walk round a screen among them) and the owner's view, each easing in toward the part that matters, outlined in
+screens of a plant manager's morning (VERUS's Show me and his walk round a screen among them) and the owner's view, each easing in toward the part that matters, outlined in
 the logo's blue, with a caption. The screens are captured from a running demonstration:
 
 ```bash

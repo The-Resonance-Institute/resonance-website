@@ -1,6 +1,6 @@
 "use client";
 
-// PROJECT VERUS, MEET VERUS, 2026-10-15, on the operator's word: the robot in the hard hat is VERUS, "absolutely gold,
+// PROJECT VERUS, MEET VERUS, 2026-10-15, on the operator's word: the figure in the hard hat is VERUS himself, "absolutely gold,
 // the personification of VERUS", so he is in every scene. Cute and explanatory at once, text-led so it works without
 // sound. Drawn here in SVG and played by the page, not a video file, so it is sharp at any size and weighs almost
 // nothing. The findings, prices, percentages and dashboard tiles are the demonstration's own; the agent sentence is
@@ -47,7 +47,7 @@ function cssVars(vars: Record<string, string>): React.CSSProperties {
 
 // VERUS himself: a friendly computer in a hard hat with a headlamp. He breathes, looks about and blinks. Origin at
 // the middle of his body's top edge.
-function Robot({
+function Verus({
   x,
   y,
   s = 1,
@@ -343,7 +343,7 @@ function Forklift({ x, y, s = 1 }: { x: number; y: number; s?: number }) {
         className="vx-beam"
       />
       <ellipse cx={0} cy={0} rx={58} ry={5} fill="#000" opacity={0.22} />
-      <Robot x={-18} y={-92} s={0.78} face="happy" hold="none" />
+      <Verus x={-18} y={-92} s={0.78} face="happy" hold="none" />
       <rect x={34} y={-104} width={4} height={92} fill="#4b5563" />
       <rect x={42} y={-104} width={4} height={92} fill="#4b5563" />
       <rect x={45} y={-46} width={5} height={32} rx={1} fill="#374151" />
@@ -1275,7 +1275,7 @@ export const SCENES: Scene[] = [
           opacity={0.15}
         />
         <g className="vx-hop">
-          <Robot x={320} y={86} s={2.4} face="happy" wave name />
+          <Verus x={320} y={86} s={2.4} face="happy" wave name />
         </g>
         <Sparkles
           pts={[
@@ -1349,7 +1349,7 @@ export const SCENES: Scene[] = [
           </text>
         </g>
         <g className="vx-enter">
-          <Robot x={452} y={222} s={1.25} hold="flashlight" />
+          <Verus x={452} y={222} s={1.25} hold="flashlight" />
         </g>
         <Clock x={90} y={56} text="2:00 AM" light={false} />
       </>
@@ -1419,7 +1419,7 @@ export const SCENES: Scene[] = [
           </g>
         ))}
         <rect x={0} y={290} width={640} height={70} fill="#0b1426" />
-        <Robot x={540} y={206} s={1.25} face="happy" hold="none" />
+        <Verus x={540} y={206} s={1.25} face="happy" hold="none" />
       </>
     ),
   },
@@ -1465,7 +1465,7 @@ export const SCENES: Scene[] = [
         <rect x={0} y={280} width={640} height={80} fill="#0b1426" />
         <Machine x={150} label="HB03" />
         <g className="vx-pop" style={{ animationDelay: "0.4s" }}>
-          <Robot x={330} y={150} s={1.9} face="chart" hold="magnifier" alert />
+          <Verus x={330} y={150} s={1.9} face="chart" hold="magnifier" alert />
         </g>
         <g className="vx-pop" style={{ animationDelay: "1.4s" }}>
           <rect
@@ -1604,7 +1604,7 @@ export const SCENES: Scene[] = [
           className="vx-chart"
         />
         <g className="vx-pop" style={{ animationDelay: "0.2s" }}>
-          <Robot x={150} y={118} s={1.9} face="chart" hold="newspaper" />
+          <Verus x={150} y={118} s={1.9} face="chart" hold="newspaper" />
         </g>
       </>
     ),
@@ -1678,7 +1678,7 @@ export const SCENES: Scene[] = [
         <g className="vx-fade" style={{ animationDelay: "3.2s" }}>
           <PlantManager x={104} y={150} s={1.15} mood="glad" pose="coffee" />
         </g>
-        <Robot x={552} y={192} s={1.15} face="happy" hold="pendant" />
+        <Verus x={552} y={192} s={1.15} face="happy" hold="pendant" />
       </>
     ),
   },
@@ -1745,7 +1745,7 @@ export const SCENES: Scene[] = [
           ]}
           delay={1.3}
         />
-        <Robot x={566} y={190} s={1.25} face="eyes" hold="pointer" />
+        <Verus x={566} y={190} s={1.25} face="eyes" hold="pointer" />
       </>
     ),
   },
@@ -1863,7 +1863,7 @@ export const SCENES: Scene[] = [
             Tested on the last 90 days first.
           </text>
         </g>
-        <Robot x={432} y={196} s={1.2} face="happy" hold="wrench" />
+        <Verus x={432} y={196} s={1.2} face="happy" hold="wrench" />
       </>
     ),
   },
@@ -2028,7 +2028,7 @@ export const SCENES: Scene[] = [
             below 85% on time
           </text>
         </g>
-        <Robot x={580} y={204} s={1.0} face="happy" hold="clipboard" />
+        <Verus x={580} y={204} s={1.0} face="happy" hold="clipboard" />
       </>
     ),
   },
@@ -2145,7 +2145,7 @@ export const SCENES: Scene[] = [
             </g>
           </g>
         ))}
-        <Robot x={604} y={210} s={0.9} face="happy" hold="none" wave />
+        <Verus x={604} y={210} s={0.9} face="happy" hold="none" wave />
       </>
     ),
   },
@@ -2228,7 +2228,7 @@ export const SCENES: Scene[] = [
         <rect x={60} y={206} width={210} height={14} rx={3} fill="#8a5a3b" />
         <rect x={76} y={220} width={10} height={60} fill="#7a4d31" />
         <rect x={244} y={220} width={10} height={60} fill="#7a4d31" />
-        <Robot x={590} y={190} s={1.25} face="eyes" hold="pointer" />
+        <Verus x={590} y={190} s={1.25} face="eyes" hold="pointer" />
       </>
     ),
   },
@@ -2325,7 +2325,7 @@ export const SCENES: Scene[] = [
           delay={2.5}
         />
         <g className="vx-bob">
-          <Robot x={530} y={180} s={1.3} face="happy" hold="pencil" />
+          <Verus x={530} y={180} s={1.3} face="happy" hold="pencil" />
         </g>
       </>
     ),
@@ -2453,7 +2453,7 @@ export const SCENES: Scene[] = [
           </g>
         </g>
         <g className="vx-lead">
-          <Robot x={540} y={124} s={0.85} face="happy" hold="flashlight" />
+          <Verus x={540} y={124} s={0.85} face="happy" hold="flashlight" />
         </g>
         <Sparkles
           pts={[
@@ -2503,7 +2503,7 @@ export const SCENES: Scene[] = [
           className="vx-fade"
         />
         <g className="vx-bob">
-          <Robot x={100} y={150} s={1.5} face="happy" hold="clipboard" wave />
+          <Verus x={100} y={150} s={1.5} face="happy" hold="clipboard" wave />
         </g>
         <Sparkles
           pts={[
