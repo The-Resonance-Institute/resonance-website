@@ -58,6 +58,6 @@ VERUS narrates it, in the first person: `narration.json` holds one line per scre
 cards), and `scripts/narrate.py` voices them with Kokoro, a free, open voice model (Apache 2.0, commercial use allowed)
 that runs on this machine: its Puck voice, made younger with Praat (chosen by ear on 2026-10-17; George, the Windows
 voice before it, was too robotic for him). The model files, about 205 MB from the kokoro-onnx project's
-model-files-v1.0 release, live outside the repository in `%LOCALAPPDATA%\kokoro` (or `KOKORO_DIR`). Each screen stays as long as its line
+model-files-v1.0 release, live outside the repository in `~/.cache/kokoro` (or `KOKORO_DIR`). Each screen stays as long as its line
 needs. Change a line, run the script again, render again.
 

@@ -13,7 +13,7 @@ semitone and a half above Puck's own, and widens his range by a fifth, so he sou
 sounding like a child. He speaks in the first person: he is the one showing you around.
 
 The model files (kokoro-v1.0.fp16.onnx and voices-v1.0.bin, about 205 MB, from the kokoro-onnx project's
-model-files-v1.0 release) live outside the repository, in %LOCALAPPDATA%\\kokoro, or wherever KOKORO_DIR points:
+model-files-v1.0 release) live outside the repository, in ~/.cache/kokoro, or wherever KOKORO_DIR points:
     uv run scripts/narrate.py
 """
 import json
@@ -30,7 +30,7 @@ from parselmouth.praat import call
 
 VIDEO = Path(__file__).resolve().parents[1]
 OUT = VIDEO / "public" / "voice"
-MODEL = Path(os.environ.get("KOKORO_DIR") or Path(os.environ["LOCALAPPDATA"]) / "kokoro")
+MODEL = Path(os.environ.get("KOKORO_DIR") or Path.home() / ".cache" / "kokoro")
 VOICE = "am_puck"
 SPEED = 1.05  # a touch quicker than Puck's default: eager, not rushed
 FORMANTS = 1.13  # a shorter vocal tract: younger
