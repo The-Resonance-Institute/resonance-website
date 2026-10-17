@@ -142,8 +142,10 @@ export default async function TrilogyPage({
                   className="group bg-white p-6 transition-colors hover:bg-accent-soft/40"
                 >
                   {inner}
+                  {/* "EXPLORE", NOT "READ" (2026-10-17, from the operator's note that "Read Book 1" promised the
+                      book): the page is an overview, the central idea and a few verbatim passages, not the text. */}
                   <span className="mt-4 inline-flex items-center gap-1.5 text-xs font-medium text-accent">
-                    Read Book {book.n} <span aria-hidden>&rarr;</span>
+                    Explore Book {book.n} <span aria-hidden>&rarr;</span>
                   </span>
                 </Link>
               ) : (
