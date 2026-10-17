@@ -167,7 +167,7 @@ export default function HowItWorks() {
       <VerusNav current="/verus/how-it-works" />
       <div className="mx-auto max-w-4xl px-6 pb-20">
         <section className="mx-auto max-w-3xl pt-16 pb-10 sm:pt-24">
-          <p className="text-xs font-medium uppercase tracking-[0.18em] text-accent">Project VERUS</p>
+          <p className="text-xs font-medium uppercase tracking-[0.18em] text-accent">VERUS</p>
           <h1 className="mt-4 font-serif text-4xl leading-tight text-ink sm:text-5xl">How it works</h1>
           <p className="mt-5 text-lg leading-relaxed text-muted">
             Ten steps, in the order you would meet them: nine as a plant manager, the last as an owner. Every picture is

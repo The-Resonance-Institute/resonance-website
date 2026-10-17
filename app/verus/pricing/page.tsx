@@ -17,7 +17,7 @@ export const metadata: Metadata = share("/verus/pricing", {
 });
 
 const EMAIL = "contact@resonanceinstitutellc.com";
-const ASK = `mailto:${EMAIL}?subject=${encodeURIComponent("Project VERUS design partner")}`;
+const ASK = `mailto:${EMAIL}?subject=${encodeURIComponent("VERUS design partner")}`;
 const link = "text-accent underline decoration-line hover:decoration-accent";
 
 function Block({ title, children }: { title: string; children: React.ReactNode }) {
@@ -37,7 +37,7 @@ export default function Pricing() {
       <VerusNav current="/verus/pricing" />
       <div className="mx-auto max-w-3xl px-6 pb-20">
         <section className="pt-16 pb-10 sm:pt-24">
-          <p className="text-xs font-medium uppercase tracking-[0.18em] text-accent">Project VERUS</p>
+          <p className="text-xs font-medium uppercase tracking-[0.18em] text-accent">VERUS</p>
           <h1 className="mt-4 font-serif text-4xl leading-tight text-ink sm:text-5xl">
             Priced per plant, not per person.
           </h1>

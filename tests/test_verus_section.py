@@ -20,11 +20,14 @@ def test_the_seven_pages_exist():
         assert (ROOT / "app" / "verus" / p.lstrip("/") / "page.tsx").exists(), f"/verus{p} has no page"
 
 
-def test_the_header_lists_project_verus_right_after_research():
+def test_the_header_lists_verus_right_after_the_books():
+    """2026-10-17, on the operator's word: "Project" came off, and VERUS sits right after The Philosophy;
+    MORIS Research moved to the end beside Ask MORIS."""
     links = json.loads((ROOT / "content" / "nav.json").read_text(encoding="utf-8"))["links"]
     order = [l["href"] for l in links]
-    assert order.index("/verus") == order.index("/research") + 1, order
-    assert next(l["label"] for l in links if l["href"] == "/verus") == "Project VERUS"
+    assert order.index("/verus") == order.index("/resonance") + 1, order
+    assert order.index("/research") == order.index("https://askmoris.ai") - 1, order
+    assert next(l["label"] for l in links if l["href"] == "/verus") == "VERUS"
 
 
 def test_the_sitemap_lists_every_page():

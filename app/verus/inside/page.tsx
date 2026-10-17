@@ -60,7 +60,7 @@ export default function Inside() {
       <VerusNav current="/verus/inside" />
       <div className="mx-auto max-w-5xl px-6 pb-20">
         <section className="max-w-3xl pt-16 pb-10 sm:pt-24">
-          <p className="text-xs font-medium uppercase tracking-[0.18em] text-accent">Project VERUS</p>
+          <p className="text-xs font-medium uppercase tracking-[0.18em] text-accent">VERUS</p>
           <h1 className="mt-4 font-serif text-4xl leading-tight text-ink sm:text-5xl">Inside VERUS</h1>
           <p className="mt-5 text-lg leading-relaxed text-muted">
             What the screens look like, with the demonstration&rsquo;s real numbers. Two made-up companies: Alpha

@@ -5,7 +5,7 @@ import { share } from "@/lib/share";
 export const metadata: Metadata = share("/about", {
   title: "About",
   description:
-    "The Resonance Institute is the studio of C. T. Herndon, based in Huntington Beach, California. It holds the Resonance Series. A Living Philosophy. Four trilogies, twelve volumes, approximately one million words. Complete. Also The Return, the research behind MORIS, and Project VERUS. Not a lab, no venture funding.",
+    "The Resonance Institute is the studio of C. T. Herndon, based in Huntington Beach, California. It holds the Resonance Series. A Living Philosophy. Four trilogies, twelve volumes, approximately one million words. Complete. Also The Return, the research behind MORIS, and VERUS. Not a lab, no venture funding.",
 });
 
 export default function About() {
@@ -65,7 +65,7 @@ export default function About() {
           </li>
           <li>
             <Link href="/verus" className="text-accent underline decoration-line hover:decoration-accent">
-              Project VERUS
+              VERUS
             </Link>
             , software that watches an industrial company&rsquo;s systems all day and all night,
             read-only, and tells its leaders the truth about the operation. Its evidence page
@@ -94,8 +94,8 @@ export default function About() {
         {[
           ["/the-return", "The Return"],
           ["/resonance", "The Philosophy"],
-          ["/research", "Research"],
-          ["/verus", "Project VERUS"],
+          ["/research", "MORIS Research"],
+          ["/verus", "VERUS"],
         ].map(([href, label]) => (
           <Link
             key={href}

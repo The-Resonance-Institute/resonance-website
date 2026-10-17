@@ -15,7 +15,7 @@ export const metadata: Metadata = share("/verus/what-its-for", {
 });
 
 const EMAIL = "contact@resonanceinstitutellc.com";
-const ASK = `mailto:${EMAIL}?subject=${encodeURIComponent("Project VERUS")}`;
+const ASK = `mailto:${EMAIL}?subject=${encodeURIComponent("VERUS")}`;
 const link = "text-accent underline decoration-line hover:decoration-accent";
 
 type Situation = { who: string; title: string; moment: string; does: React.ReactNode[]; note?: string };
@@ -106,7 +106,7 @@ export default function WhatItsFor() {
       <VerusNav current="/verus/what-its-for" />
       <div className="mx-auto max-w-3xl px-6 pb-20">
         <section className="pt-16 pb-10 sm:pt-24">
-          <p className="text-xs font-medium uppercase tracking-[0.18em] text-accent">Project VERUS</p>
+          <p className="text-xs font-medium uppercase tracking-[0.18em] text-accent">VERUS</p>
           <h1 className="mt-4 font-serif text-4xl leading-tight text-ink sm:text-5xl">What it&rsquo;s for</h1>
           <p className="mt-5 text-lg leading-relaxed text-muted">
             VERUS earns its place in situations every operator knows. Here is what it does in each, and, at the end,

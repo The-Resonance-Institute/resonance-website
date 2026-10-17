@@ -26,7 +26,7 @@ import type { Metadata } from "next";
 // mentioned now. The framing here is deliberately written from the body of work already public, so
 // that it keeps being true when that lands and needs no rewrite to admit it.
 //
-// IT LANDED: Project VERUS went public on 2026-10-13, on the operator's word, with its own pages and
+// IT LANDED: VERUS went public on 2026-10-13, on the operator's word, with its own pages and
 // a place in the header, and on 2026-10-16 it took its card in the grid below. The hero needed no
 // rewrite, as intended: "software held to the same standard" already held it.
 //
@@ -122,7 +122,7 @@ export default function Home() {
         </p>
       </section>
 
-      {/* THE DESTINATIONS, in header order (five since 2026-10-16, with Project VERUS). 2026-10-10: the research section was added to the
+      {/* THE DESTINATIONS, in header order (five since 2026-10-16, with VERUS; VERUS third since 2026-10-17). 2026-10-10: the research section was added to the
           site and this grid still showed three, so the front door under-described the place. The
           Return leads because it is the one object here that is publishing; the twelve volumes are
           complete and sit behind it.
@@ -176,7 +176,31 @@ export default function Home() {
             </p>
           </Link>
 
-          {/* THE RESEARCH, added 2026-10-10, and placed third to match the header rather than for
+          {/* VERUS, 2026-10-16; third since 2026-10-17, after the books, matching the header. A reader's review found the
+              one live commercial product in the header but not on the front door. It is the
+              software held to the same standard: it shows its work, it only reads, and its evidence
+              page publishes the misses. */}
+          <Link
+            href="/verus"
+            className="group flex flex-col bg-white p-6 transition-colors hover:bg-accent-soft"
+          >
+            <p className="text-xs font-medium uppercase tracking-[0.18em] text-muted">
+              Software for operations
+            </p>
+            <h3 className="mt-2 font-serif text-xl text-ink transition-colors group-hover:text-accent">
+              VERUS
+            </h3>
+            <p className="mt-2 flex-1 text-sm leading-relaxed text-muted">
+              Watches an industrial company&rsquo;s systems all day and all
+              night, read-only, and tells you the truth about the operation:
+              what&rsquo;s wrong, where the money is, and whether the fix worked.
+            </p>
+            <p className="mt-4 text-sm font-medium text-accent">
+              Meet VERUS <span aria-hidden>&rarr;</span>
+            </p>
+          </Link>
+
+          {/* THE RESEARCH, added 2026-10-10; fourth since 2026-10-17, beside Ask MORIS as in the header, not for
               emphasis. It sits beside Ask MORIS on purpose: the demonstration is the thing you can
               touch and the paper is the account of whether it holds, so a visitor who wants the
               evidence rather than the toy has somewhere to go from the front door. */}
@@ -209,30 +233,6 @@ export default function Home() {
             </p>
             <p className="mt-4 text-sm font-medium text-accent">
               Read the research <span aria-hidden>&rarr;</span>
-            </p>
-          </Link>
-
-          {/* PROJECT VERUS, 2026-10-16, in header order after Research. A reader's review found the
-              one live commercial product in the header but not on the front door. It is the
-              software held to the same standard: it shows its work, it only reads, and its evidence
-              page publishes the misses. */}
-          <Link
-            href="/verus"
-            className="group flex flex-col bg-white p-6 transition-colors hover:bg-accent-soft"
-          >
-            <p className="text-xs font-medium uppercase tracking-[0.18em] text-muted">
-              Software for operations
-            </p>
-            <h3 className="mt-2 font-serif text-xl text-ink transition-colors group-hover:text-accent">
-              Project VERUS
-            </h3>
-            <p className="mt-2 flex-1 text-sm leading-relaxed text-muted">
-              Watches an industrial company&rsquo;s systems all day and all
-              night, read-only, and tells you the truth about the operation:
-              what&rsquo;s wrong, where the money is, and whether the fix worked.
-            </p>
-            <p className="mt-4 text-sm font-medium text-accent">
-              Meet VERUS <span aria-hidden>&rarr;</span>
             </p>
           </Link>
 

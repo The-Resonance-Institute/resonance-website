@@ -11,7 +11,7 @@ import { VerusNav, VerusNext } from "@/components/verus-nav";
 // demonstration and appears on the evidence page or in How it works. Copy drafted in the VERUS repository.
 
 export const metadata: Metadata = share("/verus", {
-  title: "Project VERUS",
+  title: "VERUS",
   description:
     "The truth about your operation, around the clock. VERUS watches your ERP, maintenance, HR and CRM data all day, every day: an analyst, a data scientist and a project manager that never go home. Read-only, inside your network.",
 });
@@ -78,7 +78,7 @@ export default function Verus() {
             sizes="(max-width: 800px) 100vw, 720px"
             className="mb-10 h-auto w-full rounded-2xl"
           />
-          <p className="text-xs font-medium uppercase tracking-[0.18em] text-accent">Project VERUS</p>
+          <p className="text-xs font-medium uppercase tracking-[0.18em] text-accent">VERUS</p>
           <h1 className="mt-4 font-serif text-4xl leading-tight text-ink sm:text-5xl">
             The truth about your operation, around the clock.
           </h1>

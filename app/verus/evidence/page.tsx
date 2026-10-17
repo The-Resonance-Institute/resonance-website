@@ -29,7 +29,7 @@ export default function Evidence() {
       <VerusNav current="/verus/evidence" />
       <div className="mx-auto max-w-3xl px-6 pb-20">
         <section className="pt-16 pb-10 sm:pt-24">
-          <p className="text-xs font-medium uppercase tracking-[0.18em] text-accent">Project VERUS</p>
+          <p className="text-xs font-medium uppercase tracking-[0.18em] text-accent">VERUS</p>
           <h1 className="mt-4 font-serif text-4xl leading-tight text-ink sm:text-5xl">The evidence</h1>
           <p className="mt-5 text-lg leading-relaxed text-muted">
             Every result we have measured, good and not good enough yet, with the date it was measured. All of it was

@@ -14,7 +14,7 @@ export function SiteFooter() {
               rather than a destination. Since 2026-09-23 it is a single outbound link to
               askmoris.ai: there is no second instance of it in this repository. */}
           {/* THE SAME DESTINATIONS AS THE HEADER, 2026-10-16. The footer still listed only the
-              philosophy, from before The Return, the research and Project VERUS, which a reader's
+              philosophy, from before The Return, the research and VERUS, which a reader's
               review of the site found on the About page and the front door too. Header order. With
               eight links the row needs the full width, so the email and the copyright moved to a
               row of their own beneath it. */}
@@ -24,17 +24,17 @@ export function SiteFooter() {
           <Link href="/resonance" className="py-3 transition-colors hover:text-accent">
             The Philosophy
           </Link>
-          <Link href="/research" className="py-3 transition-colors hover:text-accent">
-            Research
-          </Link>
           <Link href="/verus" className="py-3 transition-colors hover:text-accent">
-            Project VERUS
+            VERUS
           </Link>
           <Link href="/about" className="py-3 transition-colors hover:text-accent">
             About
           </Link>
           <Link href="/contact" className="py-3 transition-colors hover:text-accent">
             Contact
+          </Link>
+          <Link href="/research" className="py-3 transition-colors hover:text-accent">
+            MORIS Research
           </Link>
           <Link href="/privacy" className="py-3 transition-colors hover:text-accent">
             Privacy

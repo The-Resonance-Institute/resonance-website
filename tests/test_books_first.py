@@ -491,7 +491,7 @@ def test_the_research_section_is_listed_and_navigable():
         "Figure 1 is missing; the generated paper references /research/figures/two_paths.svg")
 
     links = json.loads((ROOT / "content" / "nav.json").read_text(encoding="utf-8"))["links"]
-    assert any(l["href"] == "/research" and l["label"] == "Research" for l in links), (
+    assert any(l["href"] == "/research" and l["label"] == "MORIS Research" for l in links), (
         "Research is not in content/nav.json, which is the only place the header is defined")
     assert not any(l["href"] == "/open-letter" for l in links), "the header still lists the letter"
 
