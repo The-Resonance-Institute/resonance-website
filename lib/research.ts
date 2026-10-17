@@ -62,3 +62,4 @@ export const DOI_URL = "https://doi.org/10.5281/zenodo.23302503";
 
 export const PDF_PAGES = 70;
 export const PDF_PATH = "/research/MORIS_Research_Report.pdf";
+

@@ -1111,3 +1111,14 @@ def test_the_research_pdf_page_count_matches_what_the_page_claims():
     assert claimed == actual, (
         f"the site says the report is {claimed} pages; the served PDF has {actual}. "
         f"Update PDF_PAGES in lib/research.ts when the edition is replaced.")
+
+
+def test_the_research_page_lists_all_three_zenodo_papers():
+    """2026-10-17, on the operator's word: three papers are deposited on Zenodo and /research linked one.
+    Each is listed by its all-versions concept DOI; the version DOI of the report stays unused."""
+    lib = (ROOT / "lib" / "research.ts").read_text(encoding="utf-8")
+    page = (ROOT / "app" / "research" / "page.tsx").read_text(encoding="utf-8")
+    for doi in ("10.5281/zenodo.23302503", "10.5281/zenodo.21936444", "10.5281/zenodo.22801949"):
+        assert doi in lib or doi in page, f"{doi} is not listed on /research"
+    assert "PAPERS.map" in page, "the research page no longer lists the papers"
+    assert "10.5281/zenodo.23302504" not in page, "the stale version DOI is in use"
