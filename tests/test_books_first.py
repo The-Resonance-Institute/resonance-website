@@ -806,7 +806,7 @@ def test_the_philosophy_is_one_page_and_manuscripts_is_gone():
 
     WHAT HAD TO SURVIVE THE MERGE is every link into a book. They all lived on the Manuscripts page,
     in the cover grids, so the whole trilogy-and-covers block moved across rather than being
-    rebuilt. That is what the twelve cover paths below assert: all twelve books are reachable from
+    rebuilt. That is what the twelve book entries below assert: all twelve books are reachable from
     the one page, and if a trilogy block is ever dropped its three books stop being linked anywhere
     a visitor can reach.
 
@@ -821,10 +821,14 @@ def test_the_philosophy_is_one_page_and_manuscripts_is_gone():
     assert not any(l["href"] == "/resonance/series" for l in links), "the nav still lists Manuscripts"
     assert not any(l["label"] == "Manuscripts" for l in links), "the nav still says Manuscripts"
 
+    # Since 2026-10-17 (the operator: show "each trilogy as one book") the twelve books are linked as
+    # titles under the four trilogy volumes rather than as covers; what must hold is that every book
+    # is still on the page and linked.
     page = (ROOT / "app" / "resonance" / "page.tsx").read_text(encoding="utf-8")
+    assert "href={`/resonance/book/${bookSlug(b.n)" in page, "the books are no longer linked from the page"
     for n in range(1, 13):
-        assert f"/covers/book{n}.jpg" in page, (
-            f"book {n} is not on the merged page; its link lived in the cover grid that moved here")
+        assert f"{{ n: {n}, title:" in page, (
+            f"book {n} is not on the merged page; its link lived in the trilogy block that moved here")
     for art in ("tuning", "transformation", "time", "sacred"):
         assert f"/trilogies/{art}.jpg" in page, f"the {art} trilogy block did not survive the merge"
     assert "/resonance/book/" in page, "the merged page links no books at all"

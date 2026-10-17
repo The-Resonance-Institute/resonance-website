@@ -12,8 +12,9 @@ import { books as canonBooks, trilogies as canonTrilogies } from "@/lib/canon";
 //
 // WHAT MOVED HERE AND WHY IT MATTERS: every link into a book lived on the Manuscripts page, inside
 // the cover grids. So the trilogy-and-covers block came across whole rather than being rebuilt,
-// and test_the_philosophy_is_one_page_and_manuscripts_is_gone asserts all twelve covers are on
-// this page. If a trilogy block is ever dropped, its three books stop being reachable.
+// and test_the_philosophy_is_one_page_and_manuscripts_is_gone asserts all twelve books are linked
+// from this page (since 2026-10-17 as titles under the four trilogy volumes, not as covers). If a
+// trilogy is ever dropped, its three books stop being reachable.
 //
 // /resonance/series forwards here rather than going dark; it was indexed and in the sitemap.
 
@@ -31,7 +32,6 @@ type Book = {
   n: number;
   title: string;
   scale?: string;
-  cover: string;
 };
 
 type Trilogy = {
@@ -49,9 +49,9 @@ const trilogies: Trilogy[] = [
     line: "How a leader comes into tune: with themselves, with the people around them, and with those not yet born.",
     art: "/trilogies/tuning.jpg",
     books: [
-      { n: 1, title: "Echoes of the Unseen", scale: "The self", cover: "/covers/book1.jpg" },
-      { n: 2, title: "The Fields of Belonging", scale: "The community", cover: "/covers/book2.jpg" },
-      { n: 3, title: "The Covenant of the Future", scale: "The world", cover: "/covers/book3.jpg" },
+      { n: 1, title: "Echoes of the Unseen", scale: "The self" },
+      { n: 2, title: "The Fields of Belonging", scale: "The community" },
+      { n: 3, title: "The Covenant of the Future", scale: "The world" },
     ],
   },
   {
@@ -60,9 +60,9 @@ const trilogies: Trilogy[] = [
     line: "How anything truly changes. Fracture, grief, and silence giving way to fire, emergence, and rhythm.",
     art: "/trilogies/transformation.jpg",
     books: [
-      { n: 4, title: "The Threshold of Return", scale: "The self", cover: "/covers/book4.jpg" },
-      { n: 5, title: "The Rhythm of Trust", scale: "The community", cover: "/covers/book5.jpg" },
-      { n: 6, title: "The Weather of Becoming", scale: "The world", cover: "/covers/book6.jpg" },
+      { n: 4, title: "The Threshold of Return", scale: "The self" },
+      { n: 5, title: "The Rhythm of Trust", scale: "The community" },
+      { n: 6, title: "The Weather of Becoming", scale: "The world" },
     ],
   },
   {
@@ -71,9 +71,9 @@ const trilogies: Trilogy[] = [
     line: "Leading inside something we cannot stop: attention, patience, memory, and bequest across three timescales.",
     art: "/trilogies/time.jpg",
     books: [
-      { n: 7, title: "The Sands of Life", scale: "The self", cover: "/covers/book7.jpg" },
-      { n: 8, title: "The Two Clocks", scale: "The community", cover: "/covers/book8.jpg" },
-      { n: 9, title: "The Eras of Civilization", scale: "The world", cover: "/covers/book9.jpg" },
+      { n: 7, title: "The Sands of Life", scale: "The self" },
+      { n: 8, title: "The Two Clocks", scale: "The community" },
+      { n: 9, title: "The Eras of Civilization", scale: "The world" },
     ],
   },
   {
@@ -82,26 +82,13 @@ const trilogies: Trilogy[] = [
     line: "What is owed to the depth of things. Reverence as a capacity.",
     art: "/trilogies/sacred.jpg",
     books: [
-      { n: 10, title: "The Art of Nearness", scale: "The self", cover: "/covers/book10.jpg" },
-      { n: 11, title: "The Light We Tend Together", scale: "The community", cover: "/covers/book11.jpg" },
-      { n: 12, title: "The Mercy of Illumination", scale: "The world", cover: "/covers/book12.jpg" },
+      { n: 10, title: "The Art of Nearness", scale: "The self" },
+      { n: 11, title: "The Light We Tend Together", scale: "The community" },
+      { n: 12, title: "The Mercy of Illumination", scale: "The world" },
     ],
   },
 ];
 
-function Cover({ book }: { book: Book }) {
-  return (
-    <div className="relative aspect-[2/3] overflow-hidden rounded-lg border border-line bg-white shadow-sm">
-      <Image
-        src={book.cover}
-        alt={`Cover of ${book.title}`}
-        fill
-        sizes="(max-width: 640px) 30vw, 160px"
-        className="object-cover"
-      />
-    </div>
-  );
-}
 
 export default function Philosophy() {
   return (
@@ -149,67 +136,51 @@ export default function Philosophy() {
         </p>
       </section>
 
-      <div className="mt-10 space-y-16 pb-8">
+      {/* FOUR VOLUMES, NOT SIXTEEN COVERS (2026-10-17, on the operator's word: "maybe I should just show
+          the four trilogies, each trilogy as one book"). The page had shown the composite, four trilogy
+          volumes and all twelve book covers, a wall of books before a visitor knew what the work was.
+          Now each trilogy is one volume in a single row, with its three books beneath as titles. Every
+          book is still linked from here, and each trilogy's own page shows its three covers. */}
+      <div className="mt-10 grid grid-cols-2 gap-x-6 gap-y-12 border-t border-line pt-10 pb-8 lg:grid-cols-4">
         {trilogies.map((t) => (
-          <section key={t.numeral} className="border-t border-line pt-10">
-            <div className="flex flex-col gap-7 sm:flex-row sm:items-start sm:gap-10">
-              {/* The trilogy volume: the hero of the row, bigger and to the left */}
-              <div className="w-44 shrink-0 sm:w-60">
-                <Link
-                  href={`/resonance/trilogy/${trilogySlug(t.name) ?? ""}`}
-                  className="group block"
-                >
-                  <div className="relative aspect-[2/3] overflow-hidden rounded-xl border border-line shadow-md transition-transform group-hover:-translate-y-0.5 group-hover:shadow-lg">
-                    <Image
-                      src={t.art}
-                      alt={`Cover of the ${t.name} trilogy`}
-                      fill
-                      sizes="(max-width: 640px) 176px, 240px"
-                      className="object-cover"
-                    />
-                  </div>
-                  <span className="mt-3 inline-flex items-center gap-1.5 text-xs font-medium text-accent transition-colors group-hover:text-ink">
-                    Explore the trilogy <span aria-hidden>&rarr;</span>
-                  </span>
-                </Link>
+          <section key={t.numeral}>
+            <Link href={`/resonance/trilogy/${trilogySlug(t.name) ?? ""}`} className="group block">
+              <div className="relative aspect-[2/3] overflow-hidden rounded-xl border border-line shadow-md transition-transform group-hover:-translate-y-0.5 group-hover:shadow-lg">
+                <Image
+                  src={t.art}
+                  alt={`Cover of the ${t.name} trilogy`}
+                  fill
+                  sizes="(max-width: 1024px) 45vw, 240px"
+                  className="object-cover"
+                />
               </div>
-
-              {/* The three volumes: smaller, to the right */}
-              <div className="flex-1">
-                <div className="flex items-baseline gap-4">
-                  <span className="font-serif text-3xl leading-none text-accent">
-                    {t.numeral}
-                  </span>
-                  <h2 className="font-serif text-2xl text-ink">{t.name}</h2>
-                </div>
-                <p className="mt-3 max-w-2xl leading-relaxed text-muted">{t.line}</p>
-
-                <div className="mt-6 grid max-w-sm grid-cols-3 gap-3 sm:gap-4">
-                  {t.books.map((b) => (
-                    <Link
-                      key={b.n}
-                      href={`/resonance/book/${bookSlug(b.n) ?? ""}`}
-                      className="group block"
-                    >
-                      <div className="transition-transform group-hover:-translate-y-0.5">
-                        <Cover book={b} />
-                      </div>
-                      <div className="mt-2">
-                        {b.scale && (
-                          <p className="text-[0.55rem] uppercase tracking-[0.14em] text-muted">
-                            {b.scale}
-                          </p>
-                        )}
-                        <h3 className="mt-0.5 font-serif text-xs leading-snug text-ink transition-colors group-hover:text-accent">
-                          {b.title}
-                        </h3>
-                        <p className="mt-0.5 text-[0.65rem] text-muted">Book {b.n}</p>
-                      </div>
-                    </Link>
-                  ))}
-                </div>
+              <div className="mt-4 flex items-baseline gap-2">
+                <span className="font-serif text-xl leading-none text-accent">{t.numeral}</span>
+                <h2 className="font-serif text-xl text-ink transition-colors group-hover:text-accent">
+                  {t.name}
+                </h2>
               </div>
-            </div>
+            </Link>
+            <p className="mt-2 text-sm leading-relaxed text-muted">{t.line}</p>
+            <ol className="mt-3 space-y-1">
+              {t.books.map((b) => (
+                <li key={b.n} className="text-xs leading-snug">
+                  <Link
+                    href={`/resonance/book/${bookSlug(b.n) ?? ""}`}
+                    className="text-ink underline decoration-line underline-offset-2 hover:text-accent hover:decoration-accent"
+                  >
+                    {b.title}
+                  </Link>
+                  <span className="text-muted"> · Book {b.n}</span>
+                </li>
+              ))}
+            </ol>
+            <Link
+              href={`/resonance/trilogy/${trilogySlug(t.name) ?? ""}`}
+              className="mt-3 inline-flex items-center gap-1.5 text-xs font-medium text-accent hover:text-ink"
+            >
+              Explore the trilogy <span aria-hidden>&rarr;</span>
+            </Link>
           </section>
         ))}
       </div>
