@@ -125,7 +125,8 @@ function Verus({
             />
           </g>
         )}
-        <rect x={-8} y={39} width={16} height={3} rx={1.5} fill={BLUE} />
+        {/* his smile: the blue line, curved (2026-10-17, on the operator's word, to match the 3D VERUS) */}
+        <path d="M-8 39.5 Q0 45 8 39.5" stroke={BLUE} strokeWidth={3} fill="none" strokeLinecap="round" />
         <path
           d="M-24 4 Q0 -22 24 4 Z"
           fill={HAT}
