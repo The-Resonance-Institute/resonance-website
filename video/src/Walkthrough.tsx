@@ -179,7 +179,7 @@ function Frame({ square }: { square: boolean }) {
         local={t - INTRO - BODY}
         title="See it on your own data."
         line="Read-only, inside your network."
-        small="resonanceinstitutellc.com/verus"
+        small="verusops.com"
       />
     );
   const shot = SHOTS[i];
@@ -243,7 +243,7 @@ function Frame({ square }: { square: boolean }) {
           color: "#94a3b8",
         }}
       >
-        resonanceinstitutellc.com/verus
+        verusops.com
       </p>
     </AbsoluteFill>
   );

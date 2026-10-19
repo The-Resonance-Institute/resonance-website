@@ -23,7 +23,7 @@ ASSETS.logo = staticFile("verus-logo.jpg");
 export const FPS = 30;
 const END = 3; // the end card, in seconds
 export const FRAMES = Math.round((TOTAL + END) * FPS);
-const ADDRESS = "resonanceinstitutellc.com/verus";
+const ADDRESS = "verusops.com";
 const SERIF = "Newsreader, Georgia, serif";
 const NAVY = "#0b1426";
 
