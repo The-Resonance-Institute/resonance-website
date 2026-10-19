@@ -169,7 +169,7 @@ function Frame({ square }: { square: boolean }) {
         local={t}
         title="A walk through VERUS"
         line="The real product, on its demonstration company."
-        small="Two manufacturers, three plants. The data is made up; the software is not."
+        small="Two fictional manufacturers, three plants, built for demonstrations."
       />
     );
   const i = STARTS.findIndex((start, n) => n === SHOTS.length || t < start + EACHS[n]);
