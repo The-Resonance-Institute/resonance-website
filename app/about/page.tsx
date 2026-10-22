@@ -71,6 +71,12 @@ export default function About() {
             read-only, and tells its leaders the truth about the operation. Its evidence page
             publishes what is not yet good enough.
           </li>
+          <li>
+            <Link href="/pivot-labs" className="text-accent underline decoration-line hover:decoration-accent">
+              Pivot Labs
+            </Link>
+            , an animated mockumentary about a startup with thirty days of money left, sponsored by VERUS.
+          </li>
         </ul>
         <p>
           It is not a lab and takes no venture funding. It is a private
