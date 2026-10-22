@@ -11,7 +11,7 @@ import { share } from "@/lib/share";
 export const metadata: Metadata = share("/pivot-labs", {
   title: "Pivot Labs",
   description:
-    "Pivot Labs is an animated mockumentary about a San Francisco startup with thirty days of money left, and VERUS, the AI who quietly keeps it running. Presented by The Resonance Institute. Sponsored by VERUS.",
+    "Pivot Labs. Because it's no fun to be serious all the time. An animated mockumentary about a San Francisco startup with thirty days of money left, and VERUS, the AI who quietly keeps it running. Presented by The Resonance Institute. Sponsored by VERUS.",
 });
 
 const stills = [
@@ -39,6 +39,7 @@ export default function PivotLabs() {
       <section className="pt-20 pb-10 sm:pt-28">
         <p className="text-sm uppercase tracking-[0.2em] text-muted">The Resonance Institute presents</p>
         <h1 className="mt-3 font-serif text-5xl leading-tight text-ink sm:text-6xl">Pivot Labs</h1>
+        <p className="mt-3 font-serif text-2xl italic text-ink sm:text-3xl">Because it&rsquo;s no fun to be serious all the time.</p>
         <p className="mt-6 max-w-2xl text-xl leading-relaxed text-ink">
           An animated mockumentary about a San Francisco startup with thirty days of money left,
           and the AI who quietly keeps it running.
