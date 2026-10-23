@@ -53,12 +53,12 @@ export default function PivotLabs() {
         </p>
         <p className="mt-8">
           <a
-            href="https://youtu.be/GbEhRrub3kM"
+            href="https://www.youtube.com/playlist?list=PLaVVUGmRTBDU"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-ink"
           >
-            Watch Chapter 1 on YouTube
+            Watch Season 1 on YouTube
           </a>
         </p>
       </section>
@@ -123,7 +123,7 @@ export default function PivotLabs() {
           <a href="https://www.youtube.com/@PivotLabsshow" target="_blank" rel="noopener noreferrer" className="text-accent underline decoration-line hover:decoration-accent">
             Pivot Labs channel
           </a>{" "}
-          on YouTube. A new chapter every few days.
+          on YouTube. All ten are out now, in order, in one playlist.
         </p>
         <p>
           VERUS is real. The cartoon one wears a hard hat to a software startup. The real one watches
