@@ -51,6 +51,16 @@ export default function PivotLabs() {
           </a>
           .
         </p>
+        <p className="mt-8">
+          <a
+            href="https://youtu.be/GbEhRrub3kM"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-ink"
+          >
+            Watch Chapter 1 on YouTube
+          </a>
+        </p>
       </section>
 
       <section className="border-t border-line pt-10">
@@ -109,8 +119,11 @@ export default function PivotLabs() {
       <section className="space-y-5 border-t border-line mt-14 pt-10 pb-24 text-lg leading-relaxed text-ink">
         <h2 className="font-serif text-3xl text-ink">Season one</h2>
         <p>
-          Ten chapters, about twenty-six minutes, from Day One of Thirty to Demo Night. Episodes
-          premiere on YouTube, with each chapter also cut for phones.
+          Ten chapters, about twenty-eight minutes, from Day One of Thirty to Demo Night, on the{" "}
+          <a href="https://www.youtube.com/@PivotLabsshow" target="_blank" rel="noopener noreferrer" className="text-accent underline decoration-line hover:decoration-accent">
+            Pivot Labs channel
+          </a>{" "}
+          on YouTube. A new chapter every few days.
         </p>
         <p>
           VERUS is real. The cartoon one wears a hard hat to a software startup. The real one watches
