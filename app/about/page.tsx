@@ -5,7 +5,7 @@ import { share } from "@/lib/share";
 export const metadata: Metadata = share("/about", {
   title: "About",
   description:
-    "The Resonance Institute is the studio of C. T. Herndon, based in Huntington Beach, California. It holds the Resonance Series. A Living Philosophy. Four trilogies, twelve volumes, approximately one million words. Complete. Also The Return, the research behind MORIS, and VERUS. Not a lab, no venture funding.",
+    "C. T. Herndon has spent his career leading people in industrial manufacturing, as a senior operations executive and before that in U.S. Army military intelligence. The Resonance Institute is his studio, based in Huntington Beach, California. It holds the Resonance Series. A Living Philosophy. Four trilogies, twelve volumes, approximately one million words. Complete. Also The Return, the research behind MORIS, and VERUS. Not a lab, no venture funding.",
 });
 
 export default function About() {
@@ -17,7 +17,21 @@ export default function About() {
         </h1>
       </section>
 
+      {/* THE AUTHOR, 2026-10-23 (Chris's yes). His bio as published in The Return; only "this book" became "The Return". A reader
+          checking who stands behind the books, MORIS and VERUS meets the person first, then the studio. */}
       <section className="space-y-5 border-t border-line pt-10 text-lg leading-relaxed text-ink">
+        <h2 className="font-serif text-2xl text-ink">C. T. Herndon</h2>
+        <p>
+          C. T. Herndon has spent his career leading people in industrial manufacturing, most recently as a
+          senior operations executive running a division of more than $500 million, and before that in military
+          intelligence with the U.S. Army, including service in Desert Storm. He is the founder of The Resonance
+          Institute and the author of A Living Philosophy, the longer work from which The Return grew. He lives in
+          Southern California.
+        </p>
+      </section>
+
+      <section className="mt-12 space-y-5 border-t border-line pt-10 text-lg leading-relaxed text-ink">
+        <h2 className="font-serif text-2xl text-ink">The Institute</h2>
         <p>
           The Resonance Institute is the studio of C. T. Herndon, based in
           Huntington Beach, California. It holds the copyright to the{" "}
