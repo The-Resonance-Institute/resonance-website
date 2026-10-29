@@ -4,7 +4,7 @@ import voice from "../public/voice/voice.json";
 import { useSerif } from "./Film";
 
 // THE WALKTHROUGH (2026-10-16, on the operator's word): the real product, not drawings. scripts/capture_walkthrough.py
-// drives the demonstration (replay mode, nothing spent) through a plant manager's morning and the owner's view, and
+// drives the demonstration (replay mode, nothing spent) through the owner's view and a plant manager's day, and
 // keeps a 1920 by 1080 screenshot per step with the box on screen that matters. Here each screen eases in toward that
 // box, the box is outlined in the logo's blue, and the caption says what it is, in the operator's words.
 
@@ -106,6 +106,50 @@ function Screen({ shot, local, vw, vh, below = 0 }: { shot: Shot; local: number;
   );
 }
 
+// THE PHONE (2026-10-28, on the operator's word): what is found during the shift also reaches the person's phone
+// (ADR 122). A phone's notification cannot be screen-captured, so it is drawn here, saying exactly what the app sends:
+// "VERUS" over the finding's title. Everything else in the walkthrough is the real product.
+const PHONE_SAYS: Record<string, string> = {
+  "walk/10-right-now.png": "Scrap quantity already running high today, Weld cell 3 (work center code HB03)",
+};
+
+function Banner({ text, local, square }: { text: string; local: number; square: boolean }) {
+  const k = interpolate(local, [3.0, 3.6], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+    easing: Easing.out(Easing.cubic),
+  });
+  const w = square ? 620 : 700;
+  return (
+    <div
+      style={{
+        position: "absolute",
+        top: (square ? 140 : 40) + (1 - k) * -60,
+        right: square ? 40 : 60,
+        width: w,
+        opacity: k,
+        display: "flex",
+        gap: 18,
+        alignItems: "flex-start",
+        padding: "18px 22px",
+        borderRadius: 26,
+        background: "rgba(248, 250, 252, 0.97)",
+        boxShadow: "0 18px 48px rgba(0, 0, 0, 0.45)",
+        fontFamily: "Segoe UI, system-ui, sans-serif",
+      }}
+    >
+      <Img src={staticFile("verus-icon.png")} style={{ width: 56, height: 56, borderRadius: 14, flex: "none" }} />
+      <div style={{ minWidth: 0 }}>
+        <div style={{ display: "flex", justifyContent: "space-between", fontSize: 22, color: "#475569" }}>
+          <span style={{ fontWeight: 700, color: "#0f172a" }}>VERUS</span>
+          <span>now</span>
+        </div>
+        <p style={{ margin: "4px 0 0", fontSize: square ? 25 : 27, lineHeight: 1.25, color: "#0f172a" }}>{text}</p>
+      </div>
+    </div>
+  );
+}
+
 function Caption({ text, local, square }: { text: string; local: number; square: boolean }) {
   const opacity = interpolate(local, [0.3, 0.9], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
   return (
@@ -168,8 +212,8 @@ function Frame({ square }: { square: boolean }) {
       <Card
         local={t}
         title="A walk through VERUS"
-        line="The real product, on its demonstration company."
-        small="Two fictional manufacturers, three plants, built for demonstrations."
+        line="The real product, on its demonstration companies."
+        small="Three fictional manufacturers, built for demonstrations."
       />
     );
   const i = STARTS.findIndex((start, n) => n === SHOTS.length || t < start + EACHS[n]);
@@ -188,6 +232,7 @@ function Frame({ square }: { square: boolean }) {
     return (
       <AbsoluteFill style={{ background: NAVY }}>
         <Screen shot={shot} local={local} vw={vw} vh={vh} below={230} />
+        {PHONE_SAYS[shot.file] && <Banner text={PHONE_SAYS[shot.file]} local={local} square={false} />}
         <Caption text={shot.caption} local={local} square={false} />
       </AbsoluteFill>
     );
@@ -214,6 +259,7 @@ function Frame({ square }: { square: boolean }) {
       <div style={{ position: "absolute", top: 120, left: 0, width: 1080, height: 608, overflow: "hidden" }}>
         <Screen shot={shot} local={local} vw={1080} vh={608} />
       </div>
+      {PHONE_SAYS[shot.file] && <Banner text={PHONE_SAYS[shot.file]} local={local} square />}
       <div style={{ position: "absolute", top: 760, left: 0, right: 0 }}>
         <p
           style={{

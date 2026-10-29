@@ -39,8 +39,10 @@ animation and moves its delay back by the scene's elapsed time, which makes the 
 
 ## The walkthrough: the real product
 
-`Walkthrough` and `WalkthroughSquare` (src/Walkthrough.tsx) show the real VERUS on its demonstration company: fourteen
-screens of a plant manager's morning (VERUS's Show me and his walk round a screen among them) and the owner's view, each easing in toward the part that matters, outlined in
+`Walkthrough` and `WalkthroughSquare` (src/Walkthrough.tsx) show the real VERUS on its demonstration companies: fifteen
+screens, the owner's view first (from the portfolio down to one plant, the first hundred days, the board pack), then a
+plant manager's day (the brief, Show me, a "Right now" finding with its phone notification, a plan, sister plants,
+a question, an agent, documents), each easing in toward the part that matters, outlined in
 the logo's blue, with a caption. The screens are captured from a running demonstration:
 
 ```bash
