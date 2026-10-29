@@ -26,7 +26,7 @@ const stills = [
 const cast = [
   ["VERUS", "The AI at Pivot Labs. Trained on forty years of factory maintenance manuals, which is why he wears a hard hat to a software startup."],
   ["Sprocket", "His robot dog, and his agent. Does exactly what he is told, instantly, completely, literally."],
-  ["Dev", "Cofounder and CTO. Nineteen. Built VERUS alone on a weekend and never told anyone it was special."],
+  ["Dev", "Cofounder and CTO. Twenty-two. Built VERUS alone on a weekend and never told anyone it was special."],
   ["Tanner", "Founder and CEO. Cold plunge, gratitude journal, and whatever Hudson posted this morning."],
   ["Kenzie", "Head of Growth, and of everything else. She hired the documentary crew. That is you."],
   ["Brooke", "Community manager of The Commons. She decides who sits where. She has a bell."],
@@ -119,11 +119,15 @@ export default function PivotLabs() {
       <section className="space-y-5 border-t border-line mt-14 pt-10 pb-24 text-lg leading-relaxed text-ink">
         <h2 className="font-serif text-3xl text-ink">Season one</h2>
         <p>
-          Ten chapters, about twenty-eight minutes, from Day One of Thirty to Demo Night, on the{" "}
+          Ten chapters, about forty-three minutes, from Day One of Thirty to Demo Night, on the{" "}
           <a href="https://www.youtube.com/@PivotLabsshow" target="_blank" rel="noopener noreferrer" className="text-accent underline decoration-line hover:decoration-accent">
             Pivot Labs channel
           </a>{" "}
-          on YouTube. All ten are out now, in order, in one playlist.
+          on YouTube. All ten are out now, in order, in one playlist. Or{" "}
+          <a href="https://youtu.be/O5Vp8ewuU58" target="_blank" rel="noopener noreferrer" className="text-accent underline decoration-line hover:decoration-accent">
+            watch the whole season in one sitting
+          </a>
+          .
         </p>
         <p>
           VERUS is real. The cartoon one wears a hard hat to a software startup. The real one watches
