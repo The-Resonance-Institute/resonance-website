@@ -51,7 +51,7 @@ export default function PivotLabs() {
           </a>
           .
         </p>
-        <p className="mt-8">
+        <p className="mt-8 flex flex-wrap gap-3">
           <a
             href="https://www.youtube.com/playlist?list=PLaVVUGmRTBDU"
             target="_blank"
@@ -59,6 +59,14 @@ export default function PivotLabs() {
             className="inline-flex items-center gap-1.5 rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-ink"
           >
             Watch Season 1 on YouTube
+          </a>
+          <a
+            href="https://www.youtube.com/playlist?list=PLa-MD9CYl4Qw"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-ink"
+          >
+            Watch Season 2 on YouTube
           </a>
         </p>
       </section>
@@ -128,6 +136,19 @@ export default function PivotLabs() {
             watch the whole season in one sitting
           </a>
           .
+        </p>
+        <h2 className="pt-6 font-serif text-3xl text-ink">Season two: The Raise</h2>
+        <p>
+          They won Demo Night. Now they need a lead investor in sixty days, and everyone has an
+          idea for how VERUS should change. Ten chapters, about eighty-six minutes, on the{" "}
+          <a href="https://www.youtube.com/playlist?list=PLa-MD9CYl4Qw" target="_blank" rel="noopener noreferrer" className="text-accent underline decoration-line hover:decoration-accent">
+            Season 2 playlist
+          </a>
+          . Or{" "}
+          <a href="https://youtu.be/etSUB7IPxI8" target="_blank" rel="noopener noreferrer" className="text-accent underline decoration-line hover:decoration-accent">
+            watch the whole season in one sitting
+          </a>
+          . A new Short goes up most days.
         </p>
         <p>
           VERUS is real. The cartoon one wears a hard hat to a software startup. The real one watches
