@@ -145,7 +145,7 @@ export default function PivotLabs() {
             Season 2 playlist
           </a>
           . Or{" "}
-          <a href="https://youtu.be/etSUB7IPxI8" target="_blank" rel="noopener noreferrer" className="text-accent underline decoration-line hover:decoration-accent">
+          <a href="https://youtu.be/wIIESRiToGI" target="_blank" rel="noopener noreferrer" className="text-accent underline decoration-line hover:decoration-accent">
             watch the whole season in one sitting
           </a>
           . A new Short goes up most days.
