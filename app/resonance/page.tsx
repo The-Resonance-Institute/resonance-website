@@ -21,7 +21,7 @@ import { books as canonBooks, trilogies as canonTrilogies } from "@/lib/canon";
 export const metadata: Metadata = share("/resonance", {
   title: "The Philosophy",
   description:
-    "The Resonance series. A Living Philosophy. Four trilogies, twelve volumes, approximately one million words. Complete. Each theme is carried from the self to the community to the world.",
+    "A Living Philosophy. Four trilogies, twelve volumes, approximately one million words. Complete. Each theme is carried from the self to the community to the world.",
 });
 
 const bookSlug = (n: number) => canonBooks.find((b) => b.n === n)?.slug;
@@ -111,6 +111,27 @@ export default function Philosophy() {
             Complete. A philosophy of leadership worked at three scales, self,
             community and world, across four domains. Every volume stands alone;
             together they make one patient argument.
+          </p>
+          {/* PUBLICATION, 2026-11-04, on the operator's word (the approved build map). The 2026-10-07
+              ruling said nothing about publication at all; this replaces it with one plain line. The
+              volumes are not published, and the four leadership books drawn from them come first.
+              It is exempted by name in tests/test_books_first.py, for this page and this phrase. */}
+          <p className="mt-4 max-w-xl leading-relaxed text-muted">
+            The volumes are not yet published. The{" "}
+            <Link
+              href="/leadership"
+              className="text-accent underline decoration-line underline-offset-2 hover:decoration-accent"
+            >
+              four leadership books
+            </Link>{" "}
+            drawn from them come first, beginning with{" "}
+            <Link
+              href="/the-return"
+              className="text-accent underline decoration-line underline-offset-2 hover:decoration-accent"
+            >
+              The Return
+            </Link>
+            .
           </p>
         </div>
         <div className="mx-auto w-52 sm:w-full">

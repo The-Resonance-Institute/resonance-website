@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { share } from "@/lib/share";
 import { notFound } from "next/navigation";
 import { trilogies, getTrilogy, booksInTrilogy } from "@/lib/canon";
-import { SeriesNote } from "@/components/series-note";
+import { leadershipBookForTrilogy } from "@/lib/leadership";
 
 export function generateStaticParams() {
   return trilogies.map((t) => ({ slug: t.slug }));
@@ -34,6 +34,7 @@ export default async function TrilogyPage({
   if (!trilogy) notFound();
 
   const books = booksInTrilogy(trilogy);
+  const leader = leadershipBookForTrilogy(trilogy.slug);
 
   return (
     <div className="mx-auto max-w-3xl px-6">
@@ -75,12 +76,10 @@ export default async function TrilogyPage({
         </div>
       </section>
 
-      <section className="border-t border-line pt-6">
-        <SeriesNote />
-      </section>
+      {/* The series line came off this page on 2026-11-04; it appears once, on /resonance. */}
 
       {/* Summary (editorial) */}
-      <section className="mt-10 border-t border-line pt-10">
+      <section className="border-t border-line pt-10">
         <div className="space-y-4 leading-relaxed text-muted">
           {trilogy.summary.map((p, i) => (
             <p key={i}>{p}</p>
@@ -184,6 +183,14 @@ export default async function TrilogyPage({
       )}
 
       <section className="mt-14 flex flex-wrap gap-4 border-t border-line pt-10">
+        {leader && (
+          <Link
+            href={leader.href}
+            className="inline-flex items-center gap-1.5 rounded-full border border-line px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:border-accent hover:text-accent"
+          >
+            {leader.title}, for working leaders <span aria-hidden>&rarr;</span>
+          </Link>
+        )}
         <Link
           href="/resonance"
           className="inline-flex items-center gap-1.5 rounded-full border border-line px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:border-accent hover:text-accent"

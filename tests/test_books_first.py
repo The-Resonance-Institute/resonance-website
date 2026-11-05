@@ -72,6 +72,16 @@ SUFFIXES = {".tsx", ".ts", ".html", ".css", ".mts"}
 BANNED = ("artificial conscience", "agentic", "a conscience", "the conscience",
           "one conscience", "control plane for moral thought", "open letter")
 
+# ONE APPROVED SENTENCE, 2026-11-04, on the operator's word. The home page description was approved
+# word for word in the rebuild's build map, and its research sentence names the conscience. This is
+# not a second zone: it is one sentence, matched whole, in one file, and it is removed before the scan
+# so that every other use of the banned phrases on that page still fails. Paraphrase it and the guard
+# goes red again, which is the point.
+APPROVED_SENTENCES = {
+    "app/page.tsx": ("Research into the conscience AI models acquire in training, and whether it "
+                     "can be deliberately authored and verified.",),
+}
+
 
 def strip_comments(text: str) -> str:
     """Remove comments before scanning.
@@ -110,7 +120,10 @@ def test_the_removed_vocabulary_does_not_come_back():
         rel = p.relative_to(ROOT).as_posix()
         if any(rel == z or rel.startswith(z) for z in VOCAB_EXEMPT):
             continue
-        text = strip_comments(p.read_text(encoding="utf-8", errors="ignore")).lower()
+        text = strip_comments(p.read_text(encoding="utf-8", errors="ignore"))
+        for sentence in APPROVED_SENTENCES.get(rel, ()):
+            text = text.replace(sentence, " ")
+        text = text.lower()
         for phrase in BANNED:
             if phrase in text:
                 hits.append(f"{p.relative_to(ROOT)}: {phrase!r}")
@@ -218,11 +231,14 @@ def test_ask_moris_is_one_outbound_instance_and_is_not_rebuilt_here():
         assert "noopener" in tag, f"{where}: outbound Ask MORIS link is missing rel=noopener"
 
     nav = json.loads((ROOT / "content" / "nav.json").read_text(encoding="utf-8"))["links"]
-    # Two outbound entries since 2026-10-17, both deliberate: VERUS moved to its own site, www.verusops.com
-    # (guarded in test_verus_section.py), and Ask MORIS, last.
+    # Two outbound entries from 2026-10-17 to 2026-11-04: VERUS's own site and Ask MORIS, last. THE
+    # REBUILD, 2026-11-04 (the operator's approved build map): Ask MORIS left the header and is linked
+    # from /research only, so VERUS (guarded in test_verus_section.py) is the one outbound entry left.
     ext = [l["href"] for l in nav if l["href"].startswith("http")]
-    assert ext == ["https://www.verusops.com", "https://askmoris.ai"], (
-        f"the nav's outbound entries are not exactly VERUS's site and the one Ask MORIS link: {ext}")
+    assert ext == ["https://www.verusops.com"], (
+        f"the nav's outbound entries are not exactly VERUS's own site: {ext}")
+    research = (ROOT / "app" / "research" / "page.tsx").read_text(encoding="utf-8")
+    assert "https://askmoris.ai" in research, "Ask MORIS left the header but /research does not link it"
     src = (ROOT / "components" / "site-nav.tsx").read_text(encoding="utf-8")
     assert 'startsWith("http")' in src, (
         "site-nav.tsx no longer distinguishes an outbound href, so the Ask MORIS entry renders as "
@@ -493,7 +509,8 @@ def test_the_research_section_is_listed_and_navigable():
         "Figure 1 is missing; the generated paper references /research/figures/two_paths.svg")
 
     links = json.loads((ROOT / "content" / "nav.json").read_text(encoding="utf-8"))["links"]
-    assert any(l["href"] == "/research" and l["label"] == "MORIS Research" for l in links), (
+    # Labelled "Research" since the rebuild of 2026-11-04 (it was "MORIS Research").
+    assert any(l["href"] == "/research" and l["label"] == "Research" for l in links), (
         "Research is not in content/nav.json, which is the only place the header is defined")
     assert not any(l["href"] == "/open-letter" for l in links), "the header still lists the letter"
 
@@ -611,7 +628,12 @@ def test_the_series_line_is_used_verbatim():
     # instances with it. Nothing was paraphrased and nothing drifted: there is simply one fewer
     # page describing the series to a reader. What this guard is actually for is the VERBATIM part,
     # that wherever the line appears it appears whole, and that is unchanged.
-    assert len(found) >= 3, (
+    # THE FLOOR DROPPED FROM 3 TO 2 ON 2026-11-04, by the operator's decision in the rebuild's build map:
+    # the paragraph "Four trilogies, twelve volumes, approximately one million words" appears once, on
+    # /resonance, instead of on every page that describes the work, so the About page no longer
+    # carries it. The two left are /resonance and the organisation record in app/layout.tsx. What
+    # this guard is for, that the line appears whole wherever it appears, is unchanged.
+    assert len(found) >= 2, (
         f"the series line appears verbatim in only {len(found)} files ({found}); it is the "
         f"description used wherever the series is described to a reader")
 
@@ -773,7 +795,8 @@ def test_the_header_calls_it_the_philosophy_not_the_series():
     links = json.loads((ROOT / "content" / "nav.json").read_text(encoding="utf-8"))["links"]
     by_href = {l["href"]: l for l in links}
     assert "/resonance" in by_href, "the philosophy is not in the header at all"
-    assert by_href["/resonance"]["label"] == "The Philosophy", (
+    # "Philosophy" since the rebuild of 2026-11-04, one word like the other six menu items.
+    assert by_href["/resonance"]["label"] == "Philosophy", (
         f"the nav calls it {by_href['/resonance']['label']!r}")
 
     # ORDER, OPERATOR 2026-10-08. The Philosophy stopped being the first entry. The Return goes in
@@ -781,9 +804,16 @@ def test_the_header_calls_it_the_philosophy_not_the_series():
     # two facts are now separate. The reason the order moved is that the site stopped being only a
     # books site: the one object that is actually publishing leads, and the twelve complete volumes
     # sit behind it. Recorded as an assertion so a future reordering is a decision, not a drift.
+    # THE REBUILD, 2026-11-04, on the operator's word (the approved build map): seven items, in this
+    # order. The Return left the header and leads /leadership; Ask MORIS left it for /research.
+    # FILM & TV, 2026-11-04, on the operator's word ("the film and tv and pivot labs seems to get
+    # buried"): "Stories" became Novels and Film & TV, and Contact moved to the footer every page
+    # carries (see test_the_footer_still_reaches_contact), so the header stays at seven.
     order = [l["href"] for l in links]
-    assert order.index("/the-return") < order.index("/resonance"), (
-        f"The Return no longer leads the header: {order}")
+    assert order == ["/resonance", "/leadership", "/research", "https://www.verusops.com",
+                     "/novels", "/screen", "/about"], f"the header is not the approved menu: {order}"
+    assert [l["label"] for l in links] == ["Philosophy", "Leadership", "Research", "VERUS",
+                                           "Novels", "Film & TV", "About"], links
 
     stale = []
     for rel in ("app/resonance/page.tsx", "app/about/page.tsx",
@@ -893,6 +923,18 @@ PUBLICATION_PROMISES = (
 # guessing at months is not.
 NOTIFY_EXEMPT = {"app/the-return/page.tsx": ("know when it lands",)}
 
+# THE REBUILD REOPENS THE FRAME IN THREE NAMED PLACES, 2026-11-04, on the operator's word (the approved
+# build map). Each is a page and a phrase, not a page alone, so every other promise stays banned there.
+#   /resonance says, in one line, that the twelve volumes are not yet published and that the
+#     leadership books come first. This replaces the 2026-10-07 ruling for that page.
+#   /leadership carries The Return's "Know when it lands", the same mailto as /the-return.
+#   /novels marks AEGIS 12 and APEX 7 to 9 "coming soon", with no buy link until they are live.
+REBUILD_EXEMPT = {
+    "app/resonance/page.tsx": ("not yet published",),
+    "app/leadership/page.tsx": ("know when it lands",),
+    "app/novels/page.tsx": ("coming soon",),
+}
+
 
 def test_no_surface_promises_publication():
     """THE WORK IS COMPLETE AND THERE IS NO PLAN TO PUBLISH IT.
@@ -916,7 +958,7 @@ def test_no_surface_promises_publication():
         text = strip_comments(p.read_text(encoding="utf-8", errors="ignore")).lower()
         text = " ".join(text.split())
         rel = p.relative_to(ROOT).as_posix()
-        allowed = NOTIFY_EXEMPT.get(rel, ())
+        allowed = NOTIFY_EXEMPT.get(rel, ()) + REBUILD_EXEMPT.get(rel, ())
         for phrase in PUBLICATION_PROMISES:
             if phrase in text and phrase not in allowed:
                 hits.append(f"{rel}: {phrase!r}")
@@ -962,8 +1004,12 @@ def test_the_return_has_its_own_page():
     cover = ROOT / "public" / "the-return" / "cover.jpg"
     assert cover.exists(), "The Return's cover art is missing"
 
+    # Since the rebuild of 2026-11-04 The Return is reached from Leadership in the header, where it
+    # leads the four books, rather than from a header entry of its own.
     links = json.loads((ROOT / "content" / "nav.json").read_text(encoding="utf-8"))["links"]
-    assert any(l["href"] == "/the-return" for l in links), "The Return is not in the header"
+    assert any(l["href"] == "/leadership" for l in links), "Leadership is not in the header"
+    assert "/the-return" in (ROOT / "lib" / "leadership.ts").read_text(encoding="utf-8"), (
+        "/leadership no longer links The Return")
 
     sitemap = (ROOT / "app" / "sitemap.ts").read_text(encoding="utf-8")
     assert "/the-return" in sitemap, "The Return is absent from the sitemap"
@@ -985,6 +1031,14 @@ def test_the_notify_exemption_is_one_page_and_one_phrase():
         assert (ROOT / rel).exists(), f"the exemption names a file that does not exist: {rel}"
         assert phrases == ("know when it lands",), (
             f"the exemption widened beyond the notify link: {phrases}")
+
+
+def test_the_rebuild_exemptions_are_three_pages_one_phrase_each():
+    """The 2026-11-04 decisions, with their edges. A fourth entry is a new decision, not an edit."""
+    assert len(REBUILD_EXEMPT) == 3, f"the rebuild's exemption grew: {sorted(REBUILD_EXEMPT)}"
+    for rel, phrases in REBUILD_EXEMPT.items():
+        assert (ROOT / rel).exists(), f"the exemption names a file that does not exist: {rel}"
+        assert len(phrases) == 1, f"{rel}: the exemption widened beyond one phrase: {phrases}"
 
 
 # --- quotations are checkable, 2026-10-08 -------------------------------------------------------
@@ -1124,3 +1178,11 @@ def test_the_research_page_lists_all_three_zenodo_papers():
         assert doi in lib or doi in page, f"{doi} is not listed on /research"
     assert "PAPERS.map" in page, "the research page no longer lists the papers"
     assert "10.5281/zenodo.23302504" not in page, "the stale version DOI is in use"
+
+
+def test_the_footer_still_reaches_contact():
+    """Contact left the header on 2026-11-04 because the footer on every page links to it. Keep that true."""
+    footer = (ROOT / "components" / "site-footer.tsx").read_text(encoding="utf-8")
+    assert 'href="/contact"' in footer, "Contact left the header, so the footer must link to it"
+    layout = (ROOT / "app" / "layout.tsx").read_text(encoding="utf-8")
+    assert "SiteFooter" in layout, "the footer is not on every page"

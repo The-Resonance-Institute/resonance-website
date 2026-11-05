@@ -65,6 +65,38 @@ export default function Research() {
         dangerouslySetInnerHTML={{ __html: fragment("letter") }}
       />
 
+      {/* SINCE THE PAPER, 2026-11-04. Copy approved word for word by the operator. It follows the
+          letter and replaces nothing in it: the letter stays matched to the deposited report. It
+          brings the page up to date, because the letter's "what comes next" (training inside the
+          model) is no longer the direction. HOW IT WORKS IS HELD BACK until a provisional patent is
+          filed: no mechanism, no rule or field names, here or anywhere in this public repository. */}
+      <section className="mt-14 border-t border-line pt-10">
+        <h2 className="font-serif text-2xl leading-snug text-ink sm:text-3xl">
+          Since the paper: a conscience, then hands
+        </h2>
+        <div className="mt-6 space-y-5 text-lg leading-relaxed text-ink">
+          <p>
+            The paper judged one act at a time. Agents do not act once. They act
+            all day, and the harm can live in the sum: four refunds of $45, each
+            one defensible, adding up to $180 that no one approved. Every step
+            passes. The run does not.
+          </p>
+          <p>
+            The work now answers that. A conscience that judges the run as well
+            as the act, and holds its own judgment steady while the agent&rsquo;s
+            conduct drifts. And an agent built around that conscience from the
+            start, so that its hands move only where the conscience allows.
+          </p>
+          <p>
+            The conscience is built and verified across every single act. Its
+            judgment of a run of acts is implemented and passes its full test
+            suite. The agent that carries it is specified and in active
+            development, and its evaluation will be pre-registered and published
+            here in full.
+          </p>
+        </div>
+      </section>
+
       {/* THE CONTENTS BLOCK is this site's, not the edition's: it is navigation, so it is built
           from meta.json rather than pasted in, and the byte count below comes from the same file
           that pins the checksum. */}
@@ -105,6 +137,25 @@ export default function Research() {
             </h3>
             <p className="mt-2 text-sm leading-relaxed text-muted">
               The whole report in one file. {PDF_PAGES} pages, {mb} MB.
+            </p>
+          </a>
+
+          {/* ASK MORIS MOVED HERE FROM THE HEADER, 2026-11-04 (the approved build map). This is the
+              one place on the site that links it: an outbound anchor in a new tab, because there is
+              one instance and it runs at askmoris.ai. The wording is the home page card it had. */}
+          <a
+            href="https://askmoris.ai"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group bg-white p-6 transition-colors hover:bg-accent-soft"
+          >
+            <h3 className="font-serif text-xl text-ink transition-colors group-hover:text-accent">
+              Ask MORIS <span aria-hidden>&#8599;</span>
+            </h3>
+            <p className="mt-2 text-sm leading-relaxed text-muted">
+              The demonstration, at askmoris.ai. An AI bound to A Living
+              Philosophy. It answers from one body of thought, and it shows which
+              principles applied and where they came from in the books.
             </p>
           </a>
         </div>

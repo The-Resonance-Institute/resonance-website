@@ -1,6 +1,7 @@
 import Image from "next/image";
 import type { Metadata } from "next";
 import { share } from "@/lib/share";
+import { FilmTvNav } from "@/components/film-tv-nav";
 
 // PIVOT LABS, 2026-10-22, on the operator's word: "lean in to this being part of The Resonance
 // Institute, this is how discovery happens." An animated mockumentary the Institute presents and
@@ -30,13 +31,18 @@ const cast = [
   ["Tanner", "Founder and CEO. Cold plunge, gratitude journal, and whatever Hudson posted this morning."],
   ["Kenzie", "Head of Growth, and of everything else. She hired the documentary crew. That is you."],
   ["Brooke", "Community manager of The Commons. She decides who sits where. She has a bell."],
-  ["OMNI", "Inevitable's AI. Omniscient Machine for Next-level Intelligence. He will tell you."],
+  ["OMNI", "Inevitable’s AI. Omniscient Machine for Next-level Intelligence. He will tell you."],
 ];
 
 export default function PivotLabs() {
   return (
     <div className="mx-auto max-w-4xl px-6">
-      <section className="pt-20 pb-10 sm:pt-28">
+      {/* FILM & TV, 2026-11-04: Pivot Labs sits under the Film & TV header entry, and opens the /screen
+          page as the one thing a visitor can watch now. This row moves between the two. */}
+      <section className="pt-10 sm:pt-12">
+        <FilmTvNav current="/pivot-labs" />
+      </section>
+      <section className="pt-10 pb-10 sm:pt-14">
         <p className="text-sm uppercase tracking-[0.2em] text-muted">The Resonance Institute presents</p>
         <h1 className="mt-3 font-serif text-5xl leading-tight text-ink sm:text-6xl">Pivot Labs</h1>
         <p className="mt-3 font-serif text-2xl italic text-ink sm:text-3xl">Because it&rsquo;s no fun to be serious all the time.</p>
@@ -68,6 +74,10 @@ export default function PivotLabs() {
           >
             Watch Season 2 on YouTube
           </a>
+          {/* SEASON 3 GOES HERE, as a third button in this row ("Watch Season 3 on YouTube", same classes,
+              target _blank), once its playlist is live. Not added on 2026-11-04 because the link was
+              not ready. Add a "Season three" section after "Season two: The Raise" below at the same
+              time. */}
         </p>
       </section>
 

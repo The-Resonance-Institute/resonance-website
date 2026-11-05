@@ -35,7 +35,11 @@ export const metadata: Metadata = share("/contact", {
     "Questions about the books, about The Return, about MORIS, or about anything here are welcome. It reaches me directly.",
 });
 
+// TWO ADDRESSES, 2026-11-04 (the approved build map): contact@ for everything general, and chris@,
+// the address on every pitch deck, for screen projects and pitch requests. Both are public addresses
+// of the Institute. Still no form, for the reasons above.
 const email = "contact@resonanceinstitutellc.com";
+const pitchEmail = "chris@resonanceinstitutellc.com";
 
 export default function Contact() {
   return (
@@ -63,14 +67,34 @@ export default function Contact() {
           Questions about the books, about The Return, about MORIS, or about
           anything here are welcome. It reaches me directly.
         </p>
-        <p className="mt-8">
-          <a
-            href={`mailto:${email}`}
-            className="font-serif text-xl text-accent underline decoration-line underline-offset-4 transition-colors hover:decoration-accent sm:text-2xl"
-          >
-            {email}
-          </a>
-        </p>
+        <dl className="mt-10 space-y-8">
+          <div>
+            <dt className="text-xs font-medium uppercase tracking-[0.18em] text-muted">
+              For everything general
+            </dt>
+            <dd className="mt-2">
+              <a
+                href={`mailto:${email}`}
+                className="font-serif text-xl text-accent underline decoration-line underline-offset-4 transition-colors hover:decoration-accent sm:text-2xl"
+              >
+                {email}
+              </a>
+            </dd>
+          </div>
+          <div>
+            <dt className="text-xs font-medium uppercase tracking-[0.18em] text-muted">
+              For screen projects and pitch requests
+            </dt>
+            <dd className="mt-2">
+              <a
+                href={`mailto:${pitchEmail}`}
+                className="font-serif text-xl text-accent underline decoration-line underline-offset-4 transition-colors hover:decoration-accent sm:text-2xl"
+              >
+                {pitchEmail}
+              </a>
+            </dd>
+          </div>
+        </dl>
       </section>
     </div>
   );

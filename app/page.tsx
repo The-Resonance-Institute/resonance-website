@@ -1,5 +1,8 @@
 import Link from "next/link";
+import Image from "next/image";
 import type { Metadata } from "next";
+import { share } from "@/lib/share";
+import { screenProjects } from "@/lib/screen";
 
 // BOOKS-FIRST PIVOT, 2026-09-19. This page led with an open letter and then gave MORIS and the
 // series equal cards, with MORIS carrying the accent and the heavier border. The site became a
@@ -38,35 +41,30 @@ import type { Metadata } from "next";
 // restating the series in new phrasing: a paraphrase in one place is how a set of surfaces starts
 // drifting apart, which is the whole reason that guard exists.
 
-// THE HOME PAGE CARRIES ITS OWN SOCIAL PAIR, 2026-10-08. Setting only `description` on a page
-// overrides the layout's description and nothing else, so og:description and twitter:description
-// kept falling back to app/layout.tsx and a link preview of the domain still said "four trilogies"
-// after the page had started naming them. The layout's pair stays as it is: it is the site-wide
-// default every other page still uses, and it carries the guarded series line.
+// THE REBUILD, 2026-11-04, on the operator's word (the approved build map). The front door now
+// covers the whole body of work: the headline stays, the approved description follows it WORD FOR
+// WORD, and the cards sit under it in menu order: Philosophy and leadership, Research, VERUS,
+// Novels, and Film & TV across the full width (2026-11-04). Ask MORIS is no longer a card here; it is linked from /research only, like every outside
+// site from the page about it. The closing line drops "One author, one substrate", which no longer
+// describes the range. Since this rebuild the guarded series line is carried by app/layout.tsx and
+// app/resonance/page.tsx only: the operator ruled that its paragraph appears on /resonance alone.
 //
-// openGraph REPLACES the layout's object rather than merging into it, so type, url and siteName are
-// repeated here deliberately. Dropping them would silently strip them from this page alone. The
-// images are not repeated because opengraph-image.png and twitter-image.png are file conventions
-// and resolve on their own.
-export const metadata: Metadata = {
+// THE DESCRIPTION NAMES THE CONSCIENCE, and that is a decision, not a slip past the vocabulary guard.
+// The operator approved this exact paragraph on 2026-11-04; tests/test_books_first.py exempts that
+// one sentence, verbatim, and nothing else on this page.
+const DESCRIPTION =
+  "A philosophy of how a person stands toward the world, and books for working leaders. Research into the conscience AI models acquire in training, and whether it can be deliberately authored and verified. VERUS, operational intelligence for industry: an analyst, a data scientist and a project manager that never go home. Novels, and original scripts for film and television. Many mediums, one living philosophy: how we live, act and play.";
+
+export const metadata: Metadata = share("", {
   title: "The Resonance Institute",
-  description:
-    "The Resonance Institute is the private studio of C. T. Herndon, where enduring questions meet modern technology. Philosophy as a posture rather than a method: the alignment of inner and outer, and how a person stands toward the world. Tuning, Transformation, Time and the Sacred, twelve volumes complete, a book for working leaders, software held to the same standard, and the research behind it published in full.",
-  openGraph: {
-    type: "website",
-    url: "https://www.resonanceinstitutellc.com",
-    siteName: "The Resonance Institute",
-    title: "The Resonance Institute",
-    description:
-      "A private studio where enduring questions meet modern technology. Philosophy as a posture rather than a method, a book for working leaders, and software held to the same standard.",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "The Resonance Institute",
-    description:
-      "A private studio where enduring questions meet modern technology. Philosophy as a posture rather than a method, a book for working leaders, and software held to the same standard.",
-  },
-};
+  description: DESCRIPTION,
+});
+
+const card = "flex flex-col bg-white p-6";
+const eyebrow = "text-xs font-medium uppercase tracking-[0.18em] text-muted";
+const heading = "mt-2 font-serif text-xl text-ink";
+const lead = "mt-2 flex-1 text-sm leading-relaxed text-muted";
+const go = "inline-flex items-center gap-1.5 py-1 text-sm font-medium text-accent transition-colors hover:text-ink";
 
 export default function Home() {
   return (
@@ -78,201 +76,137 @@ export default function Home() {
         <h1 className="mt-4 max-w-3xl font-serif text-4xl leading-tight text-ink sm:text-5xl">
           A private studio where enduring questions meet modern technology.
         </h1>
-        {/* THE HERO LINE WAS ALREADY WRITTEN, and the only real work was finding it. It had been
-            sitting in app/layout.tsx since the site was built, in the metadata description and
-            nowhere else, which meant every link preview said what this studio is while the front
-            door never did. Four drafts went past it before the operator recognised his own
-            sentence. They are recorded because each failed differently and the failures are the
-            argument for this one.
-
-            "Working on one question" was tentative about work that is finished. "People under
-            pressure" was true but silent on the half of this studio that is software. "The future
-            of AI" was rejected outright: it forecasts a technology and would file this studio next
-            to the people building one. "With AI" was the correction, keeping the human rather than
-            the machine at the centre, and that principle survives into the line now standing.
-
-            ENDURING QUESTIONS MEET MODERN TECHNOLOGY does what none of the drafts managed. It puts
-            the constant first and the technology second, it is a meeting rather than a list, and it
-            is wide enough to hold work that is not announced yet without being rewritten to admit
-            it.
-
-            THE LEAD NAMES THE THREE THINGS, in the order the cards sit below it, so the hero and
-            the grid stop describing the studio differently. */}
-        {/* THE LEAD IS THE BOOKS' OWN WORD FOR THEMSELVES, and it took two wrong answers to get
-            here. The first said the philosophy was about staying coherent under pressure, a
-            management abstract of a million words. The second picked the series' most repeated
-            moral claim, who bears the cost and who was absent, and made one theme stand for twelve
-            volumes. Both were written without reading the manuscripts.
-
-            POSTURE IS THE SERIES' OWN TERM, used by the books about themselves rather than applied
-            to them. Book IX closes its letter to the reader: "I hope you leave this work not with a
-            conclusion but with a posture." Book IX again, mid-argument: "Not a claim. A posture."
-            Book VII: "The duet is not a doctrine." Book I says outright that it is "not a book that
-            tells you how to perform leadership."
-
-            THE ALIGNMENT OF INNER AND OUTER is likewise quoted, not coined. Book I's Overture: "The
-            body listens for coherence, the alignment of inner and outer, past and present." That is
-            the hinge the whole series turns on, which is why it belongs in the first sentence a
-            visitor reads rather than three pages in. */}
         <p className="mt-6 max-w-3xl font-serif text-xl font-light leading-relaxed text-ink">
-          Philosophy as a posture rather than a method: the alignment of inner
-          and outer, and how a person stands toward the world. A book for
-          working leaders. And software held to the same standard, with the
-          research that tested it published in full.
+          {DESCRIPTION}
         </p>
       </section>
 
-      {/* THE DESTINATIONS, in header order (five since 2026-10-16, with VERUS; VERUS third since 2026-10-17). 2026-10-10: the research section was added to the
-          site and this grid still showed three, so the front door under-described the place. The
-          Return leads because it is the one object here that is publishing; the twelve volumes are
-          complete and sit behind it.
-
-          FOUR ACROSS WOULD BE FOUR THIN COLUMNS and none of these cards carries its sentence in
-          that width, so the grid is two by two from the small breakpoint up. On a phone it stacks,
-          as three did. */}
+      {/* THE FOUR DOORS, in menu order. Two by two from the small breakpoint up; four across would be
+          four thin columns. Each card carries more than one way in, so a card is a panel of links
+          rather than one large link. */}
       <section className="border-t border-line py-12">
         <h2 className="font-serif text-2xl text-ink">What is here</h2>
         <div className="mt-6 grid gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-2">
-          <Link
-            href="/the-return"
-            className="group flex flex-col bg-white p-6 transition-colors hover:bg-accent-soft"
-          >
-            <p className="text-xs font-medium uppercase tracking-[0.18em] text-muted">
-              A new book
-            </p>
-            <h3 className="mt-2 font-serif text-xl text-ink transition-colors group-hover:text-accent">
-              The Return
-            </h3>
-            <p className="mt-2 flex-1 text-sm leading-relaxed text-muted">
-              Every leader drifts. Coming back is the work. Written for working
-              leaders, drawn from the first three volumes.
-            </p>
-            <p className="mt-4 text-sm font-medium text-accent">
-              Read about it <span aria-hidden>&rarr;</span>
-            </p>
-          </Link>
-
-          <Link
-            href="/resonance"
-            className="group flex flex-col bg-white p-6 transition-colors hover:bg-accent-soft"
-          >
-            <p className="text-xs font-medium uppercase tracking-[0.18em] text-muted">
-              The philosophy
-            </p>
-            <h3 className="mt-2 font-serif text-xl text-ink transition-colors group-hover:text-accent">
-              A Living Philosophy
-            </h3>
-            {/* THE FOUR ARE NAMED HERE, not counted. "Four trilogies" told a visitor the shape of
-                the thing and nothing about what is in it; Tuning, Transformation, Time and the
-                Sacred tell them what the series actually concerns in six words. The names are the
-                manuscripts' own: every volume's front matter carries its trilogy on the title
-                page. */}
-            <p className="mt-2 flex-1 text-sm leading-relaxed text-muted">
+          <div className={card}>
+            <p className={eyebrow}>Philosophy and leadership</p>
+            <h3 className={heading}>A Living Philosophy</h3>
+            {/* The current card's wording, carried over: the four trilogies named, not counted. */}
+            <p className={lead}>
               Tuning, Transformation, Time and the Sacred. Twelve volumes,
-              complete, carried from the self to the community to the world.
+              complete, carried from the self to the community to the world. Four books
+              for working leaders are drawn from them, and The Return is nearly
+              ready.
             </p>
-            <p className="mt-4 text-sm font-medium text-accent">
-              Enter the philosophy <span aria-hidden>&rarr;</span>
-            </p>
-          </Link>
+            <div className="mt-4 flex flex-wrap gap-x-5">
+              <Link href="/resonance" className={go}>
+                Enter the philosophy <span aria-hidden>&rarr;</span>
+              </Link>
+              <Link href="/leadership" className={go}>
+                The leadership books <span aria-hidden>&rarr;</span>
+              </Link>
+            </div>
+          </div>
 
-          {/* VERUS, 2026-10-16; third since 2026-10-17, after the books, matching the header. A reader's review found the
-              one live commercial product in the header but not on the front door. It is the
-              software held to the same standard: it shows its work, it only reads, and its evidence
-              page publishes the misses. Since 2026-10-17 it links to VERUS's own site, www.verusops.com, in
-              the same tab: a plain anchor, because a Next Link would route inside this site. */}
-          <a
-            href="https://www.verusops.com"
-            className="group flex flex-col bg-white p-6 transition-colors hover:bg-accent-soft"
-          >
-            <p className="text-xs font-medium uppercase tracking-[0.18em] text-muted">
-              Software for operations
-            </p>
-            <h3 className="mt-2 font-serif text-xl text-ink transition-colors group-hover:text-accent">
-              VERUS
-            </h3>
-            <p className="mt-2 flex-1 text-sm leading-relaxed text-muted">
-              Watches an industrial company&rsquo;s systems all day and all
-              night, read-only, and tells you the truth about the operation:
-              what&rsquo;s wrong, where the money is, and whether the fix worked.
-            </p>
-            <p className="mt-4 text-sm font-medium text-accent">
-              Meet VERUS <span aria-hidden>&rarr;</span>
-            </p>
-          </a>
-
-          {/* THE RESEARCH, added 2026-10-10; fourth since 2026-10-17, beside Ask MORIS as in the header, not for
-              emphasis. It sits beside Ask MORIS on purpose: the demonstration is the thing you can
-              touch and the paper is the account of whether it holds, so a visitor who wants the
-              evidence rather than the toy has somewhere to go from the front door. */}
-          <Link
-            href="/research"
-            className="group flex flex-col bg-white p-6 transition-colors hover:bg-accent-soft"
-          >
-            {/* NOT THE DOCUMENTS' OWN TITLES, and the reason is the vocabulary guard rather than
-                taste. The letter is called "A Conscience Can Be Chosen" and the paper "An
-                Operational Artificial Conscience"; both contain phrases the books-first pivot
-                removed from site copy. The research zone is exempt from that guard, this page is
-                not, and widening the exemption to the front door to quote a title would be an
-                operator decision rather than an edit. Both titles are shown in full the moment a
-                visitor arrives at /research.
-
-                RULED 2026-10-10: the operator read this wording and accepted it. "I'm OK with
-                research behind moris." So this is the chosen line, not a workaround waiting to be
-                undone, and widening the vocabulary exemption to reach the front door is not the fix
-                for it. */}
-            <p className="text-xs font-medium uppercase tracking-[0.18em] text-muted">
-              The paper
-            </p>
-            <h3 className="mt-2 font-serif text-xl text-ink transition-colors group-hover:text-accent">
-              The research behind MORIS
-            </h3>
-            <p className="mt-2 flex-1 text-sm leading-relaxed text-muted">
+          {/* NOT THE DOCUMENTS' OWN TITLES (ruled 2026-10-10): the letter and the paper use words the
+              front-door vocabulary guard keeps out of site copy; both are shown in full at /research. */}
+          <div className={card}>
+            <p className={eyebrow}>Research</p>
+            <h3 className={heading}>The research behind MORIS</h3>
+            <p className={lead}>
               Can a moral philosophy written by a person be made into a working
-              conscience for AI? The full paper, every appendix, and the
-              evidence behind each figure.
+              conscience for AI? The letter, the full paper, every appendix, and
+              the evidence behind each figure. Ask MORIS, its demonstration, is
+              linked from there.
             </p>
-            <p className="mt-4 text-sm font-medium text-accent">
-              Read the research <span aria-hidden>&rarr;</span>
-            </p>
-          </Link>
+            <div className="mt-4 flex flex-wrap gap-x-5">
+              <Link href="/research" className={go}>
+                Read the research <span aria-hidden>&rarr;</span>
+              </Link>
+            </div>
+          </div>
 
-          {/* Ask MORIS is a link OUT. It runs at askmoris.ai and there is deliberately no second
-              instance of it in this repository; a guard enforces that. With VERUS in the grid it is
-              the fifth card, so it takes the full width rather than leaving a hole beside it. */}
-          <a
-            href="https://askmoris.ai"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group flex flex-col bg-white p-6 transition-colors hover:bg-accent-soft sm:col-span-2"
-          >
-            <p className="text-xs font-medium uppercase tracking-[0.18em] text-muted">
-              A demonstration
+          {/* VERUS has its own site. Plain anchors in the same tab, as before: a Next Link would route
+              inside this site. The two links are the ones the build map names. */}
+          <div className={card}>
+            <p className={eyebrow}>Software for operations</p>
+            <h3 className={heading}>VERUS</h3>
+            <p className={lead}>
+              Operational intelligence for industry: an analyst, a data scientist
+              and a project manager that never go home.
             </p>
-            <h3 className="mt-2 font-serif text-xl text-ink transition-colors group-hover:text-accent">
-              Ask MORIS
-            </h3>
-            <p className="mt-2 flex-1 text-sm leading-relaxed text-muted">
-              An AI bound to the Resonance philosophy. It answers from one body
-              of thought, and it shows which principles applied and where they
-              came from in the books.
+            <div className="mt-4 flex flex-wrap gap-x-5">
+              <a href="https://www.verusops.com/free" className={go}>
+                Get VERUS Free <span aria-hidden>&rarr;</span>
+              </a>
+              <a href="https://www.verusops.com/pricing#design-partners" className={go}>
+                Design partners <span aria-hidden>&rarr;</span>
+              </a>
+            </div>
+          </div>
+
+          <div className={card}>
+            <p className={eyebrow}>Novels</p>
+            <h3 className={heading}>Unresolved, AEGIS and APEX</h3>
+            <p className={lead}>
+              The Unresolved trilogy, literary science fiction by C. T. Herndon. And the AEGIS and
+              APEX thrillers, written as Jack Maddox. Every published book is on Amazon.
             </p>
-            <p className="mt-4 text-sm font-medium text-accent">
-              askmoris.ai <span aria-hidden>&rarr;</span>
+            <div className="mt-4 flex flex-wrap gap-x-5">
+              <Link href="/novels" className={go}>
+                The novels <span aria-hidden>&rarr;</span>
+              </Link>
+            </div>
+          </div>
+
+          {/* FILM & TV, 2026-11-04 (the operator: the screen work and Pivot Labs were buried). Its own
+              card, the full width of the grid, with the four projects' key art in a row so a producer
+              sees them without a click, and Pivot Labs offered first because it can be watched now. */}
+          <div className={`${card} sm:col-span-2`}>
+            <p className={eyebrow}>Film &amp; TV</p>
+            <h3 className={heading}>An animated series, and four original projects</h3>
+            <p className={lead}>
+              Pivot Labs, an animated mockumentary, is on YouTube now. AEGIS, The Unfinished, Alma
+              Mater and The Alcott are written for film and television, with pitch materials on
+              request.
             </p>
-          </a>
+            <div className="mt-5 grid grid-cols-2 gap-2 sm:grid-cols-4">
+              {screenProjects.map((s) => (
+                <Link
+                  key={s.slug}
+                  href={`/screen#${s.slug}`}
+                  className="block overflow-hidden rounded-lg border border-line transition-opacity hover:opacity-90"
+                >
+                  <Image
+                    src={s.art}
+                    alt={`${s.title}: ${s.tagline}`}
+                    width={1280}
+                    height={720}
+                    sizes="(max-width: 640px) 50vw, 240px"
+                    className="h-auto w-full"
+                  />
+                </Link>
+              ))}
+            </div>
+            <div className="mt-4 flex flex-wrap gap-x-5">
+              <Link href="/screen#pivot-labs" className={go}>
+                Watch Pivot Labs <span aria-hidden>&rarr;</span>
+              </Link>
+              <Link href="/screen" className={go}>
+                The four projects <span aria-hidden>&rarr;</span>
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
 
       <section className="border-t border-line py-12">
         <p className="max-w-3xl font-serif text-lg font-light italic leading-snug text-ink sm:text-xl">
-          Not a lab, and no venture funding. One author, one substrate:
-          everything here is written and built in one place, and the Institute
-          holds it.
+          Not a lab, and no venture funding. Everything here is written and
+          built in one place, and the Institute holds it.
         </p>
         <Link
           href="/about"
-          className="mt-4 inline-flex items-center gap-1.5 text-sm text-muted transition-colors hover:text-accent"
+          className="mt-4 inline-flex items-center gap-1.5 py-1 text-sm text-muted transition-colors hover:text-accent"
         >
           About the Institute <span aria-hidden>&rarr;</span>
         </Link>

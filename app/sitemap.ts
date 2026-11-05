@@ -33,6 +33,11 @@ const staticRoutes: { path: string; priority: number }[] = [
   // sitemap, and the old /verus addresses forward there (next.config.ts), so none is listed here.
   // PIVOT LABS, 2026-10-22: the Institute's animated mockumentary, in the header beside VERUS.
   { path: "/pivot-labs", priority: 0.8 },
+  // THE REBUILD, 2026-11-04 (the approved build map): three new pages. /leadership holds the four
+  // books for working leaders; /novels and /screen sit with Pivot Labs under Stories.
+  { path: "/leadership", priority: 0.9 },
+  { path: "/novels", priority: 0.8 },
+  { path: "/screen", priority: 0.8 },
   { path: "/resonance", priority: 0.9 },
   { path: "/about", priority: 0.6 },
   { path: "/contact", priority: 0.6 },

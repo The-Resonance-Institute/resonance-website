@@ -24,11 +24,11 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "The Return",
   description:
-    "The Return: Every Leader Drifts. Coming Back Is the Work. A book on leadership by C.T. Herndon, drawn from the first three volumes of A Living Philosophy.",
+    "The Return: Every Leader Drifts. Coming Back Is the Work. A book on leadership by C. T. Herndon, drawn from the first three volumes of A Living Philosophy.",
   openGraph: {
     title: "The Return: Every Leader Drifts. Coming Back Is the Work.",
     description:
-      "A book on leadership by C.T. Herndon. Not an infallible leader, but a real one, honest enough to name their own drift in plain sight and disciplined enough to return.",
+      "A book on leadership by C. T. Herndon. Not an infallible leader, but a real one, honest enough to name their own drift in plain sight and disciplined enough to return.",
     type: "book",
   },
 };
@@ -74,7 +74,7 @@ export default function TheReturn() {
           <div className="relative aspect-[2/3] overflow-hidden rounded-xl border border-line shadow-md">
             <Image
               src="/the-return/cover.jpg"
-              alt="Cover of The Return: Every Leader Drifts. Coming Back Is the Work., by C.T. Herndon"
+              alt="Cover of The Return: Every Leader Drifts. Coming Back Is the Work., by C. T. Herndon"
               fill
               sizes="(max-width: 640px) 224px, 280px"
               className="object-cover"
@@ -115,14 +115,30 @@ export default function TheReturn() {
       <section className="mt-12 border-t border-line pt-10">
         <h2 className="font-serif text-2xl text-ink">Where it comes from</h2>
         <p className="mt-4 max-w-2xl leading-relaxed text-muted">
-          The Return is drawn from the first three volumes of{" "}
+          The Return takes the first three volumes of{" "}
           <Link
             href="/resonance"
             className="text-accent underline decoration-line underline-offset-2 hover:decoration-accent"
           >
             A Living Philosophy
           </Link>
-          , and written in a plainer voice that moves at the pace of a working day.
+          {" "}out of the study and onto the floor: written for leaders in the thick of the work, and
+          made to be practiced, not just understood.
+        </p>
+      </section>
+
+      {/* THE WAY ONWARD, 2026-11-04 (the approved build map): every book page ends with the next book.
+          The Return is the first of four leadership books, and the other three are on /leadership. */}
+      <section className="mt-12 border-t border-line pt-10">
+        <p className="max-w-2xl leading-relaxed text-muted">
+          The Return is one of{" "}
+          <Link
+            href="/leadership"
+            className="text-accent underline decoration-line underline-offset-2 hover:decoration-accent"
+          >
+            four books for working leaders
+          </Link>
+          , each drawn from one trilogy of A Living Philosophy.
         </p>
       </section>
 

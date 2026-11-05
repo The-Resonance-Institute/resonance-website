@@ -3,8 +3,8 @@ import Image from "next/image";
 import type { Metadata } from "next";
 import { share } from "@/lib/share";
 import { notFound } from "next/navigation";
-import { books, getBook, trilogyOfBook, booksInTrilogy } from "@/lib/canon";
-import { SeriesNote } from "@/components/series-note";
+import { books, getBook, trilogyOfBook } from "@/lib/canon";
+import { leadershipBookForTrilogy } from "@/lib/leadership";
 
 export function generateStaticParams() {
   return books.map((b) => ({ slug: b.slug }));
@@ -36,10 +36,13 @@ export default async function BookPage({
 
   const trilogy = trilogyOfBook(book);
   const bareTrilogy = trilogy ? trilogy.name.replace(/^The /, "") : "";
-  const siblings = trilogy ? booksInTrilogy(trilogy) : [];
-  const idx = siblings.findIndex((b) => b.slug === book.slug);
-  const prev = idx > 0 ? siblings[idx - 1] : undefined;
-  const next = idx >= 0 && idx < siblings.length - 1 ? siblings[idx + 1] : undefined;
+  // PREVIOUS AND NEXT RUN ACROSS ALL TWELVE, 2026-11-04 (the approved build map). They used to stop
+  // at the edges of the trilogy, so Book III and Book VI were dead ends. Now each volume leads to the
+  // one before and the one after it in the series, whichever trilogy that is in.
+  const prev = books.find((b) => b.n === book.n - 1);
+  const next = books.find((b) => b.n === book.n + 1);
+  // THE LEADERSHIP BOOK DRAWN FROM THIS VOLUME'S TRILOGY, the other way onward.
+  const leader = trilogy ? leadershipBookForTrilogy(trilogy.slug) : undefined;
 
   return (
     <div className="mx-auto max-w-3xl px-6">
@@ -92,12 +95,12 @@ export default async function BookPage({
         </div>
       </section>
 
-      <section className="border-t border-line pt-6">
-        <SeriesNote />
-      </section>
+      {/* THE SERIES LINE CAME OFF THIS PAGE, 2026-11-04 (the approved build map): the paragraph
+          "Four trilogies, twelve volumes, approximately one million words" appears once, on
+          /resonance, rather than on every trilogy and volume page. */}
 
       {/* Book description (editorial) */}
-      <section className="mt-10 border-t border-line pt-10">
+      <section className="border-t border-line pt-10">
         <div className="space-y-4 leading-relaxed text-muted">
           {book.description.map((p, i) => (
             <p key={i}>{p}</p>
@@ -158,7 +161,7 @@ export default async function BookPage({
         </section>
       )}
 
-      {/* Prev / next within the trilogy */}
+      {/* Prev / next across the series */}
       <nav className="mt-14 grid gap-4 border-t border-line pt-8 sm:grid-cols-2">
         {prev ? (
           <Link
@@ -191,6 +194,26 @@ export default async function BookPage({
           <span />
         )}
       </nav>
+
+      {leader && (
+        <Link
+          href={leader.href}
+          className="group mt-4 flex items-center gap-5 rounded-2xl border border-line bg-white p-5 transition-colors hover:border-accent"
+        >
+          <div className="relative aspect-[2/3] w-14 shrink-0 overflow-hidden rounded-md border border-line">
+            <Image src={leader.cover} alt={`Cover of ${leader.title}`} fill sizes="56px" className="object-cover" />
+          </div>
+          <div>
+            <span className="text-xs uppercase tracking-wide text-muted">
+              For working leaders, drawn from this trilogy
+            </span>
+            <p className="mt-1 font-serif text-lg text-ink transition-colors group-hover:text-accent">
+              {leader.title}
+            </p>
+            <p className="text-sm italic text-muted">{leader.tagline}</p>
+          </div>
+        </Link>
+      )}
 
       <section className="mt-10 flex flex-wrap gap-4">
         <Link

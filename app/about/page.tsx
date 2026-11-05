@@ -2,11 +2,25 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { share } from "@/lib/share";
 
+// ABOUT, REWRITTEN 2026-11-04, on the operator's word (the approved build map).
+//
+// THE BIOGRAPHY carries no dollar figure: the operator found the division's size self-aggrandizing and
+// chose this wording on 2026-11-04. The Institute paragraph is the one this page already carried, with
+// the series called by its one name, A Living Philosophy. The list of what the Institute holds now
+// names the novels, the screen work and Pivot Labs as well. The series line ("Four trilogies, twelve
+// volumes...") is no longer here: by the same decision it appears on /resonance alone.
+//
+// Outside sites are linked only from the page about them, so Ask MORIS is reached from /research and
+// is named here without a link. VERUS keeps its link: VERUS has no page on this site, so its own site
+// is the page about it.
+
 export const metadata: Metadata = share("/about", {
   title: "About",
   description:
-    "C. T. Herndon has spent his career leading people in industrial manufacturing, as a senior operations executive and before that in U.S. Army military intelligence. The Resonance Institute is his studio, based in Huntington Beach, California. It holds the Resonance Series. A Living Philosophy. Four trilogies, twelve volumes, approximately one million words. Complete. Also The Return, the research behind MORIS, and VERUS. Not a lab, no venture funding.",
+    "C. T. Herndon has spent his career leading people in industrial manufacturing, and before that served in military intelligence with the U.S. Army. The Resonance Institute is his studio in Huntington Beach, California: A Living Philosophy and the leadership books drawn from it, the research behind MORIS, VERUS, novels, screen work and Pivot Labs. Not a lab, and no venture funding.",
 });
+
+const link = "text-accent underline decoration-line hover:decoration-accent";
 
 export default function About() {
   return (
@@ -17,15 +31,16 @@ export default function About() {
         </h1>
       </section>
 
-      {/* THE AUTHOR, 2026-10-23 (Chris's yes). His bio as published in The Return; only "this book" became "The Return". A reader
-          checking who stands behind the books, MORIS and VERUS meets the person first, then the studio. */}
       <section className="space-y-5 border-t border-line pt-10 text-lg leading-relaxed text-ink">
         <h2 className="font-serif text-2xl text-ink">C. T. Herndon</h2>
         <p>
-          C. T. Herndon has spent his career leading people in industrial manufacturing, most recently as a
-          senior operations executive running a division of more than $500 million, and before that in military
-          intelligence with the U.S. Army, including service in Desert Storm. He is the founder of The Resonance
-          Institute and the author of A Living Philosophy, the longer work from which The Return grew. He lives in
+          C. T. Herndon is the founder of The Resonance Institute. He has spent his career leading
+          people in industrial manufacturing, most recently running a manufacturing division, and
+          before that served in military intelligence with the U.S. Army, including Desert Storm.
+        </p>
+        <p>
+          He is the author of A Living Philosophy and the leadership books drawn from it, and of the
+          Unresolved trilogy. As Jack Maddox, he writes the AEGIS and APEX thrillers. He lives in
           Southern California.
         </p>
       </section>
@@ -34,59 +49,58 @@ export default function About() {
         <h2 className="font-serif text-2xl text-ink">The Institute</h2>
         <p>
           The Resonance Institute is the studio of C. T. Herndon, based in
-          Huntington Beach, California. It holds the copyright to the{" "}
-          <Link href="/resonance" className="text-accent underline decoration-line hover:decoration-accent">
-            Resonance Series
+          Huntington Beach, California. It holds the copyright to{" "}
+          <Link href="/resonance" className={link}>
+            A Living Philosophy
           </Link>{" "}
           and licenses it.
         </p>
         <p>
-          Four trilogies, twelve volumes, approximately one million words,
-          complete. Philosophy as a posture rather than a method: the alignment
-          of inner and outer, and how a person stands toward the world. Each
-          theme is carried from the self to the community to the world, and each
-          volume can be read on its own.
+          Philosophy as a posture rather than a method: the alignment of inner
+          and outer, and how a person stands toward the world. Each theme is
+          carried from the self to the community to the world, and each volume
+          can be read on its own.
         </p>
-        {/* THE REST OF THE WORK, 2026-10-16. A reader checking who stands behind VERUS landed here and
-            found only the books: this page predated The Return, the research and VERUS. Each is
-            named once, in the words its own page uses, so the Institute reads the same from here as
-            from the front door. */}
-        <p>
-          The same standard runs through the rest of the work here:
-        </p>
+        <p>The same standard runs through the rest of the work here:</p>
         <ul className="list-disc space-y-2 pl-6">
           <li>
-            <Link href="/the-return" className="text-accent underline decoration-line hover:decoration-accent">
-              The Return
+            <Link href="/leadership" className={link}>
+              Four books for working leaders
             </Link>
-            , a book for working leaders, drawn from the first three volumes.
+            , each drawn from one trilogy.{" "}
+            <Link href="/the-return" className={link}>
+              The Return
+            </Link>{" "}
+            is nearly ready.
           </li>
           <li>
-            <Link href="/research" className="text-accent underline decoration-line hover:decoration-accent">
+            <Link href="/research" className={link}>
               The research behind MORIS
             </Link>
             , published in full: the paper, every appendix, and the evidence behind each figure,
-            including what did not hold.{" "}
-            <a
-              href="https://askmoris.ai"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-accent underline decoration-line hover:decoration-accent"
-            >
-              Ask MORIS
-            </a>{" "}
-            is its demonstration.
+            including what did not hold. Ask MORIS is its demonstration.
           </li>
           <li>
-            <a href="https://www.verusops.com" className="text-accent underline decoration-line hover:decoration-accent">
+            <a href="https://www.verusops.com" className={link}>
               VERUS
             </a>
             , software that watches an industrial company&rsquo;s systems all day and all night,
-            read-only, and tells its leaders the truth about the operation. Its evidence page
-            publishes what is not yet good enough.
+            read-only, and tells its leaders the truth about the operation.
           </li>
           <li>
-            <Link href="/pivot-labs" className="text-accent underline decoration-line hover:decoration-accent">
+            <Link href="/novels" className={link}>
+              Novels
+            </Link>
+            : the Unresolved trilogy, and the AEGIS and APEX thrillers written as Jack Maddox.
+          </li>
+          <li>
+            <Link href="/screen" className={link}>
+              Original projects for film and television
+            </Link>
+            , four of them, each written.
+          </li>
+          <li>
+            <Link href="/pivot-labs" className={link}>
               Pivot Labs
             </Link>
             , an animated mockumentary about a startup with thirty days of money left, sponsored by VERUS.
@@ -101,30 +115,40 @@ export default function About() {
         </p>
         <p className="text-muted">
           Inquiries:{" "}
-          <a
-            href="mailto:contact@resonanceinstitutellc.com"
-            className="text-accent underline decoration-line hover:decoration-accent"
-          >
+          <a href="mailto:contact@resonanceinstitutellc.com" className={link}>
             contact@resonanceinstitutellc.com
           </a>
+          . Screen projects and pitch requests:{" "}
+          <a href="mailto:chris@resonanceinstitutellc.com" className={link}>
+            chris@resonanceinstitutellc.com
+          </a>
+          .
         </p>
       </section>
 
       <section className="mt-14 flex flex-wrap gap-4 border-t border-line pt-10">
+        {/* The header's order (content/nav.json), About itself left out. VERUS is its own site, so it
+            is a plain anchor; a Next Link would route inside this one. */}
         {[
-          ["/the-return", "The Return"],
-          ["/resonance", "The Philosophy"],
-          ["/research", "MORIS Research"],
+          ["/resonance", "Philosophy"],
+          ["/leadership", "Leadership"],
+          ["/research", "Research"],
           ["https://www.verusops.com", "VERUS"],
-        ].map(([href, label]) => (
-          <Link
-            key={href}
-            href={href}
-            className="inline-flex items-center gap-1.5 rounded-full border border-line px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:border-accent hover:text-accent"
-          >
-            {label} <span aria-hidden>&rarr;</span>
-          </Link>
-        ))}
+          ["/novels", "Novels"],
+          ["/screen", "Film & TV"],
+        ].map(([href, label]) => {
+          const pill =
+            "inline-flex items-center gap-1.5 rounded-full border border-line px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:border-accent hover:text-accent";
+          return href.startsWith("http") ? (
+            <a key={href} href={href} className={pill}>
+              {label} <span aria-hidden>&rarr;</span>
+            </a>
+          ) : (
+            <Link key={href} href={href} className={pill}>
+              {label} <span aria-hidden>&rarr;</span>
+            </Link>
+          );
+        })}
       </section>
     </div>
   );

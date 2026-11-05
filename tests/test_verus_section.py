@@ -20,18 +20,21 @@ def _read(rel: str) -> str:
     return (ROOT / rel).read_text(encoding="utf-8")
 
 
-def test_the_header_lists_verus_right_after_the_books():
-    """2026-10-17, on the operator's word: "Project" came off, and VERUS sits right after The Philosophy;
-    MORIS Research moved to the end beside Ask MORIS. Same day, the entry points at VERUS's own site."""
+def test_the_header_lists_verus_right_after_research():
+    """2026-10-17, on the operator's word: "Project" came off, and the entry points at VERUS's own site.
+    THE REBUILD, 2026-11-04 (the approved build map): the menu is Philosophy, Leadership, Research,
+    VERUS, Stories, About, Contact, so VERUS sits right after Research, and Ask MORIS left the header."""
     links = json.loads(_read("content/nav.json"))["links"]
     order = [l["href"] for l in links]
-    assert order.index(VERUS) == order.index("/resonance") + 1, order
-    assert order.index("/research") == order.index("https://askmoris.ai") - 1, order
+    assert order.index(VERUS) == order.index("/research") + 1, order
+    assert "https://askmoris.ai" not in order, order
     assert next(l["label"] for l in links if l["href"] == VERUS) == "VERUS"
 
 
 def test_every_link_to_verus_goes_to_its_own_site():
-    for rel in ("app/page.tsx", "app/about/page.tsx", "components/site-footer.tsx"):
+    # The footer left this list on 2026-11-04: by the approved build map it holds the copyright, the
+    # privacy page and the contact address, and no list of other sites.
+    for rel in ("app/page.tsx", "app/about/page.tsx"):
         text = _read(rel)
         assert f'"{VERUS}"' in text or f"{VERUS}" in text, f"{rel} has no link to {VERUS}"
     # A page address under /verus ("/verus" or "/verus/pricing"), not a file ("/verus/verus-logo.jpg").

@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   applicationName: "The Resonance Institute",
   keywords: [
     "The Resonance Institute",
-    "Resonance series",
+    "A Living Philosophy",
     "C. T. Herndon",
     "philosophy",
     "books",
@@ -77,7 +77,7 @@ export default function RootLayout({
               name: "The Resonance Institute",
               url: "https://www.resonanceinstitutellc.com",
               description:
-                "A private studio where enduring questions meet modern technology. Home of the Resonance series by C. T. Herndon. A Living Philosophy. Four trilogies, twelve volumes, approximately one million words. Complete.",
+                "A private studio where enduring questions meet modern technology. Home of the work of C. T. Herndon. A Living Philosophy. Four trilogies, twelve volumes, approximately one million words. Complete.",
               founder: { "@type": "Person", name: "Christopher T. Herndon" },
               location: {
                 "@type": "Place",
