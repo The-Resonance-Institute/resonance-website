@@ -200,13 +200,10 @@ export default function Home() {
       </section>
 
       <section className="border-t border-line py-12">
-        <p className="max-w-3xl font-serif text-lg font-light italic leading-snug text-ink sm:text-xl">
-          Not a lab, and no venture funding. Everything here is written and
-          built in one place, and the Institute holds it.
-        </p>
+        {/* No closing line, on the operator's word (2026-11-06): the page ends on the work. */}
         <Link
           href="/about"
-          className="mt-4 inline-flex items-center gap-1.5 py-1 text-sm text-muted transition-colors hover:text-accent"
+          className="inline-flex items-center gap-1.5 py-1 text-sm text-muted transition-colors hover:text-accent"
         >
           About the Institute <span aria-hidden>&rarr;</span>
         </Link>
