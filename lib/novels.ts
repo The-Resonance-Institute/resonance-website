@@ -94,9 +94,8 @@ export const aegis: NovelSeries = {
   ],
 };
 
-// APEX 7 TO 9 have covers since 2026-11-04 (the operator's second set). The source art is about 1:2,
-// so each is letterboxed to 2:3 over a blurred, darkened copy of itself; nothing of the title or the
-// name is cut.
+// APEX 7 TO 9: final covers since 2026-11-06, 2:3 like books 1 to 6, made from the operator's
+// full-size originals. The files are named -v2 so no cache can serve the interim set they replaced.
 export const apex: NovelSeries = {
   slug: "apex",
   name: "The Apex Directive",
@@ -111,8 +110,8 @@ export const apex: NovelSeries = {
     { n: 4, title: "Iron Tide", cover: "/novels/apex-4.jpg", asin: "B0GNWCNQ3C" },
     { n: 5, title: "Crimson Protocol", cover: "/novels/apex-5.jpg", asin: "B0GNXNG6XN" },
     { n: 6, title: "Fallen Wall", cover: "/novels/apex-6.jpg", asin: "B0GNX3VN8H" },
-    { n: 7, title: "White Flag", cover: "/novels/apex-7.jpg" },
-    { n: 8, title: "Paper Crown", cover: "/novels/apex-8.jpg" },
-    { n: 9, title: "Empty Chair", cover: "/novels/apex-9.jpg" },
+    { n: 7, title: "White Flag", cover: "/novels/apex-7-v2.jpg" },
+    { n: 8, title: "Paper Crown", cover: "/novels/apex-8-v2.jpg" },
+    { n: 9, title: "Empty Chair", cover: "/novels/apex-9-v2.jpg" },
   ],
 };
