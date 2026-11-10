@@ -37,7 +37,6 @@ export default function Shelf({ books }: { books: Book[] }) {
                         <span className="book-plain-by">Jack Maddox</span>
                       </span>
                     )}
-                    {b.cover && <span className="book-n mono">{String(b.n).padStart(2, "0")}</span>}
                   </button>
                 </li>
               ))}
