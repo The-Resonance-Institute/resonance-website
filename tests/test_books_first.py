@@ -929,7 +929,8 @@ NOTIFY_EXEMPT = {"app/the-return/page.tsx": ("know when it lands",)}
 #   /resonance says, in one line, that the twelve volumes are not yet published and that the
 #     leadership books come first. This replaces the 2026-10-07 ruling for that page.
 #   /leadership carries The Return's "Know when it lands", the same mailto as /the-return.
-#   /novels marks AEGIS 12 and APEX 7 to 9 "coming soon", with no buy link until they are live.
+#   /novels marks AEGIS 12 to 15 and APEX 7 to 9 "coming soon", with no buy link until they are live.
+#     APEX 10 to 12 say "In development" instead (operator, 2026-11-10), which promises no date.
 REBUILD_EXEMPT = {
     "app/resonance/page.tsx": ("not yet published",),
     "app/leadership/page.tsx": ("know when it lands",),

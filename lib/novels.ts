@@ -21,6 +21,9 @@ export type Novel = {
   title: string;
   cover: string;
   asin?: string;
+  // IN DEVELOPMENT, 2026-11-10 (operator): a book not yet in the upload queue says so instead of
+  // "Coming soon". Books with neither an asin nor this mark are coming soon.
+  status?: "development";
   tagline?: string;
   hook?: string;
 };
@@ -103,7 +106,7 @@ export const aegis: NovelSeries = {
 // APEX 7 TO 9: final covers since 2026-11-06, 2:3 like books 1 to 6, made from the operator's
 // full-size originals. The files are named -v2 so no cache can serve the interim set they replaced.
 // APEX 10 TO 12, 2026-11-10: the last three, final covers from the operator's Pictures\APEX folder,
-// added as coming. The series ends at twelve.
+// marked in development (operator, same day). The series ends at twelve.
 export const apex: NovelSeries = {
   slug: "apex",
   name: "The Apex Directive",
@@ -121,8 +124,8 @@ export const apex: NovelSeries = {
     { n: 7, title: "White Flag", cover: "/novels/apex-7-v2.jpg" },
     { n: 8, title: "Paper Crown", cover: "/novels/apex-8-v2.jpg" },
     { n: 9, title: "Empty Chair", cover: "/novels/apex-9-v2.jpg" },
-    { n: 10, title: "Open Water", cover: "/novels/apex-10.jpg" },
-    { n: 11, title: "Long View", cover: "/novels/apex-11.jpg" },
-    { n: 12, title: "Last Watch", cover: "/novels/apex-12.jpg" },
+    { n: 10, title: "Open Water", cover: "/novels/apex-10.jpg", status: "development" },
+    { n: 11, title: "Long View", cover: "/novels/apex-11.jpg", status: "development" },
+    { n: 12, title: "Last Watch", cover: "/novels/apex-12.jpg", status: "development" },
   ],
 };

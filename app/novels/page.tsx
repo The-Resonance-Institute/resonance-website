@@ -9,7 +9,7 @@ import { amazon, aegis, apex, unresolved, type Novel, type NovelSeries } from "@
 // (the operator's decision of 2026-11-04), for AEGIS and APEX. The one action is buy on Amazon, and
 // the Jack Maddox books link straight to Amazon too, so a buyer never has to go through another site.
 //
-// "COMING SOON" IS ALLOWED HERE AND ONLY HERE, by the same decision: AEGIS 12 to 15 and APEX 7 to 12 show
+// "COMING SOON" IS ALLOWED HERE AND ONLY HERE, by the same decision: AEGIS 12 to 15 and APEX 7 to 9 show
 // their covers marked as coming, with no buy link until they are live. The phrase is exempted for
 // this file by name in tests/test_books_first.py; the philosophy's own publication guard is unchanged.
 //
@@ -71,9 +71,15 @@ function Shelf({ series }: { series: NovelSeries }) {
             ) : (
               // The mark sits under the cover, not across it: a band over the art hid the author's
               // name on the APEX covers.
-              <p className="mt-1.5 self-start rounded-full bg-accent-soft px-2.5 py-0.5 text-[0.65rem] font-medium uppercase tracking-[0.18em] text-accent">
-                Coming soon
-              </p>
+              b.status === "development" ? (
+                <p className="mt-1.5 self-start rounded-full bg-line px-2.5 py-0.5 text-[0.65rem] font-medium uppercase tracking-[0.18em] text-muted">
+                  In development
+                </p>
+              ) : (
+                <p className="mt-1.5 self-start rounded-full bg-accent-soft px-2.5 py-0.5 text-[0.65rem] font-medium uppercase tracking-[0.18em] text-accent">
+                  Coming soon
+                </p>
+              )
             )}
           </li>
         ))}
