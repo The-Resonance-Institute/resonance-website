@@ -1,67 +1,37 @@
-"""VERUS, on this site since 2026-10-13, moved to its own site, www.verusops.com, on 2026-10-17 (the operator's word).
-
-WHAT THIS HOLDS. Every way into VERUS from this site goes to verusops.com: the header (third, after the books), the
-home page card, the About page and the footer. Every old /verus page address forwards to the page of the same name
-there, in one hop, so links already sent keep working. The pages themselves are archived, not served, and are not in
-the sitemap. The pictures and the walkthrough under /verus/ are still served, because those file links went out too.
-
-WHAT IT DOES NOT HOLD. That verusops.com is up: it is a separate site in its own repository.
+"""VERUS is off this site (2026-11-09, the operator's word: "separate Verusops from the resonance institute ...
+completely"). It was here from 2026-10-13, then linked to its own site from 2026-10-17. Now nothing here links to it,
+the old /verus addresses come to the front page, and none of its pages, pictures or code is kept in this repository.
 """
 import json
 import pathlib
 import re
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
-VERUS = "https://www.verusops.com"
-PAGES = ("what-its-for", "how-it-works", "inside", "evidence", "pricing", "see-it")
 
 
 def _read(rel: str) -> str:
     return (ROOT / rel).read_text(encoding="utf-8")
 
 
-def test_the_header_lists_verus_right_after_research():
-    """2026-10-17, on the operator's word: "Project" came off, and the entry points at VERUS's own site.
-    THE REBUILD, 2026-11-04 (the approved build map): the menu is Philosophy, Leadership, Research,
-    VERUS, Stories, About, Contact, so VERUS sits right after Research, and Ask MORIS left the header."""
+def test_nothing_links_to_verus():
+    hits = []
+    for path in [*(ROOT / "app").rglob("*.ts*"), *(ROOT / "components").rglob("*.ts*")]:
+        code = " ".join(l for l in path.read_text(encoding="utf-8").splitlines() if not l.lstrip().startswith("//"))
+        if "verusops" in code:  # a comment recording the history is not a link
+            hits.append(path.relative_to(ROOT).as_posix())
+    assert not hits, hits
     links = json.loads(_read("content/nav.json"))["links"]
-    order = [l["href"] for l in links]
-    assert order.index(VERUS) == order.index("/research") + 1, order
-    assert "https://askmoris.ai" not in order, order
-    assert next(l["label"] for l in links if l["href"] == VERUS) == "VERUS"
+    assert not [l for l in links if "VERUS" in l["label"] or "verusops" in l["href"]]
 
 
-def test_every_link_to_verus_goes_to_its_own_site():
-    # The footer left this list on 2026-11-04: by the approved build map it holds the copyright, the
-    # privacy page and the contact address, and no list of other sites.
-    for rel in ("app/page.tsx", "app/about/page.tsx"):
-        text = _read(rel)
-        assert f'"{VERUS}"' in text or f"{VERUS}" in text, f"{rel} has no link to {VERUS}"
-    # A page address under /verus ("/verus" or "/verus/pricing"), not a file ("/verus/verus-logo.jpg").
-    stale = []
-    for path in [*(ROOT / "app").rglob("*.ts*"), *(ROOT / "components").rglob("*.ts*"), ROOT / "content" / "nav.json"]:
-        for m in re.finditer(r'"(/verus(?:/[a-z-]+)?)"', path.read_text(encoding="utf-8")):
-            stale.append(f"{path.relative_to(ROOT).as_posix()}: {m.group(1)}")
-    assert not stale, stale
-
-
-def test_every_old_page_address_forwards_to_its_page_there():
+def test_old_addresses_come_to_the_front_page():
     config = _read("next.config.ts")
-    assert re.search(r'source: "/verus",\s*destination: "https://www\.verusops\.com",', config)
-    m = re.search(r'source: "/verus/:page\(([^)]*)\)",\s*destination: "https://www\.verusops\.com/:page",', config)
-    assert m, "the /verus/<page> forward is missing"
-    assert set(m.group(1).split("|")) == set(PAGES)
-    # Only the pages: a wildcard would swallow the pictures and the walkthrough, whose links went out.
-    assert '"/verus/:path*"' not in config
+    assert re.search(r'source: "/verus",\s*destination: "/",', config)
+    assert re.search(r'source: "/verus/:path\*",\s*destination: "/",', config)
+    assert "verusops" not in config
 
 
-def test_the_pages_are_archived_not_served_and_not_in_the_sitemap():
-    assert not (ROOT / "app" / "verus").exists()
-    assert (ROOT / "archive" / "verus-section-2026-10-17" / "app" / "verus" / "page.tsx").exists()
-    paths = set(re.findall(r'path:\s*"([^"]*)"', _read("app/sitemap.ts")))
-    assert not {p for p in paths if p.startswith("/verus")}, paths
-
-
-def test_the_files_that_went_out_are_still_served():
-    for name in ("verus-walkthrough.mp4", "verus-walkthrough-poster.jpg", "verus-logo.jpg"):
-        assert (ROOT / "public" / "verus" / name).exists(), name
+def test_none_of_it_is_kept_here():
+    for rel in ("app/verus", "public/verus", "archive/verus-section-2026-10-17", "components/verus-explainer.tsx",
+                "components/verus-explainer-sound.ts"):
+        assert not (ROOT / rel).exists(), rel

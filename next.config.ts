@@ -53,19 +53,16 @@ const nextConfig: NextConfig = {
   // going dark. Retire this entry only once the old URL stops being requested.
   async redirects() {
     return [
-      // VERUS MOVED TO ITS OWN SITE, 2026-10-17, on the operator's word. Its seven pages live at
-      // www.verusops.com under the same names, so each old address forwards to its own page there, in
-      // one hop. The pages here are archived under archive/verus-section-2026-10-17/. ONLY THE PAGES:
-      // the pictures and the walkthrough under /verus/ are still served from public/verus/, because those
-      // file links went out in posts and messages. TEMPORARY, like every redirect in this file.
+      // VERUS OFF THIS SITE, 2026-11-09, on the operator's word: no address here leads to VERUS. The old
+      // /verus addresses, pages and files alike, come to this site's front page.
       {
-        source: "/verus",
-        destination: "https://www.verusops.com",
+        source: "/verus/:path*",
+        destination: "/",
         permanent: false,
       },
       {
-        source: "/verus/:page(what-its-for|how-it-works|inside|evidence|pricing|see-it)",
-        destination: "https://www.verusops.com/:page",
+        source: "/verus",
+        destination: "/",
         permanent: false,
       },
       {

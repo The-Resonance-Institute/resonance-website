@@ -234,9 +234,9 @@ def test_ask_moris_is_one_outbound_instance_and_is_not_rebuilt_here():
     # Two outbound entries from 2026-10-17 to 2026-11-04: VERUS's own site and Ask MORIS, last. THE
     # REBUILD, 2026-11-04 (the operator's approved build map): Ask MORIS left the header and is linked
     # from /research only, so VERUS (guarded in test_verus_section.py) is the one outbound entry left.
+    # VERUS OFF THIS SITE, 2026-11-09 (the operator's word): no outbound entry is left.
     ext = [l["href"] for l in nav if l["href"].startswith("http")]
-    assert ext == ["https://www.verusops.com"], (
-        f"the nav's outbound entries are not exactly VERUS's own site: {ext}")
+    assert ext == [], f"the nav has outbound entries: {ext}"
     research = (ROOT / "app" / "research" / "page.tsx").read_text(encoding="utf-8")
     assert "https://askmoris.ai" in research, "Ask MORIS left the header but /research does not link it"
     src = (ROOT / "components" / "site-nav.tsx").read_text(encoding="utf-8")
@@ -810,9 +810,10 @@ def test_the_header_calls_it_the_philosophy_not_the_series():
     # buried"): "Stories" became Novels and Film & TV, and Contact moved to the footer every page
     # carries (see test_the_footer_still_reaches_contact), so the header stays at seven.
     order = [l["href"] for l in links]
-    assert order == ["/resonance", "/leadership", "/research", "https://www.verusops.com",
+    # VERUS OFF THIS SITE, 2026-11-09 (the operator's word): six items.
+    assert order == ["/resonance", "/leadership", "/research",
                      "/novels", "/screen", "/about"], f"the header is not the approved menu: {order}"
-    assert [l["label"] for l in links] == ["Philosophy", "Leadership", "Research", "VERUS",
+    assert [l["label"] for l in links] == ["Philosophy", "Leadership", "Research",
                                            "Novels", "Film & TV", "About"], links
 
     stale = []

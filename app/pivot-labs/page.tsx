@@ -51,11 +51,6 @@ export default function PivotLabs() {
           and the AI who quietly keeps it running.
         </p>
         <p className="mt-4 text-base text-muted">
-          Sponsored by{" "}
-          <a href="https://www.verusops.com" className="text-accent underline decoration-line hover:decoration-accent">
-            VERUS
-          </a>
-          .
         </p>
         <p className="mt-8 flex flex-wrap gap-3">
           <a
@@ -159,15 +154,6 @@ export default function PivotLabs() {
             watch the whole season in one sitting
           </a>
           . A new Short goes up most days.
-        </p>
-        <p>
-          VERUS is real. The cartoon one wears a hard hat to a software startup. The real one watches
-          an industrial company&rsquo;s systems all day and all night and tells its leaders the truth
-          about the operation.{" "}
-          <a href="https://www.verusops.com" className="text-accent underline decoration-line hover:decoration-accent">
-            Meet the real VERUS
-          </a>
-          .
         </p>
       </section>
     </div>

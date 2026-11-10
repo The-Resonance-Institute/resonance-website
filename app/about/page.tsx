@@ -81,13 +81,6 @@ export default function About() {
             including what did not hold. Ask MORIS is its demonstration.
           </li>
           <li>
-            <a href="https://www.verusops.com" className={link}>
-              VERUS
-            </a>
-            , software that watches an industrial company&rsquo;s systems all day and all night,
-            read-only, and tells its leaders the truth about the operation.
-          </li>
-          <li>
             <Link href="/novels" className={link}>
               Novels
             </Link>
@@ -103,7 +96,7 @@ export default function About() {
             <Link href="/pivot-labs" className={link}>
               Pivot Labs
             </Link>
-            , an animated mockumentary about a startup with thirty days of money left, sponsored by VERUS.
+            , an animated mockumentary about a startup with thirty days of money left.
           </li>
         </ul>
         <p>
@@ -133,7 +126,6 @@ export default function About() {
           ["/resonance", "Philosophy"],
           ["/leadership", "Leadership"],
           ["/research", "Research"],
-          ["https://www.verusops.com", "VERUS"],
           ["/novels", "Novels"],
           ["/screen", "Film & TV"],
         ].map(([href, label]) => {
