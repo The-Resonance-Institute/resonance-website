@@ -121,7 +121,7 @@ export const apex: NovelSeries = {
     { n: 4, title: "Iron Tide", cover: "/novels/apex-4.jpg", asin: "B0GNWCNQ3C" },
     { n: 5, title: "Crimson Protocol", cover: "/novels/apex-5.jpg", asin: "B0GNXNG6XN" },
     { n: 6, title: "Fallen Wall", cover: "/novels/apex-6.jpg", asin: "B0GNX3VN8H" },
-    { n: 7, title: "White Flag", cover: "/novels/apex-7-v2.jpg" },
+    { n: 7, title: "White Flag", cover: "/novels/apex-7-v2.jpg", asin: "B0HR7G9B7X" },
     { n: 8, title: "Paper Crown", cover: "/novels/apex-8-v2.jpg" },
     { n: 9, title: "Empty Chair", cover: "/novels/apex-9-v2.jpg" },
     { n: 10, title: "Open Water", cover: "/novels/apex-10.jpg", status: "development" },
