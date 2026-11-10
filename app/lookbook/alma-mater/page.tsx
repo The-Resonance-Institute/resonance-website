@@ -27,7 +27,7 @@ import Schedule from "@/components/lookbook/alma-mater/Schedule";
 import "./alma-mater.css";
 
 export const metadata: Metadata = {
-  ...share("/lookbook/alma-mater", { title: "Alma Mater: lookbook", description: "A private lookbook. Available on request." }),
+  ...share("/lookbook/alma-mater", { title: "Alma Mater: lookbook", description: "The lookbook for Alma Mater, an original project by C. T. Herndon." }),
   robots: { index: false, follow: false },
 };
 
@@ -313,8 +313,8 @@ export default function AlmaMaterPage() {
       </div>
 
       <footer className="foot">
-        <p className="mono">Alma Mater © C. T. Herndon. Private and confidential. Not for distribution.</p>
-        <Link href="/lookbook">All projects</Link>
+        <p className="mono">Alma Mater © C. T. Herndon. All rights reserved.</p>
+        <Link href="/screen">All Film &amp; TV projects</Link>
       </footer>
     </div>
   );

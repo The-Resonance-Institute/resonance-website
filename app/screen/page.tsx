@@ -87,7 +87,7 @@ export default function FilmAndTv() {
       <section className="mt-16 border-t border-line pt-12">
         <p className="text-xs font-medium uppercase tracking-[0.18em] text-accent">Original projects</p>
         <p className="mt-2 max-w-2xl leading-relaxed text-muted">
-          Each is fully written. Pitch materials are sent on request.
+          Each is fully written. Every project has an interactive lookbook; scripts and pitch materials are sent on request.
         </p>
       </section>
 
@@ -132,12 +132,20 @@ export default function FilmAndTv() {
                     <li key={w}>{w}</li>
                   ))}
                 </ul>
-                <a
-                  href={pitchHref(p.title)}
-                  className="mt-5 inline-flex items-center gap-1.5 rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-ink"
-                >
-                  Request the pitch <span aria-hidden>&rarr;</span>
-                </a>
+                <div className="mt-5 flex flex-wrap gap-2.5">
+                  <Link
+                    href={p.lookbook}
+                    className="inline-flex items-center gap-1.5 rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-ink"
+                  >
+                    Explore the lookbook <span aria-hidden>&rarr;</span>
+                  </Link>
+                  <a
+                    href={pitchHref(p.title)}
+                    className="inline-flex items-center gap-1.5 rounded-full border border-line px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:border-accent hover:text-accent"
+                  >
+                    Request the pitch <span aria-hidden>&rarr;</span>
+                  </a>
+                </div>
               </div>
             </div>
           </section>
@@ -153,19 +161,6 @@ export default function FilmAndTv() {
           >
             {PITCH_EMAIL}
           </a>
-          .
-        </p>
-        {/* THE LOOKBOOKS, 2026-11-10. Each project has a private lookbook under /lookbook, behind a
-            password that goes out with the pitch. One quiet link for the people who have it; the
-            lookbooks stay out of the nav, the sitemap and the index. */}
-        <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted">
-          Been sent a password?{" "}
-          <Link
-            href="/lookbook"
-            className="text-accent underline decoration-line underline-offset-2 hover:decoration-accent"
-          >
-            Open the lookbooks
-          </Link>
           .
         </p>
       </section>

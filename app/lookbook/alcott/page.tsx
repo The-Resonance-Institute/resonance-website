@@ -24,7 +24,7 @@ import Episodes from "@/components/lookbook/alcott/Episodes";
 import "./alcott.css";
 
 export const metadata: Metadata = {
-  ...share("/lookbook/alcott", { title: "The Alcott: lookbook", description: "A private lookbook. Available on request." }),
+  ...share("/lookbook/alcott", { title: "The Alcott: lookbook", description: "The lookbook for The Alcott, an original project by C. T. Herndon." }),
   robots: { index: false, follow: false },
 };
 
@@ -238,8 +238,8 @@ export default function AlcottPage() {
       </div>
 
       <footer className="foot">
-        <p className="mono">The Alcott © C. T. Herndon. Private and confidential. Not for distribution.</p>
-        <Link href="/lookbook">All projects</Link>
+        <p className="mono">The Alcott © C. T. Herndon. All rights reserved.</p>
+        <Link href="/screen">All Film &amp; TV projects</Link>
       </footer>
     </div>
   );

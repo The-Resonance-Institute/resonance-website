@@ -27,7 +27,7 @@ import Watch from "@/components/lookbook/unfinished/Watch";
 import "./unfinished.css";
 
 export const metadata: Metadata = {
-  ...share("/lookbook/unfinished", { title: "The Unfinished: lookbook", description: "A private lookbook. Available on request." }),
+  ...share("/lookbook/unfinished", { title: "The Unfinished: lookbook", description: "The lookbook for The Unfinished, an original project by C. T. Herndon." }),
   robots: { index: false, follow: false },
 };
 
@@ -254,8 +254,8 @@ export default function UnfinishedPage() {
       </div>
 
       <footer className="foot">
-        <p className="mono">The Unfinished © C. T. Herndon. Private and confidential. Not for distribution.</p>
-        <Link href="/lookbook">All projects</Link>
+        <p className="mono">The Unfinished © C. T. Herndon. All rights reserved.</p>
+        <Link href="/screen">All Film &amp; TV projects</Link>
       </footer>
     </div>
   );

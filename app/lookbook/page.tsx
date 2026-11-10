@@ -3,7 +3,7 @@ import Link from "next/link";
 import { share } from "@/lib/share";
 
 export const metadata: Metadata = {
-  ...share("/lookbook", { title: "Lookbooks", description: "Private lookbooks for the Film & TV projects. Available on request." }),
+  ...share("/lookbook", { title: "Lookbooks", description: "Lookbooks for the four original Film & TV projects by C. T. Herndon." }),
   robots: { index: false, follow: false },
 };
 
@@ -48,7 +48,7 @@ export default function Home() {
   return (
     <div className="home">
       <header className="home-head">
-        <p className="eyebrow">Private. Not for distribution.</p>
+        <p className="eyebrow">Film &amp; TV</p>
         <h1 className="home-title">C. T. Herndon</h1>
         <p className="home-sub">Film &amp; TV lookbooks</p>
       </header>
@@ -88,11 +88,6 @@ export default function Home() {
           </li>
         ))}
       </ul>
-      <form method="post" action="/api/lookbook/logout" className="home-out">
-        <button type="submit" className="linklike">
-          Sign out
-        </button>
-      </form>
     </div>
   );
 }

@@ -34,11 +34,6 @@ export default function Nav({ items, title }: { items: { id: string; label: stri
           </li>
         ))}
       </ul>
-      <form method="post" action="/api/lookbook/logout" className="nav-out">
-        <button type="submit" className="linklike">
-          Sign out
-        </button>
-      </form>
     </nav>
   );
 }

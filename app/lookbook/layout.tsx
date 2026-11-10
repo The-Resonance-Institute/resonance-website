@@ -2,10 +2,11 @@ import type { Metadata } from "next";
 import { Cinzel, Source_Serif_4, IBM_Plex_Mono, Courier_Prime } from "next/font/google";
 import "./lookbook.css";
 
-// THE LOOKBOOKS, 2026-11-10. Private pitch lookbooks for the four Film & TV projects, behind one
-// password (proxy.ts, lib/lookbook/auth.ts). Out of the index: noindex here and as a header, not in
-// the sitemap, not in the header nav. The public face of these projects is /screen; a lookbook link
-// and the password go out on request, with the pitch. No scripts here: they are sent on request.
+// THE LOOKBOOKS, 2026-11-10. Interactive pitch lookbooks for the four Film & TV projects, linked
+// from each project on /screen. OPEN, NOT INDEXED: the operator dropped the password the same day
+// ("do it"), so anyone can read them, but they carry noindex and stay out of the sitemap until he
+// decides otherwise. NO SCRIPTS, EVER: this repository is public. Scripts, decks and bibles are
+// sent on request, which is what "Request the pitch" on /screen is for.
 // Everything inside renders within .lookbook so its styles never reach the rest of the site.
 
 const display = Cinzel({ subsets: ["latin"], weight: ["400", "600", "700"], variable: "--f-display" });

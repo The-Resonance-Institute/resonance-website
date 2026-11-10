@@ -29,7 +29,7 @@ import Silence from "@/components/lookbook/Silence";
 import Nav from "@/components/lookbook/Nav";
 
 export const metadata: Metadata = {
-  ...share("/lookbook/aegis", { title: "AEGIS: lookbook", description: "A private lookbook. Available on request." }),
+  ...share("/lookbook/aegis", { title: "AEGIS: lookbook", description: "The lookbook for AEGIS, an original project by C. T. Herndon." }),
   robots: { index: false, follow: false },
 };
 
@@ -270,8 +270,8 @@ export default function AegisPage() {
       </div>
 
       <footer className="foot">
-        <p className="mono">AEGIS © C. T. Herndon. Private and confidential. Not for distribution.</p>
-        <Link href="/lookbook">All projects</Link>
+        <p className="mono">AEGIS © C. T. Herndon. All rights reserved.</p>
+        <Link href="/screen">All Film &amp; TV projects</Link>
       </footer>
     </div>
   );

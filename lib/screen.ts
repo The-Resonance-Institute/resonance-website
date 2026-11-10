@@ -23,6 +23,9 @@ export type ScreenProject = {
   written: string[];
   art: string;
   source?: { href: string; label: string };
+  // THE LOOKBOOK, 2026-11-10: the project's interactive lookbook on this site (/lookbook/...). Open to
+  // anyone, noindex. Pitch material only; scripts are still sent on request.
+  lookbook: string;
 };
 
 export const PITCH_EMAIL = "chris@resonanceinstitutellc.com";
@@ -45,6 +48,7 @@ export const screenProjects: ScreenProject[] = [
     ],
     written: ["Season one: all ten episodes written, 620 pages"],
     art: "/screen/aegis.jpg",
+    lookbook: "/lookbook/aegis",
     source: { href: "/novels#aegis", label: "Based on the AEGIS novels by Jack Maddox" },
   },
   {
@@ -61,6 +65,7 @@ export const screenProjects: ScreenProject[] = [
     ],
     written: ["Feature script, complete, 97 pages", "Beat outline: the film in three acts"],
     art: "/screen/the-unfinished.jpg",
+    lookbook: "/lookbook/unfinished",
     source: { href: "/novels#unresolved", label: "Based on the Unresolved trilogy by C. T. Herndon" },
   },
   {
@@ -81,6 +86,7 @@ export const screenProjects: ScreenProject[] = [
       "Series bible: the world, the cast and all four seasons",
     ],
     art: "/screen/alma-mater.jpg",
+    lookbook: "/lookbook/alma-mater",
   },
   {
     slug: "the-alcott",
@@ -99,5 +105,6 @@ export const screenProjects: ScreenProject[] = [
       "Series bible and season one map",
     ],
     art: "/screen/the-alcott.jpg",
+    lookbook: "/lookbook/alcott",
   },
 ];
