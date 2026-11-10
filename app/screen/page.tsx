@@ -155,6 +155,19 @@ export default function FilmAndTv() {
           </a>
           .
         </p>
+        {/* THE LOOKBOOKS, 2026-11-10. Each project has a private lookbook under /lookbook, behind a
+            password that goes out with the pitch. One quiet link for the people who have it; the
+            lookbooks stay out of the nav, the sitemap and the index. */}
+        <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted">
+          Been sent a password?{" "}
+          <Link
+            href="/lookbook"
+            className="text-accent underline decoration-line underline-offset-2 hover:decoration-accent"
+          >
+            Open the lookbooks
+          </Link>
+          .
+        </p>
       </section>
     </div>
   );

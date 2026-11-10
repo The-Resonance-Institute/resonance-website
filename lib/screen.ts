@@ -59,7 +59,7 @@ export const screenProjects: ScreenProject[] = [
       "When his sister walks past the last maintained trail and refuses every offer of rescue until the cold takes her, a watch restorer refuses something too: to let her memory be smoothed away.",
       "She left him hundreds of unfinished carved birds, a list of seventeen names and a map marked Here. He follows it past the edge of the managed world, where the system offers ninety days to come home. Then it stops offering.",
     ],
-    written: ["Feature script, complete, 96 pages", "Beat outline: the film in three acts"],
+    written: ["Feature script, complete, 97 pages", "Beat outline: the film in three acts"],
     art: "/screen/the-unfinished.jpg",
     source: { href: "/novels#unresolved", label: "Based on the Unresolved trilogy by C. T. Herndon" },
   },
