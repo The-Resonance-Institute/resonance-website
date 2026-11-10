@@ -12,6 +12,9 @@
 //
 // A BOOK WITH NO asin IS NOT LIVE. It shows its cover marked as coming, with no buy link; its link is
 // added the day it is live.
+//
+// AEGIS 13 TO 15, 2026-11-10: the closing trilogy, finished manuscripts, added as coming on the
+// operator's word. Covers are his final art (Pictures\AEGIS SERIES\Final Covers), cut to 2:3.
 
 export type Novel = {
   n: number;
@@ -91,6 +94,9 @@ export const aegis: NovelSeries = {
     { n: 10, title: "The Lamp of Scetis", cover: "/novels/aegis-10.jpg", asin: "B0HQB77SR6" },
     { n: 11, title: "The Walls of Ur", cover: "/novels/aegis-11.jpg", asin: "B0HQB73G55" },
     { n: 12, title: "The Sleepless Box", cover: "/novels/aegis-12.jpg" },
+    { n: 13, title: "The Eye of Paro", cover: "/novels/aegis-13.jpg" },
+    { n: 14, title: "The Widow’s Chime", cover: "/novels/aegis-14.jpg" },
+    { n: 15, title: "The Tally of Eridu", cover: "/novels/aegis-15.jpg" },
   ],
 };
 
