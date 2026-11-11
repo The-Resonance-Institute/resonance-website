@@ -95,11 +95,11 @@ export const aegis: NovelSeries = {
     { n: 8, title: "The Compass of Pietro", cover: "/novels/aegis-8.jpg", asin: "B0GS4BDC81" },
     { n: 9, title: "The Unbound Seal", cover: "/novels/aegis-9.jpg", asin: "B0GS4BZDQD" },
     { n: 10, title: "The Lamp of Scetis", cover: "/novels/aegis-10.jpg", asin: "B0HQB77SR6" },
-    { n: 11, title: "The Walls of Ur", cover: "/novels/aegis-11.jpg", asin: "B0HQB73G55" },
-    { n: 12, title: "The Sleepless Box", cover: "/novels/aegis-12.jpg" },
-    { n: 13, title: "The Eye of Paro", cover: "/novels/aegis-13.jpg" },
-    { n: 14, title: "The Widow’s Chime", cover: "/novels/aegis-14.jpg" },
-    { n: 15, title: "The Tally of Eridu", cover: "/novels/aegis-15.jpg" },
+    { n: 11, title: "The Walls of Ur", cover: "/novels/aegis-11-v2.jpg", asin: "B0HQB73G55" },
+    { n: 12, title: "The Sleepless Box", cover: "/novels/aegis-12-v2.jpg", asin: "B0HQXNNLPQ" },
+    { n: 13, title: "The Eye of Paro", cover: "/novels/aegis-13-v2.jpg" },
+    { n: 14, title: "The Widow’s Chime", cover: "/novels/aegis-14-v2.jpg" },
+    { n: 15, title: "The Tally of Eridu", cover: "/novels/aegis-15-v2.jpg" },
   ],
 };
 
@@ -107,6 +107,10 @@ export const aegis: NovelSeries = {
 // full-size originals. The files are named -v2 so no cache can serve the interim set they replaced.
 // APEX 10 TO 12, 2026-11-10: the last three, final covers from the operator's Pictures\APEX folder,
 // marked in development (operator, same day). The series ends at twelve.
+// LATER THE SAME DAY: the operator's new art for AEGIS 11 to 15 and APEX 7 to 12 (Pictures\<series>\
+// Final Covers), so those covers are -v2 / -v3 and no cache can serve the old art. AEGIS 12 is live.
+// APEX 10 to 12 are built and in the upload queue, so by the rule above they are coming soon now;
+// no book is "In development" any more (the mark stays available).
 export const apex: NovelSeries = {
   slug: "apex",
   name: "The Apex Directive",
@@ -121,11 +125,11 @@ export const apex: NovelSeries = {
     { n: 4, title: "Iron Tide", cover: "/novels/apex-4.jpg", asin: "B0GNWCNQ3C" },
     { n: 5, title: "Crimson Protocol", cover: "/novels/apex-5.jpg", asin: "B0GNXNG6XN" },
     { n: 6, title: "Fallen Wall", cover: "/novels/apex-6.jpg", asin: "B0GNX3VN8H" },
-    { n: 7, title: "White Flag", cover: "/novels/apex-7-v2.jpg", asin: "B0HR7G9B7X" },
-    { n: 8, title: "Paper Crown", cover: "/novels/apex-8-v2.jpg" },
-    { n: 9, title: "Empty Chair", cover: "/novels/apex-9-v2.jpg" },
-    { n: 10, title: "Open Water", cover: "/novels/apex-10.jpg", status: "development" },
-    { n: 11, title: "Long View", cover: "/novels/apex-11.jpg", status: "development" },
-    { n: 12, title: "Last Watch", cover: "/novels/apex-12.jpg", status: "development" },
+    { n: 7, title: "White Flag", cover: "/novels/apex-7-v3.jpg", asin: "B0HR7G9B7X" },
+    { n: 8, title: "Paper Crown", cover: "/novels/apex-8-v3.jpg" },
+    { n: 9, title: "Empty Chair", cover: "/novels/apex-9-v3.jpg" },
+    { n: 10, title: "Open Water", cover: "/novels/apex-10-v2.jpg" },
+    { n: 11, title: "Long View", cover: "/novels/apex-11-v2.jpg" },
+    { n: 12, title: "Last Watch", cover: "/novels/apex-12-v2.jpg" },
   ],
 };
