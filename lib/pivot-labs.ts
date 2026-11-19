@@ -5,8 +5,8 @@
 // EACH LINE IS THE OPERATOR'S OWN, from the season's YouTube playlist or chapter descriptions. The
 // runtime is the ten chapters added up, read from YouTube on 2026-11-18, and rounded.
 //
-// SEASON 4 HAS NO PUBLIC PLAYLIST yet, so its link opens Chapter 1 (The Deck). When a Season 4
-// playlist is public, put its link here and nothing else needs to change.
+// SEASON 4'S PLAYLIST went public later on 2026-11-18 (all ten chapters, in order); until then its
+// link opened Chapter 1. It is not shown on the channel's Playlists tab, but the link works.
 //
 // NO "WHOLE SEASON IN ONE SITTING" LINKS. The two the site had (Seasons 1 and 2) both answered "Video
 // unavailable" on 2026-11-18 and were taken out. Where a playlist carries the full season as an
@@ -49,7 +49,7 @@ export const seasons: Season[] = [
     name: "The Board",
     line: "The board hires a search firm to find a “real” CEO. Tanner volunteers to help.",
     runtime: "about two hours and forty minutes",
-    href: "https://www.youtube.com/watch?v=FKU1y47Ztuo",
+    href: "https://www.youtube.com/playlist?list=PLNkn1VK2xOlU",
   },
   {
     n: 5,
