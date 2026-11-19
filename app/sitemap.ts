@@ -29,6 +29,8 @@ const staticRoutes: { path: string; priority: number }[] = [
   { path: "/research", priority: 0.8 },
   { path: "/research/paper", priority: 0.8 },
   { path: "/research/appendices", priority: 0.6 },
+  // THE AGENT, 2026-11-06 (draft, for the operator's approval): the fourth research page.
+  { path: "/research/agent", priority: 0.7 },
   // VERUS MOVED TO ITS OWN SITE, 2026-10-17: its pages are at www.verusops.com, which lists them in its own
   // sitemap, and the old /verus addresses forward there (next.config.ts), so none is listed here.
   // PIVOT LABS, 2026-10-22: the Institute's animated mockumentary, in the header beside VERUS.

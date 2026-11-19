@@ -69,7 +69,9 @@ export default function Research() {
           letter and replaces nothing in it: the letter stays matched to the deposited report. It
           brings the page up to date, because the letter's "what comes next" (training inside the
           model) is no longer the direction. HOW IT WORKS IS HELD BACK until a provisional patent is
-          filed: no mechanism, no rule or field names, here or anywhere in this public repository. */}
+          filed: no mechanism, no rule or field names, here or anywhere in this public repository.
+          2026-11-06, DRAFT for the operator's approval: the third paragraph's last sentence said the
+          agent was "specified and in active development". It is built now, and has its own page. */}
       <section className="mt-14 border-t border-line pt-10">
         <h2 className="font-serif text-2xl leading-snug text-ink sm:text-3xl">
           Since the paper: a conscience, then hands
@@ -90,9 +92,9 @@ export default function Research() {
           <p>
             The conscience is built and verified across every single act. Its
             judgment of a run of acts is implemented and passes its full test
-            suite. The agent that carries it is specified and in active
-            development, and its evaluation will be pre-registered and published
-            here in full.
+            suite. The agent that carries it is built, and has run whole tasks
+            with a real model as its mind. Its evaluation will be pre-registered
+            and published here in full.
           </p>
         </div>
       </section>
@@ -139,6 +141,21 @@ export default function Research() {
               The whole report in one file. {PDF_PAGES} pages, {mb} MB.
             </p>
           </a>
+
+          {/* THE AGENT, 2026-11-06, DRAFT for the operator's approval: its own page in the research
+              zone, under the same hold on mechanism as the section above. */}
+          <Link
+            href="/research/agent"
+            className="group bg-white p-6 transition-colors hover:bg-accent-soft"
+          >
+            <h3 className="font-serif text-xl text-ink transition-colors group-hover:text-accent">
+              A conscience with hands
+            </h3>
+            <p className="mt-2 text-sm leading-relaxed text-muted">
+              The agent built around MORIS: what was built, what it has shown
+              with a real model, and the study that comes next.
+            </p>
+          </Link>
 
           {/* ASK MORIS MOVED HERE FROM THE HEADER, 2026-11-04 (the approved build map). This is the
               one place on the site that links it: an outbound anchor in a new tab, because there is
