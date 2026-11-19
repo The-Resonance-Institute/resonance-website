@@ -152,6 +152,20 @@ export default function PivotLabs() {
                 >
                   Watch Season {s.n} on YouTube <span aria-hidden>&rarr;</span>
                 </a>
+                {s.full && (
+                  <>
+                    {" "}Or{" "}
+                    <a
+                      href={s.full}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-accent underline decoration-line underline-offset-2 hover:decoration-accent"
+                    >
+                      watch the whole season in one sitting
+                    </a>
+                    .
+                  </>
+                )}
               </p>
             </li>
           ))}
