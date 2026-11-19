@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { share } from "@/lib/share";
 import { FilmTvNav } from "@/components/film-tv-nav";
 import { PITCH_EMAIL, pitchHref, screenProjects } from "@/lib/screen";
+import { seasons } from "@/lib/pivot-labs";
 
 // FILM & TV, 2026-11-04 (the approved build map, then the operator's word that the screen work and
 // Pivot Labs were buried under "Stories"). Its own header entry. The page opens with Pivot Labs, the
@@ -17,11 +18,8 @@ export const metadata: Metadata = share("/screen", {
     "Pivot Labs, an animated mockumentary on YouTube, and four original projects for film and television by C. T. Herndon: AEGIS, The Unfinished, Alma Mater and The Alcott.",
 });
 
-const youtube = [
-  { href: "https://www.youtube.com/playlist?list=PLaVVUGmRTBDU", label: "Watch Season 1" },
-  { href: "https://www.youtube.com/playlist?list=PLa-MD9CYl4Qw", label: "Watch Season 2" },
-  // SEASON 3 GOES HERE once its playlist is live, as on /pivot-labs.
-];
+// FIVE SEASONS, 2026-11-18: one button to start at Season 1, and the rest are a click away on
+// /pivot-labs#seasons. Both read lib/pivot-labs.ts.
 
 export default function FilmAndTv() {
   return (
@@ -62,17 +60,20 @@ export default function FilmAndTv() {
               and the AI who quietly keeps it running.
             </p>
             <div className="mt-5 flex flex-wrap items-center gap-3">
-              {youtube.map((y) => (
-                <a
-                  key={y.href}
-                  href={y.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-ink"
-                >
-                  {y.label} <span aria-hidden>&rarr;</span>
-                </a>
-              ))}
+              <a
+                href={seasons[0].href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-ink"
+              >
+                Watch Season 1 <span aria-hidden>&rarr;</span>
+              </a>
+              <Link
+                href="/pivot-labs#seasons"
+                className="inline-flex items-center gap-1.5 rounded-full border border-line px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:border-accent hover:text-accent"
+              >
+                All five seasons <span aria-hidden>&rarr;</span>
+              </Link>
               <Link
                 href="/pivot-labs"
                 className="inline-flex items-center gap-1.5 py-1 text-sm font-medium text-accent transition-colors hover:text-ink"

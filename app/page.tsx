@@ -146,7 +146,7 @@ export default function Home() {
             <p className={eyebrow}>Film &amp; TV</p>
             <h3 className={heading}>An animated series, and four original projects</h3>
             <p className={lead}>
-              Pivot Labs, an animated mockumentary, is on YouTube now. AEGIS, The Unfinished, Alma
+              Pivot Labs, an animated mockumentary, is on YouTube now, all five seasons. AEGIS, The Unfinished, Alma
               Mater and The Alcott are written for film and television, with pitch materials on
               request.
             </p>

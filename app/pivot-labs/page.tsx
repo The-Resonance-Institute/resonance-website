@@ -2,6 +2,7 @@ import Image from "next/image";
 import type { Metadata } from "next";
 import { share } from "@/lib/share";
 import { FilmTvNav } from "@/components/film-tv-nav";
+import { CHANNEL, seasons } from "@/lib/pivot-labs";
 
 // PIVOT LABS, 2026-10-22, on the operator's word: "lean in to this being part of The Resonance
 // Institute, this is how discovery happens." An animated mockumentary the Institute presents and
@@ -52,27 +53,23 @@ export default function PivotLabs() {
         </p>
         <p className="mt-4 text-base text-muted">
         </p>
+        {/* FIVE SEASONS, 2026-11-18: one button to start at the beginning, and one down to every
+            season. The seasons come from lib/pivot-labs.ts. */}
         <p className="mt-8 flex flex-wrap gap-3">
           <a
-            href="https://www.youtube.com/playlist?list=PLaVVUGmRTBDU"
+            href={seasons[0].href}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-ink"
           >
-            Watch Season 1 on YouTube
+            Watch from Season 1 on YouTube
           </a>
           <a
-            href="https://www.youtube.com/playlist?list=PLa-MD9CYl4Qw"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-ink"
+            href="#seasons"
+            className="inline-flex items-center gap-1.5 rounded-full border border-line px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:border-accent hover:text-accent"
           >
-            Watch Season 2 on YouTube
+            All five seasons <span aria-hidden>&darr;</span>
           </a>
-          {/* SEASON 3 GOES HERE, as a third button in this row ("Watch Season 3 on YouTube", same classes,
-              target _blank), once its playlist is live. Not added on 2026-11-04 because the link was
-              not ready. Add a "Season three" section after "Season two: The Raise" below at the same
-              time. */}
         </p>
       </section>
 
@@ -129,32 +126,36 @@ export default function PivotLabs() {
         </dl>
       </section>
 
-      <section className="space-y-5 border-t border-line mt-14 pt-10 pb-24 text-lg leading-relaxed text-ink">
-        <h2 className="font-serif text-3xl text-ink">Season one</h2>
-        <p>
-          Ten chapters, about forty-three minutes, from Day One of Thirty to Demo Night, on the{" "}
-          <a href="https://www.youtube.com/@PivotLabsshow" target="_blank" rel="noopener noreferrer" className="text-accent underline decoration-line hover:decoration-accent">
+      <section id="seasons" className="scroll-mt-8 border-t border-line mt-14 pt-10 pb-24 text-lg leading-relaxed text-ink">
+        <h2 className="font-serif text-3xl text-ink">The seasons</h2>
+        <p className="mt-4 text-muted">
+          Five seasons, ten chapters each, all out now on the{" "}
+          <a href={CHANNEL} target="_blank" rel="noopener noreferrer" className="text-accent underline decoration-line hover:decoration-accent">
             Pivot Labs channel
           </a>{" "}
-          on YouTube. All ten are out now, in order, in one playlist. Or{" "}
-          <a href="https://youtu.be/O5Vp8ewuU58" target="_blank" rel="noopener noreferrer" className="text-accent underline decoration-line hover:decoration-accent">
-            watch the whole season in one sitting
-          </a>
-          .
+          on YouTube. A new Short goes up most days.
         </p>
-        <h2 className="pt-6 font-serif text-3xl text-ink">Season two: The Raise</h2>
-        <p>
-          They won Demo Night. Now they need a lead investor in sixty days, and everyone has an
-          idea for how VERUS should change. Ten chapters, about eighty-six minutes, on the{" "}
-          <a href="https://www.youtube.com/playlist?list=PLa-MD9CYl4Qw" target="_blank" rel="noopener noreferrer" className="text-accent underline decoration-line hover:decoration-accent">
-            Season 2 playlist
-          </a>
-          . Or{" "}
-          <a href="https://youtu.be/wIIESRiToGI" target="_blank" rel="noopener noreferrer" className="text-accent underline decoration-line hover:decoration-accent">
-            watch the whole season in one sitting
-          </a>
-          . A new Short goes up most days.
-        </p>
+        <ol className="mt-8 space-y-8">
+          {seasons.map((s) => (
+            <li key={s.n}>
+              <h3 className="font-serif text-2xl text-ink">
+                Season {s.n}: {s.name}
+              </h3>
+              <p className="mt-2">{s.line}</p>
+              <p className="mt-2 text-base text-muted">
+                Ten chapters, {s.runtime}.{" "}
+                <a
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-medium text-accent underline decoration-line underline-offset-2 hover:decoration-accent"
+                >
+                  Watch Season {s.n} on YouTube <span aria-hidden>&rarr;</span>
+                </a>
+              </p>
+            </li>
+          ))}
+        </ol>
       </section>
     </div>
   );
