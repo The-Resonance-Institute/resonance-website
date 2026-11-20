@@ -721,7 +721,7 @@ def test_tap_targets_are_thumb_sized():
             f"{rel}: link(s) without py-3, so about 20 pixels tall on a phone instead of 44: {thin}"
         )
 
-# --- Trilogy I is Tuning, 2026-10-07 -------------------------------------------------------------
+# --- Trilogy I is Resonance, 2026-11-20 (it was Tuning from 2026-10-07) ----------------------------
 
 # THE WORD "PRESENCE" MEANS TWO THINGS ON THIS SITE, which is the whole reason this guard exists.
 # It was the first trilogy's NAME until 2026-10-07, and it is also an ordinary English word the
@@ -736,50 +736,77 @@ PROSE_PRESENCE = (
     "Completion is the presence of care",                         # VERBATIM passage, Book XII
 )
 
+# "TUNING" ALSO MEANS TWO THINGS, the same trap a second time. It was the trilogy's NAME from
+# 2026-10-07 to 2026-11-20, and it is the first of the trilogy's three MOVEMENTS (Tuning, Aligning,
+# Shaping) and part of Book I's own subtitle, which it carried before the trilogy ever took the name.
+# Renaming the trilogy back to Resonance must leave the movements and the subtitle alone.
+PROSE_TUNING = (
+    "Book I begins with Tuning.",                                 # trilogy summary, the movements
+    '"label": "I · Tuning"',                                      # the arc's first movement
+    "the movement from Tuning to Aligning to Shaping",            # Book III relationship
+    '"subtitle": "Resonance and the Self · Tuning"',              # Book I's own subtitle
+)
 
-def test_the_first_trilogy_is_tuning_and_the_quoted_prose_was_not_swept():
-    """RENAMED 2026-10-07 on the operator's word: the Presence Trilogy becomes the Tuning Trilogy.
 
-    This is the second rename of trilogy I. It was Resonance, then Presence, now Tuning, and Book I
-    already carried "Tuning" as its own subtitle before the trilogy took the name.
+def test_the_first_trilogy_is_resonance_and_the_quoted_prose_was_not_swept():
+    """RENAMED 2026-11-20 on the operator's word: "it should be called the Resonance trilogy not the
+    tuning trilogy". Trilogy I was Resonance, then Presence, then Tuning (2026-10-07), and is
+    Resonance again: the name the A Living Philosophy channel gives it ("Tuning, The Resonance
+    Trilogy"). The page is /resonance/trilogy/resonance; /tuning and /presence forward to it.
 
-    THE DEFECT THE LAST RENAME SHIPPED, guarded separately by
+    THE DEFECT AN EARLIER RENAME SHIPPED, guarded separately by
     test_every_asset_canon_points_at_actually_exists: the name changed in canon.json and the art path
     did not, so the detail page rendered a broken cover while every text check passed. The art path
     is asserted here too, deliberately twice, because that is the one that got through.
 
     WHAT THIS ADDS beyond the asset check is the other half: that renaming the trilogy did not also
-    rewrite the prose. Five lines that use "presence" as an ordinary word are pinned by content, one
-    of them a verbatim quotation from Book XII. If a later sweep takes them, this fails by name.
+    rewrite the prose. Lines that use "presence" as an ordinary word, and lines that use "Tuning" as
+    the first movement or in Book I's subtitle, are pinned by content. If a later sweep takes them,
+    this fails by name.
     """
     canon = json.loads((ROOT / "content" / "canon.json").read_text(encoding="utf-8"))
     first = canon["trilogies"][0]
     assert first["numeral"] == "I"
-    assert first["slug"] == "tuning", f"trilogy I slug is {first['slug']!r}"
-    assert first["name"] == "Tuning", f"trilogy I name is {first['name']!r}"
-    assert first["art"] == "/trilogies/tuning.jpg", f"trilogy I art is {first['art']!r}"
-    assert "TUNING" in first["heading"].upper(), f"trilogy I heading is {first['heading']!r}"
+    assert first["slug"] == "resonance", f"trilogy I slug is {first['slug']!r}"
+    assert first["name"] == "Resonance", f"trilogy I name is {first['name']!r}"
+    assert first["art"] == "/trilogies/resonance.jpg", f"trilogy I art is {first['art']!r}"
+    assert "RESONANCE" in first["heading"].upper(), f"trilogy I heading is {first['heading']!r}"
 
     # Books I-III point at the renamed trilogy, by slug and by name.
     for b in canon["books"][:3]:
-        assert b["trilogySlug"] == "tuning", f"book {b['n']} still points at {b['trilogySlug']!r}"
-        assert b["trilogyName"] == "Tuning", f"book {b['n']} still names {b['trilogyName']!r}"
+        assert b["trilogySlug"] == "resonance", f"book {b['n']} still points at {b['trilogySlug']!r}"
+        assert b["trilogyName"] == "Resonance", f"book {b['n']} still names {b['trilogyName']!r}"
 
-    # The artwork moved with the name, and the retired file is not still being served.
-    assert (ROOT / "public" / "trilogies" / "tuning.jpg").exists(), "the Tuning artwork is missing"
-    assert not (ROOT / "public" / "trilogies" / "presence.jpg").exists(), (
-        "presence.jpg is still in public/; it was archived with the name")
+    # The artwork moved with the name, and the retired files are not still being served.
+    assert (ROOT / "public" / "trilogies" / "resonance.jpg").exists(), "the Resonance artwork is missing"
+    for gone in ("presence.jpg", "tuning.jpg"):
+        assert not (ROOT / "public" / "trilogies" / gone).exists(), (
+            f"{gone} is still in public/; it went with the name")
 
-    # Nothing anywhere still calls trilogy I by its retired name.
+    # Nothing anywhere still calls trilogy I by a retired name.
     blob = json.dumps(canon, ensure_ascii=False)
-    for retired in ("The Presence Trilogy", '"Presence"', '"presence"'):
+    for retired in ("The Presence Trilogy", '"Presence"', '"presence"',
+                    "The Tuning Trilogy", "THE TUNING TRILOGY", '"Tuning"', '"tuning"'):
         assert retired not in blob, f"canon.json still carries {retired!r} as the trilogy name"
+
+    # The retired addresses forward to the page, and the page itself is not forwarded away.
+    config = (ROOT / "next.config.ts").read_text(encoding="utf-8")
+    for old in ("tuning", "presence"):
+        forward = rf'source: "/resonance/trilogy/{old}",\s+destination: "/resonance/trilogy/resonance"'
+        assert re.search(forward, config), (
+            f"/resonance/trilogy/{old} does not forward to /resonance/trilogy/resonance")
+    assert 'source: "/resonance/trilogy/resonance"' not in config, (
+        "/resonance/trilogy/resonance is the trilogy's page; it must not forward anywhere")
 
     # AND THE PROSE SURVIVED. This is the half a sweep gets wrong.
     for line in PROSE_PRESENCE:
         assert line in blob, (
             f"a prose use of 'presence' was swept by the rename: {line!r}. Quoted prose is not site "
             "copy; the trilogy name changed, the books did not.")
+    for line in PROSE_TUNING:
+        assert line in blob, (
+            f"a use of 'Tuning' as a movement or subtitle was swept by the rename: {line!r}. The "
+            "trilogy name changed; its first movement and Book I's subtitle did not.")
 
 
 def test_the_header_calls_it_the_philosophy_not_the_series():
@@ -862,7 +889,7 @@ def test_the_philosophy_is_one_page_and_manuscripts_is_gone():
     for n in range(1, 13):
         assert f"{{ n: {n}, title:" in page, (
             f"book {n} is not on the merged page; its link lived in the trilogy block that moved here")
-    for art in ("tuning", "transformation", "time", "sacred"):
+    for art in ("resonance", "transformation", "time", "sacred"):
         assert f"/trilogies/{art}.jpg" in page, f"the {art} trilogy block did not survive the merge"
     assert "/resonance/book/" in page, "the merged page links no books at all"
 

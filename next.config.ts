@@ -139,19 +139,21 @@ const nextConfig: NextConfig = {
       //
       // These four routes were live and in the sitemap, so they forward rather than going dark.
       // TEMPORARY, like the pivot's redirects: the material is withheld, not retired.
-      // THE FIRST TRILOGY IS TUNING, 2026-10-07. It was Resonance, then Presence, and both of those
-      // paths were live and indexed, so both forward and both are PERMANENT rather than temporary:
-      // the trilogy did not go away, it was renamed, and the old URLs should stop being requested
-      // rather than be kept alive. The /resonance entry now points straight at tuning rather than
-      // chaining through presence, so a crawler following it takes one hop instead of two.
+      // THE FIRST TRILOGY IS RESONANCE AGAIN, 2026-11-20, on the operator's word: "it should be called
+      // the Resonance trilogy not the tuning trilogy". It was Resonance, then Presence (until
+      // 2026-10-07), then Tuning, and now Resonance, the name the A Living Philosophy channel uses.
+      // /resonance/trilogy/resonance is the page again. The two retired paths, /tuning and
+      // /presence, were live and indexed, so both forward PERMANENTLY, straight to it in one hop.
+      // (Until today /resonance forwarded to /tuning; a browser that cached that old permanent
+      // redirect may need its cache cleared to reach the page.)
       {
-        source: "/resonance/trilogy/resonance",
-        destination: "/resonance/trilogy/tuning",
+        source: "/resonance/trilogy/tuning",
+        destination: "/resonance/trilogy/resonance",
         permanent: true,
       },
       {
         source: "/resonance/trilogy/presence",
-        destination: "/resonance/trilogy/tuning",
+        destination: "/resonance/trilogy/resonance",
         permanent: true,
       },
       {

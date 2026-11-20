@@ -46,9 +46,9 @@ type Trilogy = {
 const trilogies: Trilogy[] = [
   {
     numeral: "I",
-    name: "Tuning",
+    name: "Resonance",
     line: "How a leader comes into tune: with themselves, with the people around them, and with those not yet born.",
-    art: "/trilogies/tuning.jpg",
+    art: "/trilogies/resonance.jpg",
     books: [
       { n: 1, title: "Echoes of the Unseen", scale: "The self" },
       { n: 2, title: "The Fields of Belonging", scale: "The community" },
@@ -139,10 +139,10 @@ export default function Philosophy() {
           <p className="mt-4 max-w-xl leading-relaxed text-muted">
             The first three volumes, the{" "}
             <Link
-              href={`/resonance/trilogy/${trilogySlug("Tuning") ?? ""}`}
+              href={`/resonance/trilogy/${trilogySlug("Resonance") ?? ""}`}
               className="text-accent underline decoration-line underline-offset-2 hover:decoration-accent"
             >
-              Tuning trilogy
+              Resonance trilogy
             </Link>
             , can be heard now, read aloud in full on{" "}
             <a

@@ -92,7 +92,7 @@ export default function Home() {
             <h3 className={heading}>A Living Philosophy</h3>
             {/* The current card's wording, carried over: the four trilogies named, not counted. */}
             <p className={lead}>
-              Tuning, Transformation, Time and the Sacred. Twelve volumes,
+              Resonance, Transformation, Time and the Sacred. Twelve volumes,
               complete, carried from the self to the community to the world. Four books
               for working leaders are drawn from them, and The Return is nearly
               ready.
