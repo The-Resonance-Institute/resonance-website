@@ -5,6 +5,7 @@ import { share } from "@/lib/share";
 import { notFound } from "next/navigation";
 import { books, getBook, trilogyOfBook } from "@/lib/canon";
 import { leadershipBookForTrilogy } from "@/lib/leadership";
+import { listeningFor } from "@/lib/listen";
 
 export function generateStaticParams() {
   return books.map((b) => ({ slug: b.slug }));
@@ -43,6 +44,7 @@ export default async function BookPage({
   const next = books.find((b) => b.n === book.n + 1);
   // THE LEADERSHIP BOOK DRAWN FROM THIS VOLUME'S TRILOGY, the other way onward.
   const leader = trilogy ? leadershipBookForTrilogy(trilogy.slug) : undefined;
+  const listen = listeningFor(book.n);
 
   return (
     <div className="mx-auto max-w-3xl px-6">
@@ -90,6 +92,22 @@ export default async function BookPage({
               <p className="mt-6 font-serif text-xl font-light italic leading-relaxed text-ink">
                 {book.pullQuote}
               </p>
+            )}
+            {/* LISTEN, 2026-11-20: only for a volume with a playlist in lib/listen.ts. */}
+            {listen && (
+              <div className="mt-6">
+                <a
+                  href={listen.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-ink"
+                >
+                  Listen on YouTube <span aria-hidden>&rarr;</span>
+                </a>
+                <p className="mt-2 text-sm text-muted">
+                  Read aloud in full: {listen.episodes} episodes, {listen.runtime}.
+                </p>
+              </div>
             )}
           </div>
         </div>

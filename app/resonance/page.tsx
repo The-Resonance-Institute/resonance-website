@@ -3,6 +3,7 @@ import Image from "next/image";
 import type { Metadata } from "next";
 import { share } from "@/lib/share";
 import { books as canonBooks, trilogies as canonTrilogies } from "@/lib/canon";
+import { LISTEN_CHANNEL } from "@/lib/listen";
 
 // ONE PAGE, 2026-10-07. This was two: /resonance stated the series line, listed the four trilogies
 // as cards and carried a "first volume" callout, and /resonance/series stated the series line
@@ -131,6 +132,27 @@ export default function Philosophy() {
             >
               The Return
             </Link>
+            .
+          </p>
+          {/* LISTEN, 2026-11-20: the first three volumes are read aloud in full on YouTube. Each book's
+              own page carries its playlist; see lib/listen.ts. */}
+          <p className="mt-4 max-w-xl leading-relaxed text-muted">
+            The first three volumes, the{" "}
+            <Link
+              href={`/resonance/trilogy/${trilogySlug("Tuning") ?? ""}`}
+              className="text-accent underline decoration-line underline-offset-2 hover:decoration-accent"
+            >
+              Tuning trilogy
+            </Link>
+            , can be heard now, read aloud in full on{" "}
+            <a
+              href={LISTEN_CHANNEL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-accent underline decoration-line underline-offset-2 hover:decoration-accent"
+            >
+              YouTube
+            </a>
             .
           </p>
         </div>

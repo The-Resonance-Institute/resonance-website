@@ -5,6 +5,7 @@ import { share } from "@/lib/share";
 import { notFound } from "next/navigation";
 import { trilogies, getTrilogy, booksInTrilogy } from "@/lib/canon";
 import { leadershipBookForTrilogy } from "@/lib/leadership";
+import { listeningFor } from "@/lib/listen";
 
 export function generateStaticParams() {
   return trilogies.map((t) => ({ slug: t.slug }));
@@ -35,6 +36,10 @@ export default async function TrilogyPage({
 
   const books = booksInTrilogy(trilogy);
   const leader = leadershipBookForTrilogy(trilogy.slug);
+  const heard = books.flatMap((book) => {
+    const listen = listeningFor(book.n);
+    return listen ? [{ book, listen }] : [];
+  });
 
   return (
     <div className="mx-auto max-w-3xl px-6">
@@ -72,6 +77,28 @@ export default async function TrilogyPage({
             <p className="mt-3 text-sm uppercase tracking-[0.12em] text-muted">
               Books {books[0]?.n}&ndash;{books[books.length - 1]?.n}
             </p>
+            {/* LISTEN, 2026-11-20: each volume of this trilogy with a playlist in lib/listen.ts. */}
+            {heard.length > 0 && (
+              <div className="mt-6">
+                <p className="text-sm text-muted">
+                  Read aloud in full on YouTube:
+                </p>
+                <ul className="mt-2 space-y-1">
+                  {heard.map(({ book, listen }) => (
+                    <li key={book.n}>
+                      <a
+                        href={listen.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-sm font-medium text-accent underline decoration-line underline-offset-2 hover:decoration-accent"
+                      >
+                        Listen to {book.title} <span aria-hidden>&rarr;</span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
         </div>
       </section>
