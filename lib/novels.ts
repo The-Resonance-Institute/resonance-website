@@ -128,8 +128,8 @@ export const apex: NovelSeries = {
     { n: 7, title: "White Flag", cover: "/novels/apex-7-v3.jpg", asin: "B0HR7G9B7X" },
     { n: 8, title: "Paper Crown", cover: "/novels/apex-8-v3.jpg", asin: "B0HRSJN442" },
     { n: 9, title: "Empty Chair", cover: "/novels/apex-9-v3.jpg", asin: "B0HP65D3WJ" },
-    { n: 10, title: "Open Water", cover: "/novels/apex-10-v2.jpg" },
-    { n: 11, title: "Long View", cover: "/novels/apex-11-v2.jpg" },
+    { n: 10, title: "Open Water", cover: "/novels/apex-10-v2.jpg", asin: "B0HSLV43SW" },
+    { n: 11, title: "Long View", cover: "/novels/apex-11-v2.jpg", asin: "B0HSLVV5G5" },
     { n: 12, title: "Last Watch", cover: "/novels/apex-12-v2.jpg" },
   ],
 };
