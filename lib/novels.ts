@@ -95,11 +95,11 @@ export const aegis: NovelSeries = {
     { n: 8, title: "The Compass of Pietro", cover: "/novels/aegis-8.jpg", asin: "B0GS4BDC81" },
     { n: 9, title: "The Unbound Seal", cover: "/novels/aegis-9.jpg", asin: "B0GS4BZDQD" },
     { n: 10, title: "The Lamp of Scetis", cover: "/novels/aegis-10.jpg", asin: "B0HQB77SR6" },
-    { n: 11, title: "The Walls of Ur", cover: "/novels/aegis-11-v2.jpg", asin: "B0HQB73G55" },
-    { n: 12, title: "The Sleepless Box", cover: "/novels/aegis-12-v2.jpg", asin: "B0HQXNNLPQ" },
-    { n: 13, title: "The Eye of Paro", cover: "/novels/aegis-13-v2.jpg" },
-    { n: 14, title: "The Widow’s Chime", cover: "/novels/aegis-14-v2.jpg" },
-    { n: 15, title: "The Tally of Eridu", cover: "/novels/aegis-15-v2.jpg" },
+    { n: 11, title: "The Walls of Ur", cover: "/novels/aegis-11-v3.jpg", asin: "B0HQB73G55" },
+    { n: 12, title: "The Sleepless Box", cover: "/novels/aegis-12-v3.jpg", asin: "B0HQXNNLPQ" },
+    { n: 13, title: "The Eye of Paro", cover: "/novels/aegis-13-v3.jpg" },
+    { n: 14, title: "The Widow’s Chime", cover: "/novels/aegis-14-v3.jpg" },
+    { n: 15, title: "The Tally of Eridu", cover: "/novels/aegis-15-v3.jpg" },
   ],
 };
 
