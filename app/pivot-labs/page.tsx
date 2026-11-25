@@ -52,6 +52,11 @@ export default function PivotLabs() {
           and the AI who quietly keeps it running.
         </p>
         <p className="mt-4 text-base text-muted">
+          Sponsored by{" "}
+          <a href="https://www.verusops.com" className="text-accent underline decoration-line hover:decoration-accent">
+            VERUS
+          </a>
+          .
         </p>
         {/* FIVE SEASONS, 2026-11-18: one button to start at the beginning, and one down to every
             season. The seasons come from lib/pivot-labs.ts. */}
@@ -170,6 +175,16 @@ export default function PivotLabs() {
             </li>
           ))}
         </ol>
+        {/* THE REAL VERUS, back on 2026-11-25 (it came off on 2026-11-09). */}
+        <p className="mt-10 text-lg leading-relaxed text-ink">
+          VERUS is real. The cartoon one wears a hard hat to a software startup. The real one watches
+          an industrial company&rsquo;s systems all day and all night and tells its leaders the truth
+          about the operation.{" "}
+          <a href="https://www.verusops.com/demo" className="text-accent underline decoration-line hover:decoration-accent">
+            See the real VERUS live
+          </a>
+          .
+        </p>
       </section>
     </div>
   );

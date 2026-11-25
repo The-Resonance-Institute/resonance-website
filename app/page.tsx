@@ -53,7 +53,7 @@ import { screenProjects } from "@/lib/screen";
 // The operator approved this exact paragraph on 2026-11-04; tests/test_books_first.py exempts that
 // one sentence, verbatim, and nothing else on this page.
 const DESCRIPTION =
-  "A philosophy of how a person stands toward the world, and books for working leaders. Research into the conscience AI models acquire in training, and whether it can be deliberately authored and verified. Novels, and original scripts for film and television. Many mediums, one living philosophy: how we live, act and play.";
+  "A philosophy of how a person stands toward the world, and books for working leaders. Research into the conscience AI models acquire in training, and whether it can be deliberately authored and verified. VERUS, operational intelligence for industry: an analyst, a data scientist and a project manager that never go home. Novels, and original scripts for film and television. Many mediums, one living philosophy: how we live, act and play.";
 
 export const metadata: Metadata = share("", {
   title: "The Resonance Institute",
@@ -122,6 +122,25 @@ export default function Home() {
               <Link href="/research" className={go}>
                 Read the research <span aria-hidden>&rarr;</span>
               </Link>
+            </div>
+          </div>
+
+          {/* VERUS has its own site, back on this page 2026-11-25. Plain anchors in the same tab: a Next Link
+              would route inside this site. The live demo first, then the site. */}
+          <div className={card}>
+            <p className={eyebrow}>Software for operations</p>
+            <h3 className={heading}>VERUS</h3>
+            <p className={lead}>
+              Operational intelligence for industry: an analyst, a data scientist
+              and a project manager that never go home.
+            </p>
+            <div className="mt-4 flex flex-wrap gap-x-5">
+              <a href="https://www.verusops.com/demo" className={go}>
+                See it live <span aria-hidden>&rarr;</span>
+              </a>
+              <a href="https://www.verusops.com" className={go}>
+                verusops.com <span aria-hidden>&rarr;</span>
+              </a>
             </div>
           </div>
 
